@@ -104,7 +104,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             shadowColor: Color(0x3F000000),
                             minimumSize: Size(172, 41),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Send',
                             style: TextStyle(
                               fontSize: 16,
@@ -115,7 +115,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         SizedBox(
                           height: screenHeight * 0.03,
                         ),
-                        Text(
+                        const Text(
                           'OR',
                           style: TextStyle(
                             color: Color(0xFFABA2A2),
