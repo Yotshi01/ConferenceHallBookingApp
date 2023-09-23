@@ -1,4 +1,5 @@
 import 'package:conference_hall_booking/constants.dart';
+import 'package:conference_hall_booking/screens/notifications_screen.dart';
 import 'package:conference_hall_booking/utils/old_meetings.dart';
 import 'package:conference_hall_booking/utils/todays_conferences.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.black,
               ),
               onPressed: () {
-                // do something
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
               },
             )
           ],
