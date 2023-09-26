@@ -23,6 +23,23 @@ class _BookNowState extends State<BookNow> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
 
+  String? locationChoosed;
+  String? conferenceRoomChoosed;
+  List listLocations = [
+    "Raipur",
+    "Deorjhal",
+    "Kohadia",
+  ];
+  List listConferenceRooms = [
+    "1",
+    "2",
+    "3",
+  ];
+
+  TextEditingController _meetingTitleTextController = TextEditingController();
+  TextEditingController _meetingDescriptionTextController =
+      TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -33,6 +50,18 @@ class _BookNowState extends State<BookNow> {
   List<Event> _getEventsForDay(DateTime day) {
     return _events![day] ?? [];
   }
+
+  // Future<void> _selectTime(BuildContext context) async {
+  //   TimeOfDay? selectedTime = await showTimePicker(
+  //     context: context,
+  //     initialTime: TimeOfDay.now(),
+  //   );
+
+  //   if (selectedTime != null) {
+  //     // Do something with the selected time (e.g., update a variable, show it in a Text widget).
+  //     print("Selected time: ${selectedTime.format(context)}");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -75,19 +104,218 @@ class _BookNowState extends State<BookNow> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.black,
-        child: Icon(Icons.add),
+        backgroundColor: Colors.amber[600],
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
         onPressed: () {
           showDialog(
               context: context,
               builder: (context) {
                 return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(11),
+                  ),
                   scrollable: true,
-                  title: Text("Event Name"),
-                  content: Padding(
-                    padding: EdgeInsets.all(8),
-                    child: TextField(
-                      controller: _eventController,
+                  title: Text("Event Booking"),
+                  content: Container(
+                    width: screenWidth * 0.8,
+                    height: screenHeight * 0.6,
+                    child: Column(
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () async {
+                                final selectedDate =
+                                    await _selectedDateTime(context);
+                                if (selectedDate == null) return;
+                                print(selectedDate);
+                              },
+                              child: Text('Select Date'),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.03,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final selectedTime =
+                                    await _selectedTime(context);
+                                if (selectedTime == null) return;
+                                print(selectedTime);
+                              },
+                              child: Text('Select Time'),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Text(
+                          'Select Location for Conference',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                          ),
+                          child: DropdownButton(
+                            underline: Container(height: 0),
+                            icon: Icon(Icons.arrow_drop_down),
+                            isExpanded: true,
+                            hint: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'Select Location',
+                                style: TextStyle(
+                                  color: Color(0xFF898383),
+                                  fontSize: 10,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                            items: listLocations.map((valueItem) {
+                              return DropdownMenuItem(
+                                // hint: Text("Select Location"),
+                                value: valueItem,
+                                child: Text(valueItem),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                locationChoosed = newValue.toString();
+                              });
+                            },
+                            value: locationChoosed,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                          ),
+                          child: DropdownButton(
+                            underline: Container(height: 0),
+                            icon: Icon(Icons.arrow_drop_down),
+                            isExpanded: true,
+                            hint: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 15),
+                              child: Text(
+                                'Select Conference Room',
+                                style: TextStyle(
+                                  color: Color(0xFF898383),
+                                  fontSize: 10,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w400,
+                                  height: 0,
+                                ),
+                              ),
+                            ),
+                            items: listConferenceRooms.map((valueItem) {
+                              return DropdownMenuItem(
+                                // hint: Text("Select Location"),
+                                value: valueItem,
+                                child: Text(valueItem),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                conferenceRoomChoosed = newValue.toString();
+                              });
+                            },
+                            value: conferenceRoomChoosed,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Text(
+                          'Meeting Title',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        TextField(
+                          controller: _meetingTitleTextController,
+                          decoration: InputDecoration(
+                            // labelText:
+                            //     'Type a valid reason for postponing the meeting',
+                            // labelStyle: TextStyle(
+                            //   color: Color(0xFFC1BEBE),
+                            //   fontSize: 12,
+                            //   fontFamily: 'Noto Sans',
+                            //   fontWeight: FontWeight.w400,
+                            // ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amber),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        Text(
+                          'Meeting Description',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w400,
+                            height: 0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: screenHeight * 0.02,
+                        ),
+                        TextField(
+                          controller: _meetingDescriptionTextController,
+                          decoration: InputDecoration(
+                            // labelText:
+                            //     'Type a valid reason for postponing the meeting',
+                            // labelStyle: TextStyle(
+                            //   color: Color(0xFFC1BEBE),
+                            //   fontSize: 12,
+                            //   fontFamily: 'Noto Sans',
+                            //   fontWeight: FontWeight.w400,
+                            // ),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.amber),
+                            ),
+                          ),
+                          maxLines: 7,
+                          minLines: 3,
+                        )
+                      ],
                     ),
                   ),
                   actions: [
@@ -212,4 +440,18 @@ class _BookNowState extends State<BookNow> {
       ),
     );
   }
+
+  Future<TimeOfDay?> _selectedTime(BuildContext context) {
+    final now = DateTime.now();
+    return showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+  }
+
+  Future<DateTime?> _selectedDateTime(BuildContext context) => showDatePicker(
+        context: context,
+        initialDate: DateTime.now().add(Duration(seconds: 1)),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100),
+      );
 }

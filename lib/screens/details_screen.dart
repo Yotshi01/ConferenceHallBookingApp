@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 import 'package:conference_hall_booking/constants.dart';
@@ -47,7 +46,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         body: SingleChildScrollView(
             child: Container(
                 width: screenWidth,
-                height: screenHeight,
+                // height: screenHeight,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.21, -0.98),
@@ -287,38 +286,46 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       context: context,
                                       builder: (context) {
                                         return AlertDialog(
-                                          title: Text('Reason for Postpone Meeting'),
+                                          title: Text(
+                                              'Reason for Postpone Meeting'),
                                           content: Container(
                                             width: 331,
                                             height: 313,
-                                            decoration: BoxDecoration(color: Colors.white),
+                                            decoration: BoxDecoration(
+                                                color: Colors.white),
                                             child: const Column(
                                               children: [
                                                 Column(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-
-
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
                                                   children: [
                                                     SizedBox(height: 10),
                                                     TextField(
-                                                      decoration: InputDecoration(
-
-                                                        labelText: 'Type a valid reason for postponing the meeting',
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText:
+                                                            'Type a valid reason for postponing the meeting',
                                                         labelStyle: TextStyle(
-                                                          color: Color(0xFFC1BEBE),
+                                                          color:
+                                                              Color(0xFFC1BEBE),
                                                           fontSize: 12,
-                                                          fontFamily: 'Noto Sans',
-                                                          fontWeight: FontWeight.w400,
+                                                          fontFamily:
+                                                              'Noto Sans',
+                                                          fontWeight:
+                                                              FontWeight.w400,
                                                         ),
-                                                        border: OutlineInputBorder(
-                                                          borderSide: BorderSide(color: Colors.amber),
+                                                        border:
+                                                            OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .amber),
                                                         ),
                                                       ),
                                                       maxLines: 10,
                                                       minLines: 5,
                                                     )
                                                   ],
-
                                                 ),
                                               ],
                                             ),
@@ -332,45 +339,41 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             // ),
                                             Align(
                                               alignment: Alignment.bottomCenter,
+                                              child: Container(
+                                                width: 98,
+                                                height: 33,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFFFC304),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Color(0x3F000000),
+                                                      blurRadius: 4,
+                                                      offset: Offset(0, 4),
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ],
+                                                ),
+                                                child: TextButton(
+                                                  onPressed: () {
+                                                    // Handle the action when the "Send" button is clicked
+                                                    // You can access the reason in _reasonController.text
+                                                    // Add your logic here
+                                                    Navigator.of(context).pop();
 
-                                            child: Container(
-
-                                              width: 98,
-                                              height: 33,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFFFC304),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Color(0x3F000000),
-                                                    blurRadius: 4,
-                                                    offset: Offset(0, 4),
-                                                    spreadRadius: 0,
-                                                  )
-                                                ],
-                                              ),
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  // Handle the action when the "Send" button is clicked
-                                                  // You can access the reason in _reasonController.text
-                                                  // Add your logic here
-                                                  Navigator.of(context).pop();
-
-                                                  // Close the dialog
-                                                },
-                                                child: Text(
-                                                  'Send',
-                                                  style: TextStyle(
-                                                    color: Colors.white,
+                                                    // Close the dialog
+                                                  },
+                                                  child: Text(
+                                                    'Send',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-
-                                            ),
                                           ],
                                         );
                                       },
-
                                     );
                                   },
                                   style: ElevatedButton.styleFrom(
@@ -391,7 +394,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ],
                                     ),
-
                                     child: Center(
                                       child: Text(
                                         "Postpone",
@@ -402,12 +404,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           fontSize: 16,
                                         ),
                                       ),
-                                            ),
                                     ),
-
                                   ),
-
-
+                                ),
                               ],
                             )
                           ],
