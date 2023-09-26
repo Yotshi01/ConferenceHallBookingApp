@@ -11,6 +11,8 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  get onPressed => null;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -290,41 +292,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             width: 331,
                                             height: 313,
                                             decoration: BoxDecoration(color: Colors.white),
-                                            child: Column(
+                                            child: const Column(
                                               children: [
-                                                Container(
-                                                  width: 284,
-                                                  height: 171,
-                                                  decoration: ShapeDecoration(
-                                                    color: Color(0xFFFDFBFB),
-                                                    shape: RoundedRectangleBorder(
-                                                      side: BorderSide(width: 1, color: Color(0xFFE6E3E3)),
-                                                    ),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    children: [
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
 
-                                                      Text(
-                                                        'Type a valid reason for postponing the meeting',
-                                                        style: TextStyle(
+
+                                                  children: [
+                                                    SizedBox(height: 10),
+                                                    TextField(
+                                                      decoration: InputDecoration(
+
+                                                        labelText: 'Type a valid reason for postponing the meeting',
+                                                        labelStyle: TextStyle(
                                                           color: Color(0xFFC1BEBE),
                                                           fontSize: 12,
                                                           fontFamily: 'Noto Sans',
                                                           fontWeight: FontWeight.w400,
                                                         ),
+                                                        border: OutlineInputBorder(
+                                                          borderSide: BorderSide(color: Colors.amber),
+                                                        ),
                                                       ),
-                                                      SizedBox(height: 10),
+                                                      maxLines: 10,
+                                                      minLines: 5,
+                                                    )
+                                                  ],
 
-                                                    ],
-                                                  ),
                                                 ),
                                               ],
                                             ),
                                           ),
                                           actions: [
                                             // TextButton(
-                                            //   onPressed: () {
+
                                             //     Navigator.of(context).pop(); // Close the dialog
                                             //   },
                                             //   child: Text('Postpone'),
