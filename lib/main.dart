@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Conference Hall Booking',
 
       theme: ThemeData(
-        // primarySwatch: Colors.green,
+        primarySwatch: Colors.amber,
         // textSelectionTheme: TextSelectionThemeData(
         //   cursorColor: Colors.white, //<-- SEE HERE
         // ),
