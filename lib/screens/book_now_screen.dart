@@ -365,89 +365,168 @@ class _BookNowState extends State<BookNow> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            TableCalendar(
-              firstDay: DateTime.utc(2010, 10, 20),
-              lastDay: DateTime.utc(2040, 10, 20),
-              focusedDay: _focusedDay,
-              headerVisible: true,
-              daysOfWeekVisible: true,
-              sixWeekMonthsEnforced: true,
-              shouldFillViewport: false,
-              eventLoader: _getEventsForDay,
-              headerStyle: HeaderStyle(
-                  titleTextStyle: TextStyle(
-                      fontSize: 20,
-                      color: Colors.deepPurple,
-                      fontWeight: FontWeight.w800)),
-              calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.amber[600],
-                    shape: BoxShape.circle,
-                  ),
-                  todayTextStyle: TextStyle(
-                      fontSize: 20,
+            Container(
+              // color: Colors.amber[600],
+              margin: EdgeInsets.symmetric(horizontal: 7, vertical: 7),
+              clipBehavior: Clip.antiAlias,
+              decoration: ShapeDecoration(
+                color: Color(0xAAFFAB00),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(26),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: Color(0x19000000),
+                    blurRadius: 15.50,
+                    offset: Offset(19.37, 19.37),
+                    spreadRadius: 0,
+                  )
+                ],
+              ),
+              child: TableCalendar(
+                firstDay: DateTime.utc(2010, 10, 20),
+                lastDay: DateTime.utc(2040, 10, 20),
+                focusedDay: _focusedDay,
+                headerVisible: true,
+                daysOfWeekVisible: true,
+                sixWeekMonthsEnforced: true,
+                shouldFillViewport: false,
+                eventLoader: _getEventsForDay,
+                daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: const TextStyle(
                       color: Colors.white,
-                      fontWeight: FontWeight.bold)),
-              calendarFormat: _calendarFormat,
-              selectedDayPredicate: (day) {
-                // Use `selectedDayPredicate` to determine which day is currently selected.
-                // If this returns true, then `day` will be marked as selected.
-                // Using `isSameDay` is recommended to disregard
-                // the time-part of compared DateTime objects.
-                // sample comment
-                return isSameDay(_selectedDay, day);
-              },
-              onDaySelected: (selectedDay, focusedDay) {
-                if (!isSameDay(_selectedDay, selectedDay)) {
-                  // Call `setState()` when updating the selected day
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = selectedDay;
-                    _selectedEvents.value = _getEventsForDay(selectedDay);
-                  });
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(11),
-                          ),
-                          scrollable: true,
-                          title: Text("Day Schedule"),
-                          content: Container(
-                            width: screenWidth * 0.9,
-                            height: screenHeight * 0.7,
-                            child: SfCalendar(
-                              view: CalendarView.day,
-                              // firstDayOfWeek: 1,
-                              initialDisplayDate: _selectedDay,
-                              dataSource: MeetingDataSource(getAppointments()),
-                              timeSlotViewSettings: TimeSlotViewSettings(
-                                  startHour: 8, endHour: 19),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),
+                  weekendStyle: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),
+                ),
+                headerStyle: HeaderStyle(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(36.0),
+                    border: Border.all(
+                      color: Colors.amber, // Set the border color
+                      width: 10.0, // Set the border width
+                    ),
+                    // shape: BoxShape.circle,
+                  ),
+                  headerMargin: const EdgeInsets.all(0),
+                  titleCentered: true,
+                  formatButtonVisible: false,
+                  titleTextStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.amber[600], // Set the text color here
+                      fontSize: 25),
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: Colors.black, // Set the left arrow color here
+                    size: 20,
+                  ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: Colors.black, // Set the right arrow color here
+                    size: 20,
+                  ),
+                  // titleTextStyle: TextStyle(
+                  //     fontSize: 20,
+                  //     color: Colors.white,
+                  //     fontWeight: FontWeight.w800)
+                ),
+                calendarStyle: CalendarStyle(
+                    // disabledTextStyle:
+                    //     const TextStyle(color: const Color(0xA66853)),
+                    // withinRangeTextStyle: const TextStyle(
+                    //     color: Colors.black, fontWeight: FontWeight.bold),
+                    todayDecoration: const BoxDecoration(
+                      color: Color(0xFFDF8634),
+                      shape: BoxShape.circle,
+                    ),
+                    defaultTextStyle: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w500),
+                    weekendTextStyle: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.w500),
+                    outsideTextStyle:
+                        const TextStyle(color: const Color(0xFFA66853)),
+                    selectedDecoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    selectedTextStyle: TextStyle(
+                      color: Colors.amber[300],
+                      fontSize: 16.0,
+                    ),
+
+                    // weekendTextStyle:
+                    //     const TextStyle(color:  Colors.white),
+                    todayTextStyle: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  // Use `selectedDayPredicate` to determine which day is currently selected.
+                  // If this returns true, then `day` will be marked as selected.
+                  // Using `isSameDay` is recommended to disregard
+                  // the time-part of compared DateTime objects.
+                  // sample comment
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedDay, selectedDay)) {
+                    // Call `setState()` when updating the selected day
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = selectedDay;
+                      _selectedEvents.value = _getEventsForDay(selectedDay);
+                    });
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(11),
                             ),
-                          ),
-                          actions: [
-                            // ElevatedButton(
-                            //   onPressed: () {},
-                            //   child: Text("Submit"),
-                            // ),
-                          ],
-                        );
-                      });
-                }
-              },
-              onFormatChanged: (format) {
-                if (_calendarFormat != format) {
-                  // Call `setState()` when updating calendar format
-                  setState(() {
-                    _calendarFormat = format;
-                  });
-                }
-              },
-              // onPageChanged: (focusedDay) {
-              //   // No need to call `setState()` here
-              //   _focusedDay = focusedDay;
-              // },
+                            scrollable: true,
+                            title: Text("Day Schedule"),
+                            content: Container(
+                              width: screenWidth * 0.9,
+                              height: screenHeight * 0.7,
+                              child: SfCalendar(
+                                view: CalendarView.day,
+                                // firstDayOfWeek: 1,
+                                initialDisplayDate: _selectedDay,
+                                dataSource:
+                                    MeetingDataSource(getAppointments()),
+                                timeSlotViewSettings: TimeSlotViewSettings(
+                                    startHour: 8, endHour: 19),
+                              ),
+                            ),
+                            actions: [
+                              // ElevatedButton(
+                              //   onPressed: () {},
+                              //   child: Text("Submit"),
+                              // ),
+                            ],
+                          );
+                        });
+                  }
+                },
+                onFormatChanged: (format) {
+                  if (_calendarFormat != format) {
+                    // Call `setState()` when updating calendar format
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
+                },
+                // onPageChanged: (focusedDay) {
+                //   // No need to call `setState()` here
+                //   _focusedDay = focusedDay;
+                // },
+              ),
             ),
             Expanded(
                 child: ValueListenableBuilder<List<Event>>(
