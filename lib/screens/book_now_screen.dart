@@ -394,6 +394,7 @@ class _BookNowState extends State<BookNow> {
                 // If this returns true, then `day` will be marked as selected.
                 // Using `isSameDay` is recommended to disregard
                 // the time-part of compared DateTime objects.
+                // sample comment
                 return isSameDay(_selectedDay, day);
               },
               onDaySelected: (selectedDay, focusedDay) {
