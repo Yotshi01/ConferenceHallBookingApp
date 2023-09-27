@@ -2,6 +2,7 @@
 
 import 'package:conference_hall_booking/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:conference_hall_booking/models/events.dart';
 // import 'package:table_calendar/table_calendar.dart';
@@ -266,7 +267,7 @@ class _BookNowState extends State<BookNow> {
                           height: screenHeight * 0.02,
                         ),
                         TextField(
-                          controller: _meetingTitleTextController,
+                          controller: _eventController,
                           decoration: InputDecoration(
                             // labelText:
                             //     'Type a valid reason for postponing the meeting',
@@ -379,6 +380,10 @@ class _BookNowState extends State<BookNow> {
                       color: Colors.deepPurple,
                       fontWeight: FontWeight.w800)),
               calendarStyle: CalendarStyle(
+                  selectedDecoration: BoxDecoration(
+                    color: Colors.amber[600],
+                    shape: BoxShape.circle,
+                  ),
                   todayTextStyle: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -399,6 +404,35 @@ class _BookNowState extends State<BookNow> {
                     _focusedDay = selectedDay;
                     _selectedEvents.value = _getEventsForDay(selectedDay);
                   });
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(11),
+                          ),
+                          scrollable: true,
+                          title: Text("Day Schedule"),
+                          content: Container(
+                            width: screenWidth * 0.9,
+                            height: screenHeight * 0.7,
+                            child: SfCalendar(
+                              view: CalendarView.day,
+                              // firstDayOfWeek: 1,
+                              initialDisplayDate: _selectedDay,
+                              dataSource: MeetingDataSource(getAppointments()),
+                              timeSlotViewSettings: TimeSlotViewSettings(
+                                  startHour: 8, endHour: 19),
+                            ),
+                          ),
+                          actions: [
+                            // ElevatedButton(
+                            //   onPressed: () {},
+                            //   child: Text("Submit"),
+                            // ),
+                          ],
+                        );
+                      });
                 }
               },
               onFormatChanged: (format) {
@@ -454,4 +488,26 @@ class _BookNowState extends State<BookNow> {
         firstDate: DateTime.now(),
         lastDate: DateTime(2100),
       );
+}
+
+List<Appointment> getAppointments() {
+  List<Appointment> meetings = <Appointment>[];
+  final DateTime today = DateTime.now();
+  final DateTime startTime =
+      DateTime(today.year, today.month, today.day, 9, 0, 0);
+  final DateTime endTime = startTime.add(const Duration(hours: 2));
+
+  meetings.add(Appointment(
+      startTime: startTime,
+      endTime: endTime,
+      subject: 'Conference',
+      color: Colors.blue,
+      recurrenceRule: 'FREQ=DAILY;COUNT=10'));
+  return meetings;
+}
+
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Appointment> source) {
+    appointments = source;
+  }
 }
