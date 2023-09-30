@@ -22,15 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: NavigationDrawerFile(),
         appBar: AppBar(
           elevation: 1,
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(0.21, -0.98),
-                end: Alignment(-0.21, 0.98),
-                colors: [Colors.white, Color(0x00DBCC95)],
-              ),
-            ),
-          ),
+          flexibleSpace: Container(),
           centerTitle: true,
           title: const Text(
             'Home',
@@ -53,7 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               onPressed: () {
                 Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => NotificationsScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationsScreen()));
               },
             )
           ],

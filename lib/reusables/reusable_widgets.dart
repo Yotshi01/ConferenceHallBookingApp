@@ -1,6 +1,8 @@
+import 'package:conference_hall_booking/api/booking_details_api.dart';
 import 'package:conference_hall_booking/constants.dart';
 import 'package:conference_hall_booking/screens/book_now_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
@@ -35,11 +37,26 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
 }
 
 ElevatedButton bookNow(BuildContext context) {
+  BuildContext currentContext = context;
   return ElevatedButton(
-    onPressed: () {
+    onPressed: () async {
       // Add your book now functionality here
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => BookNow()));
+      // Navigator.push(
+      //     context, MaterialPageRoute(builder: (context) => BookNow()));
+      print("Book Now Button clicked");
+
+      try {
+        // Navigator.push(
+        //     currentContext,
+        //     MaterialPageRoute(
+        //         builder: (context) =>
+        //             SyncfusionCalendar(bookingDetails: response.data!)));
+
+        Navigator.push(currentContext,
+            MaterialPageRoute(builder: (context) => SyncfusionCalendar()));
+      } catch (e) {
+        print("Error: $e");
+      }
     },
     style: ElevatedButton.styleFrom(
       backgroundColor: Color(0xFFFFC304),

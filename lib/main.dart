@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
 
       theme: ThemeData(
         primarySwatch: Colors.amber,
+
         // textSelectionTheme: TextSelectionThemeData(
         //   cursorColor: Colors.white, //<-- SEE HERE
         // ),
         appBarTheme: AppBarTheme(
-          backgroundColor: Colors.transparent, // Make the AppBar transparent
+          backgroundColor: Color.fromARGB(255, 241, 231, 195),
           elevation: 0, // Remove the shadow
         ),
       ),
