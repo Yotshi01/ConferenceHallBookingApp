@@ -1,8 +1,37 @@
-import 'package:conference_hall_booking/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/source/constants.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:conference_hall_booking/screens/details_screen.dart';
 
-class TodaysConferences extends StatelessWidget {
+class TodaysConferences extends StatefulWidget {
+  TodaysConferences({super.key});
+
+  @override
+  State<TodaysConferences> createState() => _TodaysConferencesState();
+}
+
+class _TodaysConferencesState extends State<TodaysConferences> {
+  // late Future<BookingDetails> bookingDetailsResponse;
+  // List<BookingDetails>
+
+  // Future<void> _fetchBookingDetails() async{
+  //   try {
+  //     bookingDetailsResponse = getBookingDetails();
+  //     setState(() {
+  //       listOfBookings = data.data!.map((item) {
+  //           return Data.fromJson(item.toJson());
+  //         }).toList();
+  //     });
+  //   } catch (error) {
+  //     print('Error fetching pending list data: $error');
+  //   }
+
+  // }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   final List<Map<String, dynamic>> _conferences = [
     {"id": 1, "conference": "conference1"},
     {"id": 2, "conference": "conference2"},

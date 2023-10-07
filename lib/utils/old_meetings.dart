@@ -1,4 +1,4 @@
-import 'package:conference_hall_booking/constants.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 import 'package:flutter/material.dart';
 
 class OldMeetings extends StatelessWidget {

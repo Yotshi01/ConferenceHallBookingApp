@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/constants.dart';
+import 'package:conference_hall_booking/source/constants.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 
 class BookingAlertDialog extends StatefulWidget {
   const BookingAlertDialog({super.key});
@@ -23,6 +23,9 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
   ];
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
+  DateTime? selectedDate;
+  DateTime dateTime = DateTime(2022, 12, 24);
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -42,11 +45,17 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
               children: [
                 ElevatedButton(
                   onPressed: () async {
-                    final selectedDate = await _selectedDateTime(context);
-                    if (selectedDate == null) return;
-                    print(selectedDate);
+                    final date = await _selectedDateTime(context);
+                    if (date == null) return;
+                    setState(() {
+                      dateTime = date;
+                      selectedDate = date;
+                    });
+                    print(date);
                   },
-                  child: Text('Select Date'),
+                  child: Text(selectedDate != null
+                      ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
+                      : 'Select Date'),
                 ),
                 SizedBox(
                   width: screenWidth * 0.03,
@@ -57,7 +66,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
                     if (selectedTime == null) return;
                     print(selectedTime);
                   },
-                  child: Text('Select Time'),
+                  child: Text('Select Date'),
                 ),
               ],
             ),

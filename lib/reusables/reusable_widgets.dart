@@ -1,5 +1,5 @@
 import 'package:conference_hall_booking/api/booking_details_api.dart';
-import 'package:conference_hall_booking/constants.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/screens/book_now_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';

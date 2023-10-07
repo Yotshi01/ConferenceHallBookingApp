@@ -1,0 +1,6 @@
+double screenWidth = 0.0;
+double screenHeight = 0.0;
+const String testUrl = 'http://10.0.7.159:8000/api/';
+const String liveUrl = 'http://10.0.7.159:8000/api/';
+String? finalEmail;
+String? finalToken;

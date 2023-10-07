@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/screens/addBooking.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:conference_hall_booking/models/events.dart'; // Import your BookingDetails and Data models
@@ -55,8 +56,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         final color = appointmentColors[entry.key];
 
         return Appointment(
-          startTime: DateTime.parse(data.fromDate! + ' ' + data.strTime!),
-          endTime: DateTime.parse(data.toDate! + ' ' + data.endTime!),
+          startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+          endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
           subject: data.meetingTitle!,
           color: color, // Use the random color
         );
@@ -82,12 +83,14 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           color: Colors.white,
         ),
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) {
-              return alertDialog;
-            },
-          );
+          // showDialog(
+          //   context: context,
+          //   builder: (context) {
+          //     return alertDialog;
+          //   },
+          // );
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => AddBooking()));
         },
       ),
       body: SfCalendar(

@@ -29,8 +29,7 @@ class BookingDetails {
 
 class Data {
   int? bookingId;
-  String? toDate;
-  String? fromDate;
+  String? bookingDate;
   String? strTime;
   String? endTime;
   String? meetingTitle;
@@ -39,11 +38,11 @@ class Data {
   String? conferenceName;
   String? meetingDes;
   String? otherDetails;
+  String? bookingStatus;
 
   Data(
       {this.bookingId,
-      this.toDate,
-      this.fromDate,
+      this.bookingDate,
       this.strTime,
       this.endTime,
       this.meetingTitle,
@@ -51,12 +50,12 @@ class Data {
       this.locationName,
       this.conferenceName,
       this.meetingDes,
-      this.otherDetails});
+      this.otherDetails,
+      this.bookingStatus});
 
   Data.fromJson(Map<String, dynamic> json) {
     bookingId = json['booking_id'];
-    toDate = json['to_date'];
-    fromDate = json['from_date'];
+    bookingDate = json['booking_date'];
     strTime = json['str_time'];
     endTime = json['end_time'];
     meetingTitle = json['meeting_title'];
@@ -65,13 +64,13 @@ class Data {
     conferenceName = json['conference_name'];
     meetingDes = json['meeting_des'];
     otherDetails = json['other_details'];
+    bookingStatus = json['booking_status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['booking_id'] = this.bookingId;
-    data['to_date'] = this.toDate;
-    data['from_date'] = this.fromDate;
+    data['booking_date'] = this.bookingDate;
     data['str_time'] = this.strTime;
     data['end_time'] = this.endTime;
     data['meeting_title'] = this.meetingTitle;
@@ -80,6 +79,7 @@ class Data {
     data['conference_name'] = this.conferenceName;
     data['meeting_des'] = this.meetingDes;
     data['other_details'] = this.otherDetails;
+    data['booking_status'] = this.bookingStatus;
     return data;
   }
 }

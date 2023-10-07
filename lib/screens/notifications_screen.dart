@@ -1,6 +1,6 @@
 import 'package:conference_hall_booking/utils/notifications_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/constants.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 
 class NotificationsScreen extends StatefulWidget {
   NotificationsScreen({super.key});
