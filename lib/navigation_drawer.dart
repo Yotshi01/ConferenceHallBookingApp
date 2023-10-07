@@ -4,12 +4,8 @@ import 'package:conference_hall_booking/screens/settings_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-<<<<<<< Updated upstream
 import 'package:flutter/src/material/colors.dart';
-import 'package:get/get.dart';
-=======
 // import 'package:get/get.dart';
->>>>>>> Stashed changes
 import 'source/constants.dart';
 
 class NavigationDrawerFile extends StatelessWidget {
@@ -36,10 +32,9 @@ class NavigationDrawerFile extends StatelessWidget {
           onTap: () {},
           child: Container(
             padding: EdgeInsets.only(
-              top: 20 + MediaQuery.of(context).padding.top,
-              bottom: 20,
-              left: 17
-            ),
+                top: 20 + MediaQuery.of(context).padding.top,
+                bottom: 20,
+                left: 17),
             child: Column(
               // Wrap with Row
 
@@ -48,10 +43,6 @@ class NavigationDrawerFile extends StatelessWidget {
 
               // You can adjust the alignment as needed
               children: [
-
-
-
-
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +65,6 @@ class NavigationDrawerFile extends StatelessWidget {
                                 fontSize: 35, color: Colors.amber[800]),
                           ),
                         ),
-
                         const SizedBox(height: 1),
                       ],
                     ),
@@ -93,7 +83,10 @@ class NavigationDrawerFile extends StatelessWidget {
         children: [
           ListTile(
             tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-            leading: Icon(Icons.home, color: Colors.amber[800],),
+            leading: Icon(
+              Icons.home,
+              color: Colors.amber[800],
+            ),
             title: const Text('Home'),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -103,7 +96,10 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           ListTile(
             tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-            leading: Icon(Icons.settings,color: Colors.amber[800],),
+            leading: Icon(
+              Icons.settings,
+              color: Colors.amber[800],
+            ),
             title: const Text('Settings'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -114,7 +110,7 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           ListTile(
               tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-              leading: Icon(Icons.logout,color: Colors.amber[800]),
+              leading: Icon(Icons.logout, color: Colors.amber[800]),
               title: const Text('Log out'),
               onTap: () async {
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
