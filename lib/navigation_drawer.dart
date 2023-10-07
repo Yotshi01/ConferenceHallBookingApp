@@ -43,30 +43,18 @@ class NavigationDrawerFile extends StatelessWidget {
 
               // You can adjust the alignment as needed
               children: [
-                Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      screenWidth * 0.005,
-                      screenHeight * 0.005,
-                      screenWidth * 0.005,
-                      screenHeight * 0.005,
-                    ),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Image.asset(
-                        "assets/images/booking.png",
-                        width: screenWidth * 0.3,
-                      ),
-                    )),
-                const Divider(color: Colors.black54),
-                //const SizedBox(width: 16),
+
+
+
+
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //padding: const EdgeInsets.all(24),
                     //Icon(CupertinoIcons.person_alt_circle,size: 35),
                     Icon(Icons.account_circle_rounded,
-                        size: 77, color: Colors.amber[800]),
+                        size: 77, color: Colors.black26),
                     const SizedBox(width: 20),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
