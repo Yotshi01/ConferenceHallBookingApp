@@ -4,6 +4,7 @@ import 'package:conference_hall_booking/screens/settings_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
 import 'source/constants.dart';
 
@@ -24,16 +25,16 @@ class NavigationDrawerFile extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-        color: Colors.yellow[100],
+        color: const Color(0x28FFC677),
         //color: const Color.fromARGB(191, 237, 145, 7),
         // elevation: 2,
         child: InkWell(
           onTap: () {},
           child: Container(
             padding: EdgeInsets.only(
-              top: 24 + MediaQuery.of(context).padding.top,
-              bottom: 24,
-              left: 24,
+              top: 20 + MediaQuery.of(context).padding.top,
+              bottom: 20,
+              left: 17
             ),
             child: Column(
               // Wrap with Row
@@ -47,15 +48,15 @@ class NavigationDrawerFile extends StatelessWidget {
 
 
 
-                Row(
+                Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     //padding: const EdgeInsets.all(24),
                     //Icon(CupertinoIcons.person_alt_circle,size: 35),
                     Icon(Icons.account_circle_rounded,
-                        size: 77, color: Colors.black26),
-                    const SizedBox(width: 20),
+                        size: 120, color: Colors.black26),
+                    const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -64,17 +65,13 @@ class NavigationDrawerFile extends StatelessWidget {
                             top: 10,
                           ),
                           child: Text(
-                            'User',
+                            'Username',
                             style: TextStyle(
                                 fontSize: 35, color: Colors.amber[800]),
                           ),
                         ),
-                        Text(
-                          'user@abc.com',
-                          style:
-                              TextStyle(fontSize: 17, color: Colors.amber[800]),
-                        ),
-                        const SizedBox(height: 12),
+
+                        const SizedBox(height: 1),
                       ],
                     ),
                   ],
@@ -91,7 +88,8 @@ class NavigationDrawerFile extends StatelessWidget {
         runSpacing: 16,
         children: [
           ListTile(
-            leading: const Icon(Icons.home),
+            tileColor: Color.fromRGBO(255, 170, 0, 0.19),
+            leading: Icon(Icons.home, color: Colors.amber[800],),
             title: const Text('Home'),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -100,7 +98,8 @@ class NavigationDrawerFile extends StatelessWidget {
           ),
           //const Divider(),
           ListTile(
-            leading: const Icon(Icons.settings),
+            tileColor: Color.fromRGBO(255, 170, 0, 0.19),
+            leading: Icon(Icons.settings,color: Colors.amber[800],),
             title: const Text('Settings'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -110,7 +109,8 @@ class NavigationDrawerFile extends StatelessWidget {
           ),
           //const Divider(),
           ListTile(
-              leading: const Icon(Icons.logout),
+              tileColor: Color.fromRGBO(255, 170, 0, 0.19),
+              leading: Icon(Icons.logout,color: Colors.amber[800]),
               title: const Text('Log out'),
               onTap: () async {
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
