@@ -2,7 +2,8 @@ import 'package:conference_hall_booking/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/screens/splash_screen.dart';
 import 'source/constants.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
+import 'package:conference_hall_booking/screens/home_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Conference Hall Booking',
       theme: ThemeData(
         primarySwatch: Colors.amber,

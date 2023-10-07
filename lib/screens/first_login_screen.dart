@@ -16,8 +16,11 @@ class _FirstLoginScreenState extends State<FirstLoginScreen> {
     getValidationData().whenComplete(() async {
       Timer(
           const Duration(seconds: 1),
-          () =>
-              Get.to(() => finalEmail == null ? LoginScreen() : HomeScreen()));
+          () => finalEmail == null
+              ? Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()))
+              : Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen())));
     });
     super.initState();
   }

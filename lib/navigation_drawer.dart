@@ -4,8 +4,12 @@ import 'package:conference_hall_booking/screens/settings_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+<<<<<<< Updated upstream
 import 'package:flutter/src/material/colors.dart';
 import 'package:get/get.dart';
+=======
+// import 'package:get/get.dart';
+>>>>>>> Stashed changes
 import 'source/constants.dart';
 
 class NavigationDrawerFile extends StatelessWidget {
@@ -120,7 +124,8 @@ class NavigationDrawerFile extends StatelessWidget {
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('email');
                 sharedPreferences.remove('token');
-                Get.to(LoginScreen());
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               }),
         ],
       ));

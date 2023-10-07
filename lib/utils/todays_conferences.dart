@@ -10,25 +10,28 @@ class TodaysConferences extends StatefulWidget {
 }
 
 class _TodaysConferencesState extends State<TodaysConferences> {
-  // late Future<BookingDetails> bookingDetailsResponse;
-  // List<BookingDetails>
+  late Future<BookingDetails> bookingDetailsResponse;
 
-  // Future<void> _fetchBookingDetails() async{
-  //   try {
-  //     bookingDetailsResponse = getBookingDetails();
-  //     setState(() {
-  //       listOfBookings = data.data!.map((item) {
-  //           return Data.fromJson(item.toJson());
-  //         }).toList();
-  //     });
-  //   } catch (error) {
-  //     print('Error fetching pending list data: $error');
-  //   }
-
-  // }
+  Future<void> _fetchBookingDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final BookingDetails bookingData = await bookingDetailsResponse;
+      setState(() {
+        if (bookingData.data != null) {
+          listOfBookings = bookingData.data!.map((item) {
+            return BookingDetails.fromJson(item.toJson());
+          }).toList();
+          print(listOfBookings);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking list data: $error');
+    }
+  }
 
   @override
   void initState() {
+    bookingDetailsResponse = getBookingDetails();
     super.initState();
   }
 
