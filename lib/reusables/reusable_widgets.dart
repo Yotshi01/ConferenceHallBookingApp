@@ -1,4 +1,5 @@
 import 'package:conference_hall_booking/api/booking_details_api.dart';
+import 'package:conference_hall_booking/screens/notifications_screen.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/screens/book_now_screen.dart';
 import 'package:flutter/material.dart';
@@ -87,5 +88,38 @@ ElevatedButton bookNow(BuildContext context) {
         ),
       ),
     ),
+  );
+}
+
+AppBar reusableAppBar(String pageName, BuildContext context) {
+  return AppBar(
+    elevation: 1,
+    flexibleSpace: Container(),
+    centerTitle: true,
+    title: Text(
+      pageName,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 16,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+        height: 1.25,
+        letterSpacing: 0.16,
+      ),
+    ),
+    // backgroundColor: const Color(0xFF048B3F),
+    actions: <Widget>[
+      IconButton(
+        icon: Icon(
+          Icons.notifications,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => NotificationsScreen()));
+        },
+      )
+    ],
   );
 }

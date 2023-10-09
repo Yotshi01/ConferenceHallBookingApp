@@ -85,38 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         drawer: NavigationDrawerFile(),
-        appBar: AppBar(
-          elevation: 1,
-          flexibleSpace: Container(),
-          centerTitle: true,
-          title: const Text(
-            'Home',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-              height: 1.25,
-              letterSpacing: 0.16,
-            ),
-          ),
-          // backgroundColor: const Color(0xFF048B3F),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.notifications,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NotificationsScreen()));
-              },
-            )
-          ],
-        ),
+        appBar: reusableAppBar('Home', context),
         body: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(

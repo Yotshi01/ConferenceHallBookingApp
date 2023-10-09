@@ -76,7 +76,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     Container(
                         padding: EdgeInsets.all(15),
                         width: 352,
-                        height: 641,
+                        // height: 641,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           boxShadow: [
@@ -274,7 +274,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'Noto Sans',
-                                fontWeight: FontWeight.w700,
+                                // fontWeight: FontWeight.w700,
                               ),
                             ),
                             SizedBox(
@@ -301,7 +301,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'Noto Sans',
-                                fontWeight: FontWeight.w700,
+                                // fontWeight: FontWeight.w700,
                               ),
                             ),
                             SizedBox(
