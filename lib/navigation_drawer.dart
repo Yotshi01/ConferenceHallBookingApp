@@ -2,10 +2,11 @@ import 'package:conference_hall_booking/screens/home_screen.dart';
 import 'package:conference_hall_booking/screens/login_screen.dart';
 import 'package:conference_hall_booking/screens/profile_screen.dart';
 import 'package:conference_hall_booking/screens/settings_screen.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/src/material/colors.dart';
-import 'package:get/get.dart';
+// import 'package:get/get.dart';
 import 'source/constants.dart';
 
 class NavigationDrawerFile extends StatelessWidget {
@@ -35,10 +36,9 @@ class NavigationDrawerFile extends StatelessWidget {
           },
           child: Container(
             padding: EdgeInsets.only(
-              top: 20 + MediaQuery.of(context).padding.top,
-              bottom: 20,
-              left: 17
-            ),
+                top: 20 + MediaQuery.of(context).padding.top,
+                bottom: 20,
+                left: 17),
             child: Column(
               // Wrap with Row
 
@@ -70,7 +70,6 @@ class NavigationDrawerFile extends StatelessWidget {
                           ),
 
                         ),
-
                         const SizedBox(height: 1),
                       ],
                     ),
@@ -90,7 +89,10 @@ class NavigationDrawerFile extends StatelessWidget {
           ListTile(
             tileColor: Color.fromRGBO(255, 170, 0, 0.19),
 
-            leading: Icon(Icons.home, color: Colors.amber[800],),
+            leading: Icon(
+              Icons.home,
+              color: Colors.amber[800],
+            ),
             title: const Text('Home'),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -100,7 +102,10 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           ListTile(
             tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-            leading: Icon(Icons.settings,color: Colors.amber[800],),
+            leading: Icon(
+              Icons.settings,
+              color: Colors.amber[800],
+            ),
             title: const Text('Settings'),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -111,7 +116,7 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           ListTile(
               tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-              leading: Icon(Icons.logout,color: Colors.amber[800]),
+              leading: Icon(Icons.logout, color: Colors.amber[800]),
               title: const Text('Log out'),
               onTap: () async {
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -121,7 +126,8 @@ class NavigationDrawerFile extends StatelessWidget {
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('email');
                 sharedPreferences.remove('token');
-                Get.to(LoginScreen());
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()));
               }),
         ],
       ));

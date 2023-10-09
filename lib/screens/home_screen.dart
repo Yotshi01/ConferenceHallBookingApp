@@ -1,3 +1,5 @@
+import 'package:conference_hall_booking/api/location_details_api.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/screens/notifications_screen.dart';
 import 'package:conference_hall_booking/utils/old_meetings.dart';
@@ -15,6 +17,69 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<void> _fetchBookingDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final BookingDetails data = await bookingDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfBookings = data.data!.map((item) {
+            return BookingData.fromJson(item.toJson());
+          }).toList();
+          print(listOfBookings);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking list data: $error');
+    }
+  }
+
+  Future<void> _fetchConferenceHallDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final ConferenceHallDetails data = await conferenceHallDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfConferenceHall = data.data!.map((item) {
+            return ConferenceHallData.fromJson(item.toJson());
+          }).toList();
+          print(listOfConferenceHall);
+        }
+      });
+    } catch (error) {
+      print('Error fetching conference hall list data: $error');
+    }
+  }
+
+  Future<void> _fetchLocationDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final LocationDetails data = await locationDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfLocations = data.data!.map((item) {
+            return LocationData.fromJson(item.toJson());
+          }).toList();
+          print(listOfLocations);
+        }
+      });
+    } catch (error) {
+      print('Error fetching location list data: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    bookingDetailsResponse = getBookingDetails();
+    conferenceHallDetailsResponse = getConferenceHallDetails();
+    locationDetailsResponse = getLocationDetails();
+    _fetchBookingDetails();
+    _fetchConferenceHallDetails();
+    _fetchLocationDetails();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

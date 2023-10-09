@@ -116,7 +116,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               sharedPreferences.setString(
                                   'token', response.data!.token!);
 
-                              Get.to(() => const HomeScreen());
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
                             }
                           } catch (e) {
                             print("Error: $e");

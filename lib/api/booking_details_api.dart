@@ -24,7 +24,7 @@ Future<BookingDetails> getBookingDetails() async {
 
 Future<BookingDetails> addBookingDetails(BookingDetails bookingDetails) async {
   String url =
-      "http://10.0.7.159:8000/api/booking_details"; // Replace with your server URL
+      Constants.testUrl + "booking_details"; // Replace with your server URL
   Uri urlUri = Uri.parse(url);
 
   final response = await http.post(

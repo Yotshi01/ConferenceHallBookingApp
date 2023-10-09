@@ -4,10 +4,10 @@ import 'dart:convert';
 import 'package:conference_hall_booking/models/events.dart';
 // import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/source/constants.dart' as Constants;
+import 'package:conference_hall_booking/source/constants.dart';
 
 Future<LoginModel> userLogin(String email, String password) async {
-  String url = "http://10.0.7.159:8000/api/login";
+  String url = testUrl + "login";
   Uri urlUri = Uri.parse(url);
   print(email);
   print(password);

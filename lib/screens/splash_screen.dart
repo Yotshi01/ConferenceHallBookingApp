@@ -15,11 +15,11 @@ class _StartScreenState extends State<SplashScreen> {
   void initState() {
     getValidationData().whenComplete(() async {
       Timer(
-          const Duration(seconds: 3),
+          const Duration(seconds: 1),
           () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                  builder: (contextt) => finalEmail == null
+                  builder: (context) => finalEmail == null
                       ? const LoginScreen()
                       : const HomeScreen())));
     });
