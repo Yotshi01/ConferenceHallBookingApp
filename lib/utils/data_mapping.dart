@@ -33,3 +33,22 @@ String getLocationName(int locationId) {
   }
   return 'Unknown Location';
 }
+
+List<BookingData> myMeetings() {
+  List<BookingData> myBookings = [];
+  if (currentUserData != null) {
+    // Check if currentUserData is not null
+    for (var booking in listOfBookings) {
+      print('${currentUserData!.id} ${booking.userId}');
+      if (currentUserData!.id == booking.userId) {
+        // Use currentUserData without ! here
+        myBookings.add(booking);
+        print(myBookings);
+      }
+    }
+    print('${myBookings} 1111111111111111 ${currentUserData!.id}');
+  } else {
+    print('currentUserData is empty');
+  }
+  return myBookings;
+}

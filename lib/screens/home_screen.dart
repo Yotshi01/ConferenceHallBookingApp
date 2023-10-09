@@ -1,4 +1,6 @@
+import 'package:conference_hall_booking/api/current_user_api.dart';
 import 'package:conference_hall_booking/api/location_details_api.dart';
+import 'package:conference_hall_booking/screens/login_screen.dart';
 import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/screens/notifications_screen.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/navigation_drawer.dart';
 import 'package:conference_hall_booking/reusables/search_bar.dart';
 import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
+import 'package:conference_hall_booking/utils/my_conferences.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,6 +71,35 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _fetchCurrentUserDetails() async {
+    try {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      var obtainedToken = sharedPreferences.getString('token');
+      print(obtainedToken);
+      var userData = await getCurrentUserData(obtainedToken!);
+
+      setState(() {
+        if (userData != null) {
+          currentUserData = userData; // Set currentUserData here
+          listOfCurrentUserData = [currentUserData!];
+          print(listOfCurrentUserData.length);
+          listOfMyMeetings = myMeetings();
+          print('${listOfMyMeetings} 8888888888888888');
+        } else {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) =>
+                  LoginScreen(), // Replace with your login page widget
+            ),
+          );
+        }
+      });
+    } catch (error) {
+      print('Error fetching user data: $error');
+    }
+  }
+
   @override
   void initState() {
     bookingDetailsResponse = getBookingDetails();
@@ -76,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _fetchBookingDetails();
     _fetchConferenceHallDetails();
     _fetchLocationDetails();
+    _fetchCurrentUserDetails();
 
     super.initState();
   }
@@ -200,7 +233,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Color(0xFFC2C0C0), // Set the color of the divider line
                   thickness: 1, // Set the thickness of the divider line
                 ),
-                TodaysConferences(),
+                MyConferences(),
 
                 SizedBox(
                   height: screenHeight * 0.015,

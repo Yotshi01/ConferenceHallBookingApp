@@ -39,6 +39,9 @@ class BookingData {
   String? meetingDes;
   String? otherDetails;
   String? bookingStatus;
+  int? userId;
+  String? createdAt;
+  String? updatedAt;
 
   BookingData(
       {this.bookingId,
@@ -51,7 +54,10 @@ class BookingData {
       this.conferenceName,
       this.meetingDes,
       this.otherDetails,
-      this.bookingStatus});
+      this.bookingStatus,
+      this.userId,
+      this.createdAt,
+      this.updatedAt});
 
   BookingData.fromJson(Map<String, dynamic> json) {
     bookingId = json['booking_id'];
@@ -65,6 +71,9 @@ class BookingData {
     meetingDes = json['meeting_des'];
     otherDetails = json['other_details'];
     bookingStatus = json['booking_status'];
+    userId = json['user_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -80,6 +89,9 @@ class BookingData {
     data['meeting_des'] = this.meetingDes;
     data['other_details'] = this.otherDetails;
     data['booking_status'] = this.bookingStatus;
+    data['user_id'] = this.userId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     return data;
   }
 }
