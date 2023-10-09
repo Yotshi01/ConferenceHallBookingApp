@@ -1,182 +1,221 @@
 import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/navigation_drawer.dart';
 
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class ProfileScreen extends StatefulWidget {
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController usernameController = TextEditingController();
+
+  final TextEditingController emailidController = TextEditingController();
+
+  final TextEditingController phonenumberController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  String passwordErrorText = '';
+
+  String emailErrorText = '';
+
+  bool validatePassword(String password) {
+    if (password.length < 6) {
+      return false;
+    }
+    bool hasUpperCase = false;
+    bool hasSpecialCharacter = false;
+    for (int i = 0; i < password.length; i++) {
+      final char = password[i];
+      if (char == char.toUpperCase() && char != char.toLowerCase()) {
+        hasUpperCase = true;
+      }
+      if ("!@#\$%^&*()_+{}[]|".contains(char)) {
+        hasSpecialCharacter = true;
+      }
+    }
+    return hasUpperCase && hasSpecialCharacter;
+  }
+
+  bool validateEmail(String email) {
+    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegExp.hasMatch(email);
+  }
 
   @override
-
-  Widget build(BuildContext context) => Scaffold(
-    drawer: const NavigationDrawerFile(),
-    appBar: AppBar(
-      title: const Text('Edit Profile'),
-      backgroundColor: Colors.amber,
-    ),
-    body: SingleChildScrollView(
-      child: Column(
-        children: [
-          Container( color:Color.fromRGBO(255, 170, 0, 0.19), padding: EdgeInsets.only(
-      top: 2, //+ MediaQuery.of(context).padding.top,
-          bottom: 0.1,
-          left: 17
-
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Edit Profile'),
+        backgroundColor: Colors.amber,
       ),
+      body: SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 2,
+          bottom: 0.1,
+          left: 17,
+        ),
         child: Column(
-          // Wrap with Row
-          children:[
-          SizedBox(
-          width: 400,
-          //height: 250,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              //padding: const EdgeInsets.all(24),
-              //Icon(CupertinoIcons.person_alt_circle,size: 35),
-              Icon(Icons.account_circle_rounded,
-                  size: 120, color: Colors.black26),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [ 
+            Row(
+            children:[
+               Icon(Icons.account_circle_rounded,
+                  size: 100, color: Colors.black26),
+              SizedBox(width:15),
+              Align(
+                alignment: Alignment.topLeft,
+                child:Text('Add optional profile picture.')
+              )
+            ]
+            ),
+            
+            
+           
               const SizedBox(width: 10),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 10,
-                  bottom:15
-                ),
-                child: Text(
+            Text(
                   'Change picture',
                   style: TextStyle(
                       fontSize: 20, color: Colors.black),
                 ),
-
-              ),
-            ],
-          )
-          )
-        ],
-      )
-
-        ),
-
-          const SizedBox(height: 20),
-          Align( alignment: Alignment.topLeft,
-            child: Text(
-
-                "   Username",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                )
-            ),),const SizedBox(height: 10),
-          Align(
-            child:
-            Container(
-                alignment: Alignment.centerLeft,
-                width: 380,
-                height: 45,
-                decoration:
-                BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0x28ffc677)),
-                child: Text(
-                    "   Enter Name",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    )
-                )
-            ),),
-          const SizedBox(height: 10),
-          Align( alignment: Alignment.topLeft,
-            child:Text(
-                "   Email ID",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                )
-            ),),const SizedBox(height: 10),
-          Align(
-            child:Container(
-                alignment: Alignment.centerLeft,
-                width: 380,
-                height: 45,
-                decoration:     BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0x28ffc677)),
-                child: Text(
-                    "   xyz@abc.com",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    )
-                )
-            ),),const SizedBox(height: 10),
-          Align( alignment: Alignment.topLeft,
-            child:Text(
-                "   Phone Number",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                )
-            ),),const SizedBox(height: 10),
-          Align(
-            child:
-            Container(
-                alignment: Alignment.centerLeft,
-                width: 380,
-                height: 45,
-                decoration:     BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0x28ffc677)),
-                child: Text(
-                    "   +91 XXXXXXXXXX",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    )
-                )
-            ),),const SizedBox(height: 10),
-          Align( alignment: Alignment.topLeft,
-            child:
+            const SizedBox(height: 20),
             Text(
-                "   Password",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                )
-            ),),const SizedBox(height: 10),
-          Align(
-            child:Container(
-                alignment: Alignment.centerLeft,
-                width: 380,
-                height: 45,
-                decoration:     BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    color: Color(0x28ffc677)),
-                child: Text(
-                    "   Enter Password",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    )
-                )
-            ),),const SizedBox(height: 35),
-          Container(
-            alignment: Alignment.center,
-              width: 278,
-              height: 45,
-              decoration:     BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Color(0xd3ffab00)),
-            child: Text(
-                "Update",
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                )
+              'Edit Username:',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
-          )
-  ],
-  ),
-    ),
-  );
+            const SizedBox(height: 16),
+            Container(
+              width: 350,
+              height: 50,
+              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: usernameController,
+                    style: TextStyle(fontSize: 12),
+                    decoration: InputDecoration(
+                      hintText: 'Enter your new username',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Edit Email ID:',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: 350,
+              height: 50,
+              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: emailidController,
+                    style: TextStyle(fontSize: 12),
+                    decoration: InputDecoration(
+                    hintText: 'xyz@abc.com',
+                    errorText: emailErrorText.isNotEmpty ? emailErrorText : null,
+
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Edit Phone Number:',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: 350,
+              height: 50,
+              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: phonenumberController,
+                    style: TextStyle(fontSize: 12),
+                    decoration: InputDecoration(
+                      hintText: 'Enter your phone number',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Edit Password:',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: 350,
+              height: 50,
+              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: passwordController,
+                    style: TextStyle(fontSize: 12),
+                    decoration: InputDecoration(
+                      hintText: 'Enter new password',
+                      errorText: passwordErrorText.isNotEmpty ? passwordErrorText : null,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Handle saving changes to the username and name here
+                String newUsername = usernameController.text;
+                String newemailid = emailidController.text;
+                String newphonenumber = phonenumberController.text;
+                String newPassword = passwordController.text; // Corrected variable name
+
+                print('Username: $newUsername');
+                
+                print('Phone Number: $newphonenumber');
+
+                if (validatePassword(newPassword)) {
+                  print('Password: $newPassword');
+                } else {
+                  passwordErrorText = 'Password must be at least 6 characters long and include 1 capital letter and 1 special character.';
+                  final snackBar = SnackBar(
+                    content: Text(passwordErrorText),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+                
+                if (validateEmail(newemailid)) {
+                  print('Email ID: $newemailid');
+                } else {
+                  emailErrorText = 'Please enter a valid email address';
+                  final snackBar = SnackBar(
+                    content: Text(emailErrorText),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+
+                // You can now update the user's profile with the new values
+              },
+              child: Text('Save Changes'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+              ),
+            ),
+          ],
+        ),
+      ),)
+    );
+  }
 }
