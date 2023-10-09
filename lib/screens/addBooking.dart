@@ -38,7 +38,7 @@ class _AddBookingState extends State<AddBooking> {
   Future<void> _addBooking() async {
     // Create a BookingDetails object with the data you want to add
     BookingDetails newBooking = BookingDetails(
-      data: [Data.fromJson({/* ... */})], // Add the data as needed
+      data: [BookingData.fromJson({/* ... */})], // Add the data as needed
     );
 
     try {

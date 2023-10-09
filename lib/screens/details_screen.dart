@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 import 'package:conference_hall_booking/source/constants.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 
 class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({super.key});
+  final BookingData currentBookingData;
+  final String currentConferenceRoomName;
+  final String currentLocationName;
+  const DetailsScreen(
+      {Key? key,
+      required this.currentBookingData,
+      required this.currentConferenceRoomName,
+      required this.currentLocationName})
+      : super(key: key);
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
@@ -86,7 +95,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               height: screenHeight * 0.2,
                             ),
                             Text(
-                              'Management CDM',
+                              'Meeting Title',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -101,13 +110,58 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   1, // Set the thickness of the divider line
                             ),
                             Text(
-                              'Conference Room Floor - 02',
+                              '${widget.currentBookingData.meetingTitle}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans',
+                                // fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Conference Room Name',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Divider(
+                              color: Color(
+                                  0xFFC2C0C0), // Set the color of the divider line
+                              thickness:
+                                  1, // Set the thickness of the divider line
+                            ),
+                            Text(
+                              widget.currentConferenceRoomName,
                               style: TextStyle(
                                 color: Color(0xFFB88D05),
                                 fontSize: 16,
                                 fontFamily: 'Noto Sans',
                                 fontWeight: FontWeight.w600,
                               ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Date, time and location',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            Divider(
+                              color: Color(
+                                  0xFFC2C0C0), // Set the color of the divider line
+                              thickness:
+                                  1, // Set the thickness of the divider line
                             ),
                             Row(
                               children: [
@@ -128,7 +182,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           horizontal: 5,
                                         ),
                                         child: Text(
-                                          '26 Aug 2023, Sat - 01:00 PM to 02:00 PM',
+                                          '${widget.currentBookingData.bookingDate}, Sat - ${widget.currentBookingData.strTime} to ${widget.currentBookingData.endTime}',
                                           style: TextStyle(
                                             color: Color(0xFF696767),
                                             fontSize: 12,
@@ -157,7 +211,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           horizontal: 5,
                                         ),
                                         child: Text(
-                                          'Corporate Center Raipur ',
+                                          widget.currentLocationName,
                                           style: TextStyle(
                                             color: Color(0xFF696767),
                                             fontSize: 14,
@@ -168,20 +222,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ],
                             ),
                             SizedBox(
-                              width: 304,
-                              height: 67,
-                              child: Text(
-                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.',
-                                style: TextStyle(
-                                  color: Color(0xFF918C8C),
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
+                              height: 20,
                             ),
                             Text(
-                              'About this room',
+                              'Meeting Description',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -199,7 +243,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               width: 304,
                               height: 67,
                               child: Text(
-                                'Large meeting room that fits up to 15 people with glass walls that can be used as white board to express your creativity.',
+                                '${widget.currentBookingData.meetingDes}',
                                 style: TextStyle(
                                   color: Color(0xFF918C8C),
                                   fontSize: 14,
@@ -209,7 +253,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               ),
                             ),
                             Text(
-                              'Other Requirements',
+                              'About Room',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -224,7 +268,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   1, // Set the thickness of the divider line
                             ),
                             Text(
-                              'Refreshment',
+                              getConferenceHallDescription(
+                                  widget.currentBookingData.conferenceName!),
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Other Details',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -237,6 +294,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   0xFFC2C0C0), // Set the color of the divider line
                               thickness:
                                   1, // Set the thickness of the divider line
+                            ),
+                            Text(
+                              '${widget.currentBookingData.otherDetails}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Noto Sans',
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,

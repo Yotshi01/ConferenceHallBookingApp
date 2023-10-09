@@ -1,7 +1,7 @@
 class BookingDetails {
   bool? status;
   String? message;
-  List<Data>? data;
+  List<BookingData>? data;
 
   BookingDetails({this.status, this.message, this.data});
 
@@ -9,9 +9,9 @@ class BookingDetails {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <BookingData>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new BookingData.fromJson(v));
       });
     }
   }
@@ -27,20 +27,20 @@ class BookingDetails {
   }
 }
 
-class Data {
+class BookingData {
   int? bookingId;
   String? bookingDate;
   String? strTime;
   String? endTime;
   String? meetingTitle;
   String? departmentName;
-  String? locationName;
-  String? conferenceName;
+  int? locationName;
+  int? conferenceName;
   String? meetingDes;
   String? otherDetails;
   String? bookingStatus;
 
-  Data(
+  BookingData(
       {this.bookingId,
       this.bookingDate,
       this.strTime,
@@ -53,7 +53,7 @@ class Data {
       this.otherDetails,
       this.bookingStatus});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  BookingData.fromJson(Map<String, dynamic> json) {
     bookingId = json['booking_id'];
     bookingDate = json['booking_date'];
     strTime = json['str_time'];

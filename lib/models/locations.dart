@@ -1,11 +1,11 @@
-class Locations {
+class LocationDetails {
   bool? status;
   String? message;
   List<LocationData>? data;
 
-  Locations({this.status, this.message, this.data});
+  LocationDetails({this.status, this.message, this.data});
 
-  Locations.fromJson(Map<String, dynamic> json) {
+  LocationDetails.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['data'] != null) {

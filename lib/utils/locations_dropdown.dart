@@ -11,7 +11,7 @@ class LocationsDropdown extends StatefulWidget {
 
 class _LocationsDropdownState extends State<LocationsDropdown> {
   String? locationChoosed;
-  late Future<Locations> locationDetailsResponse;
+  late Future<LocationDetails> locationDetailsResponse;
   List<LocationData>? locationsList;
   bool isLoading = true;
 
