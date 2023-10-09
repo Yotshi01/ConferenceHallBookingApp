@@ -1,5 +1,6 @@
 import 'package:conference_hall_booking/screens/home_screen.dart';
 import 'package:conference_hall_booking/screens/login_screen.dart';
+import 'package:conference_hall_booking/screens/profile_screen.dart';
 import 'package:conference_hall_booking/screens/settings_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,10 +27,13 @@ class NavigationDrawerFile extends StatelessWidget {
 
   Widget buildHeader(BuildContext context) => Material(
         color: const Color(0x28FFC677),
-        //color: const Color.fromARGB(191, 237, 145, 7),
         // elevation: 2,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const ProfileScreen(),
+            ));
+          },
           child: Container(
             padding: EdgeInsets.only(
                 top: 20 + MediaQuery.of(context).padding.top,
@@ -64,6 +68,7 @@ class NavigationDrawerFile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 35, color: Colors.amber[800]),
                           ),
+
                         ),
                         const SizedBox(height: 1),
                       ],
@@ -76,13 +81,14 @@ class NavigationDrawerFile extends StatelessWidget {
         ),
       );
 
-  Widget buildMenuItems(BuildContext context) => Container(
+  Widget buildMenuItems(BuildContext context) => Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.all(24),
       child: Wrap(
         runSpacing: 16,
         children: [
           ListTile(
             tileColor: Color.fromRGBO(255, 170, 0, 0.19),
+
             leading: Icon(
               Icons.home,
               color: Colors.amber[800],
