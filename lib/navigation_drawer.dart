@@ -1,7 +1,6 @@
 import 'package:conference_hall_booking/screens/home_screen.dart';
 import 'package:conference_hall_booking/screens/login_screen.dart';
 import 'package:conference_hall_booking/screens/profile_screen.dart';
-import 'package:conference_hall_booking/screens/settings_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -100,20 +99,7 @@ class NavigationDrawerFile extends StatelessWidget {
             )),
           ),
           //const Divider(),
-          ListTile(
-            tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-            leading: Icon(
-              Icons.settings,
-              color: Colors.amber[800],
-            ),
-            title: const Text('Settings'),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SettingsScreen(),
-              ));
-            },
-          ),
-          //const Divider(),
+          
           ListTile(
               tileColor: Color.fromRGBO(255, 170, 0, 0.19),
               leading: Icon(Icons.logout, color: Colors.amber[800]),
