@@ -32,7 +32,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.3,
+            height: screenHeight * 0.33,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -72,17 +72,19 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: screenHeight*0.02,
-                    horizontal: screenWidth*0.01,
-                  ),
-                        child:      Image.asset(
-                    "assets/images/meeting-room5.png",
-                    width: screenWidth * 0.3,
-                    height: screenHeight*0.1 ,
-                  ),),
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: screenHeight * 0.02,
+                                  horizontal: screenWidth * 0.01,
+                                ),
+                                child: Image.asset(
+                                  "assets/images/meeting-room5.png",
+                                  width: screenWidth * 0.3,
+                                  height: screenHeight * 0.1,
+                                ),
+                              ),
                               ElevatedButton(
                                 onPressed: () {
                                   // Add your onPressed callback function here

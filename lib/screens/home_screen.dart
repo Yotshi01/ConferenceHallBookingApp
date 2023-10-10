@@ -238,36 +238,36 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: screenHeight * 0.015,
                 ),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: screenWidth * 0.03,
-                    // vertical: screenHeight * 0.03
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Next Meeting',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Color(0xFF615E5E),
-                        fontSize: 16,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-                Divider(
-                  indent: 10,
-                  endIndent: 10,
-                  color: Color(0xFFC2C0C0), // Set the color of the divider line
-                  thickness: 1, // Set the thickness of the divider line
-                ),
-                TodaysConferences(),
+                // Padding(
+                //   padding: EdgeInsets.symmetric(
+                //     horizontal: screenWidth * 0.03,
+                //     // vertical: screenHeight * 0.03
+                //   ),
+                //   child: Align(
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       'Next Meeting',
+                //       textAlign: TextAlign.left,
+                //       style: TextStyle(
+                //         color: Color(0xFF615E5E),
+                //         fontSize: 16,
+                //         fontFamily: 'Noto Sans',
+                //         fontWeight: FontWeight.w500,
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                // Divider(
+                //   indent: 10,
+                //   endIndent: 10,
+                //   color: Color(0xFFC2C0C0), // Set the color of the divider line
+                //   thickness: 1, // Set the thickness of the divider line
+                // ),
+                // TodaysConferences(),
 
-                SizedBox(
-                  height: screenHeight * 0.015,
-                ),
+                // SizedBox(
+                //   height: screenHeight * 0.015,
+                // ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: screenWidth * 0.03,
