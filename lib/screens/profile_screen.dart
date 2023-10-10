@@ -185,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if (validatePassword(newPassword)) {
                   print('Password: $newPassword');
                 } else {
-                  passwordErrorText = 'Password must be at least 6 characters long and include 1 capital letter and 1 special character.';
+                  passwordErrorText = 'Password must be of 6 characters long including 1 capital letter, 3 small letters and 1 special character.';
                   final snackBar = SnackBar(
                     content: Text(passwordErrorText),
                     backgroundColor: Colors.red,

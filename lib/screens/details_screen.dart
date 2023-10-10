@@ -90,10 +90,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: screenHeight * 0.2,
-                            ),
+                          children: [Padding(
+                  padding: EdgeInsets.symmetric(
+                    
+                    horizontal: screenWidth*0.01,
+                  ),
+                  child: Column(children: [Align(
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                    "assets/images/meeting-room5.png",
+                    width: screenWidth * 0.24,
+                    height: screenHeight*0.15 ,
+                  ),)],),),
+                            
                             Text(
                               'Meeting Title',
                               style: TextStyle(
