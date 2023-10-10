@@ -66,7 +66,16 @@ class _MyConferencesState extends State<MyConferences> {
                         ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
+                            children: [Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: screenHeight*0.02,
+                    horizontal: screenWidth*0.01,
+                  ),
+                        child:      Image.asset(
+                    "assets/images/meeting-room5.png",
+                    width: screenWidth * 0.3,
+                    height: screenHeight*0.1 ,
+                  ),),
                               ElevatedButton(
                                 onPressed: () {
                                   // Add your onPressed callback function here
