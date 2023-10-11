@@ -93,7 +93,7 @@ ElevatedButton bookNow(BuildContext context) {
 
 AppBar reusableAppBar(String pageName, BuildContext context) {
   return AppBar(
-    elevation: 1,
+    elevation: 5,
     flexibleSpace: Container(),
     centerTitle: true,
     title: Text(
