@@ -20,6 +20,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isDrawerOpen = false;
+
+  void toggleDrawer() {
+    setState(() {
+      isDrawerOpen = !isDrawerOpen;
+    });
+  }
+
   Future<void> _fetchBookingDetails() async {
     try {
       // bookingDetailsResponse = getBookingDetails();
@@ -118,6 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         drawer: NavigationDrawerFile(),
+        drawerScrimColor: Colors.transparent,
         appBar: reusableAppBar('Home', context),
         body: SingleChildScrollView(
           child: Container(
@@ -125,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: LinearGradient(
                 begin: Alignment(0.21, -0.98),
                 end: Alignment(-0.21, 0.98),
-                colors: [Colors.white, Color(0x00DBCC95)],
+                colors: [Colors.white, Color.fromARGB(0, 216, 207, 173)],
               ),
             ),
             // width: screenWidth,
