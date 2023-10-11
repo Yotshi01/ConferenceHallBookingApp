@@ -58,12 +58,22 @@ class _AddBookingState extends State<AddBooking> {
         appBar: AppBar(
           title: Text('Add Booking Page'),
         ),
-        body: Container(
+        body:  SingleChildScrollView(child: Container(
           // width: screenWidth * 0.8,
           // height: screenHeight * 0.6,
-          child: Column(
+          child: Padding(
+        padding: const EdgeInsets.only(
+          top: 2,
+          bottom: 0.1,
+          left: 12,
+          right: 12,
+        ),
+        child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+              height: screenHeight*0.03,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -82,7 +92,7 @@ class _AddBookingState extends State<AddBooking> {
                         : 'Select Date'),
                   ),
                   SizedBox(
-                    width: screenWidth * 0.03,
+                    width: screenWidth * 0.09,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -96,7 +106,14 @@ class _AddBookingState extends State<AddBooking> {
                     },
                     child: Text(selectedStartTime != null
                         ? '${printedStartTime.hour} ${printedStartTime.minute}'
-                        : 'Select Time'),
+                        : 'Start Time'),
+                  ),
+                  SizedBox(
+                    width: screenWidth*0.01,
+                  ),
+                  const Text('to'),
+                  SizedBox(
+                    width: screenWidth*0.01,
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -108,9 +125,10 @@ class _AddBookingState extends State<AddBooking> {
                         selectedEndTime = time;
                       });
                     },
+                    
                     child: Text(selectedEndTime != null
                         ? '${printedEndTime.hour} ${printedEndTime.minute}'
-                        : 'Select Time'),
+                        : 'End Time'),
                   ),
                 ],
               ),
@@ -118,21 +136,34 @@ class _AddBookingState extends State<AddBooking> {
                 height: screenHeight * 0.02,
               ),
               Text(
-                'Select Location for Conference',
+                'Location',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 15,
                   fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   height: 0,
                 ),
               ),
               SizedBox(
-                height: screenHeight * 0.02,
+                height: screenHeight * 0.01,
               ),
               LocationsDropdown(),
               SizedBox(
                 height: screenHeight * 0.02,
+              ),
+              Text(
+                'Conference Room',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontFamily: 'Noto Sans',
+                  fontWeight: FontWeight.bold,
+                  height: 0,
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.01,
               ),
               ConferenceHallDropdown(),
               SizedBox(
@@ -144,12 +175,12 @@ class _AddBookingState extends State<AddBooking> {
                   color: Colors.black,
                   fontSize: 15,
                   fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   height: 0,
                 ),
               ),
               SizedBox(
-                height: screenHeight * 0.02,
+                height: screenHeight * 0.01,
               ),
               TextField(
                 controller: _meetingTitleController,
@@ -176,12 +207,12 @@ class _AddBookingState extends State<AddBooking> {
                   color: Colors.black,
                   fontSize: 15,
                   fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.bold,
                   height: 0,
                 ),
               ),
               SizedBox(
-                height: screenHeight * 0.02,
+                height: screenHeight * 0.01,
               ),
               TextField(
                 controller: _meetingDescriptionController,
@@ -200,9 +231,18 @@ class _AddBookingState extends State<AddBooking> {
                 ),
                 maxLines: 7,
                 minLines: 3,
-              )
+              ),
+              SizedBox(
+              height: screenHeight*0.04 ,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(onPressed:() {}, child: Text('Submit'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+              ),)),
             ],
-          ),
+          ),),)
         ));
   }
 
