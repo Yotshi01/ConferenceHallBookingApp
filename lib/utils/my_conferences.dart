@@ -14,8 +14,11 @@ class _MyConferencesState extends State<MyConferences> {
 
   @override
   Widget build(BuildContext context) {
+    final List<BookingData> finalBookings = isSearched == false
+        ? listOfMyMeetings
+        : listOfFoundBookingsFromMyMeetings;
     print('${listOfMyMeetings} 00000000000');
-    return listOfMyMeetings.isNotEmpty
+    return finalBookings.isNotEmpty
         ? SizedBox(
             // decoration: BoxDecoration(
             //   gradient: LinearGradient(
@@ -29,9 +32,9 @@ class _MyConferencesState extends State<MyConferences> {
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
-                itemCount: listOfMyMeetings.length,
+                itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
-                  final bookingData = listOfMyMeetings[index];
+                  final bookingData = finalBookings[index];
                   final conferenceHallName = bookingData.conferenceName != null
                       ? getConferenceHallName(bookingData.conferenceName!)
                       : 'Unknown Conference Hall';

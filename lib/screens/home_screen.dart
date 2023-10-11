@@ -8,7 +8,6 @@ import 'package:conference_hall_booking/utils/old_meetings.dart';
 import 'package:conference_hall_booking/utils/todays_conferences.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/navigation_drawer.dart';
-import 'package:conference_hall_booking/reusables/search_bar.dart';
 import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 import 'package:conference_hall_booking/utils/my_conferences.dart';
 
@@ -18,6 +17,8 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
+
+String enteredKeywordState = "";
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isDrawerOpen = false;
@@ -121,6 +122,50 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  void _runFilter(String enteredKeyword) {
+    print('filter filter filter ${enteredKeyword}');
+    List<BookingData> searchResultsForTodayMeetings = [];
+    List<BookingData> searchResultsForMyMeetings = [];
+    if (enteredKeyword.isEmpty) {
+      // if the search field is empty or only contains white-space, we'll display all users
+      searchResultsForTodayMeetings = [];
+      searchResultsForMyMeetings = [];
+      setState(() {
+        isSearched = false;
+      });
+    } else {
+      setState(() {
+        isSearched = true;
+      });
+      searchResultsForTodayMeetings = listOfBookings
+          .where((item) => item.meetingTitle!
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+      // we use the toLowerCase() method to make it case-insensitive
+
+      searchResultsForMyMeetings = listOfMyMeetings
+          .where((item) => item.meetingTitle!
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+
+      print('${searchResultsForTodayMeetings} searhed searched searcheddddddd');
+      print('${searchResultsForMyMeetings} searhed searched searcheddddddd');
+    }
+
+    setState(() {
+      listOfFoundBookingsFromAllMeetings =
+          searchResultsForTodayMeetings; // Update the state here to trigger a rebuild
+      listOfFoundBookingsFromMyMeetings = searchResultsForMyMeetings;
+      enteredKeywordState = enteredKeyword;
+    });
+    print(
+        '${listOfFoundBookingsFromAllMeetings} list of found bookings ${enteredKeywordState}');
+    print(
+        '${listOfFoundBookingsFromMyMeetings} list of found bookings ${enteredKeywordState}');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,7 +200,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     // vertical: constraints.maxWidth * 0.00,
                     horizontal: screenWidth * 0.03,
                   ),
-                  child: reusableSearchBar(),
+                  child: TextField(
+                    // controller: controller,
+                    onChanged: (value) => _runFilter(value),
+                    enableSuggestions: true,
+                    autocorrect: true,
+                    cursorColor: Colors.black,
+                    style: TextStyle(color: Colors.black.withOpacity(0.9)),
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search,
+                          color: Colors.black, size: screenWidth * 0.07),
+                      labelText: 'Search here...',
+                      labelStyle:
+                          TextStyle(color: Colors.grey.withOpacity(0.9)),
+                      filled: true,
+                      // suffixIcon: Icon(Icons.search),
+                      contentPadding: EdgeInsets.symmetric(vertical: 0),
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 0.50,
+                          // strokeAlign: BorderSide.strokeAlignCenter,
+                          color: Colors.white,
+                        ),
+                      ),
+                      // hintText: text,
+                    ),
+                  ),
                 ),
                 // SizedBox(
                 //   height: screenHeight * 0.01,

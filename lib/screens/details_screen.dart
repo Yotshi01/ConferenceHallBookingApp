@@ -108,27 +108,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        isEditable = true;
-                                      });
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape:
-                                          CircleBorder(), // Use CircleBorder to make the button circular
-                                      backgroundColor: Colors
-                                          .blue, // Change the button color to your preference
-                                      padding: EdgeInsets.all(
-                                          16.0), // Adjust the padding as needed
+                                  if (currentUserData!.id ==
+                                      widget.currentBookingData.userId)
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          isEditable = true;
+                                        });
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        shape:
+                                            CircleBorder(), // Use CircleBorder to make the button circular
+                                        backgroundColor: Colors
+                                            .blue, // Change the button color to your preference
+                                        padding: EdgeInsets.all(
+                                            16.0), // Adjust the padding as needed
+                                      ),
+                                      child: Icon(
+                                        Icons
+                                            .edit, // You can use your preferred edit icon here
+                                        color: Colors
+                                            .white, // Change the icon color to your preference
+                                      ),
                                     ),
-                                    child: Icon(
-                                      Icons
-                                          .edit, // You can use your preferred edit icon here
-                                      color: Colors
-                                          .white, // Change the icon color to your preference
-                                    ),
-                                  ),
+                                  Container(),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: screenWidth * 0.01,
@@ -174,6 +177,53 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     height: 20,
                                   ),
                                   Text(
+                                    'Location',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Color(
+                                        0xFFC2C0C0), // Set the color of the divider line
+                                    thickness:
+                                        1, // Set the thickness of the divider line
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons
+                                            .pin_drop_outlined, // Replace with the icon you want
+                                        color: Colors
+                                            .yellow, // Set the color of the icon
+                                        size: 24, // Set the size of the icon
+                                      ),
+                                      // SizedBox(
+                                      //     width:
+                                      //         8), // Add some spacing between the icon and text
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 5,
+                                              ),
+                                              child: Text(
+                                                widget.currentLocationName,
+                                                style: TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 14,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
                                     'Conference Room Name',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -195,6 +245,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontSize: 16,
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    getConferenceHallDescription(widget
+                                        .currentBookingData.conferenceName!),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      // fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                   SizedBox(
@@ -285,53 +348,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,
-                                                  fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              )))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Location',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons
-                                            .pin_drop_outlined, // Replace with the icon you want
-                                        color: Colors
-                                            .yellow, // Set the color of the icon
-                                        size: 24, // Set the size of the icon
-                                      ),
-                                      // SizedBox(
-                                      //     width:
-                                      //         8), // Add some spacing between the icon and text
-                                      Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 5,
-                                              ),
-                                              child: Text(
-                                                widget.currentLocationName,
-                                                style: TextStyle(
-                                                  color: Color(0xFF696767),
-                                                  fontSize: 14,
                                                   fontFamily: 'Noto Sans',
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -440,6 +456,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
+                                      // if(currentUserData!.id == widget.currentBookingData)
                                       ElevatedButton(
                                         onPressed: () {
                                           setState(() {
@@ -544,6 +561,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ),
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'Location',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Color(
+                                        0xFFC2C0C0), // Set the color of the divider line
+                                    thickness:
+                                        1, // Set the thickness of the divider line
+                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Icon(
+                                  //       Icons
+                                  //           .pin_drop_outlined, // Replace with the icon you want
+                                  //       color: Colors
+                                  //           .yellow, // Set the color of the icon
+                                  //       size: 24, // Set the size of the icon
+                                  //     ),
+                                  //     // SizedBox(
+                                  //     //     width:
+                                  //     //         8), // Add some spacing between the icon and text
+
+                                  //   ],
+                                  // ),
+                                  LocationsDropdown(),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -656,68 +707,123 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         1, // Set the thickness of the divider line
                                   ),
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons
-                                            .av_timer, // Replace with the icon you want
-                                        color: Color(
-                                            0xFF696767), // Set the color of the icon
-                                        size: 24, // Set the size of the icon
-                                      ),
+                                      // Icon(
+                                      //   Icons
+                                      //       .av_timer, // Replace with the icon you want
+                                      //   color: Color(
+                                      //       0xFF696767), // Set the color of the icon
+                                      //   size: 24, // Set the size of the icon
+                                      // ),
                                       // SizedBox(
                                       //     width:
                                       //         8), // Add some spacing between the icon and text
-                                      Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 5,
+
+                                      SizedBox(
+                                        width: 100,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // Handle button tap here
+                                            print('Button tapped');
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            minimumSize: Size(100,
+                                                50), // Adjust the width and height as needed
+                                            primary: Colors.grey[
+                                                200], // Set the background color to light gray
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  10.0), // Adjust the value as needed
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons
+                                                    .av_timer, // Replace with the icon you want
+                                                color: Color(
+                                                    0xFF696767), // Set the color of the icon
+                                                size:
+                                                    24, // Set the size of the icon
                                               ),
-                                              child: Text(
-                                                '${widget.currentBookingData.strTime} to ${widget.currentBookingData.endTime}',
+                                              SizedBox(
+                                                  width:
+                                                      8), // Add some spacing between the icon and text
+                                              Text(
+                                                // controller: _meetingTitleController,
+                                                '${widget.currentBookingData.strTime}',
                                                 style: TextStyle(
-                                                  color: Color(0xFF696767),
-                                                  fontSize: 12,
+                                                  color: Colors.black,
+                                                  fontSize: 14,
                                                   fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
                                                 ),
-                                              )))
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 30,
+                                        ),
+                                        child: Text(
+                                          'to ',
+                                          style: TextStyle(
+                                            color: Color(0xFF696767),
+                                            fontSize: 12,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ),
+
+                                      SizedBox(
+                                        width: 100,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // Handle button tap here
+                                            print('Button tapped');
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            minimumSize: Size(100,
+                                                50), // Adjust the width and height as needed
+                                            primary: Colors.grey[
+                                                200], // Set the background color to light gray
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(
+                                                  10.0), // Adjust the value as needed
+                                            ),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons
+                                                    .av_timer, // Replace with the icon you want
+                                                color: Color(
+                                                    0xFF696767), // Set the color of the icon
+                                                size:
+                                                    24, // Set the size of the icon
+                                              ),
+                                              SizedBox(
+                                                  width:
+                                                      8), // Add some spacing between the icon and text
+                                              Text(
+                                                // controller: _meetingTitleController,
+                                                '${widget.currentBookingData.endTime}',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14,
+                                                  fontFamily: 'Noto Sans',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Location',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  // Row(
-                                  //   children: [
-                                  //     Icon(
-                                  //       Icons
-                                  //           .pin_drop_outlined, // Replace with the icon you want
-                                  //       color: Colors
-                                  //           .yellow, // Set the color of the icon
-                                  //       size: 24, // Set the size of the icon
-                                  //     ),
-                                  //     // SizedBox(
-                                  //     //     width:
-                                  //     //         8), // Add some spacing between the icon and text
-
-                                  //   ],
-                                  // ),
-                                  LocationsDropdown(),
 
                                   SizedBox(
                                     height: 20,
@@ -769,34 +875,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
-                                    'About Room',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  Text(
-                                    getConferenceHallDescription(widget
-                                        .currentBookingData.conferenceName!),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      // fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
+
                                   Text(
                                     'Other Details',
                                     style: TextStyle(

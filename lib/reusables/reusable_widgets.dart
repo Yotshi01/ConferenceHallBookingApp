@@ -100,7 +100,7 @@ AppBar reusableAppBar(String pageName, BuildContext context) {
       pageName,
       textAlign: TextAlign.center,
       style: TextStyle(
-        color: Colors.white,
+        color: Colors.black,
         fontSize: 16,
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,

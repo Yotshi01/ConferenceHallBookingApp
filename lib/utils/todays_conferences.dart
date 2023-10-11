@@ -10,19 +10,14 @@ class TodaysConferences extends StatefulWidget {
 }
 
 class _TodaysConferencesState extends State<TodaysConferences> {
-  final List<Map<String, dynamic>> _conferences = [
-    {"id": 1, "conference": "conference1"},
-    {"id": 2, "conference": "conference2"},
-    {"id": 3, "conference": "conference3"},
-    {"id": 4, "conference": "conference4"},
-    {"id": 5, "conference": "conference5"},
-    {"id": 6, "conference": "conference6"},
-    {"id": 7, "conference": "conference7"},
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return listOfBookings.isNotEmpty
+    final List<BookingData> finalBookings = isSearched == false
+        ? listOfBookings
+        : listOfFoundBookingsFromAllMeetings;
+    print('${isSearched} searched searched');
+    print('${finalBookings} final final final it is');
+    return finalBookings.isNotEmpty
         ? SizedBox(
             // decoration: BoxDecoration(
             //   gradient: LinearGradient(
@@ -36,9 +31,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
-                itemCount: listOfBookings.length,
+                itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
-                  final bookingData = listOfBookings[index];
+                  final bookingData = finalBookings[index];
                   final conferenceHallName = bookingData.conferenceName != null
                       ? getConferenceHallName(bookingData.conferenceName!)
                       : 'Unknown Conference Hall';
