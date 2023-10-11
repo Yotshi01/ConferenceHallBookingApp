@@ -95,6 +95,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       ),
       body: SfCalendar(
         specialRegions: _getTimeRegions(),
+        specialRegions: _getTimeRegions(),
         view: CalendarView.week,
         dataSource: _getCalendarDataSource(),
         timeSlotViewSettings: TimeSlotViewSettings(startHour: 7, endHour: 20),
@@ -127,24 +128,26 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       DateTime(2023, 11, 13),
     ];
 
-    for (final date in specifiedDates) {regions.add(TimeRegion(
-      startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
-      endTime: DateTime(date.year, date.month, date.day, 19, 59, 59),
+    for (final date in specifiedDates) {
+      regions.add(TimeRegion(
+        startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
+        endTime: DateTime(date.year, date.month, date.day, 19, 59, 59),
 
-      //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;BYDAY=SUN',
-      color: Color(0xffbD3D3D3),
-    ));}
-    for (final date in specifiedDates) {regions.add(TimeRegion(
-      startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
-      endTime: DateTime(date.year, date.month, date.day, 19, 59, 59),
-
-      recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;BYDAY=SUN',
-      color: Color(0xffbD3D3D3),
-    ));}
+        //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;BYDAY=SUN',
+        color: Color(0xffbD3D3D3),
+      ));
+    }
+    for (final date in specifiedDates) {
+      regions.add(TimeRegion(
+        startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
+        endTime: DateTime(date.year, date.month, date.day, 19, 59, 59),
+        recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;BYDAY=SUN',
+        color: Color(0xffbD3D3D3),
+      ));
+    }
 
     return regions;
   }
-
 
   void _showEventDetailsDialog(Appointment appointment) {
     showDialog(
