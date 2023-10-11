@@ -25,9 +25,10 @@ String getConferenceHallDescription(int conferenceHallId) {
 
 String getLocationName(int locationId) {
   // Find the conference hall data with the matching conferenceName
-
+  print('${listOfLocations} dmldqkdqdqmdw');
   for (final location in listOfLocations) {
-    if (location.locationName == locationId) {
+    print(location.locationName);
+    if (location.locationId == locationId) {
       return location.locationName!;
     }
   }
