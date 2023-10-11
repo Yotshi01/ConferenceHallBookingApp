@@ -95,7 +95,6 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       ),
       body: SfCalendar(
         specialRegions: _getTimeRegions(),
-        specialRegions: _getTimeRegions(),
         view: CalendarView.week,
         dataSource: _getCalendarDataSource(),
         timeSlotViewSettings: TimeSlotViewSettings(startHour: 7, endHour: 20),
