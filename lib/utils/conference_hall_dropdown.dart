@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/source/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/api/conference_hall_details_api.dart';
 import 'package:conference_hall_booking/models/conference_hall_details.dart';
@@ -38,16 +39,20 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 1,
-        ),
-      ),
-      child: isLoading
-          ? CircularProgressIndicator() // Show a loading indicator while fetching data
-          : DropdownButton(
+    return isLoading
+        ? CircularProgressIndicator() // Show a loading indicator while fetching data
+        : Container(
+            width: 300,
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  color: Colors.transparent), // Set border color to transparent
+            ),
+            child: DropdownButton(
+              menuMaxHeight: screenHeight * 0.3,
+              borderRadius: BorderRadius.circular(10.0),
+              dropdownColor: Colors.grey[200],
               underline: Container(height: 0),
               icon: Icon(Icons.arrow_drop_down),
               isExpanded: true,
@@ -68,7 +73,10 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                     return DropdownMenuItem(
                       // hint: Text("Select Location"),
                       value: conferenceHalls.conferenceName,
-                      child: Text(conferenceHalls.conferenceName ?? ''),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(conferenceHalls.conferenceName ?? ''),
+                      ),
                     );
                   }).toList() ??
                   [],
@@ -78,7 +86,6 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                 });
               },
               value: conferenceRoomChoosed,
-            ),
-    );
+            ));
   }
 }
