@@ -41,7 +41,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                   ),
                   child: Center(
                     child: Text(
-                      "Edit/Update",
+                      "Save Changes",
                       style: TextStyle(
                         color: Colors.black, // You can set your text color here
                         fontWeight: FontWeight.bold,
