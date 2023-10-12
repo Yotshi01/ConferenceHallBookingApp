@@ -58,21 +58,30 @@ List<BookingData> myOldMeetings() {
   List<BookingData> myOldBookings = [];
   if (currentUserData != null) {
     // Check if currentUserData is not null
+    DateTime now = DateTime.now();
+
     for (var booking in listOfMyMeetings) {
-      // print('${currentUserData!.id} ${booking.userId}');
-      if (DateTime.now().isAfter(booking.bookingDate as DateTime) ){
-        // Use currentUserData without ! here
-        myOldBookings.add(booking);
-        print(myOldBookings);
-        print('${myOldBookings} how old are you!!!!!!!!!!!!!!!!');
-      }
-      else{
-        print('found the error error error');
+      // Convert booking.bookingDate from String to DateTime and then compare
+      String? bookingDateStr = booking.bookingDate;
+
+      if (bookingDateStr != null) {
+        DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
+
+        if (bookingDate != null && now.isAfter(bookingDate)) {
+          myOldBookings.add(booking);
+          print('Added a booking to myOldBookings');
+        } else {
+          print('Booking is not in the past or invalid date format: $bookingDateStr');
+        }
+      } else {
+        print('Booking date is null');
       }
     }
-    print('${myOldBookings} 1111111111111111 ${currentUserData!.id}');
+
+    print('Old Bookings: $myOldBookings');
   } else {
     print('currentUserData is empty');
   }
+
   return myOldBookings;
 }
