@@ -1,4 +1,5 @@
 import 'package:conference_hall_booking/source/constants.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/api/conference_hall_details_api.dart';
 import 'package:conference_hall_booking/models/conference_hall_details.dart';
@@ -83,6 +84,8 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
               onChanged: (newValue) {
                 setState(() {
                   conferenceRoomChoosed = newValue.toString();
+                  toBeUpdatedBookingData.conferenceName =
+                      getConferenceHallId(conferenceRoomChoosed!);
                 });
               },
               value: conferenceRoomChoosed,

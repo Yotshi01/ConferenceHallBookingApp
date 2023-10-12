@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/api/location_details_api.dart';
@@ -83,6 +84,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
               onChanged: (newValue) {
                 setState(() {
                   locationChoosed = newValue.toString();
+                  toBeUpdatedBookingData.locationName =
+                      getLocationId(locationChoosed!);
                 });
               },
               value: locationChoosed,

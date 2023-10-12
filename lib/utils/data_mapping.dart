@@ -23,6 +23,18 @@ String getConferenceHallDescription(int conferenceHallId) {
   return 'Unknown Conference Hall';
 }
 
+int getConferenceHallId(String conferenceHallName) {
+  // Find the conference hall data with the matching conferenceName
+  print('${listOfConferenceHall} dmldqkdqdqmdw');
+  for (final conferenceHall in listOfConferenceHall) {
+    print(conferenceHall.conferenceName);
+    if (conferenceHall.conferenceName == conferenceHallName) {
+      return conferenceHall.conferenceId!;
+    }
+  }
+  return -1;
+}
+
 String getLocationName(int locationId) {
   // Find the conference hall data with the matching conferenceName
   print('${listOfLocations} dmldqkdqdqmdw');
@@ -33,6 +45,18 @@ String getLocationName(int locationId) {
     }
   }
   return 'Unknown Location';
+}
+
+int getLocationId(String locationName) {
+  // Find the conference hall data with the matching conferenceName
+  print('${listOfLocations} dmldqkdqdqmdw');
+  for (final location in listOfLocations) {
+    print(location.locationName);
+    if (location.locationName == locationName) {
+      return location.locationId!;
+    }
+  }
+  return -1;
 }
 
 List<BookingData> myMeetings() {
@@ -71,7 +95,8 @@ List<BookingData> myOldMeetings() {
           myOldBookings.add(booking);
           print('Added a booking to myOldBookings');
         } else {
-          print('Booking is not in the past or invalid date format: $bookingDateStr');
+          print(
+              'Booking is not in the past or invalid date format: $bookingDateStr');
         }
       } else {
         print('Booking date is null');

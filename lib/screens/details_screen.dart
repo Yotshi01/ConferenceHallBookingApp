@@ -47,13 +47,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     _meetingTitleController =
         TextEditingController(text: widget.currentBookingData.meetingTitle);
     _meetingDescriptionController =
         TextEditingController(text: widget.currentBookingData.meetingDes);
     _otherDetailsController =
         TextEditingController(text: widget.currentBookingData.otherDetails);
+
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -90,12 +96,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.02,
+                      height: screenHeight * 0.03,
                     ),
-                    bookNow(context),
-                    SizedBox(
-                      height: screenHeight * 0.02,
-                    ),
+                    // bookNow(context),
+                    // SizedBox(
+                    //   height: screenHeight * 0.02,
+                    // ),
                     Container(
                         padding: EdgeInsets.all(15),
                         width: 352,
@@ -489,10 +495,39 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           setState(() {
                                             isEditable = false;
+                                            toBeUpdatedBookingData.bookingId =
+                                                widget.currentBookingData
+                                                    .bookingId;
+                                            toBeUpdatedBookingData
+                                                    .meetingTitle =
+                                                _meetingTitleController.text;
+                                            toBeUpdatedBookingData.meetingDes =
+                                                _meetingDescriptionController
+                                                    .text;
+                                            toBeUpdatedBookingData
+                                                    .otherDetails =
+                                                _otherDetailsController.text;
+                                            toBeUpdatedBookingData.updatedAt =
+                                                DateTime.now().toString();
                                           });
+
+                                          var response = await updateBooking(
+                                              toBeUpdatedBookingData);
+
+                                          if (response.status == 'success') {
+                                            SnackBar(
+                                              content: Text(
+                                                  "Booking updated successfully!"),
+                                            );
+                                          } else {
+                                            SnackBar(
+                                              content: Text(
+                                                  "Failed to update booking"),
+                                            );
+                                          }
                                         },
                                         style: ElevatedButton.styleFrom(
                                           shape:
@@ -664,6 +699,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         setState(() {
                                           dateTime = date;
                                           selectedDate = date;
+                                          toBeUpdatedBookingData.bookingDate =
+                                              selectedDate.toString();
                                         });
                                         print(date);
                                       },
@@ -752,6 +789,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             setState(() {
                                               printedStartTime = time;
                                               selectedStartTime = time;
+                                              toBeUpdatedBookingData.strTime =
+                                                  '${selectedStartTime!.hour}:${selectedStartTime!.minute}';
                                             });
                                           },
                                           style: ElevatedButton.styleFrom(
@@ -821,6 +860,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             setState(() {
                                               printedEndTime = time;
                                               selectedEndTime = time;
+                                              toBeUpdatedBookingData.endTime =
+                                                  '${selectedEndTime!.hour}:${selectedEndTime!.minute}';
                                             });
                                           },
                                           style: ElevatedButton.styleFrom(
