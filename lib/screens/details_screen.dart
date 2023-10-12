@@ -41,6 +41,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Future<TimeOfDay?> _selectedTime(BuildContext context) {
     final now = DateTime.now();
     return showTimePicker(
+        initialEntryMode: TimePickerEntryMode.inputOnly,
         context: context,
         initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
   }
@@ -70,11 +71,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
               letterSpacing: 0.16,
             ),
           ),
-
-
-
-
-
         ),
         body: SingleChildScrollView(
             child: Container(
@@ -784,7 +780,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               Text(
                                                 // controller: _meetingTitleController,
                                                 selectedStartTime != null
-                                                    ? '${printedStartTime.hour} ${printedStartTime.minute}'
+                                                    ? '${printedStartTime.hour}:${printedStartTime.minute}'
                                                     : '${widget.currentBookingData.strTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -853,7 +849,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               Text(
                                                 // controller: _meetingTitleController,
                                                 selectedEndTime != null
-                                                    ? '${printedEndTime.hour} ${printedEndTime.minute}'
+                                                    ? '${printedEndTime.hour}:${printedEndTime.minute}'
                                                     : '${widget.currentBookingData.endTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
