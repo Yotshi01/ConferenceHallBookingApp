@@ -138,16 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
         isSearched = true;
       });
       searchResultsForTodayMeetings = listOfBookings
-          .where((item) => item.meetingTitle!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
+          .where((item) =>
+              getConferenceHallName(item?.conferenceName)
+                  ?.toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ??
+              false)
           .toList();
       // we use the toLowerCase() method to make it case-insensitive
 
       searchResultsForMyMeetings = listOfMyMeetings
-          .where((item) => item.meetingTitle!
-              .toLowerCase()
-              .contains(enteredKeyword.toLowerCase()))
+          .where((item) =>
+              getConferenceHallName(item?.conferenceName)
+                  ?.toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ??
+              false)
           .toList();
 
       print('${searchResultsForTodayMeetings} searhed searched searcheddddddd');
