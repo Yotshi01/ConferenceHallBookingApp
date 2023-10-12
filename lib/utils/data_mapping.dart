@@ -53,3 +53,26 @@ List<BookingData> myMeetings() {
   }
   return myBookings;
 }
+
+List<BookingData> myOldMeetings() {
+  List<BookingData> myOldBookings = [];
+  if (currentUserData != null) {
+    // Check if currentUserData is not null
+    for (var booking in listOfMyMeetings) {
+      // print('${currentUserData!.id} ${booking.userId}');
+      if (DateTime.now().isAfter(booking.bookingDate as DateTime) ){
+        // Use currentUserData without ! here
+        myOldBookings.add(booking);
+        print(myOldBookings);
+        print('${myOldBookings} how old are you!!!!!!!!!!!!!!!!');
+      }
+      else{
+        print('found the error error error');
+      }
+    }
+    print('${myOldBookings} 1111111111111111 ${currentUserData!.id}');
+  } else {
+    print('currentUserData is empty');
+  }
+  return myOldBookings;
+}

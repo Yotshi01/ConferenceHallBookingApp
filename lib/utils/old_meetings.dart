@@ -1,35 +1,49 @@
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/screens/details_screen.dart';
 
-class OldMeetings extends StatelessWidget {
-  final List<Map<String, dynamic>> _meetings = [
-    {"id": 1, "conference": "conference1"},
-    {"id": 2, "conference": "conference2"},
-    {"id": 3, "conference": "conference3"},
-    {"id": 4, "conference": "conference4"},
-    {"id": 5, "conference": "conference5"},
-    {"id": 6, "conference": "conference6"},
-    {"id": 7, "conference": "conference7"},
-  ];
+class MyOldConferences extends StatefulWidget {
+  MyOldConferences({super.key});
+
+  @override
+  State<MyOldConferences> createState() => _MyOldConferencesState();
+}
+
+class _MyOldConferencesState extends State<MyOldConferences> {
+  // listOfMyMeetings;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     begin: Alignment(0.21, -0.98),
-        //     end: Alignment(-0.21, 0.98),
-        //     colors: [Colors.white, Color(0x00DBCC95)],
-        //   ),
-        // ),
-        // color: Colors.blue,
-        height: screenHeight * 0.2,
+    final List<BookingData> finalBookings = isSearched == false
+        ? listOfMyOldMeetings
+        : listOfFoundBookingsFromMyOldMeetings;
+    print('${listOfMyOldMeetings} dsjnoldoldoldoldoldoldoldoldoldold');
+    return finalBookings.isNotEmpty
+        ? SizedBox(
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     begin: Alignment(0.21, -0.98),
+      //     end: Alignment(-0.21, 0.98),
+      //     colors: [Colors.white, Color(0x00DBCC95)],
+      //   ),
+      // ),
+      // color: Colors.blue,
+        height: screenHeight * 0.33,
         child: ListView.builder(
             padding: const EdgeInsets.all(0.0),
             scrollDirection: Axis.horizontal,
-            itemCount: _meetings.length,
+            itemCount: finalBookings.length,
             itemBuilder: (context, index) {
-              final data = _meetings[index];
+              final bookingData = finalBookings[index];
+              final conferenceHallName = bookingData.conferenceName != null
+                  ? getConferenceHallName(bookingData.conferenceName!)
+                  : 'Unknown Conference Hall';
+
+              final locationName = bookingData.locationName != null
+                  ? getLocationName(bookingData.locationName!)
+                  : 'Unknown Location';
+
+              print(bookingData);
               return Padding(
                   padding: EdgeInsets.fromLTRB(
                       screenWidth * 0.027,
@@ -37,7 +51,7 @@ class OldMeetings extends StatelessWidget {
                       screenWidth * 0,
                       screenHeight * 0.01),
                   child: Container(
-                    key: ValueKey(data["id"]),
+                    key: ValueKey(bookingData.bookingId),
                     width: screenWidth * 0.46,
                     // height: screenHeight * 0.2,
                     decoration: ShapeDecoration(
@@ -56,67 +70,125 @@ class OldMeetings extends StatelessWidget {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: screenHeight * 0.02,
+                              horizontal: screenWidth * 0.01,
+                            ),
+                            child: Image.asset(
+                              "assets/images/meeting-room5.png",
+                              width: screenWidth * 0.3,
+                              height: screenHeight * 0.1,
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              // Add your onPressed callback function here
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => DetailsScreen(
+                                          currentBookingData: bookingData,
+                                          currentConferenceRoomName:
+                                          conferenceHallName,
+                                          currentLocationName:
+                                          locationName)));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                              Color(0x59FFC304), // Background color
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              elevation: 4, // Shadow blur radius
+                            ),
+                            child: Container(
+                              width: 91,
+                              height: 27,
+                              child: const Center(
+                                child: Text(
+                                  "View Detail",
+                                  style: TextStyle(
+                                    color: Colors.black, // Text color
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            //   child: Text(
+                            // 'Conference Room Floor - 02',
+                              child: Text(
+                                conferenceHallName,
+                                style: TextStyle(
+                                  color: Color(0xFFB88D05),
+                                  fontSize: 13,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              )),
+                          const Divider(
+                            indent: 10,
+                            endIndent: 10,
+                            color: Color(
+                                0xFFC2C0C0), // Set the color of the divider line
+                            thickness:
+                            1, // Set the thickness of the divider line
+                          ),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+                                child: Text(
+                                  '${bookingData.meetingTitle}',
+                                  // textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              )),
                           Row(
                             children: [
                               Icon(
                                 Icons
-                                    .pin_drop_outlined, // Replace with the icon you want
-                                color:
-                                    Colors.amber, // Set the color of the icon
-                                size: 51, // Set the size of the icon
+                                    .av_timer, // Replace with the icon you want
+                                color: Color(
+                                    0xFF696767), // Set the color of the icon
+                                size: 24, // Set the size of the icon
                               ),
                               // SizedBox(
                               //     width:
                               //         8), // Add some spacing between the icon and text
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      vertical: 5,
-                                    ),
-                                    child: Text(
-                                      'Raipur',
-                                      style: TextStyle(
-                                        color: Color(0xFF131212),
-                                        fontSize: 13,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w700,
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 0,
                                       ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 90,
-                                    decoration: ShapeDecoration(
-                                      shape: RoundedRectangleBorder(
-                                        side: BorderSide(
-                                          width: 0.50,
-                                          strokeAlign:
-                                              BorderSide.strokeAlignCenter,
-                                          color: Color(0xFFD7D7D7),
+                                      child: Text(
+                                        '${bookingData.bookingDate} | ${bookingData.strTime} to ${bookingData.endTime}',
+                                        style: TextStyle(
+                                          color: Color(0xFF696767),
+                                          fontSize: 12,
+                                          fontFamily: 'Noto Sans',
+                                          fontWeight: FontWeight.w500,
                                         ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 5),
-                                    child: Text(
-                                      'Sat 25 Aug 2023',
-                                      // textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: Color(0xFF9B9595),
-                                        fontSize: 10,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              )
+                                      )))
                             ],
                           )
                         ]),
                   ));
-            }));
+            }))
+        : const Center(
+      child: Text(
+        'No results found',
+        style: TextStyle(fontSize: 24),
+      ),
+    );
   }
 }
