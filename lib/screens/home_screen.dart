@@ -94,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
           listOfCurrentUserData = [currentUserData!];
           print(listOfCurrentUserData.length);
           listOfMyMeetings = myMeetings();
+          listOfMyOldMeetings = myOldMeetings();
           print('${listOfMyMeetings} 8888888888888888');
+          print('${listOfMyOldMeetings} 2673883');
         } else {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
@@ -126,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
     print('filter filter filter ${enteredKeyword}');
     List<BookingData> searchResultsForTodayMeetings = [];
     List<BookingData> searchResultsForMyMeetings = [];
+    List<BookingData> searchResultsForMyOldMeetings = [];
     if (enteredKeyword.isEmpty) {
       // if the search field is empty or only contains white-space, we'll display all users
       searchResultsForTodayMeetings = [];
@@ -150,8 +153,15 @@ class _HomeScreenState extends State<HomeScreen> {
               .contains(enteredKeyword.toLowerCase()))
           .toList();
 
+      searchResultsForMyOldMeetings = listOfMyOldMeetings
+          .where((item) => item.meetingTitle!
+          .toLowerCase()
+          .contains(enteredKeyword.toLowerCase()))
+          .toList();
+
       print('${searchResultsForTodayMeetings} searhed searched searcheddddddd');
       print('${searchResultsForMyMeetings} searhed searched searcheddddddd');
+      print('${searchResultsForMyOldMeetings} searhed searched searcheddddddd ololololo');
     }
 
     setState(() {
@@ -159,11 +169,15 @@ class _HomeScreenState extends State<HomeScreen> {
           searchResultsForTodayMeetings; // Update the state here to trigger a rebuild
       listOfFoundBookingsFromMyMeetings = searchResultsForMyMeetings;
       enteredKeywordState = enteredKeyword;
+      listOfFoundBookingsFromMyOldMeetings = searchResultsForMyOldMeetings;
+      enteredKeywordState = enteredKeyword;
     });
     print(
         '${listOfFoundBookingsFromAllMeetings} list of found bookings ${enteredKeywordState}');
     print(
         '${listOfFoundBookingsFromMyMeetings} list of found bookings ${enteredKeywordState}');
+    print(
+        '${listOfFoundBookingsFromMyOldMeetings} list of found bookings ${enteredKeywordState}');
   }
 
   @override
@@ -374,7 +388,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Color(0xFFC2C0C0), // Set the color of the divider line
                   thickness: 1, // Set the thickness of the divider line
                 ),
-                OldMeetings(),
+                MyOldConferences(),
               ],
             ),
           ),

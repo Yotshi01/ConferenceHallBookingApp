@@ -58,6 +58,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         return Appointment(
           startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
           endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+          // startTime: DateTime.parse(data.strTime!),
+          // endTime: DateTime.parse(data.endTime!),
           subject: data.meetingTitle!,
           color: color, // Use the random color
         );

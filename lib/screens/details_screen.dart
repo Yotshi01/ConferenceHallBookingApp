@@ -50,17 +50,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
               letterSpacing: 0.16,
             ),
           ),
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.notifications,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                // do something
-              },
-            )
-          ],
+
+
+
+
+
         ),
         body: SingleChildScrollView(
             child: Container(
