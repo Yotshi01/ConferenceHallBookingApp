@@ -24,6 +24,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
   TextEditingController _otherDetailsController = TextEditingController();
+  DateTime? selectedDate;
+  DateTime dateTime = DateTime(2022, 12, 24);
+  TimeOfDay? selectedStartTime;
+  TimeOfDay printedStartTime = TimeOfDay(hour: 4, minute: 24);
+  TimeOfDay? selectedEndTime;
+  TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
+
+  Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
+        context: context,
+        initialDate: DateTime.now().add(Duration(seconds: 1)),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2100),
+      );
+
+  Future<TimeOfDay?> _selectedTime(BuildContext context) {
+    final now = DateTime.now();
+    return showTimePicker(
+        context: context,
+        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -641,9 +661,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     width: 300,
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        // Handle button tap here
-                                        print('Button tapped');
+                                      onPressed: () async {
+                                        final date =
+                                            await _selectedDate(context);
+                                        if (date == null) return;
+                                        setState(() {
+                                          dateTime = date;
+                                          selectedDate = date;
+                                        });
+                                        print(date);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(300,
@@ -669,8 +695,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               width:
                                                   8), // Add some spacing between the icon and text
                                           Text(
-                                            // controller: _meetingTitleController,
-                                            '${widget.currentBookingData.bookingDate}',
+                                            selectedDate != null
+                                                ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
+                                                :
+                                                // controller: _meetingTitleController,
+                                                '${widget.currentBookingData.bookingDate}',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 14,
@@ -717,9 +746,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       SizedBox(
                                         width: 100,
                                         child: ElevatedButton(
-                                          onPressed: () {
+                                          onPressed: () async {
                                             // Handle button tap here
                                             print('Button tapped');
+                                            final time =
+                                                await _selectedTime(context);
+                                            if (time == null) return;
+                                            print(selectedStartTime);
+                                            setState(() {
+                                              printedStartTime = time;
+                                              selectedStartTime = time;
+                                            });
                                           },
                                           style: ElevatedButton.styleFrom(
                                             minimumSize: Size(100,
@@ -746,7 +783,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                       8), // Add some spacing between the icon and text
                                               Text(
                                                 // controller: _meetingTitleController,
-                                                '${widget.currentBookingData.strTime}',
+                                                selectedStartTime != null
+                                                    ? '${printedStartTime.hour} ${printedStartTime.minute}'
+                                                    : '${widget.currentBookingData.strTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 14,
@@ -776,9 +815,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       SizedBox(
                                         width: 100,
                                         child: ElevatedButton(
-                                          onPressed: () {
+                                          onPressed: () async {
                                             // Handle button tap here
                                             print('Button tapped');
+                                            final time =
+                                                await _selectedTime(context);
+                                            if (time == null) return;
+                                            print(selectedEndTime);
+                                            setState(() {
+                                              printedEndTime = time;
+                                              selectedEndTime = time;
+                                            });
                                           },
                                           style: ElevatedButton.styleFrom(
                                             minimumSize: Size(100,
@@ -805,7 +852,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                       8), // Add some spacing between the icon and text
                                               Text(
                                                 // controller: _meetingTitleController,
-                                                '${widget.currentBookingData.endTime}',
+                                                selectedEndTime != null
+                                                    ? '${printedEndTime.hour} ${printedEndTime.minute}'
+                                                    : '${widget.currentBookingData.endTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 14,

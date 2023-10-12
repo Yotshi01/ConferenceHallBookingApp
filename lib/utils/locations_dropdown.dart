@@ -73,7 +73,10 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
               items: locationsList?.map((location) {
                     return DropdownMenuItem(
                       value: location.locationName,
-                      child: Text(location.locationName ?? ''),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Text(location.locationName ?? ''),
+                      ),
                     );
                   }).toList() ??
                   [], // Use the location names from the API
