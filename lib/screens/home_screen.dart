@@ -270,7 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Today’s Meeting',
+                      'All Meetings',
                       // textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Color(0xFF615E5E),
@@ -377,8 +377,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       'Old Meeting',
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Color(0xFF615E5E),
+                      style: TextStyle(color: Color(0xFFB88D05),
+                        //color: Color(0xFF615E5E),
                         fontSize: 16,
                         fontFamily: 'Noto Sans',
                         fontWeight: FontWeight.w500,

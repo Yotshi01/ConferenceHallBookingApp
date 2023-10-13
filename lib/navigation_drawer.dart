@@ -25,8 +25,9 @@ class NavigationDrawerFile extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-        color: const Color(0x28FFC677),
-        // elevation: 2,
+      //color: Color.fromARGB(255, 241, 231, 195),
+    // elevation: 2,
+    color: Colors.black54,
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -53,7 +54,7 @@ class NavigationDrawerFile extends StatelessWidget {
                     //padding: const EdgeInsets.all(24),
                     //Icon(CupertinoIcons.person_alt_circle,size: 35),
                     Icon(Icons.account_circle_rounded,
-                        size: 120, color: Colors.black26),
+                        size: 120, color: Colors.white54),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +66,9 @@ class NavigationDrawerFile extends StatelessWidget {
                           child: Text(
                             'Username',
                             style: TextStyle(
-                                fontSize: 35, color: Colors.amber[800]),
+                                fontSize: 35, //color: Color(0xFFB88D05)
+                              color: Colors.white,
+                               ),
                           ),
 
                         ),
@@ -86,13 +89,13 @@ class NavigationDrawerFile extends StatelessWidget {
         runSpacing: 16,
         children: [
           ListTile(
-            tileColor: Color.fromRGBO(255, 170, 0, 0.19),
+            tileColor: Colors.black54,
 
             leading: Icon(
               Icons.home,
-              color: Colors.amber[800],
+              color: Colors.white,
             ),
-            title: const Text('Home'),
+            title: const Text('Home',style: TextStyle(color: Colors.white ),),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const HomeScreen(),
@@ -101,9 +104,9 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           
           ListTile(
-              tileColor: Color.fromRGBO(255, 170, 0, 0.19),
-              leading: Icon(Icons.logout, color: Colors.amber[800]),
-              title: const Text('Log out'),
+              tileColor: Colors.black54,
+              leading: Icon(Icons.logout,color: Colors.white, ),//color: Color(0xFFB88D05)
+              title: const Text('Log out',style: TextStyle(color: Colors.white ),),
               onTap: () async {
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
                 //   builder: (context) => const LoginScreen(),

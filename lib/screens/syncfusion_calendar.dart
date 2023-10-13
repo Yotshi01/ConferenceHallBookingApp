@@ -84,10 +84,10 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         title: Text('Event Calendar'),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.amber[600],
+        backgroundColor: Color.fromARGB(255, 241, 231, 195),
         child: Icon(
           Icons.add,
-          color: Colors.white,
+          color: Colors.black,
         ),
         onPressed: () {
           // showDialog(
@@ -140,7 +140,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         endTime: DateTime(date.year, date.month, date.day, 19, 59, 59),
 
         //recurrenceRule: 'FREQ=WEEKLY;INTERVAL=1;BYDAY=SUN',
-        color: Color(0xffbD3D3D3),
+        color: Color.fromARGB(255, 241, 231, 195),
       ));
     }
     for (final date in specifiedDates) {

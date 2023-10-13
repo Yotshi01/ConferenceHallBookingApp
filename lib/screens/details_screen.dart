@@ -84,7 +84,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   bottom: screenHeight * 0.03,
                 ),
                 width: screenWidth,
-                // height: screenHeight,
+
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.21, -0.98),
@@ -93,12 +93,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.03,
+                      height: screenHeight * 0.01,
                     ),
-                    // bookNow(context),
+
                     // SizedBox(
                     //   height: screenHeight * 0.02,
                     // ),
@@ -165,134 +164,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ],
                                     ),
                                   ),
-                                  Text(
-                                    'Meeting Title',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+
                                   Text(
                                     '${widget.currentBookingData.meetingTitle}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
                                       fontFamily: 'Noto Sans',
-                                      // fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Location',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
+                                      // fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                   Divider(
                                     color: Color(
                                         0xFFC2C0C0), // Set the color of the divider line
                                     thickness:
-                                        1, // Set the thickness of the divider line
+                                    1, // Set the thickness of the divider line
                                   ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons
-                                            .pin_drop_outlined, // Replace with the icon you want
-                                        color: Colors
-                                            .yellow, // Set the color of the icon
-                                        size: 24, // Set the size of the icon
+
+                                  SizedBox(
+                                    height: screenHeight*0.01,
+                                  ),
+                                  Align(alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      widget.currentConferenceRoomName,
+                                      style: TextStyle(
+                                        color: Color(0xFFB88D05),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
                                       ),
-                                      // SizedBox(
-                                      //     width:
-                                      //         8), // Add some spacing between the icon and text
-                                      Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 5,
-                                              ),
-                                              child: Text(
-                                                widget.currentLocationName,
-                                                style: TextStyle(
-                                                  color: Color(0xFF696767),
-                                                  fontSize: 14,
-                                                  fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              )))
-                                    ],
-                                  ),
+                                    ),),
+
                                   SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Conference Room Name',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  Text(
-                                    widget.currentConferenceRoomName,
-                                    style: TextStyle(
-                                      color: Color(0xFFB88D05),
-                                      fontSize: 16,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    getConferenceHallDescription(widget
-                                        .currentBookingData.conferenceName!),
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      // fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Date',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
+                                    height: screenHeight*0.01,
                                   ),
                                   Row(
                                     children: [
@@ -301,7 +206,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             .calendar_month, // Replace with the icon you want
                                         color: Color(
                                             0xFF696767), // Set the color of the icon
-                                        size: 24, // Set the size of the icon
+                                        size: 20, // Set the size of the icon
                                       ),
                                       // SizedBox(
                                       //     width:
@@ -320,35 +225,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   fontFamily: 'Noto Sans',
                                                   fontWeight: FontWeight.w500,
                                                 ),
-                                              )))
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Timing',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  Row(
-                                    children: [
+                                              ))),
+                                      SizedBox(width: screenWidth*0.05,),
                                       Icon(
                                         Icons
                                             .av_timer, // Replace with the icon you want
                                         color: Color(
                                             0xFF696767), // Set the color of the icon
-                                        size: 24, // Set the size of the icon
+                                        size: 20, // Set the size of the icon
                                       ),
                                       // SizedBox(
                                       //     width:
@@ -370,37 +254,66 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               )))
                                     ],
                                   ),
+                                  SizedBox(height: screenHeight*0.01),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons
+                                            .pin_drop_outlined, // Replace with the icon you want
+                                        color: Color(0xFF696767),
+                                        size: 20, // Set the size of the icon
+                                      ),
+                                      // SizedBox(
+                                      //     width:
+                                      //         8), // Add some spacing between the icon and text
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 5,
+                                              ),
+                                              child: Text(
+                                                widget.currentLocationName,
+                                                style: TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 14,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              )))
+                                    ],
+                                  ),
+                                  // Text(
+                                  //   'Location',
+                                  //   style: TextStyle(
+                                  //     color: Colors.black,
+                                  //     fontSize: 14,
+                                  //     fontFamily: 'Noto Sans',
+                                  //     fontWeight: FontWeight.w700,
+                                  //   ),
+                                  // ),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  //),
                                   SizedBox(
-                                    height: 20,
+                                    height: screenHeight*0.01,
                                   ),
-                                  Text(
-                                    'Meeting Description',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  SizedBox(
-                                    width: 304,
-                                    height: 67,
-                                    child: Text(
+
+
+
+                                    Text(
                                       '${widget.currentBookingData.meetingDes}',
                                       style: TextStyle(
-                                        color: Color(0xFF918C8C),
+                                        color: Colors.black87,
                                         fontSize: 14,
                                         fontFamily: 'Noto Sans',
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
-                                  ),
+                                  SizedBox(height: screenHeight*0.02),
                                   Text(
                                     'About Room',
                                     style: TextStyle(
@@ -420,14 +333,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     getConferenceHallDescription(widget
                                         .currentBookingData.conferenceName!),
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.grey[850],
                                       fontSize: 14,
                                       fontFamily: 'Noto Sans',
                                       // fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 20,
+                                    height: screenHeight*0.01,
                                   ),
                                   Text(
                                     'Other Details',
@@ -563,7 +476,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ],
                                     ),
                                   ),
-                                  Text(
+                                  Align(alignment: Alignment.centerLeft,
+                                    child: Text(
                                     'Meeting Title',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -571,13 +485,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
+                                  SizedBox(height: screenHeight*0.01),
                                   SizedBox(
                                     width: 300,
                                     // height: 25,
@@ -609,7 +524,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
+                                Align(alignment: Alignment.centerLeft,
+                                  child:Text(
                                     'Location',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -617,13 +533,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   // Row(
                                   //   children: [
                                   //     Icon(
@@ -643,7 +560,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
+                                  Align(alignment: Alignment.centerLeft,
+                                  child:Text(
                                     'Conference Room Name',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -651,13 +569,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   // Text(
                                   //   widget.currentConferenceRoomName,
                                   //   style: TextStyle(
@@ -671,10 +590,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                Align(alignment: Alignment.centerLeft,
+                                  child: Text(
                                     'Date',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -682,13 +602,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   SizedBox(
                                     width: 300,
                                     child: ElevatedButton(
@@ -747,7 +668,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
+                                  Align(alignment: Alignment.centerLeft,child:Text(
                                     'Timing',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -755,13 +676,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -908,7 +830,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Text(
+                                  Align(alignment: Alignment.centerLeft,
+                                  child: Text(
                                     'Meeting Description',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -916,13 +839,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   SizedBox(
                                     width: 300,
                                     // height: 25,
@@ -955,8 +879,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-
-                                  Text(
+                                  Align(alignment: Alignment.centerLeft,
+                                  child:Text(
                                     'Other Details',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -964,13 +888,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       fontFamily: 'Noto Sans',
                                       fontWeight: FontWeight.w700,
                                     ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
+                                  ),),
+                                  SizedBox(height: screenHeight*0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
                                   SizedBox(
                                     width: 300,
                                     // height: 25,
