@@ -13,6 +13,7 @@ export 'package:conference_hall_booking/models/locations.dart';
 export 'package:conference_hall_booking/models/login_model.dart';
 export 'package:conference_hall_booking/models/current_user_model.dart';
 export 'package:conference_hall_booking/models/updateBookingModel.dart';
+export 'package:conference_hall_booking/models/add_booking_model.dart';
 
 export 'package:conference_hall_booking/utils/data_mapping.dart';
 export 'package:conference_hall_booking/utils/meeting_request_buttons.dart';

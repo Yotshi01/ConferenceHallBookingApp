@@ -86,6 +86,8 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   conferenceRoomChoosed = newValue.toString();
                   toBeUpdatedBookingData.conferenceName =
                       getConferenceHallId(conferenceRoomChoosed!);
+                  toBeAddedBookingData.conferenceName =
+                      getConferenceHallId(conferenceRoomChoosed!);
                 });
               },
               value: conferenceRoomChoosed,

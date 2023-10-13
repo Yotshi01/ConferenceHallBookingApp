@@ -23,3 +23,4 @@ List<BookingData> listOfFoundBookingsFromAllMeetings = [];
 List<BookingData> listOfFoundBookingsFromMyMeetings = [];
 List<BookingData> listOfFoundBookingsFromMyOldMeetings = [];
 BookingData toBeUpdatedBookingData = BookingData();
+BookingData toBeAddedBookingData = BookingData();

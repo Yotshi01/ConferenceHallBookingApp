@@ -76,3 +76,59 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
     throw Exception('Failed to update booking details');
   }
 }
+
+Future<AddBooking> addBooking(BookingData value) async {
+  String url = testUrl + "add_booking";
+  Uri urlUri = Uri.parse(url);
+  // var requestBody = {
+  //   "booking_date": toBeAddedBookingData.bookingDate,
+  //   "str_time": toBeAddedBookingData.strTime,
+  //   "end_time": toBeAddedBookingData.endTime,
+  //   "meeting_title": toBeAddedBookingData.meetingTitle,
+  //   "location_id": toBeAddedBookingData.locationName.toString(),
+  //   "conference_id": toBeAddedBookingData.conferenceName.toString(),
+  //   "meeting_description": toBeAddedBookingData.meetingDes,
+  //   "other_details": toBeAddedBookingData.otherDetails,
+  //   "booking_status": toBeAddedBookingData.bookingStatus,
+  //   "user_id": toBeAddedBookingData.userId.toString(),
+  //   "created_at": toBeUpdatedBookingData.createdAt,
+  // };
+
+  var requestBody = {
+    "booking_date": toBeAddedBookingData?.bookingDate ?? '',
+    "str_time": toBeAddedBookingData?.strTime ?? '',
+    "end_time": toBeAddedBookingData?.endTime ?? '',
+    "meeting_title": toBeAddedBookingData?.meetingTitle ?? '',
+    "location_id": toBeAddedBookingData?.locationName?.toString() ?? '',
+    "conference_id": toBeAddedBookingData?.conferenceName?.toString() ?? '',
+    "meeting_description": toBeAddedBookingData?.meetingDes ?? '',
+    "other_details": toBeAddedBookingData?.otherDetails ?? '',
+    "booking_status": toBeAddedBookingData?.bookingStatus ?? '',
+    "user_id": toBeAddedBookingData?.userId?.toString() ?? '',
+    "created_at": toBeUpdatedBookingData?.createdAt ?? '',
+  };
+
+  print('<==============================>');
+  print(toBeAddedBookingData.bookingDate);
+  print(toBeAddedBookingData.strTime);
+  print(toBeAddedBookingData.endTime);
+  print(toBeAddedBookingData.meetingTitle);
+  print(toBeAddedBookingData.locationName);
+  print(toBeAddedBookingData.conferenceName);
+  print(toBeAddedBookingData.meetingDes);
+  print(toBeAddedBookingData.otherDetails);
+  print(toBeAddedBookingData.bookingStatus);
+  print(toBeAddedBookingData.userId.toString());
+  print(toBeAddedBookingData.createdAt);
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: requestBody);
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return AddBooking.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add booking details');
+  }
+}

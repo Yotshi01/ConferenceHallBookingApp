@@ -54,6 +54,11 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       _appointments = bookingDetails.data!.asMap().entries.map((entry) {
         final data = entry.value;
         final color = appointmentColors[entry.key];
+        print(
+            '${data.bookingDate} ${data.bookingDate.runtimeType} date format incorrect error check');
+
+        print(
+            '${data.strTime} ${data.strTime.runtimeType} start time format incorrect error check');
 
         return Appointment(
           startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),

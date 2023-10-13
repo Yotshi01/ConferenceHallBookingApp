@@ -86,6 +86,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   locationChoosed = newValue.toString();
                   toBeUpdatedBookingData.locationName =
                       getLocationId(locationChoosed!);
+                  toBeAddedBookingData.locationName =
+                      getLocationId(locationChoosed!);
                 });
               },
               value: locationChoosed,
