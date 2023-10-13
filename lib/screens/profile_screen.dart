@@ -46,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Profile'),
-        backgroundColor: Colors.amber,
+        backgroundColor: Color.fromARGB(255, 241, 231, 195),
       ),
       body: SingleChildScrollView(
       child: Padding(
@@ -84,10 +84,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Container(
+            Container(padding: EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical:
+                1),
               width: 350,
               height: 50,
-              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              color: Colors.grey[300],
               child: Column(
                 children: [
                   TextFormField(
@@ -106,10 +109,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Container(
+            Container(padding: EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical:
+                1),
               width: 350,
               height: 50,
-              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              color:Colors.grey[300],
               child: Column(
                 children: [
                   TextFormField(
@@ -130,10 +136,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Container(
+            Container(padding: EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical:
+                1),
               width: 350,
               height: 50,
-              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              color: Colors.grey[300],
               child: Column(
                 children: [
                   TextFormField(
@@ -152,10 +161,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            Container(
+            Container(padding: EdgeInsets.symmetric(
+                horizontal: 15.0,
+                vertical:
+                1),
               width: 350,
               height: 50,
-              color: const Color.fromRGBO(255, 170, 0, 0.19),
+              color: Colors.grey[300],
+              //color: const Color.fromRGBO(255, 170, 0, 0.19),
               child: Column(
                 children: [
                   TextFormField(
@@ -210,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
               child: Text('Save Changes'),
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
+                backgroundColor: MaterialStateProperty.all<Color>(Color.fromARGB(255, 241, 231, 195)),
               ),
             ),
           ],

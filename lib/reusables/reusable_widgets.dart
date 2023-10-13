@@ -60,14 +60,14 @@ ElevatedButton bookNow(BuildContext context) {
       }
     },
     style: ElevatedButton.styleFrom(
-      backgroundColor: Color(0xFFFFC304),
+      backgroundColor: Colors.amber,
       elevation: 4,
     ),
     child: Container(
       width: screenWidth * 0.5,
       height: screenHeight * 0.06,
       decoration: BoxDecoration(
-        color: Color(0xFFFFC304),
+        color: Colors.amber,
         boxShadow: [
           BoxShadow(
             color: Color(0x3F000000),
@@ -81,7 +81,7 @@ ElevatedButton bookNow(BuildContext context) {
         child: Text(
           "Book Now",
           style: TextStyle(
-            color: Colors.black, // You can set your text color here
+            color: Colors.black87, // You can set your text color here
             fontWeight: FontWeight.bold,
             fontSize: 16,
           ),

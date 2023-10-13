@@ -28,7 +28,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
       //   ),
       // ),
       // color: Colors.blue,
-        height: screenHeight * 0.33,
+        height: screenHeight * 0.2,
         child: ListView.builder(
             padding: const EdgeInsets.all(0.0),
             scrollDirection: Axis.horizontal,
@@ -68,73 +68,20 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                       ],
                     ),
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: screenHeight * 0.02,
-                              horizontal: screenWidth * 0.01,
-                            ),
-                            child: Image.asset(
-                              "assets/images/meeting-room5.png",
-                              width: screenWidth * 0.3,
-                              height: screenHeight * 0.1,
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              // Add your onPressed callback function here
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailsScreen(
-                                          currentBookingData: bookingData,
-                                          currentConferenceRoomName:
-                                          conferenceHallName,
-                                          currentLocationName:
-                                          locationName)));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                              Color(0x59FFC304), // Background color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              elevation: 4, // Shadow blur radius
-                            ),
-                            child: Container(
-                              width: 91,
-                              height: 27,
-                              child: const Center(
-                                child: Text(
-                                  "View Detail",
-                                  style: TextStyle(
-                                    color: Colors.black, // Text color
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            //   child: Text(
-                            // 'Conference Room Floor - 02',
-                              child: Text(
-                                conferenceHallName,
-                                style: TextStyle(
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 13,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )),
-                          const Divider(
-                            indent: 10,
-                            endIndent: 10,
-                            color: Color(
-                                0xFFC2C0C0), // Set the color of the divider line
-                            thickness:
-                            1, // Set the thickness of the divider line
-                          ),
+                          // Padding(
+                          //   padding: EdgeInsets.symmetric(
+                          //     vertical: screenHeight * 0.02,
+                          //     horizontal: screenWidth * 0.01,
+                          //   ),
+                          //   child: Image.asset(
+                          //     "assets/images/meeting-room5.png",
+                          //     width: screenWidth * 0.3,
+                          //     height: screenHeight * 0.1,
+                          //   ),
+                          // ),
+                          SizedBox(height: screenHeight*0.013,),
                           Align(
                               alignment: Alignment.centerLeft,
                               child: Padding(
@@ -145,25 +92,26 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                   '${bookingData.meetingTitle}',
                                   // textAlign: TextAlign.left,
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
+                                    //color: Colors.black,
+                                    color: Color(0xFFB88D05),
+                                    fontSize: 16,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               )),
+                          const Divider(
+                            indent: 10,
+                            endIndent: 10,
+                            color: Color(
+                                0xFFC2C0C0), // Set the color of the divider line
+                            thickness:
+                            1, // Set the thickness of the divider line
+                          ),
                           Row(
                             children: [
-                              Icon(
-                                Icons
-                                    .av_timer, // Replace with the icon you want
-                                color: Color(
-                                    0xFF696767), // Set the color of the icon
-                                size: 24, // Set the size of the icon
-                              ),
-                              // SizedBox(
-                              //     width:
-                              //         8), // Add some spacing between the icon and text
+                              SizedBox(
+                                  width: screenWidth*0.024), // Add some spacing between the icon and text
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -174,13 +122,72 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                         '${bookingData.bookingDate} | ${bookingData.strTime} to ${bookingData.endTime}',
                                         style: TextStyle(
                                           color: Color(0xFF696767),
-                                          fontSize: 12,
+                                          fontSize: 13,
                                           fontFamily: 'Noto Sans',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       )))
                             ],
+                          ),
+                          SizedBox(height: screenHeight*0.007),
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                              child: Text(
+                                conferenceHallName,
+                                style: TextStyle(
+                                  color:Color(0xFFB88D05),
+                                  fontSize: 12,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w600,
+
+                                ),
+                              ))),
+                          SizedBox(height: screenHeight*0.0115,),
+                          SizedBox(
+                            height: 30,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Add your onPressed callback function here
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsScreen(
+                                            currentBookingData: bookingData,
+                                            currentConferenceRoomName:
+                                            conferenceHallName,
+                                            currentLocationName:
+                                            locationName)));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                //Color(0x59FFC304), // Background color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15),
+                                  side: BorderSide(color: Color(0xFFB88D05), width: 2),
+                                ),
+                                elevation: 1, // Shadow blur radius
+                              ),
+                              child: Container(
+                                width: 60,
+                                height: 10,
+                                child: const Center(
+                                  child: Text(
+                                    "More Details",
+                                    style: TextStyle(
+                                      color: Color(0xFFB88D05),
+                                      fontSize: 10,//
+                                      // Text color
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           )
+
                         ]),
                   ));
             }))
