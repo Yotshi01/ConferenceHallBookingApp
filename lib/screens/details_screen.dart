@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
+//import 'package:flutter/material.dart';
+//import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/common_packages_export.dart';
 
@@ -559,7 +559,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       style: ElevatedButton.styleFrom(
                                         minimumSize: Size(300,
                                             50), // Adjust the width and height as needed
-                                        primary: Colors.grey[
+                                        backgroundColor: Colors.grey[
                                             200], // Set the background color to light gray
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(
@@ -621,17 +621,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      // Icon(
-                                      //   Icons
-                                      //       .av_timer, // Replace with the icon you want
-                                      //   color: Color(
-                                      //       0xFF696767), // Set the color of the icon
-                                      //   size: 24, // Set the size of the icon
-                                      // ),
-                                      // SizedBox(
-                                      //     width:
-                                      //         8), // Add some spacing between the icon and text
-
                                       SizedBox(
                                         width: 100,
                                         child: ElevatedButton(
@@ -652,7 +641,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           style: ElevatedButton.styleFrom(
                                             minimumSize: Size(100,
                                                 50), // Adjust the width and height as needed
-                                            primary: Colors.grey[
+                                            backgroundColor: Colors.grey[
                                                 200], // Set the background color to light gray
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(
@@ -723,7 +712,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           style: ElevatedButton.styleFrom(
                                             minimumSize: Size(100,
                                                 50), // Adjust the width and height as needed
-                                            primary: Colors.grey[
+                                            backgroundColor: Colors.grey[
                                                 200], // Set the background color to light gray
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(
