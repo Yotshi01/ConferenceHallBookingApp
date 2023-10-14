@@ -2,19 +2,19 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:conference_hall_booking/screens/details_screen.dart';
 
-class TodaysConferences extends StatefulWidget {
-  TodaysConferences({super.key});
+class OtherConferences extends StatefulWidget {
+  OtherConferences({super.key});
 
   @override
-  State<TodaysConferences> createState() => _TodaysConferencesState();
+  State<OtherConferences> createState() => _OtherConferencesState();
 }
 
-class _TodaysConferencesState extends State<TodaysConferences> {
+class _OtherConferencesState extends State<OtherConferences> {
   @override
   Widget build(BuildContext context) {
     final List<BookingData> finalBookings = isSearched == false
-        ? listOfTodayMeetings
-        : listOfFoundBookingFromTodayMeetings;
+        ? listOfOtherMeetings
+        : listOfFoundBookingsFromOtherMeetings;
     print('${isSearched} searched searched');
     print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty

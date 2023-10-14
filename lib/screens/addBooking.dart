@@ -81,84 +81,6 @@ class _AddBookingState extends State<AddBooking> {
                 children: <Widget>[
                   Column(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // if(currentUserData!.id == widget.currentBookingData)
-                          ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            SyncfusionCalendar()));
-                              });
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape:
-                                  CircleBorder(), // Use CircleBorder to make the button circular
-                              backgroundColor: Colors
-                                  .red, // Change the button color to your preference
-                              padding: EdgeInsets.all(
-                                  16.0), // Adjust the padding as needed
-                            ),
-                            child: Icon(
-                              Icons
-                                  .cancel, // You can use your preferred edit icon here
-                              color: Colors
-                                  .white, // Change the icon color to your preference
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                              setState(() {
-                                // toBeUpdatedBookingData.bookingId =
-                                //     widget.currentBookingData
-                                //         .bookingId;
-                                toBeAddedBookingData.meetingTitle =
-                                    _meetingTitleController.text;
-                                toBeAddedBookingData.meetingDes =
-                                    _meetingDescriptionController.text;
-                                toBeAddedBookingData.otherDetails =
-                                    _otherDetailsController.text;
-                                toBeAddedBookingData.createdAt =
-                                    DateTime.now().toString();
-                                toBeAddedBookingData.bookingStatus = 'Active';
-                                toBeAddedBookingData.userId =
-                                    currentUserData!.id;
-                              });
-
-                              var response =
-                                  await addBooking(toBeAddedBookingData);
-
-                              if (response.status == 'success') {
-                                SnackBar(
-                                  content: Text("Booking added successfully!"),
-                                );
-                              } else {
-                                SnackBar(
-                                  content: Text("Failed to add booking"),
-                                );
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape:
-                                  CircleBorder(), // Use CircleBorder to make the button circular
-                              backgroundColor: Colors
-                                  .green, // Change the button color to your preference
-                              padding: EdgeInsets.all(
-                                  16.0), // Adjust the padding as needed
-                            ),
-                            child: Icon(
-                              Icons
-                                  .check, // You can use your preferred edit icon here
-                              color: Colors
-                                  .white, // Change the icon color to your preference
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.01,
@@ -393,7 +315,7 @@ class _AddBookingState extends State<AddBooking> {
                                   printedStartTime = time;
                                   selectedStartTime = time;
                                   toBeAddedBookingData.strTime =
-                                      '${selectedStartTime!.hour}:${selectedStartTime!.minute}';
+                                      '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
                                 });
                               },
                               style: ElevatedButton.styleFrom(
@@ -421,7 +343,7 @@ class _AddBookingState extends State<AddBooking> {
                                   Text(
                                     // controller: _meetingTitleController,
                                     selectedStartTime != null
-                                        ? '${printedStartTime.hour}:${printedStartTime.minute}'
+                                        ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
                                         : 'Start Time',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -462,7 +384,7 @@ class _AddBookingState extends State<AddBooking> {
                                   printedEndTime = time;
                                   selectedEndTime = time;
                                   toBeAddedBookingData.endTime =
-                                      '${selectedEndTime!.hour}:${selectedEndTime!.minute}';
+                                      '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
                                 });
                               },
                               style: ElevatedButton.styleFrom(
@@ -490,7 +412,7 @@ class _AddBookingState extends State<AddBooking> {
                                   Text(
                                     // controller: _meetingTitleController,
                                     selectedEndTime != null
-                                        ? '${printedEndTime.hour}:${printedEndTime.minute}'
+                                        ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
                                         : 'End Time',
                                     style: TextStyle(
                                       color: Colors.black,
@@ -591,6 +513,93 @@ class _AddBookingState extends State<AddBooking> {
                             ),
                           ),
                         ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // if(currentUserData!.id == widget.currentBookingData)
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SyncfusionCalendar()));
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors
+                                  .red, // Change the button color to your preference
+                              padding: EdgeInsets.all(
+                                  16.0), // Adjust the padding as needed
+                            ),
+                            child: Icon(
+                              Icons
+                                  .cancel, // You can use your preferred edit icon here
+                              color: Colors
+                                  .white, // Change the icon color to your preference
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                              setState(() {
+                                // toBeUpdatedBookingData.bookingId =
+                                //     widget.currentBookingData
+                                //         .bookingId;
+                                toBeAddedBookingData.meetingTitle =
+                                    _meetingTitleController.text;
+                                toBeAddedBookingData.meetingDes =
+                                    _meetingDescriptionController.text;
+                                toBeAddedBookingData.otherDetails =
+                                    _otherDetailsController.text;
+                                toBeAddedBookingData.createdAt =
+                                    DateTime.now().toString();
+                                toBeAddedBookingData.bookingStatus = 'Active';
+                                toBeAddedBookingData.userId =
+                                    currentUserData!.id;
+                              });
+
+                              var response =
+                                  await addBooking(toBeAddedBookingData);
+
+                              if (response.status == 'success') {
+                                SnackBar(
+                                  content: Text("Booking added successfully!"),
+                                );
+                              } else {
+                                SnackBar(
+                                  content: Text("Failed to add booking"),
+                                );
+                              }
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          SyncfusionCalendar()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors
+                                  .green, // Change the button color to your preference
+                              padding: EdgeInsets.all(
+                                  16.0), // Adjust the padding as needed
+                            ),
+                            child: Icon(
+                              Icons
+                                  .check, // You can use your preferred edit icon here
+                              color: Colors
+                                  .white, // Change the icon color to your preference
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: 20,

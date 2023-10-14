@@ -94,7 +94,9 @@ class _HomeScreenState extends State<HomeScreen> {
           listOfCurrentUserData = [currentUserData!];
           print(listOfCurrentUserData.length);
           listOfMyMeetings = myMeetings();
+          listOfTodayMeetings = todayMeetings();
           listOfMyOldMeetings = myOldMeetings();
+          listOfOtherMeetings = otherMeetings();
           print('${listOfMyMeetings} 8888888888888888');
           print('${listOfMyOldMeetings} 2673883');
         } else {
@@ -127,12 +129,15 @@ class _HomeScreenState extends State<HomeScreen> {
   void _runFilter(String enteredKeyword) {
     print('filter filter filter ${enteredKeyword}');
     List<BookingData> searchResultsForTodayMeetings = [];
+    List<BookingData> searchResultsForOtherMeetings = [];
     List<BookingData> searchResultsForMyMeetings = [];
     List<BookingData> searchResultsForMyOldMeetings = [];
     if (enteredKeyword.isEmpty) {
       // if the search field is empty or only contains white-space, we'll display all users
       searchResultsForTodayMeetings = [];
+      searchResultsForOtherMeetings = [];
       searchResultsForMyMeetings = [];
+      searchResultsForOtherMeetings = [];
       setState(() {
         isSearched = false;
       });
@@ -140,7 +145,15 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         isSearched = true;
       });
-      searchResultsForTodayMeetings = listOfBookings
+      searchResultsForTodayMeetings = listOfTodayMeetings
+          .where((item) =>
+              getConferenceHallName(item?.conferenceName)
+                  ?.toLowerCase()
+                  .contains(enteredKeyword.toLowerCase()) ??
+              false)
+          .toList();
+
+      searchResultsForOtherMeetings = listOfOtherMeetings
           .where((item) =>
               getConferenceHallName(item?.conferenceName)
                   ?.toLowerCase()
@@ -159,22 +172,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
       searchResultsForMyOldMeetings = listOfMyOldMeetings
           .where((item) => item.meetingTitle!
-          .toLowerCase()
-          .contains(enteredKeyword.toLowerCase()))
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
           .toList();
 
-      print('${searchResultsForTodayMeetings} searhed searched searcheddddddd');
+      print('${searchResultsForOtherMeetings} searhed searched searcheddddddd');
       print('${searchResultsForMyMeetings} searhed searched searcheddddddd');
-      print('${searchResultsForMyOldMeetings} searhed searched searcheddddddd ololololo');
+      print(
+          '${searchResultsForMyOldMeetings} searhed searched searcheddddddd ololololo');
     }
 
     setState(() {
-      listOfFoundBookingsFromAllMeetings =
-          searchResultsForTodayMeetings; // Update the state here to trigger a rebuild
+      listOfFoundBookingFromTodayMeetings = searchResultsForTodayMeetings;
+      listOfFoundBookingsFromOtherMeetings =
+          searchResultsForOtherMeetings; // Update the state here to trigger a rebuild
       listOfFoundBookingsFromMyMeetings = searchResultsForMyMeetings;
       enteredKeywordState = enteredKeyword;
       listOfFoundBookingsFromMyOldMeetings = searchResultsForMyOldMeetings;
-      enteredKeywordState = enteredKeyword;
+      // enteredKeywordState = enteredKeyword;
     });
     print(
         '${listOfFoundBookingsFromAllMeetings} list of found bookings ${enteredKeywordState}');
@@ -270,7 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'All Meetings',
+                      'Today\'s Meetings',
                       // textAlign: TextAlign.left,
                       style: TextStyle(
                         color: Color(0xFF615E5E),
@@ -335,6 +350,51 @@ class _HomeScreenState extends State<HomeScreen> {
                 MyConferences(),
 
                 SizedBox(
+                  height: screenHeight * 0.02,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: screenWidth * 0.03,
+                  ),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      'Other Meetings',
+                      // textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Color(0xFF615E5E),
+                        fontSize: 16,
+                        fontFamily: 'Noto Sans',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                Divider(
+                  indent: 10,
+                  endIndent: 10,
+                  color: Color(0xFFC2C0C0), // Set the color of the divider line
+                  thickness: 1, // Set the thickness of the divider line
+                ),
+                // SizedBox(
+                //   height: screenHeight * 0.03,
+                // ),
+                OtherConferences(),
+                // SizedBox(
+                //   height: screenHeight * 0.01,
+                //   child: Text(
+                //     'My Meetings',
+                //     textAlign: TextAlign.left,
+                //     style: TextStyle(
+                //       color: Color(0xFF615E5E),
+                //       fontSize: 16,
+                //       fontFamily: 'Noto Sans',
+                //       fontWeight: FontWeight.w500,
+                //     ),
+                //   ),
+                // ),
+
+                SizedBox(
                   height: screenHeight * 0.015,
                 ),
                 // Padding(
@@ -377,7 +437,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text(
                       'Old Meeting',
                       textAlign: TextAlign.left,
-                      style: TextStyle(color: Color(0xFFB88D05),
+                      style: TextStyle(
+                        color: Color(0xFFB88D05),
                         //color: Color(0xFF615E5E),
                         fontSize: 16,
                         fontFamily: 'Noto Sans',

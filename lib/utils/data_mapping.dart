@@ -78,6 +78,37 @@ List<BookingData> myMeetings() {
   return myBookings;
 }
 
+List<BookingData> otherMeetings() {
+  List<BookingData> otherBookings = [];
+  if (currentUserData != null) {
+    // Check if currentUserData is not null
+
+    DateTime now = DateTime.now();
+
+    for (var booking in listOfBookings) {
+      String? bookingDateStr = booking.bookingDate;
+
+      if (bookingDateStr != null) {
+        DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
+
+        print('${currentUserData!.id} ${booking.userId}');
+        if (currentUserData!.id != booking.userId &&
+            now.isBefore(bookingDate!)) {
+          // Use currentUserData without ! here
+          otherBookings.add(booking);
+          print(otherBookings);
+        }
+      } else {
+        print('Booking date is null');
+      }
+    }
+    print('${otherBookings} 1111111111111111 ${currentUserData!.id}');
+  } else {
+    print('currentUserData is empty');
+  }
+  return otherBookings;
+}
+
 List<BookingData> myOldMeetings() {
   List<BookingData> myOldBookings = [];
   if (currentUserData != null) {
@@ -91,7 +122,9 @@ List<BookingData> myOldMeetings() {
       if (bookingDateStr != null) {
         DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
 
-        if (bookingDate != null && now.isAfter(bookingDate)) {
+        if (bookingDate != null &&
+            now.isAfter(bookingDate) &&
+            currentUserData!.id == booking.userId) {
           myOldBookings.add(booking);
           print('Added a booking to myOldBookings');
         } else {
@@ -109,4 +142,37 @@ List<BookingData> myOldMeetings() {
   }
 
   return myOldBookings;
+}
+
+List<BookingData> todayMeetings() {
+  List<BookingData> todayBookings = [];
+  if (currentUserData != null) {
+    // Check if currentUserData is not null
+    DateTime now = DateTime.now();
+    DateTime today = DateTime(now.year, now.month, now.day);
+
+    for (var booking in listOfBookings) {
+      // Convert booking.bookingDate from String to DateTime and then compare
+      String? bookingDateStr = booking.bookingDate;
+
+      if (bookingDateStr != null) {
+        DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
+
+        if (bookingDate != null && bookingDate.isAtSameMomentAs(today)) {
+          todayBookings.add(booking);
+          print('Added a booking to todayBookings');
+        } else {
+          print('Booking is not today or invalid date format: $bookingDateStr');
+        }
+      } else {
+        print('Booking date is null');
+      }
+    }
+
+    print('Today Bookings: $todayBookings');
+  } else {
+    print('currentUserData is empty');
+  }
+
+  return todayBookings;
 }

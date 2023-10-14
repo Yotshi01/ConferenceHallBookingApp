@@ -84,7 +84,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   bottom: screenHeight * 0.03,
                 ),
                 width: screenWidth,
-
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.21, -0.98),
@@ -179,13 +178,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     color: Color(
                                         0xFFC2C0C0), // Set the color of the divider line
                                     thickness:
-                                    1, // Set the thickness of the divider line
+                                        1, // Set the thickness of the divider line
                                   ),
 
                                   SizedBox(
-                                    height: screenHeight*0.01,
+                                    height: screenHeight * 0.01,
                                   ),
-                                  Align(alignment: Alignment.centerLeft,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
                                       widget.currentConferenceRoomName,
                                       style: TextStyle(
@@ -194,10 +194,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         fontFamily: 'Noto Sans',
                                         fontWeight: FontWeight.w600,
                                       ),
-                                    ),),
+                                    ),
+                                  ),
 
                                   SizedBox(
-                                    height: screenHeight*0.01,
+                                    height: screenHeight * 0.01,
                                   ),
                                   Row(
                                     children: [
@@ -226,7 +227,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ))),
-                                      SizedBox(width: screenWidth*0.05,),
+                                      SizedBox(
+                                        width: screenWidth * 0.05,
+                                      ),
                                       Icon(
                                         Icons
                                             .av_timer, // Replace with the icon you want
@@ -254,7 +257,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               )))
                                     ],
                                   ),
-                                  SizedBox(height: screenHeight*0.01),
+                                  SizedBox(height: screenHeight * 0.01),
                                   Row(
                                     children: [
                                       Icon(
@@ -299,21 +302,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   //       1, // Set the thickness of the divider line
                                   //),
                                   SizedBox(
-                                    height: screenHeight*0.01,
+                                    height: screenHeight * 0.01,
                                   ),
 
-
-
-                                    Text(
-                                      '${widget.currentBookingData.meetingDes}',
-                                      style: TextStyle(
-                                        color: Colors.black87,
-                                        fontSize: 14,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w400,
-                                      ),
+                                  Text(
+                                    '${widget.currentBookingData.meetingDes}',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                  SizedBox(height: screenHeight*0.02),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.02),
                                   Text(
                                     'About Room',
                                     style: TextStyle(
@@ -340,7 +341,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: screenHeight*0.01,
+                                    height: screenHeight * 0.01,
                                   ),
                                   Text(
                                     'Other Details',
@@ -381,84 +382,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             else
                               Column(
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      // if(currentUserData!.id == widget.currentBookingData)
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            isEditable = false;
-                                          });
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape:
-                                              CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors
-                                              .red, // Change the button color to your preference
-                                          padding: EdgeInsets.all(
-                                              16.0), // Adjust the padding as needed
-                                        ),
-                                        child: Icon(
-                                          Icons
-                                              .cancel, // You can use your preferred edit icon here
-                                          color: Colors
-                                              .white, // Change the icon color to your preference
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          setState(() {
-                                            isEditable = false;
-                                            toBeUpdatedBookingData.bookingId =
-                                                widget.currentBookingData
-                                                    .bookingId;
-                                            toBeUpdatedBookingData
-                                                    .meetingTitle =
-                                                _meetingTitleController.text;
-                                            toBeUpdatedBookingData.meetingDes =
-                                                _meetingDescriptionController
-                                                    .text;
-                                            toBeUpdatedBookingData
-                                                    .otherDetails =
-                                                _otherDetailsController.text;
-                                            toBeUpdatedBookingData.updatedAt =
-                                                DateTime.now().toString();
-                                          });
-
-                                          var response = await updateBooking(
-                                              toBeUpdatedBookingData);
-
-                                          if (response.status == 'success') {
-                                            SnackBar(
-                                              content: Text(
-                                                  "Booking updated successfully!"),
-                                            );
-                                          } else {
-                                            SnackBar(
-                                              content: Text(
-                                                  "Failed to update booking"),
-                                            );
-                                          }
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape:
-                                              CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors
-                                              .green, // Change the button color to your preference
-                                          padding: EdgeInsets.all(
-                                              16.0), // Adjust the padding as needed
-                                        ),
-                                        child: Icon(
-                                          Icons
-                                              .check, // You can use your preferred edit icon here
-                                          color: Colors
-                                              .white, // Change the icon color to your preference
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: screenWidth * 0.01,
@@ -476,23 +399,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ],
                                     ),
                                   ),
-                                  Align(alignment: Alignment.centerLeft,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
                                     child: Text(
-                                    'Meeting Title',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                      'Meeting Title',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
+                                  ),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
                                   //   thickness:
                                   //       1, // Set the thickness of the divider line
                                   // ),
-                                  SizedBox(height: screenHeight*0.01),
+                                  SizedBox(height: screenHeight * 0.01),
                                   SizedBox(
                                     width: 300,
                                     // height: 25,
@@ -524,17 +449,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                Align(alignment: Alignment.centerLeft,
-                                  child:Text(
-                                    'Location',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Location',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -560,17 +487,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Align(alignment: Alignment.centerLeft,
-                                  child:Text(
-                                    'Conference Room Name',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Conference Room Name',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -593,17 +522,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   // SizedBox(
                                   //   height: 20,
                                   // ),
-                                Align(alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Date',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Date',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -668,16 +599,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Align(alignment: Alignment.centerLeft,child:Text(
-                                    'Timing',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Timing',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -712,7 +646,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               printedStartTime = time;
                                               selectedStartTime = time;
                                               toBeUpdatedBookingData.strTime =
-                                                  '${selectedStartTime!.hour}:${selectedStartTime!.minute}';
+                                                  '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
                                             });
                                           },
                                           style: ElevatedButton.styleFrom(
@@ -741,7 +675,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               Text(
                                                 // controller: _meetingTitleController,
                                                 selectedStartTime != null
-                                                    ? '${printedStartTime.hour}:${printedStartTime.minute}'
+                                                    ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
                                                     : '${widget.currentBookingData.strTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -783,7 +717,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               printedEndTime = time;
                                               selectedEndTime = time;
                                               toBeUpdatedBookingData.endTime =
-                                                  '${selectedEndTime!.hour}:${selectedEndTime!.minute}';
+                                                  '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
                                             });
                                           },
                                           style: ElevatedButton.styleFrom(
@@ -812,7 +746,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               Text(
                                                 // controller: _meetingTitleController,
                                                 selectedEndTime != null
-                                                    ? '${printedEndTime.hour}:${printedEndTime.minute}'
+                                                    ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
                                                     : '${widget.currentBookingData.endTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
@@ -830,17 +764,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Align(alignment: Alignment.centerLeft,
-                                  child: Text(
-                                    'Meeting Description',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Meeting Description',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -879,17 +815,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Align(alignment: Alignment.centerLeft,
-                                  child:Text(
-                                    'Other Details',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Other Details',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),),
-                                  SizedBox(height: screenHeight*0.01),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
                                   // Divider(
                                   //   color: Color(
                                   //       0xFFC2C0C0), // Set the color of the divider line
@@ -933,6 +871,90 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       bookingUserId:
                                           widget.currentBookingData.userId!,
                                     ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      // if(currentUserData!.id == widget.currentBookingData)
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            isEditable = false;
+                                          });
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape:
+                                              CircleBorder(), // Use CircleBorder to make the button circular
+                                          backgroundColor: Colors
+                                              .red, // Change the button color to your preference
+                                          padding: EdgeInsets.all(
+                                              16.0), // Adjust the padding as needed
+                                        ),
+                                        child: Icon(
+                                          Icons
+                                              .cancel, // You can use your preferred edit icon here
+                                          color: Colors
+                                              .white, // Change the icon color to your preference
+                                        ),
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          setState(() {
+                                            toBeUpdatedBookingData.bookingId =
+                                                widget.currentBookingData
+                                                    .bookingId;
+                                            toBeUpdatedBookingData
+                                                    .meetingTitle =
+                                                _meetingTitleController.text;
+                                            toBeUpdatedBookingData.meetingDes =
+                                                _meetingDescriptionController
+                                                    .text;
+                                            toBeUpdatedBookingData
+                                                    .otherDetails =
+                                                _otherDetailsController.text;
+                                            toBeUpdatedBookingData.updatedAt =
+                                                DateTime.now().toString();
+                                          });
+
+                                          var response = await updateBooking(
+                                              toBeUpdatedBookingData);
+
+                                          if (response.status == 'success') {
+                                            SnackBar(
+                                              content: Text(
+                                                  "Booking updated successfully!"),
+                                            );
+                                          } else {
+                                            SnackBar(
+                                              content: Text(
+                                                  "Failed to update booking"),
+                                            );
+                                          }
+                                          isEditable = false;
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape:
+                                              CircleBorder(), // Use CircleBorder to make the button circular
+                                          backgroundColor: Colors
+                                              .green, // Change the button color to your preference
+                                          padding: EdgeInsets.all(
+                                              16.0), // Adjust the padding as needed
+                                        ),
+                                        child: Icon(
+                                          Icons
+                                              .check, // You can use your preferred edit icon here
+                                          color: Colors
+                                              .white, // Change the icon color to your preference
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
                                   ),
                                 ],
                               )

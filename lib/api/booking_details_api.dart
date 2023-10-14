@@ -57,14 +57,16 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
     "end_time": toBeUpdatedBookingData.endTime,
     "updated_at": toBeUpdatedBookingData.updatedAt,
   };
-  // print(toBeUpdatedBookingData.bookingId);
-  // print(toBeUpdatedBookingData.meetingTitle);
-  // print(toBeUpdatedBookingData.locationName);
-  // print(toBeUpdatedBookingData.conferenceName);
-  // print(toBeUpdatedBookingData.meetingDes);
-  // print(toBeUpdatedBookingData.otherDetails);
-  // print(toBeUpdatedBookingData.strTime);
-  // print(toBeUpdatedBookingData.endTime);
+
+  print('000000000000000000000000000000000000000000000000000000000000000000');
+  print(toBeUpdatedBookingData.bookingId);
+  print(toBeUpdatedBookingData.meetingTitle);
+  print(toBeUpdatedBookingData.locationName);
+  print(toBeUpdatedBookingData.conferenceName);
+  print(toBeUpdatedBookingData.meetingDes);
+  print(toBeUpdatedBookingData.otherDetails);
+  print(toBeUpdatedBookingData.strTime);
+  print(toBeUpdatedBookingData.endTime);
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);

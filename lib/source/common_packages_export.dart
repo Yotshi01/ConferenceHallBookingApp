@@ -19,3 +19,4 @@ export 'package:conference_hall_booking/utils/data_mapping.dart';
 export 'package:conference_hall_booking/utils/meeting_request_buttons.dart';
 export 'package:conference_hall_booking/utils/conference_hall_dropdown.dart';
 export 'package:conference_hall_booking/utils/locations_dropdown.dart';
+export 'package:conference_hall_booking/utils/other_conferences.dart';
