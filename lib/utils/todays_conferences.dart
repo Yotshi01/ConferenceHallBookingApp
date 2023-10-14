@@ -162,14 +162,16 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                       ),
                                     ),
                                   )),
+                              SizedBox(width: screenWidth*0.01,),
+
                               Row(
                                 children: [
                                   Icon(
                                     Icons
                                         .av_timer, // Replace with the icon you want
-                                    color: Color(
-                                        0xFF696767), // Set the color of the icon
-                                    size: 24, // Set the size of the icon
+                                     color: Colors.grey,
+                                    //     0xFF696767), // Set the color of the icon
+                                    size: 20, // Set the size of the icon
                                   ),
                                   // SizedBox(
                                   //     width:

@@ -25,9 +25,9 @@ class NavigationDrawerFile extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-      //color: Color.fromARGB(255, 241, 231, 195),
+      color: Color.fromARGB(255, 241, 231, 195),
     // elevation: 2,
-    color: Colors.black54,
+    //color: Colors.black54,
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -67,7 +67,8 @@ class NavigationDrawerFile extends StatelessWidget {
                             'Username',
                             style: TextStyle(
                                 fontSize: 35, //color: Color(0xFFB88D05)
-                              color: Colors.white,
+                              color: Color(0xFFB88D05),
+                              fontWeight: FontWeight.w700,
                                ),
                           ),
 
@@ -89,13 +90,12 @@ class NavigationDrawerFile extends StatelessWidget {
         runSpacing: 16,
         children: [
           ListTile(
-            tileColor: Colors.black54,
-
+            tileColor: Color.fromARGB(255, 241, 231, 195),
             leading: Icon(
               Icons.home,
-              color: Colors.white,
+              color: Color(0xFFB88D05),
             ),
-            title: const Text('Home',style: TextStyle(color: Colors.white ),),
+            title: const Text('Home',style: TextStyle(color: Color(0xFFB88D05),fontWeight: FontWeight.w700,fontSize: 23 ),),
             onTap: () =>
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => const HomeScreen(),
@@ -104,9 +104,9 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
           
           ListTile(
-              tileColor: Colors.black54,
-              leading: Icon(Icons.logout,color: Colors.white, ),//color: Color(0xFFB88D05)
-              title: const Text('Log out',style: TextStyle(color: Colors.white ),),
+              tileColor:Color.fromARGB(255, 241, 231, 195),
+              leading: Icon(Icons.logout,color: Color(0xFFB88D05) ),//color: Color(0xFFB88D05)
+              title: const Text('Log out',style: TextStyle(color: Color(0xFFB88D05),fontWeight: FontWeight.w700,fontSize: 23 ),),
               onTap: () async {
                 // Navigator.of(context).pushReplacement(MaterialPageRoute(
                 //   builder: (context) => const LoginScreen(),
