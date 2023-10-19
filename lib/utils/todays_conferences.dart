@@ -12,7 +12,7 @@ class TodaysConferences extends StatefulWidget {
 class _TodaysConferencesState extends State<TodaysConferences> {
   @override
   Widget build(BuildContext context) {
-    final List<BookingData> finalBookings = isSearched == false
+    final List<BookingData> finalBookings = (isSearched == false)
         ? listOfTodayMeetings
         : listOfFoundBookingFromTodayMeetings;
     print('${isSearched} searched searched');
@@ -162,14 +162,15 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                       ),
                                     ),
                                   )),
-                              SizedBox(width: screenWidth*0.01,),
-
+                              SizedBox(
+                                width: screenWidth * 0.01,
+                              ),
                               Row(
                                 children: [
                                   Icon(
                                     Icons
                                         .av_timer, // Replace with the icon you want
-                                     color: Colors.grey,
+                                    color: Colors.grey,
                                     //     0xFF696767), // Set the color of the icon
                                     size: 20, // Set the size of the icon
                                   ),
