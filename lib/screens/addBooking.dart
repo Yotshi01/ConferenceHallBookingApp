@@ -36,6 +36,13 @@ class _AddBookingState extends State<AddBooking> {
   TimeOfDay? selectedEndTime;
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
+  String? selectedLocation;
+  callBack(varSelectedLocation) {
+    setState(() {
+      selectedLocation = varSelectedLocation;
+    });
+  }
+
   // @override
   // void initState() {
   //   super.initState();
@@ -77,6 +84,7 @@ class _AddBookingState extends State<AddBooking> {
 
   @override
   Widget build(BuildContext context) {
+    print('${selectedLocation} sddddscddcdscsdcdscs');
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -545,7 +553,7 @@ class _AddBookingState extends State<AddBooking> {
 
                     //   ],
                     // ),
-                    LocationsDropdown(),
+                    LocationsDropdown(callBackFunction: callBack),
                     SizedBox(
                       height: 20,
                     ),

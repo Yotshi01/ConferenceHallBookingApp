@@ -5,7 +5,9 @@ import 'package:conference_hall_booking/api/location_details_api.dart';
 import 'package:conference_hall_booking/models/locations.dart';
 
 class LocationsDropdown extends StatefulWidget {
-  const LocationsDropdown({super.key});
+  final Function callBackFunction;
+  const LocationsDropdown({Key? key, required this.callBackFunction})
+      : super(key: key);
 
   @override
   State<LocationsDropdown> createState() => _LocationsDropdownState();
@@ -88,6 +90,7 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                       getLocationId(locationChoosed!);
                   toBeAddedBookingData.locationName =
                       getLocationId(locationChoosed!);
+                  widget.callBackFunction(locationChoosed);
                 });
               },
               value: locationChoosed,

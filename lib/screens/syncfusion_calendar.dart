@@ -240,7 +240,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         // Handle the selected time range (start time and end time) here.
       } else {
         setState(() {
-          selectedStartTime = null;
+          // selectedStartTime = null;
+          selectedStartTime = calendarTapDetails.date;
           selectedEndTime = null;
         });
       }
@@ -368,6 +369,12 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               selectedStartTime = null;
               selectedEndTime = null;
             }
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Please select your time slot to add a booking'),
+              ),
+            );
           }
         },
       ),
@@ -376,6 +383,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         // specialRegions: _disabledTimeRegions,
         view: CalendarView.week,
         dataSource: _getCalendarDataSource(),
+        minDate: DateTime.now(),
+        maxDate: DateTime.now().add(Duration(days: 30)),
         timeSlotViewSettings: TimeSlotViewSettings(
           startHour: 7,
           endHour: 22,

@@ -31,6 +31,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TimeOfDay? selectedEndTime;
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
+  String? selectedLocation;
+  callBack(varSelectedLocation) {
+    setState(() {
+      selectedLocation = varSelectedLocation;
+    });
+  }
+
   Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
         context: context,
         initialDate: DateTime.now().add(Duration(seconds: 1)),
@@ -483,7 +490,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                   //   ],
                                   // ),
-                                  LocationsDropdown(),
+                                  LocationsDropdown(callBackFunction: callBack),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -676,7 +683,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                       ),
-
                                       Padding(
                                         padding: EdgeInsets.symmetric(
                                           horizontal: 30,
@@ -691,7 +697,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                       ),
-
                                       SizedBox(
                                         width: 100,
                                         child: ElevatedButton(
