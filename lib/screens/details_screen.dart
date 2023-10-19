@@ -19,6 +19,14 @@ class DetailsScreen extends StatefulWidget {
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
+  bool _snackChecked = false;
+  bool _biscuitChecked = false;
+  bool _coffeeChecked = false;
+  bool _teaChecked = false;
+  int _snackQuantity = 0;
+  int _biscuitQuantity = 0;
+  int _coffeeQuantity = 0;
+  int _teaQuantity = 0;
   get onPressed => null;
   bool isEditable = false;
   TextEditingController _meetingTitleController = TextEditingController();
@@ -374,6 +382,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       // fontWeight: FontWeight.w700,
                                     ),
                                   ),
+
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -860,6 +869,41 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     height: 20,
                                   ),
                                   Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Facilities',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  SizedBox(
+                                    width: 300,
+                                    height: 210,
+                                    // height: 25,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15.0,
+                                          vertical:
+                                              1), // Adjust the padding as needed
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[
+                                            200], // Use a light gray color
+                                        borderRadius: BorderRadius.circular(
+                                            10.0), // Adjust the value as needed
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Align(
                                     alignment: Alignment.center,
                                     child: MeetingUpdateButtons(
                                       bookingUserId:
@@ -956,5 +1000,101 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         )),
                   ],
                 ))));
+  }
+
+  Widget _buildCheckboxRow(String label, bool checked, int quantity) {
+    return Row(
+      children: [
+        Checkbox(
+          value: checked,
+          onChanged: (value) {
+            setState(() {
+              if (label == 'Snack') {
+                _snackChecked = value!;
+              } else if (label == 'Biscuit') {
+                _biscuitChecked = value!;
+              } else if (label == 'Coffee') {
+                _coffeeChecked = value!;
+              } else if (label == 'Tea') {
+                _teaChecked = value!;
+              }
+            });
+          },
+        ),
+        Text(label),
+        if (checked)
+          GestureDetector(
+            onTap: () {
+              _showQuantityDialog(label);
+            },
+            child: Text(' ($quantity)'),
+          ),
+      ],
+    );
+  }
+
+  void _showQuantityDialog(String item) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        int quantity;
+        if (item == 'Snack') {
+          quantity = _snackQuantity;
+        } else if (item == 'Biscuit') {
+          quantity = _biscuitQuantity;
+        } else if (item == 'Coffee') {
+          quantity = _coffeeQuantity;
+        } else if (item == 'Tea') {
+          quantity = _teaQuantity;
+        } else {
+          // Provide a default value for the 'quantity' variable
+          quantity = 0;
+        }
+
+        return AlertDialog(
+          title: Text('Select Quantity for $item'),
+          content: Row(
+            children: [
+              IconButton(
+                icon: Icon(Icons.remove),
+                onPressed: () {
+                  setState(() {
+                    quantity = (quantity - 1).clamp(0, 99);
+                  });
+                },
+              ),
+              Text('$quantity'),
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  setState(() {
+                    quantity = (quantity + 1).clamp(0, 99);
+                  });
+                },
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                setState(() {
+                  if (item == 'Snack') {
+                    _snackQuantity = quantity;
+                  } else if (item == 'Biscuit') {
+                    _biscuitQuantity = quantity;
+                  } else if (item == 'Coffee') {
+                    _coffeeQuantity = quantity;
+                  } else if (item == 'Tea') {
+                    _teaQuantity = quantity;
+                  }
+                  Navigator.of(context).pop();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
