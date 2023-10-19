@@ -19,6 +19,8 @@ CurrentUserData? currentUserData;
 late Future<BookingDetails> bookingDetailsResponse;
 late Future<ConferenceHallDetails> conferenceHallDetailsResponse;
 late Future<LocationDetails> locationDetailsResponse;
+late Future<HolidayDetails> holidayDetailsResponse;
+
 // late Future<CurrentUserData> currentUserDataResponse;
 bool isSearched = false;
 List<BookingData> listOfFoundBookingsFromAllMeetings = [];
@@ -26,5 +28,6 @@ List<BookingData> listOfFoundBookingsFromMyMeetings = [];
 List<BookingData> listOfFoundBookingsFromMyOldMeetings = [];
 List<BookingData> listOfFoundBookingFromTodayMeetings = [];
 List<BookingData> listOfFoundBookingsFromOtherMeetings = [];
+List<HolidayData> listOfHolidays = [];
 BookingData toBeUpdatedBookingData = BookingData();
 BookingData toBeAddedBookingData = BookingData();

@@ -1,11 +1,11 @@
-class AddBooking {
+class AddBookingData {
   String? message;
   String? status;
   bool? data;
 
-  AddBooking({this.message, this.status, this.data});
+  AddBookingData({this.message, this.status, this.data});
 
-  AddBooking.fromJson(Map<String, dynamic> json) {
+  AddBookingData.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     status = json['status'];
     data = json['data'];

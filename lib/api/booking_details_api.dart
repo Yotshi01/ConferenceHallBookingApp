@@ -79,7 +79,7 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   }
 }
 
-Future<AddBooking> addBooking(BookingData value) async {
+Future<AddBookingData> addBooking(BookingData value) async {
   String url = testUrl + "add_booking";
   Uri urlUri = Uri.parse(url);
   // var requestBody = {
@@ -129,7 +129,7 @@ Future<AddBooking> addBooking(BookingData value) async {
   print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
-    return AddBooking.fromJson(json.decode(response.body));
+    return AddBookingData.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to add booking details');
   }

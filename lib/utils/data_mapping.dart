@@ -176,3 +176,12 @@ List<BookingData> todayMeetings() {
 
   return todayBookings;
 }
+
+// BookingDetails filterByConferenceHall(int conference_hall_id) {
+//   List<BookingData> calendarFilteringForConferenceHall = [];
+//   for (final bookingDataForConferenceHall in listOfBookings) {
+//     if (bookingDataForConferenceHall == conference_hall_id) {
+//       calendarFilteringForConferenceHall.add(bookingDataForConferenceHall);
+//     }
+//   }
+// }

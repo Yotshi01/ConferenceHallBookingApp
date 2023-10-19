@@ -8,7 +8,7 @@ class CurrentUserData {
   String? updatedAt;
   String? contactNumber;
   String? deptSelect;
-  Null? userLocation;
+  int? userLocation;
   Null? userPic;
   String? userAddress;
   String? userrole;
