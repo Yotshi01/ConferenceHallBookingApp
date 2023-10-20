@@ -38,6 +38,21 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     bookingDetailsResponse = getBookingDetails(); // Initialize the Future here
     holidayDetailsResponse = getHolidayDetails();
     _fetchHolidayDetails();
+    listOfFilteredMeetingsAccordingToDropdownSelections = listOfBookings;
+  }
+
+  String? selectedLocation;
+  callBackLocationName(varSelectedLocation) {
+    setState(() {
+      selectedLocation = varSelectedLocation;
+    });
+  }
+
+  String? selectedConferenceHall;
+  callBackConferenceHallName(varSelectedConferenceHall) {
+    setState(() {
+      selectedConferenceHall = varSelectedConferenceHall;
+    });
   }
 
   Future<void> _fetchHolidayDetails() async {
@@ -61,17 +76,133 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     // Load appointments when the Future is resolved
-    bookingDetailsResponse.then((bookingDetails) {
-      _loadAppointments(bookingDetails);
-    });
+    _loadAppointments();
   }
 
-  void _loadAppointments(BookingDetails bookingDetails) {
-    if (bookingDetails.data != null) {
+  // void _loadAppointments(BookingDetails bookingDetails) {
+  //   if (bookingDetails.data != null) {
+  //     // Convert Data objects to Appointment objects with random colors
+
+  //     print('${selectedLocation} kskskskskskskskskskakalalal');
+
+  //     if (selectedLocation != null) {
+  //       // Generate a random color for each appointment
+  //       final Random random = Random();
+  //       final List<Color> appointmentColors = List.generate(
+  //         getBookingDataAccordingToSelectedLocation(selectedLocation!).length,
+  //         (index) => Color.fromRGBO(
+  //           random.nextInt(256),
+  //           random.nextInt(256),
+  //           random.nextInt(256),
+  //           1.0,
+  //         ),
+  //       );
+  //       setState(() {
+  //         _appointments =
+  //             getBookingDataAccordingToSelectedLocation(selectedLocation!)
+  //                 .asMap()
+  //                 .entries
+  //                 .map((entry) {
+  //           final data = entry.value;
+  //           final color = appointmentColors[entry.key];
+
+  //           // Create a TimeRegion to represent the booked time slot
+  //           final timeRegion = TimeRegion(
+  //             startTime:
+  //                 DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+  //             endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+  //             color: color, // Use the same color as the appointment
+  //           );
+
+  //           bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
+
+  //           print(
+  //               '${data.bookingDate} ${data.bookingDate.runtimeType} date format incorrect error check');
+
+  //           print(
+  //               '${data.strTime} ${data.strTime.runtimeType} start time format incorrect error check');
+
+  //           print(
+  //               '${data.bookingId} ${data.endTime} ${data.endTime.runtimeType} end time format incorrect error check');
+
+  //           return Appointment(
+  //             startTime:
+  //                 DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+  //             endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+  //             // startTime: DateTime.parse(data.strTime!),
+  //             // endTime: DateTime.parse(data.endTime!),
+  //             subject: data.meetingTitle!,
+  //             color: color, // Use the random color
+  //           );
+  //         }).toList();
+  //       });
+  //     } else {
+  //       // Generate a random color for each appointment
+  //       final Random random = Random();
+  //       final List<Color> appointmentColors = List.generate(
+  //         bookingDetails.data!.length,
+  //         (index) => Color.fromRGBO(
+  //           random.nextInt(256),
+  //           random.nextInt(256),
+  //           random.nextInt(256),
+  //           1.0,
+  //         ),
+  //       );
+  //       setState(() {
+  //         _appointments = bookingDetails.data!.asMap().entries.map((entry) {
+  //           final data = entry.value;
+  //           final color = appointmentColors[entry.key];
+
+  //           // Create a TimeRegion to represent the booked time slot
+  //           final timeRegion = TimeRegion(
+  //             startTime:
+  //                 DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+  //             endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+  //             color: color, // Use the same color as the appointment
+  //           );
+
+  //           bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
+
+  //           print(
+  //               '${data.bookingDate} ${data.bookingDate.runtimeType} date format incorrect error check');
+
+  //           print(
+  //               '${data.strTime} ${data.strTime.runtimeType} start time format incorrect error check');
+
+  //           print(
+  //               '${data.bookingId} ${data.endTime} ${data.endTime.runtimeType} end time format incorrect error check');
+
+  //           return Appointment(
+  //             startTime:
+  //                 DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+  //             endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+  //             // startTime: DateTime.parse(data.strTime!),
+  //             // endTime: DateTime.parse(data.endTime!),
+  //             subject: data.meetingTitle!,
+  //             color: color, // Use the random color
+  //           );
+  //         }).toList();
+  //       });
+  //     }
+
+  //     // Ensure the state is updated after loading appointments
+  //     if (mounted) {
+  //       setState(() {});
+  //     }
+  //   }
+  // }
+
+  void _loadAppointments() {
+    bookedTimeSlots = [];
+    print('vjhghhhhj');
+    // List<BookingData> bookingDataList = [];
+    // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelections;
+
+    if (listOfFilteredMeetingsAccordingToDropdownSelections.isNotEmpty) {
       // Generate a random color for each appointment
       final Random random = Random();
       final List<Color> appointmentColors = List.generate(
-        bookingDetails.data!.length,
+        listOfFilteredMeetingsAccordingToDropdownSelections.length,
         (index) => Color.fromRGBO(
           random.nextInt(256),
           random.nextInt(256),
@@ -80,38 +211,31 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         ),
       );
 
-      // Convert Data objects to Appointment objects with random colors
-      _appointments = bookingDetails.data!.asMap().entries.map((entry) {
-        final data = entry.value;
-        final color = appointmentColors[entry.key];
+      setState(() {
+        _appointments = listOfFilteredMeetingsAccordingToDropdownSelections
+            .asMap()
+            .entries
+            .map((entry) {
+          final data = entry.value;
+          final color = appointmentColors[entry.key];
 
-        // Create a TimeRegion to represent the booked time slot
-        final timeRegion = TimeRegion(
-          startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
-          endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
-          color: color, // Use the same color as the appointment
-        );
+          // Create a TimeRegion to represent the booked time slot
+          final timeRegion = TimeRegion(
+            startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+            endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+            color: color, // Use the same color as the appointment
+          );
 
-        bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
+          bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
 
-        print(
-            '${data.bookingDate} ${data.bookingDate.runtimeType} date format incorrect error check');
-
-        print(
-            '${data.strTime} ${data.strTime.runtimeType} start time format incorrect error check');
-
-        print(
-            '${data.bookingId} ${data.endTime} ${data.endTime.runtimeType} end time format incorrect error check');
-
-        return Appointment(
-          startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
-          endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
-          // startTime: DateTime.parse(data.strTime!),
-          // endTime: DateTime.parse(data.endTime!),
-          subject: data.meetingTitle!,
-          color: color, // Use the random color
-        );
-      }).toList();
+          return Appointment(
+            startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
+            endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+            subject: data.meetingTitle!,
+            color: color, // Use the random color
+          );
+        }).toList();
+      });
 
       // Ensure the state is updated after loading appointments
       if (mounted) {
@@ -264,148 +388,173 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    _loadAppointments();
+    print(
+        '${selectedLocation} this is the start of the process of filtering using location');
+    print(
+        '${selectedConferenceHall} this is the start of the process of filtering using conference hall');
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Event Calendar'),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromARGB(255, 241, 231, 195),
-        child: Icon(
-          Icons.add,
-          color: Colors.black,
+        appBar: AppBar(
+          title: Text('Event Calendar'),
         ),
-        onPressed: () async {
-          // showDialog(
-          //   context: context,
-          //   builder: (context) {
-          //     return alertDialog;
-          //   },
-          // );
-          // passedSelectedStartTime = selectedStartTime;
-          // passedSelectedEndTime = selectedEndTime;
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Color.fromARGB(255, 241, 231, 195),
+          child: Icon(
+            Icons.add,
+            color: Colors.black,
+          ),
+          onPressed: () async {
+            // showDialog(
+            //   context: context,
+            //   builder: (context) {
+            //     return alertDialog;
+            //   },
+            // );
+            // passedSelectedStartTime = selectedStartTime;
+            // passedSelectedEndTime = selectedEndTime;
 
-          if (selectedStartTime != null && selectedEndTime != null) {
-            final Duration duration =
-                (selectedEndTime!.difference(selectedStartTime!)).abs();
-            if (duration < Duration(minutes: 45)) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      'The selected duration should be more than 45 minutes'),
-                ),
-              );
-            } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Start Time should be before End Time'),
-                ),
-              );
-            } else if ((selectedStartTime!.year == selectedEndTime!.year &&
-                    selectedStartTime!.month == selectedEndTime!.month &&
-                    selectedStartTime!.day == selectedEndTime!.day) ==
-                false) {
+            if (selectedStartTime != null && selectedEndTime != null) {
+              final Duration duration =
+                  (selectedEndTime!.difference(selectedStartTime!)).abs();
+              if (duration < Duration(minutes: 45)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        'The selected duration should be more than 45 minutes'),
+                  ),
+                );
+              } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Start Time should be before End Time'),
+                  ),
+                );
+              } else if ((selectedStartTime!.year == selectedEndTime!.year &&
+                      selectedStartTime!.month == selectedEndTime!.month &&
+                      selectedStartTime!.day == selectedEndTime!.day) ==
+                  false) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        'Start Time and end time should be on the same day'),
+                  ),
+                );
+              } else if (isConflicting == true) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                        'Slot not available. Please book in unbooked time range'),
+                  ),
+                );
+              } else {
+                // final DateFormat dateFormat = DateFormat.jm();
+                // final String startTimeFormatted =
+                //     dateFormat.format(selectedStartTime!);
+                // final String endTimeFormatted = dateFormat.format(selectedEndTime!);
+
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return AddBooking(
+                //         selectedStartTime: selectedStartTime ??
+                //             DateTime
+                //                 .now(), // Provide a default value or handle null appropriately
+
+                //         selectedEndTime: selectedEndTime ?? DateTime.now());
+
+                //     // AlertDialog(
+                //     //   title: Text('Selected Time Range'),
+                //     //   content: Column(
+                //     //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     //     mainAxisSize: MainAxisSize.min,
+                //     //     children: [
+                //     //       Text('Start Time: $startTimeFormatted'),
+                //     //       Text('End Time: $endTimeFormatted'),
+                //     //     ],
+                //     //   ),
+                //     //   actions: [
+                //     //     TextButton(
+                //     //       onPressed: () {
+                //     //         Navigator.of(context).pop();
+                //     //       },
+                //     //       child: Text('Close'),
+                //     //     ),
+                //     //   ],
+                //     // );
+                //   },
+                // );
+
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AddBooking(
+                              selectedStartTime: selectedStartTime ??
+                                  DateTime
+                                      .now(), // Provide a default value or handle null appropriately
+
+                              selectedEndTime:
+                                  selectedEndTime ?? DateTime.now(),
+
+                              selectedLocation: selectedLocation!,
+                              selectedConferenceHall: selectedConferenceHall!,
+                            )));
+
+                // Clear the selected times for the next selection
+                selectedStartTime = null;
+                selectedEndTime = null;
+              }
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content:
-                      Text('Start Time and end time should be on the same day'),
+                      Text('Please select your time slot to add a booking'),
                 ),
               );
-            } else if (isConflicting == true) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                      'Slot not available. Please book in unbooked time range'),
-                ),
-              );
-            } else {
-              // final DateFormat dateFormat = DateFormat.jm();
-              // final String startTimeFormatted =
-              //     dateFormat.format(selectedStartTime!);
-              // final String endTimeFormatted = dateFormat.format(selectedEndTime!);
-
-              // showDialog(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return AddBooking(
-              //         selectedStartTime: selectedStartTime ??
-              //             DateTime
-              //                 .now(), // Provide a default value or handle null appropriately
-
-              //         selectedEndTime: selectedEndTime ?? DateTime.now());
-
-              //     // AlertDialog(
-              //     //   title: Text('Selected Time Range'),
-              //     //   content: Column(
-              //     //     crossAxisAlignment: CrossAxisAlignment.start,
-              //     //     mainAxisSize: MainAxisSize.min,
-              //     //     children: [
-              //     //       Text('Start Time: $startTimeFormatted'),
-              //     //       Text('End Time: $endTimeFormatted'),
-              //     //     ],
-              //     //   ),
-              //     //   actions: [
-              //     //     TextButton(
-              //     //       onPressed: () {
-              //     //         Navigator.of(context).pop();
-              //     //       },
-              //     //       child: Text('Close'),
-              //     //     ),
-              //     //   ],
-              //     // );
-              //   },
-              // );
-
-              await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => AddBooking(
-                          selectedStartTime: selectedStartTime ??
-                              DateTime
-                                  .now(), // Provide a default value or handle null appropriately
-
-                          selectedEndTime: selectedEndTime ?? DateTime.now())));
-
-              // Clear the selected times for the next selection
-              selectedStartTime = null;
-              selectedEndTime = null;
             }
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('Please select your time slot to add a booking'),
-              ),
-            );
-          }
-        },
-      ),
-      body: SfCalendar(
-        specialRegions: _getDisabledTimeRegions(),
-        // specialRegions: _disabledTimeRegions,
-        view: CalendarView.week,
-        dataSource: _getCalendarDataSource(),
-        minDate: DateTime.now(),
-        maxDate: DateTime.now().add(Duration(days: 30)),
-        timeSlotViewSettings: TimeSlotViewSettings(
-          startHour: 7,
-          endHour: 22,
-          timeInterval: const Duration(minutes: 15),
-          minimumAppointmentDuration: const Duration(minutes: 45),
-          timeFormat: 'h:ma',
+          },
         ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              LocationsDropdown(callBackFunction: callBackLocationName),
+              ConferenceHallDropdown(
+                  callBackFunction: callBackConferenceHallName,
+                  locationName: selectedLocation ?? ''),
+              SizedBox(
+                width: screenWidth,
+                height: screenHeight * 0.8,
+                child: SfCalendar(
+                  specialRegions: _getDisabledTimeRegions(),
+                  // specialRegions: _disabledTimeRegions,
+                  view: CalendarView.week,
+                  dataSource: _getCalendarDataSource(),
+                  minDate: DateTime.now(),
+                  maxDate: DateTime.now().add(Duration(days: 30)),
+                  timeSlotViewSettings: TimeSlotViewSettings(
+                    startHour: 7,
+                    endHour: 22,
+                    timeInterval: const Duration(minutes: 15),
+                    minimumAppointmentDuration: const Duration(minutes: 45),
+                    timeFormat: 'h:ma',
+                  ),
 
-        allowViewNavigation: false,
-        onTap: (calendarTapDetails) {
-          if (calendarTapDetails.targetElement == CalendarElement.appointment) {
-            final tappedAppointment =
-                calendarTapDetails.appointments!.first as Appointment;
-            _showEventDetailsDialog(tappedAppointment);
-          } else {
-            // Handle the calendar tap event for time range selection
-            handleCalendarTap(calendarTapDetails);
-          }
-        },
-      ),
-    );
+                  allowViewNavigation: false,
+                  onTap: (calendarTapDetails) {
+                    if (calendarTapDetails.targetElement ==
+                        CalendarElement.appointment) {
+                      final tappedAppointment =
+                          calendarTapDetails.appointments!.first as Appointment;
+                      _showEventDetailsDialog(tappedAppointment);
+                    } else {
+                      // Handle the calendar tap event for time range selection
+                      handleCalendarTap(calendarTapDetails);
+                    }
+                  },
+                ),
+              )
+            ],
+          ),
+        ));
   }
 
   void _showEventDetailsDialog(Appointment appointment) {

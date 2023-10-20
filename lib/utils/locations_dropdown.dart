@@ -3,6 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/api/location_details_api.dart';
 import 'package:conference_hall_booking/models/locations.dart';
+import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 class LocationsDropdown extends StatefulWidget {
   final Function callBackFunction;
@@ -91,6 +92,11 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   toBeAddedBookingData.locationName =
                       getLocationId(locationChoosed!);
                   widget.callBackFunction(locationChoosed);
+                  listOfFilteredMeetingsAccordingToDropdownSelections =
+                      getBookingDataAccordingToSelectedLocation(
+                          locationChoosed!);
+                  print(
+                      '${listOfFilteredMeetingsAccordingToDropdownSelections} thidrhkhsdjnsa');
                 });
               },
               value: locationChoosed,

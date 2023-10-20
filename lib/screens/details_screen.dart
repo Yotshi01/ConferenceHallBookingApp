@@ -40,9 +40,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
   String? selectedLocation;
-  callBack(varSelectedLocation) {
+  callBackLocationName(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
+    });
+  }
+
+  String? selectedConferenceHall;
+  callBackConferenceHallName(varSelectedConferenceHall) {
+    setState(() {
+      selectedLocation = varSelectedConferenceHall;
     });
   }
 
@@ -499,7 +506,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                   //   ],
                                   // ),
-                                  LocationsDropdown(callBackFunction: callBack),
+                                  LocationsDropdown(
+                                      callBackFunction: callBackLocationName),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -531,7 +539,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   //     fontWeight: FontWeight.w600,
                                   //   ),
                                   // ),
-                                  ConferenceHallDropdown(),
+                                  ConferenceHallDropdown(
+                                      callBackFunction:
+                                          callBackConferenceHallName,
+                                      locationName: selectedLocation!),
                                   SizedBox(
                                     height: 20,
                                   ),

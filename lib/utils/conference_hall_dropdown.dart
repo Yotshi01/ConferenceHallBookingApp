@@ -3,9 +3,14 @@ import 'package:conference_hall_booking/source/common_packages_export.dart';
 import 'package:flutter/material.dart';
 import 'package:conference_hall_booking/api/conference_hall_details_api.dart';
 import 'package:conference_hall_booking/models/conference_hall_details.dart';
+import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 class ConferenceHallDropdown extends StatefulWidget {
-  const ConferenceHallDropdown({super.key});
+  final Function callBackFunction;
+  final String locationName;
+  const ConferenceHallDropdown(
+      {Key? key, required this.callBackFunction, required this.locationName})
+      : super(key: key);
 
   @override
   State<ConferenceHallDropdown> createState() => _ConferenceHallDropdownState();
@@ -16,6 +21,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
   late Future<ConferenceHallDetails> conferenceHallDetailsResponse;
   List<ConferenceHallData>? conferenceHallList;
   bool isLoading = true;
+  SyncfusionCalendar obj = SyncfusionCalendar();
 
   Future<void> _fetchConferenceHallData() async {
     try {
@@ -88,6 +94,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                       getConferenceHallId(conferenceRoomChoosed!);
                   toBeAddedBookingData.conferenceName =
                       getConferenceHallId(conferenceRoomChoosed!);
+                  widget.callBackFunction(conferenceRoomChoosed);
                 });
               },
               value: conferenceRoomChoosed,

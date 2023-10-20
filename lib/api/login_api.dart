@@ -16,6 +16,7 @@ Future<LoginModel> userLogin(String email, String password) async {
     'password': password,
   };
   final response = await http.post(urlUri, body: requestBody);
+  print('asnasxnas');
   print(response.statusCode);
   print(response.body);
 

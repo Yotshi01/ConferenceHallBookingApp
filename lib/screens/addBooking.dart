@@ -14,11 +14,15 @@ import 'package:conference_hall_booking/api/booking_details_api.dart';
 class AddBooking extends StatefulWidget {
   final DateTime selectedStartTime;
   final DateTime selectedEndTime;
-  const AddBooking({
-    Key? key,
-    required this.selectedStartTime,
-    required this.selectedEndTime,
-  }) : super(key: key);
+  final String selectedLocation;
+  final String selectedConferenceHall;
+  const AddBooking(
+      {Key? key,
+      required this.selectedStartTime,
+      required this.selectedEndTime,
+      required this.selectedLocation,
+      required this.selectedConferenceHall})
+      : super(key: key);
 
   @override
   State<AddBooking> createState() => _AddBookingState();
@@ -553,7 +557,27 @@ class _AddBookingState extends State<AddBooking> {
 
                     //   ],
                     // ),
-                    LocationsDropdown(callBackFunction: callBack),
+
+                    // LocationsDropdown(callBackFunction: callBack),
+
+                    Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors
+                                .transparent), // Set border color to transparent
+                      ),
+                      child: Text(
+                        '${widget.selectedLocation}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -580,7 +604,27 @@ class _AddBookingState extends State<AddBooking> {
                     //     fontWeight: FontWeight.w600,
                     //   ),
                     // ),
-                    ConferenceHallDropdown(),
+                    // ConferenceHallDropdown(),
+
+                    Container(
+                      width: 300,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors
+                                .transparent), // Set border color to transparent
+                      ),
+                      child: Text(
+                        '${widget.selectedConferenceHall}',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                        ),
+                      ),
+                    ),
+
                     SizedBox(
                       height: 20,
                     ),

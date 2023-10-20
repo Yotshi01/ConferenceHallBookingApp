@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               _emailTextController.text,
                               _passwordTextController.text,
                             );
-
+                            print('dcnkdcacax');
                             if (response.success == false) {
                               print("Login Error: An error occurred.");
                             } else {
@@ -115,6 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
                               sharedPreferences.setString(
                                   'token', response.data!.token!);
+
+                              print('sdcacasnksxmxxm Xz');
 
                               Navigator.pushReplacement(
                                   context,

@@ -185,3 +185,20 @@ List<BookingData> todayMeetings() {
 //     }
 //   }
 // }
+
+List<BookingData> getBookingDataAccordingToSelectedLocation(
+    String locationChoosed) {
+  List<BookingData> filteredBookings = [];
+  if (currentUserData != null) {
+    int locationId = getLocationId(locationChoosed);
+    for (var booking in listOfBookings) {
+      if (booking.locationName == locationId) {
+        filteredBookings.add(booking);
+        print('${booking.locationName}  hellolololololololololololo');
+      }
+    }
+  } else {
+    print('currentUserData is empty');
+  }
+  return filteredBookings;
+}
