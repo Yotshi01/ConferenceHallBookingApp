@@ -27,7 +27,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.33,
+            height: screenHeight * 0.35,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -46,9 +46,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
                           screenWidth * 0.027,
-                          screenHeight * 0.01,
-                          screenWidth * 0,
-                          screenHeight * 0.01),
+                          screenHeight * 0.02,
+                          screenWidth * 0.027,
+                          screenHeight * 0.0001),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.46,
@@ -69,21 +69,32 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                '${bookingData.userId}',
-                                // textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  //color: Colors.black,
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 16,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w500,
-                                ),
+                              SizedBox(
+                                height: screenHeight * 0.005,
                               ),
+                              Row(
+                                children: [
+                                  SizedBox(width: screenWidth * 0.02),
+                                  Text('${bookingData.bookingDate}'),
+                                  SizedBox(width: screenWidth * 0.21),
+                                  Text(
+                                    '${bookingData.userId}',
+                                    // textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      //color: Colors.black,
+                                      color: Color(0xFFB88D05),
+                                      fontSize: 16,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              //'${bookingData.bookingDate} |
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: screenHeight * 0.02,
-                                  horizontal: screenWidth * 0.01,
+                                  vertical: screenHeight * 0.015,
+                                  horizontal: screenWidth * 0.009,
                                 ),
                                 child: Image.asset(
                                   "assets/images/meeting-room5.png",
@@ -156,7 +167,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                       // textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 12,
+                                        fontSize: 14,
                                         fontFamily: 'Noto Sans',
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -164,34 +175,44 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   )),
                               SizedBox(
                                 width: screenWidth * 0.01,
+                                height: screenHeight * 0.004,
                               ),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons
-                                        .av_timer, // Replace with the icon you want
-                                    color: Colors.grey,
-                                    //     0xFF696767), // Set the color of the icon
-                                    size: 20, // Set the size of the icon
-                                  ),
                                   // SizedBox(
                                   //     width:
                                   //         8), // Add some spacing between the icon and text
                                   Align(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingDate} | ${bookingData.strTime} to ${bookingData.endTime}',
-                                            style: TextStyle(
-                                              color: Color(0xFF696767),
-                                              fontSize: 12,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: screenWidth * 0.02,
                                             ),
-                                          )))
+                                            Icon(
+                                              Icons
+                                                  .av_timer, // Replace with the icon you want
+                                              color: Colors.grey,
+                                              //     0xFF696767), // Set the color of the icon
+                                              size:
+                                                  15, // Set the size of the icon
+                                            ),
+                                            Text(
+                                              '${bookingData.strTime} to ${bookingData.endTime}',
+                                              style: TextStyle(
+                                                color: Color(0xFF696767),
+                                                fontSize: 12,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ))
                                 ],
                               )
                             ]),
@@ -200,7 +221,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
         : const Center(
             child: Text(
               'No results found',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 16),
             ),
           );
   }

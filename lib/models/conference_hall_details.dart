@@ -30,11 +30,17 @@ class ConferenceHallDetails {
 class ConferenceHallData {
   int? conferenceId;
   String? conferenceName;
-  String? conferenceLocation;
+  int? conferenceLocation;
   String? conferenceAddress;
   String? other;
   String? conferenceImg;
   String? aboutRoom;
+  String? seetingC;
+  String? seetingT;
+  String? whiteboard;
+  String? audiosystem;
+  String? laptop;
+  String? mic;
 
   ConferenceHallData(
       {this.conferenceId,
@@ -43,7 +49,13 @@ class ConferenceHallData {
       this.conferenceAddress,
       this.other,
       this.conferenceImg,
-      this.aboutRoom});
+      this.aboutRoom,
+      this.seetingC,
+      this.seetingT,
+      this.whiteboard,
+      this.audiosystem,
+      this.laptop,
+      this.mic});
 
   ConferenceHallData.fromJson(Map<String, dynamic> json) {
     conferenceId = json['conference_id'];
@@ -53,6 +65,12 @@ class ConferenceHallData {
     other = json['other'];
     conferenceImg = json['conference_img'];
     aboutRoom = json['about_room'];
+    seetingC = json['seeting_c'];
+    seetingT = json['seeting_t'];
+    whiteboard = json['whiteboard'];
+    audiosystem = json['audiosystem'];
+    laptop = json['laptop'];
+    mic = json['mic'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,6 +82,12 @@ class ConferenceHallData {
     data['other'] = this.other;
     data['conference_img'] = this.conferenceImg;
     data['about_room'] = this.aboutRoom;
+    data['seeting_c'] = this.seetingC;
+    data['seeting_t'] = this.seetingT;
+    data['whiteboard'] = this.whiteboard;
+    data['audiosystem'] = this.audiosystem;
+    data['laptop'] = this.laptop;
+    data['mic'] = this.mic;
     return data;
   }
 }

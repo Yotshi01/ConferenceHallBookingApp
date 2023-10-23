@@ -30,8 +30,8 @@ class LocationDetails {
 class LocationData {
   int? locationId;
   String? locationName;
-  String? country;
-  String? state;
+  int? country;
+  int? state;
   String? district;
   String? city;
   String? address;

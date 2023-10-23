@@ -198,7 +198,7 @@ class _MyConferencesState extends State<MyConferences> {
         : const Center(
             child: Text(
               'No results found',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 16),
             ),
           );
   }

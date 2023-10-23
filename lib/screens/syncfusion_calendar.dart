@@ -558,28 +558,106 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
   }
 
   void _showEventDetailsDialog(Appointment appointment) {
+    // Format the start and end times to 12-hour clock with AM/PM
+    String formattedStartTime =
+        DateFormat('h:mm a').format(appointment.startTime);
+    String formattedEndTime = DateFormat('h:mm a').format(appointment.endTime);
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Event Details'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Title: ${appointment.subject}'),
-              Text('Start Time: ${appointment.startTime}'),
-              Text('End Time: ${appointment.endTime}'),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Close'),
+          content: Container(
+            //padding: EdgeInsets.all(16), // Add padding to the Container
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Text('Event Details',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.amber,
+                            fontWeight: FontWeight.bold)),
+                    SizedBox(
+                      width: screenWidth * 0.27,
+                    ),
+                    Spacer(),
+                    IconButton(
+                      icon: Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 25.0,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                Text(
+                  'Title: ${appointment.subject}',
+                  style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.black54,
+                    //color: Color.fromARGB(255, 202, 180, 101),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: screenHeight * 0.01,
+                ),
+                // Column(
+                //   children: [
+                //     Text(' ${appointment.startTime}'),
+                //     SizedBox(width: screenWidth * 0.005),
+                //     const Text('to'),
+                //     SizedBox(width: screenWidth * 0.005),
+                //     Text(' ${appointment.endTime}'),
+                //   ],
+                // ),
+                Row(
+                  children: [
+                    // SizedBox(
+                    //     width:
+                    //
+                    //         8), // Add some spacing between the icon and text
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 0,
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons
+                                    .av_timer, // Replace with the icon you want
+                                color: Colors.grey,
+                                //     0xFF696767), // Set the color of the icon
+                                size: 20, // Set the size of the icon
+                              ),
+                              Text(
+                                '${formattedStartTime} to ${formattedEndTime}',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  //color: Color.fromARGB(255, 202, 180, 101),
+                                  fontSize: 14,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
+                          ),
+                        ))
+                  ],
+                )
+              ],
             ),
-          ],
+          ),
         );
       },
     );
@@ -595,273 +673,3 @@ class _DataSource extends CalendarDataSource {
     appointments = source;
   }
 }
-
-// import 'package:conference_hall_booking/api/holiday_api.dart';
-// import 'package:conference_hall_booking/screens/addBooking.dart';
-// import 'package:flutter/material.dart';
-// import 'package:syncfusion_flutter_calendar/calendar.dart';
-// import 'package:conference_hall_booking/models/events.dart';
-// import 'package:conference_hall_booking/utils/booking_alert_dialog.dart';
-// import 'package:conference_hall_booking/api/booking_details_api.dart';
-// import 'dart:math';
-// import 'package:conference_hall_booking/source/constants.dart';
-// import 'package:conference_hall_booking/source/common_packages_export.dart';
-// import 'package:intl/intl.dart';
-
-// class SyncfusionCalendar extends StatefulWidget {
-//   const SyncfusionCalendar({Key? key}) : super(key: key);
-
-//   @override
-//   State<SyncfusionCalendar> createState() => _SyncfusionCalendarState();
-// }
-
-// class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
-//   late Future<BookingDetails> bookingDetailsResponse;
-//   List<Appointment> _appointments = [];
-//   List<DateTime> specifiedDates = [];
-//   BookingAlertDialog alertDialog = BookingAlertDialog();
-
-//   DateTime? selectedStartTime;
-//   DateTime? selectedEndTime;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     bookingDetailsResponse = getBookingDetails();
-//     holidayDetailsResponse = getHolidayDetails();
-//     _fetchHolidayDetails();
-//   }
-
-//   Future<void> _fetchHolidayDetails() async {
-//     try {
-//       final HolidayDetails data = await holidayDetailsResponse;
-//       setState(() {
-//         if (data.data != null) {
-//           listOfHolidays = data.data!.map((item) {
-//             return HolidayData.fromJson(item.toJson());
-//           }).toList();
-//           print(listOfHolidays);
-//         }
-//       });
-//     } catch (error) {
-//       print('Error fetching holiday list data: $error');
-//     }
-//   }
-
-//   @override
-//   void didChangeDependencies() {
-//     super.didChangeDependencies();
-//     bookingDetailsResponse.then((bookingDetails) {
-//       _loadAppointments(bookingDetails);
-//     });
-//   }
-
-//   void _loadAppointments(BookingDetails bookingDetails) {
-//     if (bookingDetails.data != null) {
-//       final Random random = Random();
-//       final List<Color> appointmentColors = List.generate(
-//         bookingDetails.data!.length,
-//         (index) => Color.fromRGBO(
-//           random.nextInt(256),
-//           random.nextInt(256),
-//           random.nextInt(256),
-//           1.0,
-//         ),
-//       );
-
-//       _appointments = bookingDetails.data!.asMap().entries.map((entry) {
-//         final data = entry.value;
-//         final color = appointmentColors[entry.key];
-//         return Appointment(
-//           startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
-//           endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
-//           subject: data.meetingTitle!,
-//           color: color,
-//         );
-//       }).toList();
-
-//       if (mounted) {
-//         setState(() {});
-//       }
-//     }
-//   }
-
-//   List<TimeRegion> _getDisabledTimeRegions() {
-//     List<TimeRegion> regions = <TimeRegion>[];
-
-//     for (final nonWorkingDayDetails in listOfHolidays) {
-//       DateTime? nonWorkingDay =
-//           DateTime.tryParse(nonWorkingDayDetails.holidayDate!);
-//       specifiedDates.add(nonWorkingDay!);
-//     }
-
-//     for (final date in specifiedDates) {
-//       regions.add(TimeRegion(
-//         startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
-//         endTime: DateTime(date.year, date.month, date.day, 23, 59, 59),
-//         enablePointerInteraction: false,
-//         textStyle: TextStyle(
-//           color: Colors.red,
-//           decoration: TextDecoration.lineThrough,
-//         ),
-//         color: Color.fromARGB(255, 232, 220, 151).withOpacity(0.2),
-//       ));
-//     }
-
-//     for (int month = 1; month <= 12; month++) {
-//       for (int day = 1; day <= 31; day++) {
-//         try {
-//           DateTime currentDate = DateTime(DateTime.now().year, month, day);
-
-//           if (currentDate.weekday == 7) {
-//             DateTime startTime = DateTime(
-//                 currentDate.year, currentDate.month, currentDate.day, 0, 0, 0);
-//             DateTime endTime = DateTime(currentDate.year, currentDate.month,
-//                 currentDate.day, 23, 59, 59);
-
-//             regions.add(TimeRegion(
-//               startTime: startTime,
-//               endTime: endTime,
-//               enablePointerInteraction: false,
-//               textStyle: TextStyle(
-//                 color: Colors.red,
-//                 decoration: TextDecoration.lineThrough,
-//               ),
-//               color: Colors.grey.withOpacity(0.2),
-//             ));
-//           }
-//         } catch (e) {
-//           // Handle any potential date errors
-//         }
-//       }
-//     }
-
-//     return regions;
-//   }
-
-//   void handleCalendarTap(CalendarTapDetails calendarTapDetails) {
-//     if (calendarTapDetails.targetElement == CalendarElement.calendarCell) {
-//       if (selectedStartTime == null) {
-//         setState(() {
-//           selectedStartTime = calendarTapDetails.date;
-//         });
-//       } else if (selectedEndTime == null) {
-//         setState(() {
-//           selectedEndTime = calendarTapDetails.date;
-//         });
-
-//         // Handle the selected time range (start time and end time) here.
-//         if (selectedStartTime != null && selectedEndTime != null) {
-//           final DateFormat dateFormat = DateFormat.jm();
-//           final String startTimeFormatted =
-//               dateFormat.format(selectedStartTime!);
-//           final String endTimeFormatted = dateFormat.format(selectedEndTime!);
-
-//           showDialog(
-//             context: context,
-//             builder: (BuildContext context) {
-//               return AlertDialog(
-//                 title: Text('Selected Time Range'),
-//                 content: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.start,
-//                   mainAxisSize: MainAxisSize.min,
-//                   children: [
-//                     Text('Start Time: $startTimeFormatted'),
-//                     Text('End Time: $endTimeFormatted'),
-//                   ],
-//                 ),
-//                 actions: [
-//                   TextButton(
-//                     onPressed: () {
-//                       Navigator.of(context).pop();
-//                     },
-//                     child: Text('Close'),
-//                   ),
-//                 ],
-//               );
-//             },
-//           );
-
-//           // Clear the selected times for the next selection
-//           selectedStartTime = null;
-//           selectedEndTime = null;
-//         }
-//       }
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Event Calendar'),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         backgroundColor: Color.fromARGB(255, 241, 231, 195),
-//         child: Icon(
-//           Icons.add,
-//           color: Colors.black,
-//         ),
-//         onPressed: () {
-//           Navigator.push(
-//               context, MaterialPageRoute(builder: (context) => AddBooking()));
-//         },
-//       ),
-//       body: SfCalendar(
-//         specialRegions: _getDisabledTimeRegions(),
-//         view: CalendarView.week,
-//         dataSource: _getCalendarDataSource(),
-//         timeSlotViewSettings: TimeSlotViewSettings(startHour: 7, endHour: 20),
-//         allowViewNavigation: false,
-//         onTap: (calendarTapDetails) {
-//           if (calendarTapDetails.targetElement == CalendarElement.appointment) {
-//             final tappedAppointment =
-//                 calendarTapDetails.appointments!.first as Appointment;
-//             _showEventDetailsDialog(tappedAppointment);
-//           } else {
-//             // Handle the calendar tap event for time range selection
-//             handleCalendarTap(calendarTapDetails);
-//           }
-//         },
-//       ),
-//     );
-//   }
-
-//   void _showEventDetailsDialog(Appointment appointment) {
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return AlertDialog(
-//           title: Text('Event Details'),
-//           content: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Text('Title: ${appointment.subject}'),
-//               Text('Start Time: ${appointment.startTime}'),
-//               Text('End Time: ${appointment.endTime}'),
-//             ],
-//           ),
-//           actions: [
-//             TextButton(
-//               onPressed: () {
-//                 Navigator.of(context).pop();
-//               },
-//               child: Text('Close'),
-//             ),
-//           ],
-//         );
-//       },
-//     );
-//   }
-
-//   _DataSource _getCalendarDataSource() {
-//     return _DataSource(_appointments);
-//   }
-// }
-
-// class _DataSource extends CalendarDataSource {
-//   _DataSource(List<Appointment> source) {
-//     appointments = source;
-//   }
-// }
