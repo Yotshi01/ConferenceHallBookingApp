@@ -38,6 +38,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TimeOfDay printedStartTime = TimeOfDay(hour: 4, minute: 24);
   TimeOfDay? selectedEndTime;
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
+  DateTime? currentBookingDate;
 
   String? selectedLocation;
   callBackLocationName(varSelectedLocation) {
@@ -76,12 +77,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
         TextEditingController(text: widget.currentBookingData.meetingDes);
     _otherDetailsController =
         TextEditingController(text: widget.currentBookingData.otherDetails);
-
+    currentBookingDate =
+        DateTime.tryParse(widget.currentBookingData.bookingDate!);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('${currentBookingDate} chgjvhjbkhj');
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -145,7 +148,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (currentUserData!.id ==
-                                      widget.currentBookingData.userId)
+                                          widget.currentBookingData.userId &&
+                                      DateTime.now()
+                                          .isBefore(currentBookingDate!))
                                     ElevatedButton(
                                       onPressed: () {
                                         setState(() {

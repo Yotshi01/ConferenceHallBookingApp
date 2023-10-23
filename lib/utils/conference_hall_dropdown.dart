@@ -17,11 +17,10 @@ class ConferenceHallDropdown extends StatefulWidget {
 }
 
 class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
-  String? conferenceRoomChoosed;
+  // String? conferenceRoomChoosed;
   late Future<ConferenceHallDetails> conferenceHallDetailsResponse;
   List<ConferenceHallData>? conferenceHallList;
   bool isLoading = true;
-  SyncfusionCalendar obj = SyncfusionCalendar();
 
   Future<void> _fetchConferenceHallData() async {
     try {
@@ -42,6 +41,8 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
     super.initState();
     conferenceHallDetailsResponse = getConferenceHallDetails();
     _fetchConferenceHallData();
+    conferenceHallsAtSelectedLocation =
+        getConferenceHallDataAccordingToSelectedLocation(widget.locationName);
   }
 
   @override
@@ -49,9 +50,9 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
     return isLoading
         ? CircularProgressIndicator() // Show a loading indicator while fetching data
         : Container(
-            width: 300,
+            width: screenWidth * 0.95,
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                   color: Colors.transparent), // Set border color to transparent
@@ -76,7 +77,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   ),
                 ),
               ),
-              items: conferenceHallList?.map((conferenceHalls) {
+              items: conferenceHallsAtSelectedLocation.map((conferenceHalls) {
                     return DropdownMenuItem(
                       // hint: Text("Select Location"),
                       value: conferenceHalls.conferenceName,
@@ -95,6 +96,11 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   toBeAddedBookingData.conferenceName =
                       getConferenceHallId(conferenceRoomChoosed!);
                   widget.callBackFunction(conferenceRoomChoosed);
+                  listOfFilteredMeetingsAccordingToDropdownSelections =
+                      getBookingDataAccordingToSelectedLocationAndConferenceHall(
+                          widget.locationName, conferenceRoomChoosed!);
+                  print(
+                      '${listOfFilteredMeetingsAccordingToDropdownSelections} thidrhkhsdjnsafefaefaf');
                 });
               },
               value: conferenceRoomChoosed,

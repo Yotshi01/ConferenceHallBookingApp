@@ -47,9 +47,9 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
     return isLoading
         ? CircularProgressIndicator() // Show a loading indicator while fetching data
         : Container(
-            width: 300,
+            width: screenWidth * 0.95,
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                   color: Colors.transparent), // Set border color to transparent
@@ -86,6 +86,7 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   [], // Use the location names from the API
               onChanged: (newValue) {
                 setState(() {
+                  // conferenceHallsAtSelectedLocation = [];
                   locationChoosed = newValue.toString();
                   toBeUpdatedBookingData.locationName =
                       getLocationId(locationChoosed!);
@@ -97,6 +98,9 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                           locationChoosed!);
                   print(
                       '${listOfFilteredMeetingsAccordingToDropdownSelections} thidrhkhsdjnsa');
+                  conferenceHallsAtSelectedLocation =
+                      getConferenceHallDataAccordingToSelectedLocation(
+                          locationChoosed!);
                 });
               },
               value: locationChoosed,

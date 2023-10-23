@@ -31,6 +31,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
   List<TimeRegion> bookedTimeSlots = [];
   bool isConflicting = false;
+  bool isCheckboxTicked = false;
 
   @override
   void initState() {
@@ -45,6 +46,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
   callBackLocationName(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
+      // conferenceHallsAtSelectedLocation =
+      //     getConferenceHallDataAccordingToSelectedLocation(varSelectedLocation);
+      conferenceRoomChoosed = null;
     });
   }
 
@@ -516,10 +520,43 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
               LocationsDropdown(callBackFunction: callBackLocationName),
-              ConferenceHallDropdown(
-                  callBackFunction: callBackConferenceHallName,
-                  locationName: selectedLocation ?? ''),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              if (isCheckboxTicked == true)
+                ConferenceHallDropdown(
+                    callBackFunction: callBackConferenceHallName,
+                    locationName: selectedLocation ?? ''),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              CheckboxListTile(
+                tileColor: Colors.grey[200],
+                title: const Text(
+                  'Filter By Conference Room',
+                  style: TextStyle(
+                    color: Color(0xFF898383),
+                    fontSize: 15,
+                    fontFamily: 'Noto Sans',
+                    fontWeight: FontWeight.w400,
+                    height: 0,
+                  ),
+                ),
+                value: isCheckboxTicked,
+                secondary: Icon(Icons.filter_list_alt),
+                controlAffinity: ListTileControlAffinity.leading,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isCheckboxTicked = value!;
+                  });
+                },
+                activeColor: Colors.green,
+                checkColor: Colors.black,
+              ),
               SizedBox(
                 width: screenWidth,
                 height: screenHeight * 0.8,

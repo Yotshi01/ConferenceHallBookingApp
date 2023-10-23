@@ -202,3 +202,43 @@ List<BookingData> getBookingDataAccordingToSelectedLocation(
   }
   return filteredBookings;
 }
+
+List<BookingData> getBookingDataAccordingToSelectedLocationAndConferenceHall(
+    String locationChoosed, String conferenceHallChoosed) {
+  List<BookingData> filteredBookings = [];
+  if (currentUserData != null) {
+    int locationId = getLocationId(locationChoosed);
+    int conferenceHallId = getConferenceHallId(conferenceHallChoosed);
+    for (var booking in listOfBookings) {
+      if (booking.locationName == locationId &&
+          booking.conferenceName == conferenceHallId) {
+        filteredBookings.add(booking);
+        print(
+            '${booking.locationName}  ${booking.conferenceName} hellolololololololololololo');
+      }
+    }
+  } else {
+    print('currentUserData is empty');
+  }
+  return filteredBookings;
+}
+
+List<ConferenceHallData> getConferenceHallDataAccordingToSelectedLocation(
+    String locationChoosed) {
+  List<ConferenceHallData> conferenceHalls = [];
+  if (currentUserData != null) {
+    int locationId = getLocationId(locationChoosed);
+    print('${locationChoosed} ddcacc');
+    print('${locationId} ddcacc');
+    for (var conferenceHall in listOfConferenceHall) {
+      print('${conferenceHall.conferenceLocation} ${locationId} vdvdzvvdvzv');
+      if (conferenceHall.conferenceLocation == locationId) {
+        conferenceHalls.add(conferenceHall);
+      }
+    }
+  } else {
+    print('currentUserData is empty');
+  }
+  print('${conferenceHalls} adfafcasdad');
+  return conferenceHalls;
+}
