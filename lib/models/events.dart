@@ -33,7 +33,7 @@ class BookingData {
   String? strTime;
   String? endTime;
   String? meetingTitle;
-  String? departmentName;
+  int? departmentName;
   int? locationName;
   int? conferenceName;
   String? meetingDes;

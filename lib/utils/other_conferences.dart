@@ -197,7 +197,7 @@ class _OtherConferencesState extends State<OtherConferences> {
         : const Center(
             child: Text(
               'No results found',
-              style: TextStyle(fontSize: 24),
+              style: TextStyle(fontSize: 16),
             ),
           );
   }
