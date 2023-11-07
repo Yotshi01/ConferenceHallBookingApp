@@ -1,6 +1,5 @@
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
-import 'package:conference_hall_booking/screens/details_screen.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class MyConferences extends StatefulWidget {
   MyConferences({super.key});
@@ -35,12 +34,13 @@ class _MyConferencesState extends State<MyConferences> {
                 itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
                   final bookingData = finalBookings[index];
-                  final conferenceHallName = bookingData.conferenceName != null
-                      ? getConferenceHallName(bookingData.conferenceName!)
+                  final conferenceHallName = bookingData.bookingConferenceId !=
+                          null
+                      ? getConferenceHallName(bookingData.bookingConferenceId!)
                       : 'Unknown Conference Hall';
 
-                  final locationName = bookingData.locationName != null
-                      ? getLocationName(bookingData.locationName!)
+                  final locationName = bookingData.bookingLocationId != null
+                      ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
                   print(bookingData);
@@ -153,7 +153,7 @@ class _MyConferencesState extends State<MyConferences> {
                                       horizontal: 10,
                                     ),
                                     child: Text(
-                                      '${bookingData.meetingTitle}',
+                                      '${bookingData.bookingMeetingTitle}',
                                       // textAlign: TextAlign.left,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -182,7 +182,7 @@ class _MyConferencesState extends State<MyConferences> {
                                             horizontal: 0,
                                           ),
                                           child: Text(
-                                            '${bookingData.bookingDate} | ${bookingData.strTime} to ${bookingData.endTime}',
+                                            '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
                                             style: TextStyle(
                                               color: Color(0xFF696767),
                                               fontSize: 12,

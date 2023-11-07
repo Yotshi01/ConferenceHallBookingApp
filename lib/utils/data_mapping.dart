@@ -1,5 +1,5 @@
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 String getConferenceHallName(int? conferenceHallId) {
   // Find the conference hall data with the matching conferenceName
@@ -17,7 +17,7 @@ String getConferenceHallDescription(int conferenceHallId) {
 
   for (final conferenceHall in listOfConferenceHall) {
     if (conferenceHall.conferenceId == conferenceHallId) {
-      return conferenceHall.aboutRoom!;
+      return conferenceHall.conferenceAboutRoom!;
     }
   }
   return 'Unknown Conference Hall';
@@ -192,9 +192,9 @@ List<BookingData> getBookingDataAccordingToSelectedLocation(
   if (currentUserData != null) {
     int locationId = getLocationId(locationChoosed);
     for (var booking in listOfBookings) {
-      if (booking.locationName == locationId) {
+      if (booking.bookingLocationId == locationId) {
         filteredBookings.add(booking);
-        print('${booking.locationName}  hellolololololololololololo');
+        print('${booking.bookingLocationId}  hellolololololololololololo');
       }
     }
   } else {
@@ -210,11 +210,11 @@ List<BookingData> getBookingDataAccordingToSelectedLocationAndConferenceHall(
     int locationId = getLocationId(locationChoosed);
     int conferenceHallId = getConferenceHallId(conferenceHallChoosed);
     for (var booking in listOfBookings) {
-      if (booking.locationName == locationId &&
-          booking.conferenceName == conferenceHallId) {
+      if (booking.bookingLocationId == locationId &&
+          booking.bookingConferenceId == conferenceHallId) {
         filteredBookings.add(booking);
         print(
-            '${booking.locationName}  ${booking.conferenceName} hellolololololololololololo');
+            '${booking.bookingLocationId}  ${booking.bookingConferenceId} hellolololololololololololo');
       }
     }
   } else {
@@ -231,8 +231,8 @@ List<ConferenceHallData> getConferenceHallDataAccordingToSelectedLocation(
     print('${locationChoosed} ddcacc');
     print('${locationId} ddcacc');
     for (var conferenceHall in listOfConferenceHall) {
-      print('${conferenceHall.conferenceLocation} ${locationId} vdvdzvvdvzv');
-      if (conferenceHall.conferenceLocation == locationId) {
+      print('${conferenceHall.conferenceLocationId} ${locationId} vdvdzvvdvzv');
+      if (conferenceHall.conferenceLocationId == locationId) {
         conferenceHalls.add(conferenceHall);
       }
     }

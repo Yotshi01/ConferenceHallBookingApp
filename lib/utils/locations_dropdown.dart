@@ -1,14 +1,14 @@
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/api/location_details_api.dart';
-import 'package:conference_hall_booking/models/locations.dart';
-import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 class LocationsDropdown extends StatefulWidget {
   final Function callBackFunction;
-  const LocationsDropdown({Key? key, required this.callBackFunction})
-      : super(key: key);
+  final String? initialSelectedLocation;
+  const LocationsDropdown({
+    Key? key,
+    required this.callBackFunction,
+    this.initialSelectedLocation,
+  }) : super(key: key);
 
   @override
   State<LocationsDropdown> createState() => _LocationsDropdownState();
@@ -40,6 +40,10 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
     locationDetailsResponse =
         getLocationDetails(); // Initialize the Future here
     _fetchLocationData();
+    if (widget.initialSelectedLocation != null) {
+      // If an initial location is provided, set it as the selected value.
+      locationChoosed = widget.initialSelectedLocation;
+    }
   }
 
   @override
@@ -88,9 +92,9 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                 setState(() {
                   // conferenceHallsAtSelectedLocation = [];
                   locationChoosed = newValue.toString();
-                  toBeUpdatedBookingData.locationName =
+                  toBeUpdatedBookingData.bookingLocationId =
                       getLocationId(locationChoosed!);
-                  toBeAddedBookingData.locationName =
+                  toBeAddedBookingData.bookingLocationId =
                       getLocationId(locationChoosed!);
                   widget.callBackFunction(locationChoosed);
                   listOfFilteredMeetingsAccordingToDropdownSelections =

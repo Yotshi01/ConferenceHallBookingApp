@@ -1,7 +1,5 @@
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/screens/home_screen.dart';
-import 'package:conference_hall_booking/screens/login_screen.dart';
 
 class FirstLoginScreen extends StatefulWidget {
   const FirstLoginScreen({super.key});

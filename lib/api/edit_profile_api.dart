@@ -1,11 +1,6 @@
-import 'package:conference_hall_booking/models/edit_profile_model.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:conference_hall_booking/models/events.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
+import 'package:http/http.dart' as http;
 
 Future<EditProfileData> editProfile(CurrentUserData value) async {
   String url = testUrl + "edit_profile";
@@ -13,13 +8,13 @@ Future<EditProfileData> editProfile(CurrentUserData value) async {
   var requestBody = {
     "user_id": toBeEditedProfileData.id.toString(),
     "user_name": toBeEditedProfileData.name,
-    "contact_number": toBeEditedProfileData.contactNumber,
+    "contact_number": toBeEditedProfileData.userContactNumber,
   };
 
   print('000000000000000000000000000000000000000000000000000000000000000000');
   print(toBeEditedProfileData.id);
   print(toBeEditedProfileData.name);
-  print(toBeEditedProfileData.contactNumber);
+  print(toBeEditedProfileData.userContactNumber);
 
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},

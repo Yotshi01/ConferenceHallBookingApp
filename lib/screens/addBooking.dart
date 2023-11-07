@@ -1,15 +1,5 @@
-import 'package:conference_hall_booking/api/conference_hall_details_api.dart';
-import 'package:conference_hall_booking/api/location_details_api.dart';
-import 'package:conference_hall_booking/models/conference_hall_details.dart';
-import 'package:conference_hall_booking/models/locations.dart';
-import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
-import 'package:conference_hall_booking/utils/conference_hall_dropdown.dart';
-import 'package:conference_hall_booking/utils/locations_dropdown.dart';
-import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:intl/intl.dart';
-import 'package:conference_hall_booking/models/events.dart';
-import 'package:conference_hall_booking/api/booking_details_api.dart';
 
 class AddBooking extends StatefulWidget {
   final DateTime selectedStartTime;
@@ -758,21 +748,21 @@ class _AddBookingState extends State<AddBooking> {
                               // toBeUpdatedBookingData.bookingId =
                               //     widget.currentBookingData
                               //         .bookingId;
-                              toBeAddedBookingData.meetingTitle =
+                              toBeAddedBookingData.bookingMeetingTitle =
                                   _meetingTitleController.text;
-                              toBeAddedBookingData.meetingDes =
+                              toBeAddedBookingData.bookingMeetingDescription =
                                   _meetingDescriptionController.text;
-                              toBeAddedBookingData.otherDetails =
+                              toBeAddedBookingData.bookingOtherDetails =
                                   _otherDetailsController.text;
-                              toBeAddedBookingData.createdAt =
+                              toBeAddedBookingData.bookingCreatedAt =
                                   DateTime.now().toString();
-                              toBeAddedBookingData.bookingStatus = 'Active';
+                              toBeAddedBookingData.bookingStatus = 1;
                               toBeAddedBookingData.userId = currentUserData!.id;
                               toBeAddedBookingData.bookingDate =
                                   widget.selectedStartTime.toString();
-                              toBeAddedBookingData.strTime =
+                              toBeAddedBookingData.bookingStartTime =
                                   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}';
-                              toBeAddedBookingData.endTime =
+                              toBeAddedBookingData.bookingEndTime =
                                   '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
                             });
 

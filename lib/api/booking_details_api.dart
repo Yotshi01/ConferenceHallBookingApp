@@ -1,10 +1,6 @@
-import 'package:conference_hall_booking/source/common_packages_export.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:conference_hall_booking/models/events.dart';
-// import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter/material.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
+import 'package:http/http.dart' as http;
 
 Future<BookingDetails> getBookingDetails() async {
   String url = testUrl + "booking_details";
@@ -47,26 +43,19 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": toBeUpdatedBookingData.bookingId.toString(),
-    "meeting_title": toBeUpdatedBookingData.meetingTitle,
-    "location_id": toBeUpdatedBookingData.locationName.toString(),
-    "conference_id": toBeUpdatedBookingData.conferenceName.toString(),
-    "meeting_description": toBeUpdatedBookingData.meetingDes,
-    "other_details": toBeUpdatedBookingData.otherDetails,
+    "booking_meeting_title": toBeUpdatedBookingData.bookingMeetingTitle,
+    "booking_location_id": toBeUpdatedBookingData.bookingLocationId.toString(),
+    "booking_conference_id":
+        toBeUpdatedBookingData.bookingConferenceId.toString(),
+    "booking_meeting_description":
+        toBeUpdatedBookingData.bookingMeetingDescription,
+    "booking_other_details": toBeUpdatedBookingData.bookingOtherDetails,
     "booking_date": toBeUpdatedBookingData.bookingDate,
-    "start_time": toBeUpdatedBookingData.strTime,
-    "end_time": toBeUpdatedBookingData.endTime,
-    "updated_at": toBeUpdatedBookingData.updatedAt,
+    "booking_start_time": toBeUpdatedBookingData.bookingStartTime,
+    "booking_end_time": toBeUpdatedBookingData.bookingEndTime,
+    "booking_updated_at": toBeUpdatedBookingData.bookingUpdatedAt,
   };
 
-  print('000000000000000000000000000000000000000000000000000000000000000000');
-  print(toBeUpdatedBookingData.bookingId);
-  print(toBeUpdatedBookingData.meetingTitle);
-  print(toBeUpdatedBookingData.locationName);
-  print(toBeUpdatedBookingData.conferenceName);
-  print(toBeUpdatedBookingData.meetingDes);
-  print(toBeUpdatedBookingData.otherDetails);
-  print(toBeUpdatedBookingData.strTime);
-  print(toBeUpdatedBookingData.endTime);
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
@@ -98,30 +87,20 @@ Future<AddBookingData> addBooking(BookingData value) async {
 
   var requestBody = {
     "booking_date": toBeAddedBookingData?.bookingDate ?? '',
-    "str_time": toBeAddedBookingData?.strTime ?? '',
-    "end_time": toBeAddedBookingData?.endTime ?? '',
-    "meeting_title": toBeAddedBookingData?.meetingTitle ?? '',
-    "location_id": toBeAddedBookingData?.locationName?.toString() ?? '',
-    "conference_id": toBeAddedBookingData?.conferenceName?.toString() ?? '',
-    "meeting_description": toBeAddedBookingData?.meetingDes ?? '',
-    "other_details": toBeAddedBookingData?.otherDetails ?? '',
-    "booking_status": toBeAddedBookingData?.bookingStatus ?? '',
+    "booking_start_time": toBeAddedBookingData?.bookingStartTime ?? '',
+    "booking_end_time": toBeAddedBookingData?.bookingEndTime ?? '',
+    "booking_meeting_title": toBeAddedBookingData?.bookingMeetingTitle ?? '',
+    "booking_location_id":
+        toBeAddedBookingData?.bookingLocationId?.toString() ?? '',
+    "booking_conference_id":
+        toBeAddedBookingData?.bookingConferenceId?.toString() ?? '',
+    "booking_meeting_description":
+        toBeAddedBookingData?.bookingMeetingDescription ?? '',
+    "booking_other_details": toBeAddedBookingData?.bookingOtherDetails ?? '',
+    "booking_status": toBeAddedBookingData?.bookingStatus.toString() ?? '',
     "user_id": toBeAddedBookingData?.userId?.toString() ?? '',
-    "created_at": toBeUpdatedBookingData?.createdAt ?? '',
+    "booking_created_at": toBeUpdatedBookingData?.bookingCreatedAt ?? '',
   };
-
-  print('<==============================>');
-  print(toBeAddedBookingData.bookingDate);
-  print(toBeAddedBookingData.strTime);
-  print(toBeAddedBookingData.endTime);
-  print(toBeAddedBookingData.meetingTitle);
-  print(toBeAddedBookingData.locationName);
-  print(toBeAddedBookingData.conferenceName);
-  print(toBeAddedBookingData.meetingDes);
-  print(toBeAddedBookingData.otherDetails);
-  print(toBeAddedBookingData.bookingStatus);
-  print(toBeAddedBookingData.userId.toString());
-  print(toBeAddedBookingData.createdAt);
 
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},

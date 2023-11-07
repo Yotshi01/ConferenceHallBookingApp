@@ -1,7 +1,5 @@
-//import 'package:flutter/material.dart';
-//import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class DetailsScreen extends StatefulWidget {
   final BookingData currentBookingData;
@@ -44,13 +42,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
   callBackLocationName(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
+      conferenceRoomChoosed = null;
+      selectedConferenceHall = null;
     });
   }
 
   String? selectedConferenceHall;
   callBackConferenceHallName(varSelectedConferenceHall) {
     setState(() {
-      selectedLocation = varSelectedConferenceHall;
+      selectedConferenceHall = varSelectedConferenceHall;
     });
   }
 
@@ -71,20 +71,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   void initState() {
-    _meetingTitleController =
-        TextEditingController(text: widget.currentBookingData.meetingTitle);
-    _meetingDescriptionController =
-        TextEditingController(text: widget.currentBookingData.meetingDes);
-    _otherDetailsController =
-        TextEditingController(text: widget.currentBookingData.otherDetails);
+    _meetingTitleController = TextEditingController(
+        text: widget.currentBookingData.bookingMeetingTitle);
+
+    _meetingDescriptionController = TextEditingController(
+        text: widget.currentBookingData.bookingMeetingDescription);
+    _otherDetailsController = TextEditingController(
+        text: widget.currentBookingData.bookingOtherDetails);
     currentBookingDate =
         DateTime.tryParse(widget.currentBookingData.bookingDate!);
+    selectedLocation =
+        getLocationName(widget.currentBookingData.bookingLocationId!);
+    toBeUpdatedBookingData.bookingDate =
+        widget.currentBookingData.bookingDate.toString();
+    toBeUpdatedBookingData.bookingStartTime =
+        widget.currentBookingData.bookingStartTime;
+    toBeUpdatedBookingData.bookingEndTime =
+        widget.currentBookingData.bookingEndTime;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     print('${currentBookingDate} chgjvhjbkhj');
+    print(
+        '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -192,7 +203,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
 
                                   Text(
-                                    '${widget.currentBookingData.meetingTitle}',
+                                    '${widget.currentBookingData.bookingMeetingTitle}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
@@ -274,7 +285,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 horizontal: 5,
                                               ),
                                               child: Text(
-                                                '${widget.currentBookingData.strTime} to ${widget.currentBookingData.endTime}',
+                                                '${widget.currentBookingData.bookingStartTime} to ${widget.currentBookingData.bookingEndTime}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,
@@ -333,7 +344,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
 
                                   Text(
-                                    '${widget.currentBookingData.meetingDes}',
+                                    '${widget.currentBookingData.bookingMeetingDescription}',
                                     style: TextStyle(
                                       color: Colors.black87,
                                       fontSize: 14,
@@ -359,7 +370,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Text(
                                     getConferenceHallDescription(widget
-                                        .currentBookingData.conferenceName!),
+                                        .currentBookingData
+                                        .bookingConferenceId!),
                                     style: TextStyle(
                                       color: Colors.grey[850],
                                       fontSize: 14,
@@ -386,7 +398,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         1, // Set the thickness of the divider line
                                   ),
                                   Text(
-                                    '${widget.currentBookingData.otherDetails}',
+                                    '${widget.currentBookingData.bookingOtherDetails}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
@@ -512,7 +524,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   //   ],
                                   // ),
                                   LocationsDropdown(
-                                      callBackFunction: callBackLocationName),
+                                      callBackFunction: callBackLocationName,
+                                      initialSelectedLocation:
+                                          widget.currentLocationName),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -547,7 +561,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ConferenceHallDropdown(
                                       callBackFunction:
                                           callBackConferenceHallName,
-                                      locationName: selectedLocation!),
+                                      locationName: selectedLocation!,
+                                      initialSelectedConferenceHall:
+                                          widget.currentConferenceRoomName),
                                   SizedBox(
                                     height: 20,
                                   ),
@@ -666,7 +682,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             setState(() {
                                               printedStartTime = time;
                                               selectedStartTime = time;
-                                              toBeUpdatedBookingData.strTime =
+                                              toBeUpdatedBookingData
+                                                      .bookingStartTime =
                                                   '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
                                             });
                                           },
@@ -697,7 +714,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 // controller: _meetingTitleController,
                                                 selectedStartTime != null
                                                     ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
-                                                    : '${widget.currentBookingData.strTime}',
+                                                    : '${widget.currentBookingData.bookingStartTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 14,
@@ -735,7 +752,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             setState(() {
                                               printedEndTime = time;
                                               selectedEndTime = time;
-                                              toBeUpdatedBookingData.endTime =
+                                              toBeUpdatedBookingData
+                                                      .bookingEndTime =
                                                   '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
                                             });
                                           },
@@ -766,7 +784,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 // controller: _meetingTitleController,
                                                 selectedEndTime != null
                                                     ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
-                                                    : '${widget.currentBookingData.endTime}',
+                                                    : '${widget.currentBookingData.bookingEndTime}',
                                                 style: TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 14,
@@ -962,15 +980,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 widget.currentBookingData
                                                     .bookingId;
                                             toBeUpdatedBookingData
-                                                    .meetingTitle =
+                                                    .bookingMeetingTitle =
                                                 _meetingTitleController.text;
-                                            toBeUpdatedBookingData.meetingDes =
+                                            toBeUpdatedBookingData
+                                                    .bookingMeetingDescription =
                                                 _meetingDescriptionController
                                                     .text;
                                             toBeUpdatedBookingData
-                                                    .otherDetails =
+                                                    .bookingOtherDetails =
                                                 _otherDetailsController.text;
-                                            toBeUpdatedBookingData.updatedAt =
+                                            toBeUpdatedBookingData
+                                                    .bookingUpdatedAt =
                                                 DateTime.now().toString();
                                           });
 

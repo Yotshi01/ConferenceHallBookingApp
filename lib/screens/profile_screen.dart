@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     usernameController = TextEditingController(text: currentUserData!.name);
     phonenumberController =
-        TextEditingController(text: currentUserData!.contactNumber);
+        TextEditingController(text: currentUserData!.userContactNumber);
     super.initState();
   }
 
@@ -190,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     toBeEditedProfileData.id = currentUserData!.id;
                     toBeEditedProfileData.name = usernameController.text;
-                    toBeEditedProfileData.contactNumber =
+                    toBeEditedProfileData.userContactNumber =
                         phonenumberController.text;
                     var response = await editProfile(toBeEditedProfileData);
                     if (response.status == 'success') {

@@ -1,9 +1,5 @@
-import 'package:conference_hall_booking/api/booking_details_api.dart';
-import 'package:conference_hall_booking/screens/notifications_screen.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/screens/book_now_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
@@ -108,16 +104,39 @@ AppBar reusableAppBar(String pageName, BuildContext context) {
         letterSpacing: 0.16,
       ),
     ),
+
+    leading: IconButton(
+      icon: Icon(
+        Icons.logout,
+        color: Colors.black,
+      ),
+      onPressed: () async {
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
+        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+        //   builder: (context) => const LoginScreen(),
+        // ));
+        final SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.remove('email');
+        sharedPreferences.remove('token');
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      },
+    ),
     // backgroundColor: const Color(0xFF048B3F),
     actions: <Widget>[
       IconButton(
         icon: Icon(
-          Icons.notifications,
+          Icons.account_circle_rounded,
           color: Colors.black,
         ),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => NotificationsScreen()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ProfileScreen(),
+          ));
         },
       )
     ],

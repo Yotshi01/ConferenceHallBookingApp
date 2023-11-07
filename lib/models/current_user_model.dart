@@ -1,17 +1,20 @@
 class CurrentUserData {
   int? id;
   String? name;
-  Null? userImg;
+  String? userImg;
   String? email;
   Null? emailVerifiedAt;
-  String? createdAt;
-  String? updatedAt;
-  String? contactNumber;
-  String? deptSelect;
-  int? userLocation;
-  Null? userPic;
+  int? userCreatedAt;
+  int? userUpdatedAt;
+  int? userCreatedById;
+  int? userUpdatedById;
+  String? userContactNumber;
+  int? userDepartmentId;
+  int? userLocationId;
   String? userAddress;
-  String? userrole;
+  int? userrole;
+  int? userCompanyId;
+  int? userStatus;
 
   CurrentUserData(
       {this.id,
@@ -19,14 +22,17 @@ class CurrentUserData {
       this.userImg,
       this.email,
       this.emailVerifiedAt,
-      this.createdAt,
-      this.updatedAt,
-      this.contactNumber,
-      this.deptSelect,
-      this.userLocation,
-      this.userPic,
+      this.userCreatedAt,
+      this.userUpdatedAt,
+      this.userCreatedById,
+      this.userUpdatedById,
+      this.userContactNumber,
+      this.userDepartmentId,
+      this.userLocationId,
       this.userAddress,
-      this.userrole});
+      this.userrole,
+      this.userCompanyId,
+      this.userStatus});
 
   CurrentUserData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -34,14 +40,17 @@ class CurrentUserData {
     userImg = json['user_img'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    contactNumber = json['contact_number'];
-    deptSelect = json['DeptSelect'];
-    userLocation = json['user_location'];
-    userPic = json['user_pic'];
+    userCreatedAt = json['user_created_at'];
+    userUpdatedAt = json['user_updated_at'];
+    userCreatedById = json['user_created_by_id'];
+    userUpdatedById = json['user_updated_by_id'];
+    userContactNumber = json['user_contact_number'];
+    userDepartmentId = json['user_department_id'];
+    userLocationId = json['user_location_id'];
     userAddress = json['user_address'];
     userrole = json['userrole'];
+    userCompanyId = json['user_company_id'];
+    userStatus = json['user_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,14 +60,17 @@ class CurrentUserData {
     data['user_img'] = this.userImg;
     data['email'] = this.email;
     data['email_verified_at'] = this.emailVerifiedAt;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['contact_number'] = this.contactNumber;
-    data['DeptSelect'] = this.deptSelect;
-    data['user_location'] = this.userLocation;
-    data['user_pic'] = this.userPic;
+    data['user_created_at'] = this.userCreatedAt;
+    data['user_updated_at'] = this.userUpdatedAt;
+    data['user_created_by_id'] = this.userCreatedById;
+    data['user_updated_by_id'] = this.userUpdatedById;
+    data['user_contact_number'] = this.userContactNumber;
+    data['user_department_id'] = this.userDepartmentId;
+    data['user_location_id'] = this.userLocationId;
     data['user_address'] = this.userAddress;
     data['userrole'] = this.userrole;
+    data['user_company_id'] = this.userCompanyId;
+    data['user_status'] = this.userStatus;
     return data;
   }
 }

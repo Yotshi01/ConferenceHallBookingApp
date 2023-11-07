@@ -1,8 +1,4 @@
-import 'package:conference_hall_booking/screens/login_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
-import 'package:conference_hall_booking/screens/reset_password_screen.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 
 class SignupScreen extends StatefulWidget {

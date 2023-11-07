@@ -1,12 +1,5 @@
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
-import 'package:conference_hall_booking/api/login_api.dart';
-import 'package:conference_hall_booking/screens/home_screen.dart';
-import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/reusables/reusable_widgets.dart';
-import 'package:conference_hall_booking/screens/signup_screen.dart';
-import 'package:conference_hall_booking/screens/reset_password_screen.dart';
-import 'package:http/http.dart' as http;
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -121,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                                      builder: (context) => TabbarSetup()));
                             }
                           } catch (e) {
                             print("Error: $e");

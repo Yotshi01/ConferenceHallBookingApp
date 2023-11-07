@@ -1,13 +1,5 @@
-import 'package:conference_hall_booking/api/holiday_api.dart';
-import 'package:conference_hall_booking/screens/addBooking.dart';
-import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:conference_hall_booking/models/events.dart'; // Import your BookingDetails and Data models
-import 'package:conference_hall_booking/utils/booking_alert_dialog.dart'; // Import your BookingAlertDialog
-import 'package:conference_hall_booking/api/booking_details_api.dart'; // Import your getBookingDetails function
-import 'dart:math';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:intl/intl.dart';
 
 class SyncfusionCalendar extends StatefulWidget {
@@ -49,6 +41,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       // conferenceHallsAtSelectedLocation =
       //     getConferenceHallDataAccordingToSelectedLocation(varSelectedLocation);
       conferenceRoomChoosed = null;
+      selectedConferenceHall = null;
     });
   }
 
@@ -225,17 +218,21 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
           // Create a TimeRegion to represent the booked time slot
           final timeRegion = TimeRegion(
-            startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
-            endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
+            startTime: DateTime.parse(
+                data.bookingDate! + ' ' + data.bookingStartTime!),
+            endTime:
+                DateTime.parse(data.bookingDate! + ' ' + data.bookingEndTime!),
             color: color, // Use the same color as the appointment
           );
 
           bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
 
           return Appointment(
-            startTime: DateTime.parse(data.bookingDate! + ' ' + data.strTime!),
-            endTime: DateTime.parse(data.bookingDate! + ' ' + data.endTime!),
-            subject: data.meetingTitle!,
+            startTime: DateTime.parse(
+                data.bookingDate! + ' ' + data.bookingStartTime!),
+            endTime:
+                DateTime.parse(data.bookingDate! + ' ' + data.bookingEndTime!),
+            subject: data.bookingMeetingTitle!,
             color: color, // Use the random color
           );
         }).toList();
@@ -398,9 +395,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     print(
         '${selectedConferenceHall} this is the start of the process of filtering using conference hall');
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Event Calendar'),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Event Calendar'),
+        // ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Color.fromARGB(255, 241, 231, 195),
           child: Icon(
@@ -488,20 +485,30 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 //   },
                 // );
 
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AddBooking(
-                              selectedStartTime: selectedStartTime ??
-                                  DateTime
-                                      .now(), // Provide a default value or handle null appropriately
+                if (selectedLocation != null &&
+                    selectedConferenceHall != null) {
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AddBooking(
+                                selectedStartTime: selectedStartTime ??
+                                    DateTime
+                                        .now(), // Provide a default value or handle null appropriately
 
-                              selectedEndTime:
-                                  selectedEndTime ?? DateTime.now(),
+                                selectedEndTime:
+                                    selectedEndTime ?? DateTime.now(),
 
-                              selectedLocation: selectedLocation!,
-                              selectedConferenceHall: selectedConferenceHall!,
-                            )));
+                                selectedLocation: selectedLocation!,
+                                selectedConferenceHall: selectedConferenceHall!,
+                              )));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                          'Please select both location and conference hall to add booking'),
+                    ),
+                  );
+                }
 
                 // Clear the selected times for the next selection
                 selectedStartTime = null;

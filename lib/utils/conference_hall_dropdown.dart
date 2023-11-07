@@ -1,16 +1,16 @@
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:conference_hall_booking/source/common_packages_export.dart';
-import 'package:flutter/material.dart';
-import 'package:conference_hall_booking/api/conference_hall_details_api.dart';
-import 'package:conference_hall_booking/models/conference_hall_details.dart';
-import 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 
 class ConferenceHallDropdown extends StatefulWidget {
   final Function callBackFunction;
   final String locationName;
-  const ConferenceHallDropdown(
-      {Key? key, required this.callBackFunction, required this.locationName})
-      : super(key: key);
+  final String? initialSelectedConferenceHall;
+  const ConferenceHallDropdown({
+    Key? key,
+    required this.callBackFunction,
+    required this.locationName,
+    this.initialSelectedConferenceHall,
+  }) : super(key: key);
 
   @override
   State<ConferenceHallDropdown> createState() => _ConferenceHallDropdownState();
@@ -43,6 +43,11 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
     _fetchConferenceHallData();
     conferenceHallsAtSelectedLocation =
         getConferenceHallDataAccordingToSelectedLocation(widget.locationName);
+
+    if (widget.initialSelectedConferenceHall != null) {
+      // If an initial location is provided, set it as the selected value.
+      conferenceRoomChoosed = widget.initialSelectedConferenceHall;
+    }
   }
 
   @override
@@ -91,9 +96,9 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
               onChanged: (newValue) {
                 setState(() {
                   conferenceRoomChoosed = newValue.toString();
-                  toBeUpdatedBookingData.conferenceName =
+                  toBeUpdatedBookingData.bookingConferenceId =
                       getConferenceHallId(conferenceRoomChoosed!);
-                  toBeAddedBookingData.conferenceName =
+                  toBeAddedBookingData.bookingConferenceId =
                       getConferenceHallId(conferenceRoomChoosed!);
                   widget.callBackFunction(conferenceRoomChoosed);
                   listOfFilteredMeetingsAccordingToDropdownSelections =

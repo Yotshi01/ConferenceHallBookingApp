@@ -1,5 +1,5 @@
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:flutter/material.dart';
 
 class NotificationsBuilder extends StatefulWidget {
   const NotificationsBuilder({super.key});
@@ -18,19 +18,10 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
     {"id": 6, "notification": "notification6"},
     {"id": 7, "notification": "notification7"},
   ];
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-        // decoration: BoxDecoration(
-        //   gradient: LinearGradient(
-        //     begin: Alignment(0.21, -0.98),
-        //     end: Alignment(-0.21, 0.98),
-        //     colors: [Colors.white, Color(0x00DBCC95)],
-        //   ),
-        // ),
-        // color: Colors.blue,
-        width: screenWidth,
-        height: screenHeight * 0.86,
+    return Expanded(
         child: ListView.builder(
             padding: const EdgeInsets.all(0.0),
             scrollDirection: Axis.vertical,
