@@ -14,7 +14,7 @@ class _StartScreenState extends State<SplashScreen> {
   void initState() {
     getValidationData().whenComplete(() async {
       Timer(
-          const Duration(seconds: 0),
+          const Duration(seconds: 3),
           () => Navigator.pushReplacement(
               context,
               MaterialPageRoute(
