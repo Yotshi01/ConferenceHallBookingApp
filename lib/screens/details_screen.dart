@@ -446,6 +446,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     child: MeetingUpdateButtons(
                                       bookingUserId:
                                           widget.currentBookingData.userId!,
+                                      bookingId:
+                                          widget.currentBookingData.bookingId!,
                                     ),
                                   ),
                                 ],
@@ -971,6 +973,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Align(
                                     alignment: Alignment.center,
                                     child: MeetingUpdateButtons(
+                                      bookingId:
+                                          widget.currentBookingData.bookingId!,
                                       bookingUserId:
                                           widget.currentBookingData.userId!,
                                     ),

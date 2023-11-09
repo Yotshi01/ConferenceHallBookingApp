@@ -1,9 +1,12 @@
+import 'package:conference_hall_booking/api/rescheduling_request_api.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 
 class MeetingUpdateButtons extends StatefulWidget {
   final int bookingUserId;
-  const MeetingUpdateButtons({Key? key, required this.bookingUserId})
+  final int bookingId;
+  const MeetingUpdateButtons(
+      {Key? key, required this.bookingUserId, required this.bookingId})
       : super(key: key);
 
   @override
@@ -14,170 +17,10 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
   @override
   Widget build(BuildContext context) {
     return (currentUserData!.id == widget.bookingUserId)
-        ?
-        // Row(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       ElevatedButton(
-        //         onPressed: () {
-        //           // Add your book now functionality here
-        //         },
-        //         style: ElevatedButton.styleFrom(
-        //           backgroundColor: Color(0xFFFFC304),
-        //           elevation: 4,
-        //         ),
-        //         child: Container(
-        //           width: screenWidth * 0.27,
-        //           height: screenHeight * 0.03,
-        //           decoration: BoxDecoration(
-        //             color: Color(0xFFFFC304),
-        //             boxShadow: [
-        //               BoxShadow(
-        //                 color: Color(0x3F000000),
-        //                 // blurRadius: 4,
-        //                 // offset: Offset(0, 4),
-        //                 spreadRadius: 0,
-        //               ),
-        //             ],
-        //           ),
-        //           child: Center(
-        //             child: Text(
-        //               "Save Changes",
-        //               style: TextStyle(
-        //                 color: Colors.black, // You can set your text color here
-        //                 fontWeight: FontWeight.bold,
-        //                 fontSize: 16,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(
-        //         width: 15,
-        //       ),
-        //       ElevatedButton(
-        //         onPressed: () {
-        //           // Add your book now functionality here
-        //           showDialog(
-        //             context: context,
-        //             builder: (context) {
-        //               return AlertDialog(
-        //                 title: Text('Reason for Postpone Meeting'),
-        //                 content: Container(
-        //                   width: 331,
-        //                   height: 313,
-        //                   decoration: BoxDecoration(color: Colors.white),
-        //                   child: const Column(
-        //                     children: [
-        //                       Column(
-        //                         mainAxisAlignment: MainAxisAlignment.start,
-        //                         children: [
-        //                           SizedBox(height: 10),
-        //                           TextField(
-        //                             decoration: InputDecoration(
-        //                               labelText:
-        //                                   'Type a valid reason for postponing the meeting',
-        //                               labelStyle: TextStyle(
-        //                                 color: Color(0xFFC1BEBE),
-        //                                 fontSize: 12,
-        //                                 fontFamily: 'Noto Sans',
-        //                                 fontWeight: FontWeight.w400,
-        //                               ),
-        //                               border: OutlineInputBorder(
-        //                                 borderSide:
-        //                                     BorderSide(color: Colors.amber),
-        //                               ),
-        //                             ),
-        //                             maxLines: 10,
-        //                             minLines: 5,
-        //                           )
-        //                         ],
-        //                       ),
-        //                     ],
-        //                   ),
-        //                 ),
-        //                 actions: [
-        //                   // TextButton(
-
-        //                   //     Navigator.of(context).pop(); // Close the dialog
-        //                   //   },
-        //                   //   child: Text('Postpone'),
-        //                   // ),
-        //                   Align(
-        //                     alignment: Alignment.bottomCenter,
-        //                     child: Container(
-        //                       width: 98,
-        //                       height: 33,
-        //                       decoration: BoxDecoration(
-        //                         color: Color(0xFFFFC304),
-        //                         boxShadow: [
-        //                           BoxShadow(
-        //                             color: Color(0x3F000000),
-        //                             blurRadius: 4,
-        //                             offset: Offset(0, 4),
-        //                             spreadRadius: 0,
-        //                           )
-        //                         ],
-        //                       ),
-        //                       child: TextButton(
-        //                         onPressed: () {
-        //                           // Handle the action when the "Send" button is clicked
-        //                           // You can access the reason in _reasonController.text
-        //                           // Add your logic here
-        //                           Navigator.of(context).pop();
-
-        //                           // Close the dialog
-        //                         },
-        //                         child: Text(
-        //                           'Send',
-        //                           style: TextStyle(
-        //                             color: Colors.white,
-        //                           ),
-        //                         ),
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 ],
-        //               );
-        //             },
-        //           );
-        //         },
-        //         style: ElevatedButton.styleFrom(
-        //           backgroundColor: Color(0xFFFFC304),
-        //           elevation: 4,
-        //         ),
-        //         child: Container(
-        //           width: screenWidth * 0.27,
-        //           height: screenHeight * 0.03,
-        //           decoration: BoxDecoration(
-        //             color: Color(0xFFFFC304),
-        //             boxShadow: [
-        //               BoxShadow(
-        //                 color: Color(0x3F000000),
-        //                 // blurRadius: 4,
-        //                 // offset: Offset(0, 4),
-        //                 spreadRadius: 0,
-        //               ),
-        //             ],
-        //           ),
-        //           child: Center(
-        //             child: Text(
-        //               "Postpone",
-        //               style: TextStyle(
-        //                 color: Colors.black, // You can set your text color here
-        //                 fontWeight: FontWeight.bold,
-        //                 fontSize: 16,
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   )
-        Container()
+        ? Container()
         : ElevatedButton(
             onPressed: () {
-              // Add your book now functionality here
+              _showRequestDialog(context);
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Color(0xFFFFC304),
@@ -209,5 +52,81 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
               ),
             ),
           );
+  }
+
+  void _showRequestDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String reason = ""; // Store the input reason
+
+        return AlertDialog(
+          title: Text("Reason for Request"),
+          content: TextField(
+            onChanged: (text) {
+              reason = text;
+            },
+            decoration: InputDecoration(
+              hintText: "Enter your reason here",
+            ),
+            maxLines: null,
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () async {
+                print("Reason: $reason");
+
+                // You can use the 'reason' variable for further processing
+                toBeAddedReschedulingRequestData.requestRequesterId =
+                    currentUserData!.id;
+                toBeAddedReschedulingRequestData.requestOrganizerId =
+                    widget.bookingUserId;
+                toBeAddedReschedulingRequestData.requestReason = reason;
+                toBeAddedReschedulingRequestData.requestStatus = 'Pending';
+                toBeAddedReschedulingRequestData.requestBookingId =
+                    widget.bookingId;
+
+                // var response = await addReschedulingRequest(
+                //     toBeAddedReschedulingRequestData);
+
+                // if (response.status == 'success') {
+                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //     content: Text("Requested successfully!"),
+                //   ));
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //     content: Text("Failed to make a request!"),
+                //   ));
+                // }
+                var response = await addReschedulingRequest(
+                    toBeAddedReschedulingRequestData);
+                if (response.status == 'success') {
+                  print('Saved Changes');
+                  final snackBar = SnackBar(
+                    content: Text('Request Successfully'),
+                    backgroundColor: Colors.green,
+                    duration:
+                        Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('Failed to make a request'),
+                    backgroundColor: Colors.red,
+                    duration:
+                        Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+
+                // print("Reason: $reason");
+                 Navigator.of(context).pop();
+              },
+              child: Text("Send"),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
