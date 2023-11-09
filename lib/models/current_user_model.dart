@@ -3,7 +3,7 @@ class CurrentUserData {
   String? name;
   String? userImg;
   String? email;
-  Null? emailVerifiedAt;
+  String? emailVerifiedAt;
   int? userCreatedAt;
   int? userUpdatedAt;
   int? userCreatedById;

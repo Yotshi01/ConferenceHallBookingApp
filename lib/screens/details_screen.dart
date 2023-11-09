@@ -42,6 +42,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   callBackLocationName(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
+
       conferenceRoomChoosed = null;
       selectedConferenceHall = null;
     });
@@ -61,12 +62,38 @@ class _DetailsScreenState extends State<DetailsScreen> {
         lastDate: DateTime(2100),
       );
 
-  Future<TimeOfDay?> _selectedTime(BuildContext context) {
+  // Future<TimeOfDay?> _selectedTime(BuildContext context) {
+  //   final now = DateTime.now();
+  //   return showTimePicker(
+  //       initialEntryMode: TimePickerEntryMode.dialOnly,
+  //       context: context,
+  //       initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+  // }
+
+  Future<TimeOfDay?> _selectedTime(BuildContext context) async {
     final now = DateTime.now();
-    return showTimePicker(
-        initialEntryMode: TimePickerEntryMode.inputOnly,
-        context: context,
-        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+    final selectedTime = await showTimePicker(
+      initialEntryMode: TimePickerEntryMode.dialOnly,
+      context: context,
+      initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+    );
+
+    if (selectedTime != null) {
+      // Check if the selected minute is in the allowed list
+      final allowedMinutes = [0, 30];
+      if (!allowedMinutes.contains(selectedTime.minute)) {
+        // Show an error message or select the nearest allowed minute here.
+        // You can adjust the selected time as needed.
+        // For example, round the minute to the nearest allowed minute.
+        final nearestAllowedMinute = allowedMinutes.reduce((a, b) =>
+            (a - selectedTime.minute).abs() < (b - selectedTime.minute).abs()
+                ? a
+                : b);
+        return TimeOfDay(hour: selectedTime.hour, minute: nearestAllowedMinute);
+      }
+    }
+
+    return selectedTime;
   }
 
   @override
@@ -82,6 +109,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
         DateTime.tryParse(widget.currentBookingData.bookingDate!);
     selectedLocation =
         getLocationName(widget.currentBookingData.bookingLocationId!);
+    toBeUpdatedBookingData.bookingLocationId =
+        getLocationId(widget.currentLocationName);
+    toBeUpdatedBookingData.bookingConferenceId =
+        getConferenceHallId(widget.currentConferenceRoomName);
     toBeUpdatedBookingData.bookingDate =
         widget.currentBookingData.bookingDate.toString();
     toBeUpdatedBookingData.bookingStartTime =
@@ -998,14 +1029,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               toBeUpdatedBookingData);
 
                                           if (response.status == 'success') {
-                                            SnackBar(
-                                              content: Text(
-                                                  "Booking updated successfully!"),
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor:
+                                                    Colors.green[300],
+                                                content: Text(
+                                                    "Booking updated successfully!"),
+                                              ),
                                             );
                                           } else {
-                                            SnackBar(
-                                              content: Text(
-                                                  "Failed to update booking"),
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content: Text(
+                                                    "Failed to update booking"),
+                                              ),
                                             );
                                           }
                                           isEditable = false;

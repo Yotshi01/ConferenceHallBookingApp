@@ -356,7 +356,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
         });
       } else if (selectedEndTime == null) {
         setState(() {
-          selectedEndTime = calendarTapDetails.date!.add(Duration(minutes: 15));
+          selectedEndTime = calendarTapDetails.date!.add(Duration(minutes: 30));
           isConflicting = _isTimeRangeConflicting();
         });
 
@@ -417,11 +417,11 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
             if (selectedStartTime != null && selectedEndTime != null) {
               final Duration duration =
                   (selectedEndTime!.difference(selectedStartTime!)).abs();
-              if (duration < Duration(minutes: 45)) {
+              if (duration < Duration(minutes: 60)) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                        'The selected duration should be more than 45 minutes'),
+                        'The selected duration should be more than 60 minutes'),
                   ),
                 );
               } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
@@ -487,6 +487,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
                 if (selectedLocation != null &&
                     selectedConferenceHall != null) {
+                  print('${selectedStartTime} sjxsaxkxx');
                   await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -577,8 +578,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   timeSlotViewSettings: TimeSlotViewSettings(
                     startHour: 7,
                     endHour: 22,
-                    timeInterval: const Duration(minutes: 15),
-                    minimumAppointmentDuration: const Duration(minutes: 45),
+                    timeInterval: const Duration(minutes: 30),
+                    minimumAppointmentDuration: const Duration(minutes: 30),
                     timeFormat: 'h:ma',
                   ),
 

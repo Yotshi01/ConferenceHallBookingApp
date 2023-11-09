@@ -24,6 +24,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     usernameController = TextEditingController(text: currentUserData!.name);
     phonenumberController =
         TextEditingController(text: currentUserData!.userContactNumber);
+    toBeEditedProfileData.name = usernameController.text;
+    toBeEditedProfileData.userContactNumber = phonenumberController.text;
     super.initState();
   }
 

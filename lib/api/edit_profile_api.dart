@@ -7,8 +7,8 @@ Future<EditProfileData> editProfile(CurrentUserData value) async {
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "user_id": toBeEditedProfileData.id.toString(),
-    "user_name": toBeEditedProfileData.name,
-    "contact_number": toBeEditedProfileData.userContactNumber,
+    "name": toBeEditedProfileData.name,
+    "user_contact_number": toBeEditedProfileData.userContactNumber,
   };
 
   print('000000000000000000000000000000000000000000000000000000000000000000');

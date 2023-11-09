@@ -62,10 +62,16 @@ int getLocationId(String locationName) {
 List<BookingData> myMeetings() {
   List<BookingData> myBookings = [];
   if (currentUserData != null) {
+    DateTime now = DateTime.now();
+
     // Check if currentUserData is not null
     for (var booking in listOfBookings) {
+      String? bookingDateStr = booking.bookingDate;
+      DateTime? bookingDate = DateTime.tryParse(bookingDateStr!);
       print('${currentUserData!.id} ${booking.userId}');
-      if (currentUserData!.id == booking.userId) {
+      if (bookingDate != null &&
+          bookingDate.isAfter(now) &&
+          currentUserData!.id == booking.userId) {
         // Use currentUserData without ! here
         myBookings.add(booking);
         print(myBookings);
@@ -115,15 +121,16 @@ List<BookingData> myOldMeetings() {
     // Check if currentUserData is not null
     DateTime now = DateTime.now();
 
-    for (var booking in listOfMyMeetings) {
+    for (var booking in listOfBookings) {
       // Convert booking.bookingDate from String to DateTime and then compare
       String? bookingDateStr = booking.bookingDate;
+      print('${bookingDateStr} dclkacam');
 
       if (bookingDateStr != null) {
         DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
 
         if (bookingDate != null &&
-            now.isAfter(bookingDate) &&
+            bookingDate.isBefore(now) &&
             currentUserData!.id == booking.userId) {
           myOldBookings.add(booking);
           print('Added a booking to myOldBookings');
@@ -241,4 +248,18 @@ List<ConferenceHallData> getConferenceHallDataAccordingToSelectedLocation(
   }
   print('${conferenceHalls} adfafcasdad');
   return conferenceHalls;
+}
+
+String formatTimeIn12HourClockFormat(TimeOfDay timeOfDay) {
+  if (timeOfDay != null) {
+    String period = timeOfDay.period == DayPeriod.am ? 'AM' : 'PM';
+    int hour = timeOfDay.hourOfPeriod;
+    int minute = timeOfDay.minute;
+
+    // Format the time in 12-hour clock format with AM/PM marker
+    return '${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')} $period';
+  } else {
+    // Handle the case where timeOfDay is null (provide a default value or error message)
+    return 'Invalid Time';
+  }
 }

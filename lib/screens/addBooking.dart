@@ -1,5 +1,6 @@
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
+import 'package:intl/intl.dart';
 
 class AddBooking extends StatefulWidget {
   final DateTime selectedStartTime;
@@ -85,7 +86,7 @@ class _AddBookingState extends State<AddBooking> {
             padding: EdgeInsets.all(15),
             // width: 352,
             // height: 641,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
@@ -347,7 +348,7 @@ class _AddBookingState extends State<AddBooking> {
                                           width:
                                               8), // Add some spacing between the icon and text
                                       Text(
-                                        '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
+                                        '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
@@ -550,21 +551,26 @@ class _AddBookingState extends State<AddBooking> {
 
                     // LocationsDropdown(callBackFunction: callBack),
 
-                    Container(
+                    SizedBox(
                       width: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors
-                                .transparent), // Set border color to transparent
-                      ),
-                      child: Text(
-                        '${widget.selectedLocation}',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
+                      height: 50,
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                            vertical: 1), // Adjust the padding as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200], // Use a light gray color
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the value as needed
+                        ),
+                        child: Text(
+                          '${widget.selectedLocation}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                          ),
                         ),
                       ),
                     ),
