@@ -18,14 +18,6 @@ class _TodaysConferencesState extends State<TodaysConferences> {
     print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
-            // decoration: BoxDecoration(
-            //   gradient: LinearGradient(
-            //     begin: Alignment(0.21, -0.98),
-            //     end: Alignment(-0.21, 0.98),
-            //     colors: [Colors.white, Color(0x00DBCC95)],
-            //   ),
-            // ),
-            // color: Colors.blue,
             height: screenHeight * 0.35,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
@@ -69,27 +61,27 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: screenHeight * 0.005,
+                                height: screenHeight * 0.01,
                               ),
                               Row(
                                 children: [
                                   SizedBox(width: screenWidth * 0.02),
                                   Text('${bookingData.bookingDate}'),
-                                  SizedBox(width: screenWidth * 0.21),
-                                  Text(
-                                    '${bookingData.userId}',
-                                    // textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      //color: Colors.black,
-                                      color: Color(0xFFB88D05),
-                                      fontSize: 16,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                  // SizedBox(width: screenWidth * 0.21),
+                                  // Text(
+                                  //   '${bookingData.userId}',
+                                  //   // textAlign: TextAlign.left,
+                                  //   style: TextStyle(
+                                  //     //color: Colors.black,
+                                  //     color: Color(0xFFB88D05),
+                                  //     fontSize: 16,
+                                  //     fontFamily: 'Noto Sans',
+                                  //     fontWeight: FontWeight.w500,
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                               //'${bookingData.bookingDate} |
