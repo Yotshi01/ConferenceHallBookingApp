@@ -74,8 +74,8 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                 child: Text(
                   'Select Conference Room',
                   style: TextStyle(
-                    color: Color(0xFF898383),
-                    fontSize: 10,
+                    color: Colors.black,
+                    fontSize: 12,
                     fontFamily: 'Noto Sans',
                     fontWeight: FontWeight.w400,
                     height: 0,

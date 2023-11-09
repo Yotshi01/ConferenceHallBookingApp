@@ -70,8 +70,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                 child: Text(
                   'Select Location',
                   style: TextStyle(
-                    color: Color(0xFF898383),
-                    fontSize: 10,
+                    color: Colors.black,
+                    fontSize: 12,
                     fontFamily: 'Noto Sans',
                     fontWeight: FontWeight.w400,
                     height: 0,

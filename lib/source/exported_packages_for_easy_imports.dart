@@ -24,6 +24,7 @@ export 'package:conference_hall_booking/models/holidays.dart';
 export 'package:conference_hall_booking/models/locations.dart';
 export 'package:conference_hall_booking/models/login_model.dart';
 export 'package:conference_hall_booking/models/updateBookingModel.dart';
+export 'package:conference_hall_booking/models/rescheduling_request_model.dart';
 
 export 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 
