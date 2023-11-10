@@ -4,8 +4,8 @@ class CurrentUserData {
   String? userImg;
   String? email;
   String? emailVerifiedAt;
-  int? userCreatedAt;
-  int? userUpdatedAt;
+  String? userCreatedAt;
+  String? userUpdatedAt;
   int? userCreatedById;
   int? userUpdatedById;
   String? userContactNumber;

@@ -543,7 +543,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 height: screenHeight * 0.01,
               ),
               Transform.scale(
-                scale: 0.6,
+                scale: 0.8,
                 child: CheckboxListTile(
                   tileColor: Colors.grey[200],
                   title: const Text(

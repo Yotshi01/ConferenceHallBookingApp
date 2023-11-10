@@ -15,11 +15,13 @@ Future<CurrentUserData> getCurrentUserData(String token) async {
       'Authorization': 'Bearer $token',
     },
   );
-  print(response.body);
+  print('${response.body} sjalscxsx');
 
-  if (response.statusCode == 200 || response.statusCode == 400) {
-    return CurrentUserData.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to load currently logged in user data');
-  }
+  return CurrentUserData.fromJson(json.decode(response.body));
+
+  // if (response.statusCode == 200 || response.statusCode == 400) {
+  //   return CurrentUserData.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load currently logged in user data');
+  // }
 }
