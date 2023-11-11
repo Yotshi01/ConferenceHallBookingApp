@@ -27,7 +27,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.2,
+            height: screenHeight * 0.25,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -52,7 +52,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                           screenHeight * 0.01),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.46,
+                        width: screenWidth * 0.5,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
                           color: Colors.white,
@@ -126,21 +126,22 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                   SizedBox(
                                       width: screenWidth *
                                           0.024), // Add some spacing between the icon and text
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
-                                            style: TextStyle(
-                                              color: Color(0xFF696767),
-                                              fontSize: 13,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )))
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 0,
+                                              ),
+                                              child: Text(
+                                                '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                                style: TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 13,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ))))
                                 ],
                               ),
                               SizedBox(height: screenHeight * 0.007),

@@ -100,6 +100,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             print('dcnkdcacax');
                             if (response.success == false) {
                               print("Login Error: An error occurred.");
+                              Fluttertoast.showToast(
+                                  msg:
+                                      'Please provide correct login credentials!',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  // timeInSecForIos: 1,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.yellow);
                             } else {
                               final SharedPreferences sharedPreferences =
                                   await SharedPreferences.getInstance();

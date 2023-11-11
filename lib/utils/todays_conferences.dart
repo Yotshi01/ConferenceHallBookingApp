@@ -45,7 +45,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                           screenHeight * 0.0001),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.46,
+                        width: screenWidth * 0.5,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
                           color: Colors.white,

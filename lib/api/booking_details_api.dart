@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/models/withdraw_booking_model.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
@@ -111,5 +112,28 @@ Future<AddBookingData> addBooking(BookingData value) async {
     return AddBookingData.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to add booking details');
+  }
+}
+
+Future<WithdrawBooking> withdrawBooking(BookingData value) async {
+  String url = testUrl + "withdraw_booking";
+  Uri urlUri = Uri.parse(url);
+  var requestBody = {
+    "booking_id": value.bookingId.toString(),
+    "booking_status": value.bookingStatus.toString(),
+    "booking_withdraw_by_id": value.bookingWithdrawById.toString(),
+    "booking_withdraw_created_at": value.bookingWithdrawCreatedAt,
+    "booking_withdraw_reason": value.bookingWithdrawReason,
+  };
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: requestBody);
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return WithdrawBooking.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to withdraw booking');
   }
 }

@@ -37,6 +37,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TimeOfDay? selectedEndTime;
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
   DateTime? currentBookingDate;
+  BookingData toBeWithdrawnBookingNeededData = new BookingData();
 
   String? selectedLocation;
   callBackLocationName(varSelectedLocation) {
@@ -94,6 +95,88 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
 
     return selectedTime;
+  }
+
+  void _showWithdrawDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String reason = ""; // Store the input reason
+
+        return AlertDialog(
+          title: Text("Reason for Withdrawing the meeting"),
+          content: TextField(
+            onChanged: (text) {
+              reason = text;
+            },
+            decoration: InputDecoration(
+              hintText: "Enter your reason here",
+            ),
+            maxLines: null,
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              onPressed: () async {
+                print("Reason: $reason");
+
+                // You can use the 'reason' variable for further processing
+                print("${widget.currentBookingData.bookingId} fkjfjakdalsdka");
+
+                toBeWithdrawnBookingNeededData.bookingId =
+                    widget.currentBookingData.bookingId;
+
+                toBeWithdrawnBookingNeededData.bookingStatus = 0;
+
+                toBeWithdrawnBookingNeededData.bookingWithdrawById =
+                    currentUserData!.id;
+
+                toBeWithdrawnBookingNeededData.bookingWithdrawCreatedAt =
+                    DateTime.now().toString();
+
+                toBeWithdrawnBookingNeededData.bookingWithdrawReason = reason;
+
+                // var response = await addReschedulingRequest(
+                //     toBeAddedReschedulingRequestData);
+
+                // if (response.status == 'success') {
+                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //     content: Text("Requested successfully!"),
+                //   ));
+                // } else {
+                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //     content: Text("Failed to make a request!"),
+                //   ));
+                // }
+                var response =
+                    await withdrawBooking(toBeWithdrawnBookingNeededData);
+                if (response.status == 'success') {
+                  print('Saved Changes');
+                  final snackBar = SnackBar(
+                    content: Text('Withdrawn Successfully'),
+                    backgroundColor: Colors.green,
+                    duration:
+                        Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  final snackBar = SnackBar(
+                    content: Text('Failed to withdraw booking'),
+                    backgroundColor: Colors.red,
+                    duration:
+                        Duration(seconds: 3), // Adjust the duration as needed
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+
+                // print("Reason: $reason");
+                Navigator.of(context).pop();
+              },
+              child: Text("Withdraw"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -193,26 +276,51 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           widget.currentBookingData.userId &&
                                       DateTime.now()
                                           .isBefore(currentBookingDate!))
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          isEditable = true;
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        shape:
-                                            CircleBorder(), // Use CircleBorder to make the button circular
-                                        backgroundColor: Colors
-                                            .blue, // Change the button color to your preference
-                                        padding: EdgeInsets.all(
-                                            16.0), // Adjust the padding as needed
-                                      ),
-                                      child: Icon(
-                                        Icons
-                                            .edit, // You can use your preferred edit icon here
-                                        color: Colors
-                                            .white, // Change the icon color to your preference
-                                      ),
+                                    Row(
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              isEditable = true;
+                                            });
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape:
+                                                CircleBorder(), // Use CircleBorder to make the button circular
+                                            backgroundColor: Colors
+                                                .blue, // Change the button color to your preference
+                                            padding: EdgeInsets.all(
+                                                16.0), // Adjust the padding as needed
+                                          ),
+                                          child: Icon(
+                                            Icons
+                                                .edit, // You can use your preferred edit icon here
+                                            color: Colors
+                                                .white, // Change the icon color to your preference
+                                          ),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              _showWithdrawDialog(context);
+                                            });
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            shape:
+                                                CircleBorder(), // Use CircleBorder to make the button circular
+                                            backgroundColor: Colors
+                                                .red, // Change the button color to your preference
+                                            padding: EdgeInsets.all(
+                                                16.0), // Adjust the padding as needed
+                                          ),
+                                          child: Icon(
+                                            Icons
+                                                .delete, // You can use your preferred edit icon here
+                                            color: Colors
+                                                .white, // Change the icon color to your preference
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   Container(),
                                   Padding(

@@ -27,7 +27,7 @@ class _MyConferencesState extends State<MyConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.33,
+            height: screenHeight * 0.35,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -52,7 +52,7 @@ class _MyConferencesState extends State<MyConferences> {
                           screenHeight * 0.01),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.46,
+                        width: screenWidth * 0.5,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
                           color: Colors.white,
@@ -175,21 +175,22 @@ class _MyConferencesState extends State<MyConferences> {
                                   // SizedBox(
                                   //     width:
                                   //         8), // Add some spacing between the icon and text
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 0,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
-                                            style: TextStyle(
-                                              color: Color(0xFF696767),
-                                              fontSize: 12,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          )))
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 0,
+                                              ),
+                                              child: Text(
+                                                '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                                style: TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 12,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ))))
                                 ],
                               )
                             ]),
