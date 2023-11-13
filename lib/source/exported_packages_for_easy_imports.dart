@@ -14,6 +14,7 @@ export 'package:conference_hall_booking/api/edit_profile_api.dart';
 export 'package:conference_hall_booking/api/holiday_api.dart';
 export 'package:conference_hall_booking/api/location_details_api.dart';
 export 'package:conference_hall_booking/api/login_api.dart';
+export 'package:conference_hall_booking/api/departments_api.dart';
 
 export 'package:conference_hall_booking/models/add_booking_model.dart';
 export 'package:conference_hall_booking/models/conference_hall_details_model.dart';
@@ -26,6 +27,7 @@ export 'package:conference_hall_booking/models/login_model.dart';
 export 'package:conference_hall_booking/models/updateBookingModel.dart';
 export 'package:conference_hall_booking/models/rescheduling_request_model.dart';
 export 'package:conference_hall_booking/models/withdraw_booking_model.dart';
+export 'package:conference_hall_booking/models/departments.dart';
 
 export 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 
@@ -52,3 +54,4 @@ export 'package:conference_hall_booking/utils/notifications_builder.dart';
 export 'package:conference_hall_booking/utils/old_meetings.dart';
 export 'package:conference_hall_booking/utils/other_conferences.dart';
 export 'package:conference_hall_booking/utils/todays_conferences.dart';
+export 'package:conference_hall_booking/utils/conversions.dart';

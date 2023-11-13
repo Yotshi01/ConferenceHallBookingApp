@@ -55,6 +55,7 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
     "booking_start_time": toBeUpdatedBookingData.bookingStartTime,
     "booking_end_time": toBeUpdatedBookingData.bookingEndTime,
     "booking_updated_at": toBeUpdatedBookingData.bookingUpdatedAt,
+    "booking_reported_by": toBeUpdatedBookingData.bookingReportedBy,
   };
 
   var response = await http.post(urlUri,
@@ -100,7 +101,8 @@ Future<AddBookingData> addBooking(BookingData value) async {
     "booking_other_details": toBeAddedBookingData?.bookingOtherDetails ?? '',
     "booking_status": toBeAddedBookingData?.bookingStatus.toString() ?? '',
     "user_id": toBeAddedBookingData?.userId?.toString() ?? '',
-    "booking_created_at": toBeUpdatedBookingData?.bookingCreatedAt ?? '',
+    "booking_created_at": toBeAddedBookingData?.bookingCreatedAt ?? '',
+    "booking_reported_by": toBeAddedBookingData?.bookingReportedBy ?? '',
   };
 
   var response = await http.post(urlUri,

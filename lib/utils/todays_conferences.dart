@@ -25,6 +25,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                 itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
                   final bookingData = finalBookings[index];
+                  final conferenceHallImageName = getConferenceHallImageName(
+                      bookingData.bookingConferenceId!);
                   print('${bookingData.bookingLocationId} dvdzdvzcvcvz');
                   print('${bookingData.bookingConferenceId} czsfvdzbzzbx');
                   final conferenceHallName = bookingData.bookingConferenceId !=
@@ -91,7 +93,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   horizontal: screenWidth * 0.009,
                                 ),
                                 child: Image.asset(
-                                  "assets/images/meeting-room5.png",
+                                  "assets/images/conference_hall_images/${conferenceHallImageName}",
                                   width: screenWidth * 0.3,
                                   height: screenHeight * 0.1,
                                 ),
@@ -106,8 +108,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                               currentBookingData: bookingData,
                                               currentConferenceRoomName:
                                                   conferenceHallName,
-                                              currentLocationName:
-                                                  locationName)));
+                                              currentLocationName: locationName,
+                                              currentConferenceHallImageName:
+                                                  conferenceHallImageName)));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -196,7 +199,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                                   15, // Set the size of the icon
                                             ),
                                             Text(
-                                              '${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                              '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
                                               style: TextStyle(
                                                 color: Color(0xFF696767),
                                                 fontSize: 12,

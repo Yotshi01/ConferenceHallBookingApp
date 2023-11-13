@@ -34,6 +34,8 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                 itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
                   final bookingData = finalBookings[index];
+                  final conferenceHallImageName = getConferenceHallImageName(
+                      bookingData.bookingConferenceId!);
                   final conferenceHallName = bookingData.bookingConferenceId !=
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
@@ -134,7 +136,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                                 horizontal: 0,
                                               ),
                                               child: Text(
-                                                '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                                '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 13,
@@ -176,7 +178,9 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                                 currentConferenceRoomName:
                                                     conferenceHallName,
                                                 currentLocationName:
-                                                    locationName)));
+                                                    locationName,
+                                                currentConferenceHallImageName:
+                                                    conferenceHallImageName)));
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,

@@ -11,7 +11,7 @@ class OtherConferences extends StatefulWidget {
 class _OtherConferencesState extends State<OtherConferences> {
   @override
   Widget build(BuildContext context) {
-    final List<BookingData> finalBookings = isSearched == false
+    final List<BookingData> finalBookings = (isSearched == false)
         ? listOfOtherMeetings
         : listOfFoundBookingsFromOtherMeetings;
     print('${isSearched} searched searched');
@@ -33,6 +33,9 @@ class _OtherConferencesState extends State<OtherConferences> {
                 itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
                   final bookingData = finalBookings[index];
+                  final conferenceHallImageName = getConferenceHallImageName(
+                      bookingData.bookingConferenceId!);
+                  print('${conferenceHallImageName} dsfnkdcsc');
                   final conferenceHallName = bookingData.bookingConferenceId !=
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
@@ -42,7 +45,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                       ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
-                  print(bookingData);
+                  print("${bookingData} cnkajcajajc");
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
                           screenWidth * 0.027,
@@ -86,7 +89,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   horizontal: screenWidth * 0.01,
                                 ),
                                 child: Image.asset(
-                                  "assets/images/meeting-room5.png",
+                                  "assets/images/conference_hall_images/${conferenceHallImageName}",
                                   width: screenWidth * 0.3,
                                   height: screenHeight * 0.1,
                                 ),
@@ -101,8 +104,9 @@ class _OtherConferencesState extends State<OtherConferences> {
                                               currentBookingData: bookingData,
                                               currentConferenceRoomName:
                                                   conferenceHallName,
-                                              currentLocationName:
-                                                  locationName)));
+                                              currentLocationName: locationName,
+                                              currentConferenceHallImageName:
+                                                  conferenceHallImageName)));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -183,7 +187,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                                 horizontal: 0,
                                               ),
                                               child: Text(
-                                                '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                                '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,

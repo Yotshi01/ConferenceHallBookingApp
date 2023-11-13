@@ -5,11 +5,13 @@ class DetailsScreen extends StatefulWidget {
   final BookingData currentBookingData;
   final String currentConferenceRoomName;
   final String currentLocationName;
+  final String currentConferenceHallImageName;
   const DetailsScreen(
       {Key? key,
       required this.currentBookingData,
       required this.currentConferenceRoomName,
-      required this.currentLocationName})
+      required this.currentLocationName,
+      required this.currentConferenceHallImageName})
       : super(key: key);
 
   @override
@@ -30,6 +32,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
   TextEditingController _otherDetailsController = TextEditingController();
+  TextEditingController _meetingReportedByController = TextEditingController();
   DateTime? selectedDate;
   DateTime dateTime = DateTime(2022, 12, 24);
   TimeOfDay? selectedStartTime;
@@ -188,6 +191,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         text: widget.currentBookingData.bookingMeetingDescription);
     _otherDetailsController = TextEditingController(
         text: widget.currentBookingData.bookingOtherDetails);
+    _meetingReportedByController = TextEditingController(
+        text: widget.currentBookingData.bookingReportedBy);
     currentBookingDate =
         DateTime.tryParse(widget.currentBookingData.bookingDate!);
     selectedLocation =
@@ -202,6 +207,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         widget.currentBookingData.bookingStartTime;
     toBeUpdatedBookingData.bookingEndTime =
         widget.currentBookingData.bookingEndTime;
+    toBeUpdatedBookingData.bookingReportedBy =
+        widget.currentBookingData.bookingReportedBy;
     super.initState();
   }
 
@@ -332,7 +339,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Image.asset(
-                                            "assets/images/meeting-room5.png",
+                                            "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
                                             width: screenWidth * 0.24,
                                             height: screenHeight * 0.15,
                                           ),
@@ -396,7 +403,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 horizontal: 5,
                                               ),
                                               child: Text(
-                                                '${widget.currentBookingData.bookingDate}',
+                                                '${convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,
@@ -424,7 +431,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 horizontal: 5,
                                               ),
                                               child: Text(
-                                                '${widget.currentBookingData.bookingStartTime} to ${widget.currentBookingData.bookingEndTime}',
+                                                '${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingEndTime!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,
@@ -538,6 +545,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Text(
                                     '${widget.currentBookingData.bookingOtherDetails}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      // fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    height: screenHeight * 0.01,
+                                  ),
+                                  Text(
+                                    'Meeting Reported By',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Color(
+                                        0xFFC2C0C0), // Set the color of the divider line
+                                    thickness:
+                                        1, // Set the thickness of the divider line
+                                  ),
+                                  Text(
+                                    '${widget.currentBookingData.bookingReportedBy}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
@@ -770,10 +805,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   8), // Add some spacing between the icon and text
                                           Text(
                                             selectedDate != null
-                                                ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
+                                                // ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
+                                                ? '${convertDateTimeDateIntoDesiredFormat(dateTime)}'
                                                 :
                                                 // controller: _meetingTitleController,
-                                                '${widget.currentBookingData.bookingDate}',
+                                                // '${widget.currentBookingData.bookingDate}',
+                                                '${convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)}',
                                             style: TextStyle(
                                               color: Colors.black,
                                               fontSize: 14,
@@ -810,65 +847,68 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            // Handle button tap here
-                                            print('Button tapped');
-                                            final time =
-                                                await _selectedTime(context);
-                                            if (time == null) return;
-                                            print(selectedStartTime);
-                                            setState(() {
-                                              printedStartTime = time;
-                                              selectedStartTime = time;
-                                              toBeUpdatedBookingData
-                                                      .bookingStartTime =
-                                                  '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
-                                            });
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            minimumSize: Size(100,
-                                                50), // Adjust the width and height as needed
-                                            backgroundColor: Colors.grey[
-                                                200], // Set the background color to light gray
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  10.0), // Adjust the value as needed
+                                      Expanded(
+                                        child: SizedBox(
+                                          // width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              // Handle button tap here
+                                              print('Button tapped');
+                                              final time =
+                                                  await _selectedTime(context);
+                                              if (time == null) return;
+                                              print(selectedStartTime);
+                                              setState(() {
+                                                printedStartTime = time;
+                                                selectedStartTime = time;
+                                                toBeUpdatedBookingData
+                                                        .bookingStartTime =
+                                                    '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
+                                              });
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              minimumSize: Size(100,
+                                                  50), // Adjust the width and height as needed
+                                              backgroundColor: Colors.grey[
+                                                  200], // Set the background color to light gray
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(
+                                                    10.0), // Adjust the value as needed
+                                              ),
                                             ),
-                                          ),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons
-                                                    .av_timer, // Replace with the icon you want
-                                                color: Color(
-                                                    0xFF696767), // Set the color of the icon
-                                                size:
-                                                    24, // Set the size of the icon
-                                              ),
-                                              SizedBox(
-                                                  width:
-                                                      8), // Add some spacing between the icon and text
-                                              Text(
-                                                // controller: _meetingTitleController,
-                                                selectedStartTime != null
-                                                    ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
-                                                    : '${widget.currentBookingData.bookingStartTime}',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Noto Sans',
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons
+                                                      .av_timer, // Replace with the icon you want
+                                                  color: Color(
+                                                      0xFF696767), // Set the color of the icon
+                                                  size:
+                                                      24, // Set the size of the icon
                                                 ),
-                                              ),
-                                            ],
+                                                SizedBox(
+                                                    width:
+                                                        8), // Add some spacing between the icon and text
+                                                Text(
+                                                  // controller: _meetingTitleController,
+                                                  selectedStartTime != null
+                                                      // ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
+                                                      ? '${convertTimeOfDayTimeIntoDesiredFormat(printedStartTime)}'
+                                                      : '${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingStartTime!)}',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Noto Sans',
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                       Padding(
                                         padding: EdgeInsets.symmetric(
-                                          horizontal: 30,
+                                          horizontal: 15,
                                         ),
                                         child: Text(
                                           'to ',
@@ -880,62 +920,66 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                       ),
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () async {
-                                            // Handle button tap here
-                                            print('Button tapped');
-                                            final time =
-                                                await _selectedTime(context);
-                                            if (time == null) return;
-                                            print(selectedEndTime);
-                                            setState(() {
-                                              printedEndTime = time;
-                                              selectedEndTime = time;
-                                              toBeUpdatedBookingData
-                                                      .bookingEndTime =
-                                                  '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
-                                            });
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            minimumSize: Size(100,
-                                                50), // Adjust the width and height as needed
-                                            backgroundColor: Colors.grey[
-                                                200], // Set the background color to light gray
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(
-                                                  10.0), // Adjust the value as needed
+                                      Expanded(
+                                        child: SizedBox(
+                                          // width: 100,
+                                          child: ElevatedButton(
+                                            onPressed: () async {
+                                              // Handle button tap here
+                                              print('Button tapped');
+                                              final time =
+                                                  await _selectedTime(context);
+                                              if (time == null) return;
+                                              print(selectedEndTime);
+                                              setState(() {
+                                                printedEndTime = time;
+                                                selectedEndTime = time;
+                                                toBeUpdatedBookingData
+                                                        .bookingEndTime =
+                                                    '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
+                                              });
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              minimumSize: Size(100,
+                                                  50), // Adjust the width and height as needed
+                                              backgroundColor: Colors.grey[
+                                                  200], // Set the background color to light gray
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(
+                                                    10.0), // Adjust the value as needed
+                                              ),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                Icon(
+                                                  Icons
+                                                      .av_timer, // Replace with the icon you want
+                                                  color: Color(
+                                                      0xFF696767), // Set the color of the icon
+                                                  size:
+                                                      24, // Set the size of the icon
+                                                ),
+                                                SizedBox(
+                                                    width:
+                                                        8), // Add some spacing between the icon and text
+                                                Text(
+                                                  // controller: _meetingTitleController,
+                                                  selectedEndTime != null
+                                                      // ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
+                                                      ? '${convertTimeOfDayTimeIntoDesiredFormat(printedEndTime)}'
+                                                      : '${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingEndTime!)}',
+                                                  // : '${widget.currentBookingData.bookingEndTime}',
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    fontFamily: 'Noto Sans',
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          child: Row(
-                                            children: [
-                                              Icon(
-                                                Icons
-                                                    .av_timer, // Replace with the icon you want
-                                                color: Color(
-                                                    0xFF696767), // Set the color of the icon
-                                                size:
-                                                    24, // Set the size of the icon
-                                              ),
-                                              SizedBox(
-                                                  width:
-                                                      8), // Add some spacing between the icon and text
-                                              Text(
-                                                // controller: _meetingTitleController,
-                                                selectedEndTime != null
-                                                    ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
-                                                    : '${widget.currentBookingData.bookingEndTime}',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 14,
-                                                  fontFamily: 'Noto Sans',
-                                                ),
-                                              ),
-                                            ],
-                                          ),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   ),
 
@@ -1043,6 +1087,58 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
+
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Meeting Reported By',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: screenHeight * 0.01),
+                                  // Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness:
+                                  //       1, // Set the thickness of the divider line
+                                  // ),
+                                  SizedBox(
+                                    width: 300,
+                                    // height: 25,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 15.0,
+                                          vertical:
+                                              1), // Adjust the padding as needed
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[
+                                            200], // Use a light gray color
+                                        borderRadius: BorderRadius.circular(
+                                            10.0), // Adjust the value as needed
+                                      ),
+                                      child: TextField(
+                                        controller:
+                                            _meetingReportedByController,
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Noto Sans',
+                                        ),
+                                        decoration: InputDecoration(
+                                          border: InputBorder
+                                              .none, // Remove the default TextField border
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -1135,6 +1231,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             toBeUpdatedBookingData
                                                     .bookingUpdatedAt =
                                                 DateTime.now().toString();
+                                            toBeUpdatedBookingData
+                                                    .bookingReportedBy =
+                                                _meetingReportedByController
+                                                    .text;
                                           });
 
                                           var response = await updateBooking(

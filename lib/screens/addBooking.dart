@@ -23,6 +23,7 @@ class _AddBookingState extends State<AddBooking> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
   TextEditingController _otherDetailsController = TextEditingController();
+  TextEditingController _meetingReportedByController = TextEditingController();
 
   DateTime? selectedDate;
   DateTime dateTime = DateTime(2022, 12, 24);
@@ -80,6 +81,8 @@ class _AddBookingState extends State<AddBooking> {
   @override
   Widget build(BuildContext context) {
     print('${selectedLocation} sddddscddcdscsdcdscs');
+    final conferenceHallImageName = getConferenceHallImageName(
+        getConferenceHallId(widget.selectedConferenceHall));
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -99,8 +102,10 @@ class _AddBookingState extends State<AddBooking> {
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -114,7 +119,7 @@ class _AddBookingState extends State<AddBooking> {
                           Align(
                             alignment: Alignment.center,
                             child: Image.asset(
-                              "assets/images/meeting-room5.png",
+                              "assets/images/conference_hall_images/${conferenceHallImageName}",
                               width: screenWidth * 0.24,
                               height: screenHeight * 0.15,
                             ),
@@ -127,13 +132,16 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Date',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Date',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -198,7 +206,7 @@ class _AddBookingState extends State<AddBooking> {
 
                     SizedBox(
                       child: Container(
-                        width: 300, // Adjust the width as needed
+                        width: screenWidth * 0.9, // Adjust the width as needed
                         height: 50, // Adjust the height as needed
                         decoration: BoxDecoration(
                           color: Colors.grey[
@@ -239,13 +247,16 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Timing',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Timing',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -347,8 +358,10 @@ class _AddBookingState extends State<AddBooking> {
                                       SizedBox(
                                           width:
                                               8), // Add some spacing between the icon and text
+
                                       Text(
-                                        '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
+                                        //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
+                                        '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
@@ -457,7 +470,8 @@ class _AddBookingState extends State<AddBooking> {
                                           width:
                                               8), // Add some spacing between the icon and text
                                       Text(
-                                        '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
+                                        // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
+                                        '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 14,
@@ -476,13 +490,16 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
 
-                    Text(
-                      'Meeting Title',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Meeting Title',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -491,9 +508,9 @@ class _AddBookingState extends State<AddBooking> {
                       thickness: 1, // Set the thickness of the divider line
                     ),
                     SizedBox(
-                      width: 300,
-                      // height: 25,
                       child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.0,
                             vertical: 1), // Adjust the padding as needed
@@ -519,13 +536,16 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Location',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Location',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -552,9 +572,9 @@ class _AddBookingState extends State<AddBooking> {
                     // LocationsDropdown(callBackFunction: callBack),
 
                     SizedBox(
-                      width: 300,
-                      height: 50,
                       child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
                         alignment: Alignment.center,
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.0,
@@ -577,13 +597,16 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Conference Room Name',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Conference Room Name',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -602,21 +625,26 @@ class _AddBookingState extends State<AddBooking> {
                     // ),
                     // ConferenceHallDropdown(),
 
-                    Container(
-                      width: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors
-                                .transparent), // Set border color to transparent
-                      ),
-                      child: Text(
-                        '${widget.selectedConferenceHall}',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
+                    SizedBox(
+                      child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
+                        alignment: Alignment.center,
+                        // width: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: Colors
+                                  .transparent), // Set border color to transparent
+                        ),
+                        child: Text(
+                          '${widget.selectedConferenceHall}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                          ),
                         ),
                       ),
                     ),
@@ -628,13 +656,16 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                      'Meeting Description',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Meeting Description',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
                     Divider(
@@ -643,9 +674,9 @@ class _AddBookingState extends State<AddBooking> {
                       thickness: 1, // Set the thickness of the divider line
                     ),
                     SizedBox(
-                      width: 300,
-                      // height: 25,
                       child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.0,
                             vertical: 1), // Adjust the padding as needed
@@ -672,13 +703,16 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
 
-                    Text(
-                      'Other Details',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontFamily: 'Noto Sans',
-                        fontWeight: FontWeight.w700,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Other Details',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                     ),
 
@@ -689,9 +723,9 @@ class _AddBookingState extends State<AddBooking> {
                     ),
 
                     SizedBox(
-                      width: 300,
-                      // height: 25,
                       child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
                         padding: EdgeInsets.symmetric(
                             horizontal: 15.0,
                             vertical: 1), // Adjust the padding as needed
@@ -715,6 +749,56 @@ class _AddBookingState extends State<AddBooking> {
                       ),
                     ),
 
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Meeting Reported By',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    SizedBox(
+                      child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                            vertical: 1), // Adjust the padding as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200], // Use a light gray color
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the value as needed
+                        ),
+                        child: TextField(
+                          controller: _meetingReportedByController,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder
+                                .none, // Remove the default TextField border
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -770,18 +854,24 @@ class _AddBookingState extends State<AddBooking> {
                                   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}';
                               toBeAddedBookingData.bookingEndTime =
                                   '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
+                              toBeAddedBookingData.bookingReportedBy =
+                                  _meetingReportedByController.text;
                             });
 
                             var response =
                                 await addBooking(toBeAddedBookingData);
 
                             if (response.status == 'success') {
-                              SnackBar(
-                                content: Text("Booking added successfully!"),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Booking added successfully!"),
+                                ),
                               );
                             } else {
-                              SnackBar(
-                                content: Text("Failed to add booking"),
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Failed to add booking"),
+                                ),
                               );
                             }
                             Navigator.pushReplacement(

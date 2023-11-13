@@ -2,8 +2,8 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 void main() {
-  WidgetsFlutterBinding
-      .ensureInitialized(); // It ensures that everything is properly set up for your Flutter widgets and their interaction with the underlying platform, such as Android or iOS.
+  // WidgetsFlutterBinding
+  //     .ensureInitialized(); // It ensures that everything is properly set up for your Flutter widgets and their interaction with the underlying platform, such as Android or iOS.
   runApp(const MyApp());
 }
 

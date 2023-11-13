@@ -34,6 +34,8 @@ class _MyConferencesState extends State<MyConferences> {
                 itemCount: finalBookings.length,
                 itemBuilder: (context, index) {
                   final bookingData = finalBookings[index];
+                  final conferenceHallImageName = getConferenceHallImageName(
+                      bookingData.bookingConferenceId!);
                   final conferenceHallName = bookingData.bookingConferenceId !=
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
@@ -87,7 +89,7 @@ class _MyConferencesState extends State<MyConferences> {
                                   horizontal: screenWidth * 0.01,
                                 ),
                                 child: Image.asset(
-                                  "assets/images/meeting-room5.png",
+                                  "assets/images/conference_hall_images/${conferenceHallImageName}",
                                   width: screenWidth * 0.3,
                                   height: screenHeight * 0.1,
                                 ),
@@ -102,8 +104,9 @@ class _MyConferencesState extends State<MyConferences> {
                                               currentBookingData: bookingData,
                                               currentConferenceRoomName:
                                                   conferenceHallName,
-                                              currentLocationName:
-                                                  locationName)));
+                                              currentLocationName: locationName,
+                                              currentConferenceHallImageName:
+                                                  conferenceHallImageName)));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:
@@ -183,7 +186,7 @@ class _MyConferencesState extends State<MyConferences> {
                                                 horizontal: 0,
                                               ),
                                               child: Text(
-                                                '${bookingData.bookingDate} | ${bookingData.bookingStartTime} to ${bookingData.bookingEndTime}',
+                                                '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12,

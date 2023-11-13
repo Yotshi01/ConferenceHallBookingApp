@@ -23,6 +23,17 @@ String getConferenceHallDescription(int conferenceHallId) {
   return 'Unknown Conference Hall';
 }
 
+String getConferenceHallImageName(int conferenceHallId) {
+  // Find the conference hall data with the matching conferenceName
+
+  for (final conferenceHall in listOfConferenceHall) {
+    if (conferenceHall.conferenceId == conferenceHallId) {
+      return conferenceHall.conferenceImg!;
+    }
+  }
+  return 'meeting-room5.png';
+}
+
 int getConferenceHallId(String conferenceHallName) {
   // Find the conference hall data with the matching conferenceName
   print('${listOfConferenceHall} dmldqkdqdqmdw');

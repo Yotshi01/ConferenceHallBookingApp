@@ -348,26 +348,86 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     return regions;
   }
 
+  // void handleCalendarTap(CalendarTapDetails calendarTapDetails) {
+  //   if (calendarTapDetails.targetElement == CalendarElement.calendarCell) {
+  //     if (selectedStartTime == null) {
+  //       setState(() {
+  //         selectedStartTime = calendarTapDetails.date;
+  //       });
+  //     } else if (selectedEndTime == null) {
+  //       setState(() {
+  //         // selectedEndTime = calendarTapDetails.date!.add(Duration(minutes: 30));
+  //         selectedEndTime = calendarTapDetails.date!;
+  //         isConflicting = _isTimeRangeConflicting();
+  //       });
+
+  //       // print('${selectedStartTime} starrrrrrrrrrrrrrrrrrrrrrrt');
+  //       // print(selectedEndTime);
+  //       // Handle the selected time range (start time and end time) here.
+  //     } else {
+  //       setState(() {
+  //         // selectedStartTime = null;
+  //         selectedStartTime = calendarTapDetails.date;
+  //         selectedEndTime = null;
+  //       });
+  //     }
+  //   }
+  // }
+
   void handleCalendarTap(CalendarTapDetails calendarTapDetails) {
     if (calendarTapDetails.targetElement == CalendarElement.calendarCell) {
       if (selectedStartTime == null) {
         setState(() {
           selectedStartTime = calendarTapDetails.date;
+          selectedEndTime = null; // Reset end time if any
         });
       } else if (selectedEndTime == null) {
-        setState(() {
-          selectedEndTime = calendarTapDetails.date!.add(Duration(minutes: 30));
-          isConflicting = _isTimeRangeConflicting();
-        });
+        // Calculate the end time of the tapped box (1 hour later)
+        DateTime calculatedEndTime =
+            calendarTapDetails.date!.add(Duration(minutes: 30));
 
-        // print('${selectedStartTime} starrrrrrrrrrrrrrrrrrrrrrrt');
-        // print(selectedEndTime);
-        // Handle the selected time range (start time and end time) here.
-      } else {
-        setState(() {
-          // selectedStartTime = null;
+        // Check if selected end time is after the start time
+        if (calendarTapDetails.date!.isAfter(selectedStartTime!) &&
+            (calculatedEndTime.year == selectedStartTime!.year &&
+                calculatedEndTime.month == selectedStartTime!.month &&
+                calculatedEndTime.day == selectedStartTime!.day)) {
+          setState(() {
+            selectedEndTime = calculatedEndTime;
+            isConflicting = _isTimeRangeConflicting();
+          });
+        } else if (calculatedEndTime.year > selectedStartTime!.year ||
+            (calculatedEndTime.year == selectedStartTime!.year &&
+                calculatedEndTime.month > selectedStartTime!.month) ||
+            (calculatedEndTime.year == selectedStartTime!.year &&
+                calculatedEndTime.month == selectedStartTime!.month &&
+                calculatedEndTime.day > selectedStartTime!.day)) {
+          // Selected end time is on a day after the start time
           selectedStartTime = calendarTapDetails.date;
           selectedEndTime = null;
+          isConflicting = false; // Reset conflicting flag
+        } else if (calendarTapDetails.date!.isBefore(selectedStartTime!) &&
+            (calculatedEndTime.year == selectedStartTime!.year &&
+                calculatedEndTime.month == selectedStartTime!.month &&
+                calculatedEndTime.day == selectedStartTime!.day)) {
+          setState(() {
+            selectedEndTime = selectedStartTime!.add(Duration(minutes: 30));
+            selectedStartTime = calendarTapDetails.date;
+            isConflicting = false;
+          });
+        } else {
+          // Handle case where end time is before start time (or same)
+          setState(() {
+            selectedStartTime = calendarTapDetails.date;
+            selectedEndTime = null;
+            isConflicting = false; // Reset conflicting flag
+          });
+        }
+      } else {
+        // Both start and end times are selected, reset them
+        setState(() {
+          selectedStartTime = calendarTapDetails.date;
+          selectedEndTime = null;
+          isConflicting = false; // Reset conflicting flag
         });
       }
     }

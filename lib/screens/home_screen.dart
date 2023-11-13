@@ -106,6 +106,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _fetchDepartmentDetails() async {
+    try {
+      final DepartmentDetails data = await departmentDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfDepartments = data.data!.map((item) {
+            return DepartmentData.fromJson(item.toJson());
+          }).toList();
+        }
+      });
+    } catch (error) {
+      print('Error fetching department list data: $error');
+    }
+  }
+
   // all the api calling functions are called here in this initState
   // function so that the process of fetching required data as response
   // is done at the very start of this file being executed so that all the
@@ -115,10 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
     bookingDetailsResponse = getBookingDetails();
     conferenceHallDetailsResponse = getConferenceHallDetails();
     locationDetailsResponse = getLocationDetails();
+    departmentDetailsResponse = getDepartmentDetails();
     _fetchBookingDetails();
     _fetchConferenceHallDetails();
     _fetchLocationDetails();
     _fetchCurrentUserDetails();
+    _fetchDepartmentDetails();
     super.initState();
   }
 
@@ -280,7 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Today\'s Meetings',
+                  'Today\'s Meetings (${convertDateTimeDateIntoDesiredFormat(DateTime.now())})',
                   // textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Color(0xFF615E5E),
