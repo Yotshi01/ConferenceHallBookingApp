@@ -595,39 +595,40 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               SizedBox(
                 height: screenHeight * 0.007,
               ),
-              if (isCheckboxTicked == true)
+              // if (isCheckboxTicked == true)
+              if (selectedLocation != null)
                 ConferenceHallDropdown(
                     callBackFunction: callBackConferenceHallName,
                     locationName: selectedLocation ?? ''),
               SizedBox(
                 height: screenHeight * 0.01,
               ),
-              Transform.scale(
-                scale: 0.8,
-                child: CheckboxListTile(
-                  tileColor: Colors.grey[200],
-                  title: const Text(
-                    'Filter By Conference Room',
-                    style: TextStyle(
-                      color: Color(0xFF898383),
-                      fontSize: 17,
-                      fontFamily: 'Noto Sans',
-                      fontWeight: FontWeight.w400,
-                      //height: 0,
-                    ),
-                  ),
-                  value: isCheckboxTicked,
-                  secondary: Icon(Icons.filter_list_alt),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  onChanged: (bool? value) {
-                    setState(() {
-                      isCheckboxTicked = value!;
-                    });
-                  },
-                  activeColor: Colors.green,
-                  checkColor: Colors.black,
-                ),
-              ),
+              // Transform.scale(
+              //   scale: 0.8,
+              //   child: CheckboxListTile(
+              //     tileColor: Colors.grey[200],
+              //     title: const Text(
+              //       'Filter By Conference Room',
+              //       style: TextStyle(
+              //         color: Color(0xFF898383),
+              //         fontSize: 17,
+              //         fontFamily: 'Noto Sans',
+              //         fontWeight: FontWeight.w400,
+              //         //height: 0,
+              //       ),
+              //     ),
+              //     value: isCheckboxTicked,
+              //     secondary: Icon(Icons.filter_list_alt),
+              //     controlAffinity: ListTileControlAffinity.leading,
+              //     onChanged: (bool? value) {
+              //       setState(() {
+              //         isCheckboxTicked = value!;
+              //       });
+              //     },
+              //     activeColor: Colors.green,
+              //     checkColor: Colors.black,
+              //   ),
+              // ),
               SizedBox(
                 width: screenWidth,
                 height: screenHeight * 0.8,

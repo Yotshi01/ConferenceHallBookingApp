@@ -233,6 +233,8 @@ List<BookingData> getBookingDataAccordingToSelectedLocationAndConferenceHall(
         filteredBookings.add(booking);
         print(
             '${booking.bookingLocationId}  ${booking.bookingConferenceId} hellolololololololololololo');
+        print(
+            '${booking.bookingId} || ${booking.bookingLocationId} || ${booking.bookingConferenceId} || ${locationId} || ${conferenceHallId} dczckjzcjzckjx');
       }
     }
   } else {
@@ -273,4 +275,30 @@ String formatTimeIn12HourClockFormat(TimeOfDay timeOfDay) {
     // Handle the case where timeOfDay is null (provide a default value or error message)
     return 'Invalid Time';
   }
+}
+
+List<String> getDepartmentNames() {
+  List<String> departmentNames = [];
+  for (var department in listOfDepartments) {
+    departmentNames.add(department.departmentName!);
+  }
+  return departmentNames;
+}
+
+int getDepartmentIdByName(String departmentName) {
+  for (var department in listOfDepartments) {
+    if (departmentName == department.departmentName) {
+      return department.departmentId!;
+    }
+  }
+  return 0;
+}
+
+String getDepartmentNameById(int departmentId) {
+  for (var department in listOfDepartments) {
+    if (departmentId == department.departmentId) {
+      return department.departmentName!;
+    }
+  }
+  return '';
 }

@@ -1,5 +1,5 @@
 class BookingDetails {
-  bool? status;
+  String? status;
   String? message;
   List<BookingData>? data;
 

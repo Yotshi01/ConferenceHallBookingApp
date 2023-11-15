@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/models/booking_departments_model.dart';
 import 'package:conference_hall_booking/models/withdraw_booking_model.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
@@ -70,6 +71,25 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   }
 }
 
+Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
+    int bookingId) async {
+  String url = testUrl + "get_booking_departments/${bookingId}";
+  print('${url} nknjjxczx');
+  Uri urlUri = Uri.parse(url);
+  // Map<String, String> requestBody = {
+  //   'mobile1': mobile,
+  //   'password': password,
+  // };
+  final response = await http.get(urlUri);
+  print("${response.body} nksdkjad");
+  // if (response
+
+  return BookingDepartmentsResponse.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
+}
+
 Future<AddBookingData> addBooking(BookingData value) async {
   String url = testUrl + "add_booking";
   Uri urlUri = Uri.parse(url);
@@ -117,6 +137,43 @@ Future<AddBookingData> addBooking(BookingData value) async {
   }
 }
 
+Future<BookingDepartmentsResponse> addBookingDepartments(
+    List<String> departmentsToBeAdded, int bookingId) async {
+  String url = testUrl + "add_booking_departments";
+  Uri urlUri = Uri.parse(url);
+
+  // Create a list to store the JSON objects
+  List<Map<String, dynamic>> requestBodyList = [];
+
+  // Iterate through the department names and create JSON objects
+  for (String departmentName in departmentsToBeAdded) {
+    var returnValue = getDepartmentIdByName(departmentName);
+    if (returnValue == 0) {
+      print(
+          "please check department name as it doesnot exists in the database");
+    } else {
+      var requestBody = {
+        "booking_id": bookingId.toString(),
+        "department_id": returnValue
+            .toString(), // Assuming departmentName can be used as department_id
+        "created_at": DateTime.now().toString(),
+      };
+      requestBodyList.add(requestBody);
+    }
+  }
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: jsonEncode(requestBodyList));
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return BookingDepartmentsResponse.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add booking departments');
+  }
+}
+
 Future<WithdrawBooking> withdrawBooking(BookingData value) async {
   String url = testUrl + "withdraw_booking";
   Uri urlUri = Uri.parse(url);
@@ -137,5 +194,23 @@ Future<WithdrawBooking> withdrawBooking(BookingData value) async {
     return WithdrawBooking.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to withdraw booking');
+  }
+}
+
+Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
+    int bookingId) async {
+  String url = testUrl + "delete_booking_departments/${bookingId}";
+  Uri urlUri = Uri.parse(url);
+
+  var response = await http.delete(
+    urlUri,
+    // headers: {"Content-Type": "application/json"},
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return DeleteBookingDepartmentDetails.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to delete booking departments');
   }
 }

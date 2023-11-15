@@ -1,3 +1,4 @@
+import 'package:conference_hall_booking/models/booking_departments_model.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
@@ -16,6 +17,71 @@ class DetailsScreen extends StatefulWidget {
 
   @override
   State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class MultiSelectDepartmentsForEditing extends StatefulWidget {
+  final List<String> departments;
+  const MultiSelectDepartmentsForEditing({Key? key, required this.departments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectDepartmentsForEditing> createState() =>
+      _MultiSelectDepartmentsForEditingState();
+}
+
+class _MultiSelectDepartmentsForEditingState
+    extends State<MultiSelectDepartmentsForEditing> {
+  // this variable holds the selected departments
+  final List<String> _selectedDepartments = [];
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedDepartments.add(itemValue);
+      } else {
+        _selectedDepartments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  void _cancel() {
+    Navigator.pop(context);
+  }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Topics'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.departments
+            .map((department) => CheckboxListTile(
+                  value: _selectedDepartments.contains(department),
+                  title: Text(department),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) => _itemChange(department, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        TextButton(
+          onPressed: _cancel,
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Submit'),
+        )
+      ],
+    );
+  }
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
@@ -41,6 +107,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
   DateTime? currentBookingDate;
   BookingData toBeWithdrawnBookingNeededData = new BookingData();
+  late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
+  List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
+
+  Future<void> _fetchBookingDepartmentsByBookingIdDetails() async {
+    try {
+      final BookingDepartmentsResponse data =
+          await bookingDepartmentsByBookingIdResponse;
+      print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingDepartmentsByBookingId = data.data!.map((item) {
+            return BookingDepartmentsData.fromJson(item.toJson());
+          }).toList();
+          print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
+          _selectedDepartments = getListOfBookingDepartmentNames(
+              listOfBookingDepartmentsByBookingId);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking departments by booking id data: $error');
+    }
+  }
 
   String? selectedLocation;
   callBackLocationName(varSelectedLocation) {
@@ -98,6 +190,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
     }
 
     return selectedTime;
+  }
+
+  List<String> _selectedDepartments = [];
+
+  void _showMultiSelectDepartments() async {
+    List<String> departments = getDepartmentNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectDepartmentsForEditing(departments: departments);
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedDepartments = results;
+      });
+    }
   }
 
   void _showWithdrawDialog(BuildContext context) {
@@ -182,6 +292,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
+  List<String> initialbookingDepartments = [];
+  List<String> getListOfBookingDepartmentNames(
+      List<BookingDepartmentsData> list) {
+    print("${list} dhkdjkdasdas");
+    for (var bookingDepartment in list) {
+      print('${bookingDepartment.departmentId} njxsxxZXZ');
+      initialbookingDepartments
+          .add(getDepartmentNameById(bookingDepartment.departmentId!));
+    }
+    return initialbookingDepartments;
+  }
+
   @override
   void initState() {
     _meetingTitleController = TextEditingController(
@@ -209,11 +331,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
         widget.currentBookingData.bookingEndTime;
     toBeUpdatedBookingData.bookingReportedBy =
         widget.currentBookingData.bookingReportedBy;
+
+    bookingDepartmentsByBookingIdResponse =
+        getBookingDepartmentsByBookingId(widget.currentBookingData.bookingId!);
+    _fetchBookingDepartmentsByBookingIdDetails();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('${_selectedDepartments} ddjknncxz');
     print('${currentBookingDate} chgjvhjbkhj');
     print(
         '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
@@ -1139,6 +1267,44 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: 20,
                                   ),
+
+                                  Container(
+                                    width: screenWidth *
+                                        0.9, // Set the desired width
+                                    child: ElevatedButton(
+                                      onPressed: _showMultiSelectDepartments,
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.amber[100],
+                                        foregroundColor: Colors.black,
+                                        padding: EdgeInsets.all(10),
+                                        textStyle: TextStyle(fontSize: 18),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                      ),
+                                      child: const Text(
+                                          'Select Departments involved in meeting'),
+                                    ),
+                                  ),
+
+                                  const Divider(
+                                    color: Color(
+                                        0xFFC2C0C0), // Set the color of the divider line
+                                    thickness: 1,
+                                  ),
+
+                                  Wrap(
+                                    children: _selectedDepartments
+                                        .map((e) => Chip(
+                                              label: Text(e),
+                                            ))
+                                        .toList(),
+                                  ),
+
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
@@ -1240,7 +1406,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           var response = await updateBooking(
                                               toBeUpdatedBookingData);
 
-                                          if (response.status == 'success') {
+                                          var deleteBookingDepartmentsResponse =
+                                              await deleteBookingDepartmentsByBookingId(
+                                                  widget.currentBookingData
+                                                      .bookingId!);
+
+                                          var bookingDepartmentsResponse =
+                                              await addBookingDepartments(
+                                                  _selectedDepartments,
+                                                  widget.currentBookingData
+                                                      .bookingId!);
+
+                                          if (response.status == 'success' &&
+                                              deleteBookingDepartmentsResponse
+                                                      .status ==
+                                                  'success' &&
+                                              bookingDepartmentsResponse
+                                                      .status ==
+                                                  'success') {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(

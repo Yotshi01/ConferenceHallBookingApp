@@ -19,6 +19,69 @@ class AddBooking extends StatefulWidget {
   State<AddBooking> createState() => _AddBookingState();
 }
 
+class MultiSelectDepartments extends StatefulWidget {
+  final List<String> departments;
+  const MultiSelectDepartments({Key? key, required this.departments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectDepartments> createState() => _MultiSelectDepartmentsState();
+}
+
+class _MultiSelectDepartmentsState extends State<MultiSelectDepartments> {
+  // this variable holds the selected departments
+  final List<String> _selectedDepartments = [];
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedDepartments.add(itemValue);
+      } else {
+        _selectedDepartments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  void _cancel() {
+    Navigator.pop(context);
+  }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Topics'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.departments
+            .map((department) => CheckboxListTile(
+                  value: _selectedDepartments.contains(department),
+                  title: Text(department),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) => _itemChange(department, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        TextButton(
+          onPressed: _cancel,
+          child: const Text('Cancel'),
+        ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Submit'),
+        )
+      ],
+    );
+  }
+}
+
 class _AddBookingState extends State<AddBooking> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
@@ -77,6 +140,24 @@ class _AddBookingState extends State<AddBooking> {
         firstDate: DateTime.now(),
         lastDate: DateTime(2100),
       );
+
+  List<String> _selectedDepartments = [];
+
+  void _showMultiSelectDepartments() async {
+    List<String> departments = getDepartmentNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectDepartments(departments: departments);
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedDepartments = results;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -803,6 +884,42 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
 
+                    Container(
+                      width: screenWidth * 0.9, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectDepartments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
+                            'Select Departments involved in meeting'),
+                      ),
+                    ),
+
+                    const Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1,
+                    ),
+
+                    Wrap(
+                      children: _selectedDepartments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -856,21 +973,37 @@ class _AddBookingState extends State<AddBooking> {
                                   '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
                               toBeAddedBookingData.bookingReportedBy =
                                   _meetingReportedByController.text;
+
+                              print(
+                                  "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingOtherDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
                             });
 
                             var response =
                                 await addBooking(toBeAddedBookingData);
 
-                            if (response.status == 'success') {
+                            var bookingDepartmentsResponse =
+                                await addBookingDepartments(
+                                    _selectedDepartments,
+                                    response.data!.bookingId!);
+
+                            // var bookingDepartmentsResponse =
+                            //     await addBookingDepartments(
+                            //         _selectedDepartments, 15);
+
+                            if (response.status == 'success' &&
+                                bookingDepartmentsResponse.status ==
+                                    'success') {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Booking added successfully!"),
+                                  content: Text(
+                                      "Booking and booking departments added successfully!"),
                                 ),
                               );
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Failed to add booking"),
+                                  content: Text(
+                                      "Failed to add booking and/or booking departments"),
                                 ),
                               );
                             }

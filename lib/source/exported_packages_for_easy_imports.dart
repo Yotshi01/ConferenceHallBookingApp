@@ -28,6 +28,7 @@ export 'package:conference_hall_booking/models/updateBookingModel.dart';
 export 'package:conference_hall_booking/models/rescheduling_request_model.dart';
 export 'package:conference_hall_booking/models/withdraw_booking_model.dart';
 export 'package:conference_hall_booking/models/departments.dart';
+export 'package:conference_hall_booking/models/delete_booking_departments.dart';
 
 export 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 
