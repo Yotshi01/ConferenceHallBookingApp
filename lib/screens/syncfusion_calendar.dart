@@ -31,7 +31,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     bookingDetailsResponse = getBookingDetails(); // Initialize the Future here
     holidayDetailsResponse = getHolidayDetails();
     _fetchHolidayDetails();
-    listOfFilteredMeetingsAccordingToDropdownSelections = listOfBookings;
+    // listOfFilteredMeetingsAccordingToDropdownSelections = listOfBookings;
+    listOfFilteredMeetingsAccordingToDropdownSelections = [];
   }
 
   String? selectedLocation;
@@ -195,7 +196,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     // List<BookingData> bookingDataList = [];
     // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelections;
 
+    print('${listOfFilteredMeetingsAccordingToDropdownSelections} djkadnjzxc');
     if (listOfFilteredMeetingsAccordingToDropdownSelections.isNotEmpty) {
+      print('ddfsfsd');
       // Generate a random color for each appointment
       final Random random = Random();
       final List<Color> appointmentColors = List.generate(
@@ -242,6 +245,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       if (mounted) {
         setState(() {});
       }
+    } else {
+      _appointments = [];
     }
   }
 

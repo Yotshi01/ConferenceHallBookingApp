@@ -101,6 +101,9 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   toBeAddedBookingData.bookingConferenceId =
                       getConferenceHallId(conferenceRoomChoosed!);
                   widget.callBackFunction(conferenceRoomChoosed);
+                  print(
+                      '${widget.locationName}, ${conferenceRoomChoosed} cjadasdakmx');
+
                   listOfFilteredMeetingsAccordingToDropdownSelections =
                       getBookingDataAccordingToSelectedLocationAndConferenceHall(
                           widget.locationName, conferenceRoomChoosed!);

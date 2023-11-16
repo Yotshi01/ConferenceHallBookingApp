@@ -735,7 +735,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         Align(
                                           alignment: Alignment.center,
                                           child: Image.asset(
-                                            "assets/images/meeting-room5.png",
+                                            "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
                                             width: screenWidth * 0.24,
                                             height: screenHeight * 0.15,
                                           ),

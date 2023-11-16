@@ -212,6 +212,7 @@ List<BookingData> getBookingDataAccordingToSelectedLocation(
     for (var booking in listOfBookings) {
       if (booking.bookingLocationId == locationId) {
         filteredBookings.add(booking);
+        print('${filteredBookings} dnjdasda');
         print('${booking.bookingLocationId}  hellolololololololololololo');
       }
     }
@@ -227,10 +228,12 @@ List<BookingData> getBookingDataAccordingToSelectedLocationAndConferenceHall(
   if (currentUserData != null) {
     int locationId = getLocationId(locationChoosed);
     int conferenceHallId = getConferenceHallId(conferenceHallChoosed);
+    print('${locationId}, ${conferenceHallId} aadjnkasldasx');
     for (var booking in listOfBookings) {
       if (booking.bookingLocationId == locationId &&
           booking.bookingConferenceId == conferenceHallId) {
         filteredBookings.add(booking);
+        print('${filteredBookings} dasdzxc');
         print(
             '${booking.bookingLocationId}  ${booking.bookingConferenceId} hellolololololololololololo');
         print(
