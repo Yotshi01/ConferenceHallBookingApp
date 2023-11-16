@@ -128,14 +128,14 @@ AppBar reusableAppBar(String pageName, BuildContext context) {
     actions: <Widget>[
       IconButton(
         icon: Icon(
-          Icons.account_circle_rounded,
+          Icons.notifications,
           color: Colors.black,
         ),
         onPressed: () {
           // Navigator.push(context,
           //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ProfileScreen(),
+            builder: (context) => NotificationsScreen(),
           ));
         },
       )

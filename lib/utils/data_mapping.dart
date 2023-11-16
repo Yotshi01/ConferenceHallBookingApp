@@ -72,26 +72,32 @@ int getLocationId(String locationName) {
 
 List<BookingData> myMeetings() {
   List<BookingData> myBookings = [];
+
+  // Check if currentUserData is not null
   if (currentUserData != null) {
     DateTime now = DateTime.now();
 
-    // Check if currentUserData is not null
     for (var booking in listOfBookings) {
       String? bookingDateStr = booking.bookingDate;
       DateTime? bookingDate = DateTime.tryParse(bookingDateStr!);
-      print('${currentUserData!.id} ${booking.userId}');
-      if (bookingDate != null &&
-          bookingDate.isAfter(now) &&
-          currentUserData!.id == booking.userId) {
-        // Use currentUserData without ! here
-        myBookings.add(booking);
-        print(myBookings);
+
+      // Check if bookingDate is not null
+      if (bookingDate != null) {
+        if (bookingDate.isAfter(now) ||
+            (bookingDate.day == now.day &&
+                bookingDate.month == now.month &&
+                bookingDate.year == now.year)) {
+          // Check if the booking is after today or occurs today
+          if (currentUserData!.id == booking.userId) {
+            myBookings.add(booking);
+          }
+        }
       }
     }
-    print('${myBookings} 1111111111111111 ${currentUserData!.id}');
   } else {
     print('currentUserData is empty');
   }
+
   return myBookings;
 }
 
@@ -128,20 +134,25 @@ List<BookingData> otherMeetings() {
 
 List<BookingData> myOldMeetings() {
   List<BookingData> myOldBookings = [];
+
+  // Check if currentUserData is not null
   if (currentUserData != null) {
-    // Check if currentUserData is not null
     DateTime now = DateTime.now();
 
     for (var booking in listOfBookings) {
-      // Convert booking.bookingDate from String to DateTime and then compare
       String? bookingDateStr = booking.bookingDate;
       print('${bookingDateStr} dclkacam');
 
+      // Check if bookingDateStr is not null
       if (bookingDateStr != null) {
         DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
 
+        print('${bookingDate} ${bookingDate!.isBefore(now)}cnjzxcklkczx');
+
+        // Check if bookingDate is not null and if the booking is in the past
         if (bookingDate != null &&
             bookingDate.isBefore(now) &&
+            bookingDate.day < now.day &&
             currentUserData!.id == booking.userId) {
           myOldBookings.add(booking);
           print('Added a booking to myOldBookings');

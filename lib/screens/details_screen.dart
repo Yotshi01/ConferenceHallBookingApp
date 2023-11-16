@@ -58,7 +58,7 @@ class _MultiSelectDepartmentsForEditingState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Select Topics'),
+      title: const Text('Select Departments'),
       content: SingleChildScrollView(
           child: ListBody(
         children: widget.departments

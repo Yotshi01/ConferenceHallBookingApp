@@ -16,18 +16,36 @@ class _TabbarSetupState extends State<TabbarSetup> {
   final GlobalKey<NavigatorState> homeTabNavigatorKey =
       GlobalKey<NavigatorState>();
 
+  String _appBarTitle = 'Welcome'; // Add a variable to hold the app bar text
+
   void _navigateBottomBar(int index) {
     setState(() {
       _selectedIndex =
           index; //sets the index of the to be displayed content in tabbar to the index of the content page
+
+      //Update the app bar text based on the selected tab
+      _appBarTitle = _getAppBarTitle(index);
     });
+  }
+
+  String _getAppBarTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Profile';
+      case 1:
+        return 'Home';
+      case 2:
+        return 'Schedule';
+      default:
+        return 'Welcome';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final List<Widget> _pages = [
       // tabs
-      NotificationsScreen(),
+      ProfileScreen(),
       Builder(
         builder: (context) => Navigator(
           key: homeTabNavigatorKey,
@@ -44,7 +62,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
       resizeToAvoidBottomInset: false,
       // drawer: NavigationDrawerFile(),
       // drawerScrimColor: Colors.transparent,
-      appBar: reusableAppBar('Welcome', context),
+      appBar: reusableAppBar(_appBarTitle, context),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.orange,
@@ -53,7 +71,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
           onTap: _navigateBottomBar,
           items: const [
             BottomNavigationBarItem(
-                icon: Icon(Icons.notifications), label: 'Notifications'),
+                icon: Icon(Icons.account_circle_rounded), label: 'Profile'),
             BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Icons.schedule), label: 'Schedule'),

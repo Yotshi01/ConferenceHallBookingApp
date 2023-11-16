@@ -83,11 +83,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: reusableTextField("Enter Your Password",
                             Icons.lock, true, _passwordTextController),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.05,
-                            vertical: screenHeight * 0.02),
-                        child: forgetPassword(context),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       horizontal: screenWidth * 0.05,
+                      //       vertical: screenHeight * 0.02),
+                      //   child: forgetPassword(context),
+                      // ),
+                      SizedBox(
+                        height: screenHeight * 0.03,
                       ),
                       ElevatedButton(
                         onPressed: () async {
@@ -142,22 +145,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                          color: Color(0xFFABA2A2),
-                          fontSize: 10,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
-                      signUpOption()
+                      // SizedBox(
+                      //   height: screenHeight * 0.03,
+                      // ),
+                      // Text(
+                      //   'OR',
+                      //   style: TextStyle(
+                      //     color: Color(0xFFABA2A2),
+                      //     fontSize: 10,
+                      //     fontFamily: 'Noto Sans',
+                      //     fontWeight: FontWeight.w500,
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   height: screenHeight * 0.03,
+                      // ),
+                      // signUpOption()
                     ],
                   ),
                 )
@@ -189,20 +192,20 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget forgetPassword(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 35,
-      alignment: Alignment.bottomRight,
-      child: TextButton(
-        child: const Text(
-          "Forgot Password?",
-          style: TextStyle(color: Colors.black),
-          textAlign: TextAlign.right,
-        ),
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ResetPasswordScreen())),
-      ),
-    );
-  }
+//   Widget forgetPassword(BuildContext context) {
+//     return Container(
+//       width: MediaQuery.of(context).size.width,
+//       height: 35,
+//       alignment: Alignment.bottomRight,
+//       child: TextButton(
+//         child: const Text(
+//           "Forgot Password?",
+//           style: TextStyle(color: Colors.black),
+//           textAlign: TextAlign.right,
+//         ),
+//         onPressed: () => Navigator.push(context,
+//             MaterialPageRoute(builder: (context) => ResetPasswordScreen())),
+//       ),
+//     );
+//   }
 }
