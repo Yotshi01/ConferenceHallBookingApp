@@ -297,8 +297,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           decoration: TextDecoration
               .lineThrough, // Add a line through the text for a strikeout effect
         ),
-        color: Color.fromARGB(255, 232, 220, 151)
-            .withOpacity(0.2), // Set a background color for disabled dates
+        color: Colors.redAccent,
+        //.withOpacity(0.2), // Set a background color for disabled dates
       ));
     }
 
@@ -327,8 +327,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 decoration: TextDecoration
                     .lineThrough, // Add a line through the text for a strikeout effect
               ),
-              color: Colors.grey.withOpacity(
-                  0.2), // Set a background color for disabled dates
+              color: Colors
+                  .blueGrey[100], // Set a background color for disabled dates
             ));
           }
         } catch (e) {
@@ -607,6 +607,75 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                     locationName: selectedLocation ?? ''),
               SizedBox(
                 height: screenHeight * 0.01,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(width: 10),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.amber,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Holiday',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: 13),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.blueGrey,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Sunday',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: 13),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.grey[300],
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Past',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                  SizedBox(width: 13),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.redAccent,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Blackout Day',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
               ),
               // Transform.scale(
               //   scale: 0.8,

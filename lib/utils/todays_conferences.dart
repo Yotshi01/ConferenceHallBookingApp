@@ -217,8 +217,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                 }))
         : const Center(
             child: Text(
-              'No results found',
-              style: TextStyle(fontSize: 16),
+              'No meetings today',
+              style: TextStyle(fontSize: 13),
             ),
           );
   }
