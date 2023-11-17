@@ -32,3 +32,9 @@ String convertTimeOfDayTimeIntoDesiredFormat(TimeOfDay timeTimeOfDay) {
 
   return formattedTime;
 }
+
+int hourPartOfStringTime(String timeString) {
+  DateTime timeDateTime = DateTime.parse('1970-01-01 $timeString');
+  int hour = timeDateTime.hour;
+  return hour;
+}

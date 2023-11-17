@@ -408,9 +408,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (currentUserData!.id ==
-                                          widget.currentBookingData.userId &&
-                                      DateTime.now()
-                                          .isBefore(currentBookingDate!))
+                                              widget
+                                                  .currentBookingData.userId &&
+                                          currentBookingDate!
+                                              .isAfter(DateTime.now()) ||
+                                      (currentBookingDate!.day ==
+                                              DateTime.now().day &&
+                                          currentBookingDate!.month ==
+                                              DateTime.now().month &&
+                                          currentBookingDate!.year ==
+                                              DateTime.now().year &&
+                                          hourPartOfStringTime(widget
+                                                  .currentBookingData
+                                                  .bookingStartTime!) >
+                                              DateTime.now().hour))
                                     Row(
                                       children: [
                                         ElevatedButton(
