@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "615056898780",
+    "project_id": "booking-app-79313",
+    "storage_bucket": "booking-app-79313.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:615056898780:android:42481db89354a5dd8ad219",
+        "android_client_info": {
+          "package_name": "in.co.vnrseeds.bookingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUIMk4Ew5Szuj2Q4MTQWJfIWNOqyyViu4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
