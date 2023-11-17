@@ -9,6 +9,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  CurrentUserData toBeAddedFirebaseToken = CurrentUserData();
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
   bool _obscureText = true;
@@ -180,7 +181,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'token', response.data!.token!);
 
                               print('sdcacasnksxmxxm Xz');
-
+                              toBeAddedFirebaseToken.id = currentUserData!.id;
+                              toBeAddedFirebaseToken.firebaseToken =
+                                  currentUserNotificationFirebaseToken;
+                              final firebaseTokenResponse =
+                                  await addFirebaseToken(
+                                      toBeAddedFirebaseToken);
+                              if (firebaseTokenResponse.status == "success") {
+                                print(
+                                    "Successfully stored firebase token in database");
+                              } else {
+                                print("Not stored firebase token in db");
+                              }
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(

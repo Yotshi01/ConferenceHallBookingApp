@@ -4,6 +4,7 @@ class CurrentUserData {
   String? userImg;
   String? email;
   String? emailVerifiedAt;
+  String? firebaseToken;
   String? userCreatedAt;
   String? userUpdatedAt;
   int? userCreatedById;
@@ -22,6 +23,7 @@ class CurrentUserData {
       this.userImg,
       this.email,
       this.emailVerifiedAt,
+      this.firebaseToken,
       this.userCreatedAt,
       this.userUpdatedAt,
       this.userCreatedById,
@@ -40,6 +42,7 @@ class CurrentUserData {
     userImg = json['user_img'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
+    firebaseToken = json['firebase_token'];
     userCreatedAt = json['user_created_at'];
     userUpdatedAt = json['user_updated_at'];
     userCreatedById = json['user_created_by_id'];
@@ -60,6 +63,7 @@ class CurrentUserData {
     data['user_img'] = this.userImg;
     data['email'] = this.email;
     data['email_verified_at'] = this.emailVerifiedAt;
+    data['firebase_token'] = this.firebaseToken;
     data['user_created_at'] = this.userCreatedAt;
     data['user_updated_at'] = this.userUpdatedAt;
     data['user_created_by_id'] = this.userCreatedById;

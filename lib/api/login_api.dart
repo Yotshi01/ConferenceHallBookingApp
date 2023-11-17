@@ -25,3 +25,28 @@ Future<LoginModel> userLogin(String email, String password) async {
     throw Exception('Failed to load Data');
   }
 }
+
+Future<FirebaseTokenResponse> addFirebaseToken(CurrentUserData value) async {
+  String url = testUrl + "firebase_token";
+  Uri urlUri = Uri.parse(url);
+  var requestBody = {
+    "user_id": value.id.toString(),
+    "firebase_token": value.firebaseToken,
+    // "user_contact_number": toBeEditedProfileData.userContactNumber,
+  };
+
+  print('000000000000000000000000000000000000000000000000000000000000000000');
+  print(value.id.toString());
+  print(value.firebaseToken);
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: requestBody);
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return FirebaseTokenResponse.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add firebase token');
+  }
+}
