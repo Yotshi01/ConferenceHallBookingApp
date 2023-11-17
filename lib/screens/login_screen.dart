@@ -11,7 +11,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
-
+  bool _obscureText = true;
+  //bool _obscuredText = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,35 +72,93 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.05,
-                            vertical: screenHeight * 0.03),
-                        child: reusableTextField("Enter Your Username",
-                            Icons.person, false, _emailTextController),
+                          horizontal: screenWidth * 0.05,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextField(
+                                controller: _emailTextController,
+                                //obscureText: _obscuredText,
+                                decoration: InputDecoration(
+                                  labelText: 'Username',
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      Icons.person,
+                                      color: Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      // setState(() {
+                                      //   //_obscuredText = !_obscuredText;
+                                      // }
+                                      //);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+                      //   reusableTextField("Enter Your Username",
+                      //       Icons.person, false, _emailTextController),
+                      // ),
                       Padding(
                         padding: EdgeInsets.symmetric(
                           horizontal: screenWidth * 0.05,
+                          vertical: screenHeight * 0.01,
                         ),
-                        child: reusableTextField("Enter Your Password",
-                            Icons.lock, true, _passwordTextController),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextField(
+                                controller: _passwordTextController,
+                                obscureText: _obscureText,
+                                decoration: InputDecoration(
+                                  labelText: 'Password',
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      _obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _obscureText = !_obscureText;
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
+                      // reusableTextField("Enter Your Password",
+                      //     Icons.lock, true, _passwordTextController),
+
                       // Padding(
                       //   padding: EdgeInsets.symmetric(
                       //       horizontal: screenWidth * 0.05,
                       //       vertical: screenHeight * 0.02),
                       //   child: forgetPassword(context),
                       // ),
-                      SizedBox(
-                        height: screenHeight * 0.03,
-                      ),
                       ElevatedButton(
                         onPressed: () async {
                           print("Login Button clicked");
                           try {
+                            print(
+                                '${_emailTextController.text} ${_passwordTextController.text} lxcnvcvklcxv');
                             final response = await userLogin(
                               _emailTextController.text,
                               _passwordTextController.text,
                             );
+
                             print('dcnkdcacax');
                             if (response.success == false) {
                               print("Login Error: An error occurred.");
@@ -145,22 +204,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                      // SizedBox(
-                      //   height: screenHeight * 0.03,
-                      // ),
-                      // Text(
-                      //   'OR',
-                      //   style: TextStyle(
-                      //     color: Color(0xFFABA2A2),
-                      //     fontSize: 10,
-                      //     fontFamily: 'Noto Sans',
-                      //     fontWeight: FontWeight.w500,
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   height: screenHeight * 0.03,
-                      // ),
-                      // signUpOption()
+                      //us
+                      //signUpOption()
                     ],
                   ),
                 )
@@ -172,40 +217,40 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Row signUpOption() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("Don't have account?",
-            style: TextStyle(color: Colors.black)),
-        GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SignupScreen()));
-          },
-          child: const Text(
-            " Sign Up",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-        )
-      ],
+  //Row signUpOption() {
+  //   return Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       const Text("Don't have account?",
+  //           style: TextStyle(color: Colors.black)),
+  //       GestureDetector(
+  //         onTap: () {
+  //           Navigator.push(context,
+  //               MaterialPageRoute(builder: (context) => SignupScreen()));
+  //         },
+  //         child: const Text(
+  //           " Sign Up",
+  //           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+  //         ),
+  //       )
+  //     ],
+  //   );
+  // }
+
+  Widget forgetPassword(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 35,
+      alignment: Alignment.bottomRight,
+      child: TextButton(
+        child: const Text(
+          "Forgot Password?",
+          style: TextStyle(color: Colors.black),
+          textAlign: TextAlign.right,
+        ),
+        onPressed: () => Navigator.push(context,
+            MaterialPageRoute(builder: (context) => ResetPasswordScreen())),
+      ),
     );
   }
-
-//   Widget forgetPassword(BuildContext context) {
-//     return Container(
-//       width: MediaQuery.of(context).size.width,
-//       height: 35,
-//       alignment: Alignment.bottomRight,
-//       child: TextButton(
-//         child: const Text(
-//           "Forgot Password?",
-//           style: TextStyle(color: Colors.black),
-//           textAlign: TextAlign.right,
-//         ),
-//         onPressed: () => Navigator.push(context,
-//             MaterialPageRoute(builder: (context) => ResetPasswordScreen())),
-//       ),
-//     );
-//   }
 }

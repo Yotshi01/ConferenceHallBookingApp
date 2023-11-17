@@ -1,17 +1,42 @@
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   // WidgetsFlutterBinding
   //     .ensureInitialized(); // It ensures that everything is properly set up for your Flutter widgets and their interaction with the underlying platform, such as Android or iOS.
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+    alert: true,
+    badge: true,
+    sound: true,
+  );
+
+  await FirebaseMessaging.instance.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+  final PushNotificationService _notificationService =
+      PushNotificationService();
 
   @override
   Widget build(BuildContext context) {
+    _notificationService.initialize();
     // Initializing constants screenWidth and screenHeight
     // with and height respectively of the device being used.
     // These variables are defined in constants.dart file

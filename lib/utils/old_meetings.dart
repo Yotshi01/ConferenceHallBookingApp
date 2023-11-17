@@ -213,8 +213,8 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                 }))
         : const Center(
             child: Text(
-              'No results found',
-              style: TextStyle(fontSize: 16),
+              'No old meetings',
+              style: TextStyle(fontSize: 13),
             ),
           );
   }

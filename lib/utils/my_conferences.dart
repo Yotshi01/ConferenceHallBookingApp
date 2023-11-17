@@ -201,8 +201,8 @@ class _MyConferencesState extends State<MyConferences> {
                 }))
         : const Center(
             child: Text(
-              'No results found',
-              style: TextStyle(fontSize: 16),
+              'No meetings initiated by me',
+              style: TextStyle(fontSize: 13),
             ),
           );
   }

@@ -657,7 +657,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     height: screenHeight * 0.01,
                                   ),
                                   Text(
-                                    'Other Details',
+                                    'Additional Requirements',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
@@ -1168,7 +1168,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      'Other Details',
+                                      'Additional Requirements',
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 14,
