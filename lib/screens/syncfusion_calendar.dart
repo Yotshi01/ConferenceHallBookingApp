@@ -16,6 +16,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
   List<Appointment> _appointments =
       []; // Initialize an empty list of Appointments
   List<DateTime> specifiedDates = [];
+  List<DateTime> specifiedBlackoutDates = [];
   BookingAlertDialog alertDialog = BookingAlertDialog();
 
   DateTime? selectedStartTime;
@@ -31,6 +32,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     bookingDetailsResponse = getBookingDetails(); // Initialize the Future here
     holidayDetailsResponse = getHolidayDetails();
     _fetchHolidayDetails();
+    blackoutDaysDetailsResponse = getBlackoutDaysDetails();
+    _fetchBlackoutDaysDetails();
     // listOfFilteredMeetingsAccordingToDropdownSelections = listOfBookings;
     listOfFilteredMeetingsAccordingToDropdownSelections = [];
   }
@@ -67,6 +70,23 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       });
     } catch (error) {
       print('Error fetching holiday list data: $error');
+    }
+  }
+
+  Future<void> _fetchBlackoutDaysDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final BlackoutDaysDetails data = await blackoutDaysDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfBlackoutDays = data.data!.map((item) {
+            return BlackoutDaysData.fromJson(item.toJson());
+          }).toList();
+          print(listOfBlackoutDays);
+        }
+      });
+    } catch (error) {
+      print('Error fetching blackout days list data: $error');
     }
   }
 
@@ -266,6 +286,13 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       print('${nonWorkingDay} ${nonWorkingDayDetails.holidayDate!}');
     }
 
+    for (final blackoutDaysDetails in listOfBlackoutDays) {
+      DateTime? blackoutDay =
+          DateTime.tryParse(blackoutDaysDetails.prebookingDate!);
+      specifiedBlackoutDates.add(blackoutDay!);
+      print('${blackoutDay} ${blackoutDaysDetails.prebookingDate!}');
+    }
+
     // final List<DateTime> specifiedDates = [
     //   DateTime(2023, 1, 1),
     //   DateTime(2023, 1, 14),
@@ -294,6 +321,21 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       regions.add(TimeRegion(
         startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
         endTime: DateTime(date.year, date.month, date.day, 23, 59, 59),
+        enablePointerInteraction: true, // Disables interaction with these dates
+        textStyle: TextStyle(
+          color: Colors.red, // Customize the text color for disabled dates
+          decoration: TextDecoration
+              .lineThrough, // Add a line through the text for a strikeout effect
+        ),
+        color: Colors.green[300],
+        //.withOpacity(0.2), // Set a background color for disabled dates
+      ));
+    }
+
+    for (final date in specifiedBlackoutDates) {
+      regions.add(TimeRegion(
+        startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
+        endTime: DateTime(date.year, date.month, date.day, 23, 59, 59),
         enablePointerInteraction:
             false, // Disables interaction with these dates
         textStyle: TextStyle(
@@ -301,7 +343,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           decoration: TextDecoration
               .lineThrough, // Add a line through the text for a strikeout effect
         ),
-        color: Colors.redAccent,
+        color: Colors.black,
         //.withOpacity(0.2), // Set a background color for disabled dates
       ));
     }
@@ -324,7 +366,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               startTime: startTime,
               endTime: endTime,
               enablePointerInteraction:
-                  false, // Disables interaction with these dates
+                  true, // Disables interaction with these dates
               textStyle: TextStyle(
                 color:
                     Colors.red, // Customize the text color for disabled dates

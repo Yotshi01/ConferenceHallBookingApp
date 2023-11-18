@@ -16,7 +16,9 @@ class _TabbarSetupState extends State<TabbarSetup> {
   final GlobalKey<NavigatorState> homeTabNavigatorKey =
       GlobalKey<NavigatorState>();
 
-  String _appBarTitle = 'Welcome'; // Add a variable to hold the app bar text
+  String _appBarTitle = 'Welcome';
+
+  bool get hasNotification => true; // Add a variable to hold the app bar text
 
   void _navigateBottomBar(int index) {
     setState(() {
@@ -62,7 +64,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
       resizeToAvoidBottomInset: false,
       // drawer: NavigationDrawerFile(),
       // drawerScrimColor: Colors.transparent,
-      appBar: reusableAppBar(_appBarTitle, context),
+      appBar: reusableAppBar(_appBarTitle, context, hasNotification),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: Colors.orange,

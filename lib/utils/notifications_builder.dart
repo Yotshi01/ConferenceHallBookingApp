@@ -72,7 +72,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                           //  width: 16.0, // Adjust the width as needed
                           //),
                           SizedBox(
-                            width: screenWidth * 0.53,
+                            width: screenWidth * 0.34,
                           ),
                           Icon(
                             Icons.mail, // Replace with the icon you want
