@@ -94,6 +94,9 @@ List<BookingData> myMeetings() {
         }
       }
     }
+    // Sort myBookings based on bookingDate in ascending order
+    myBookings.sort((a, b) => DateTime.parse(a.bookingDate!)
+        .compareTo(DateTime.parse(b.bookingDate!)));
   } else {
     print('currentUserData is empty');
   }
@@ -129,6 +132,10 @@ List<BookingData> otherMeetings() {
       }
     }
     print('${otherBookings} 1111111111111111 ${currentUserData!.id}');
+
+    // Sort otherBookings based on bookingDate in ascending order
+    otherBookings.sort((a, b) => DateTime.parse(a.bookingDate!)
+        .compareTo(DateTime.parse(b.bookingDate!)));
   } else {
     print('currentUserData is empty');
   }
@@ -169,6 +176,9 @@ List<BookingData> myOldMeetings() {
     }
 
     print('Old Bookings: $myOldBookings');
+    // Sort myOldBookings based on bookingDate in descending order
+    myOldBookings.sort((a, b) => DateTime.parse(b.bookingDate!)
+        .compareTo(DateTime.parse(a.bookingDate!)));
   } else {
     print('currentUserData is empty');
   }
@@ -202,6 +212,22 @@ List<BookingData> todayMeetings() {
     }
 
     print('Today Bookings: $todayBookings');
+    // Sort todayBookings based on userId, placing current user's bookings first
+    todayBookings.sort((a, b) {
+      print(
+          '${a.bookingId},,,,,,,${b.bookingId} ${a.userId} || ${b.userId} 1check');
+      if (a.userId == currentUserData!.id && b.userId != currentUserData!.id) {
+        print('${a.userId} || ${b.userId} 2check');
+        return -1; // a comes first
+      } else if (b.userId == currentUserData!.id &&
+          a.userId != currentUserData!.id) {
+        print('${a.userId} || ${b.userId} 3check');
+        return 1; // b comes first
+      } else {
+        print('${a.userId} || ${b.userId} 4check');
+        return 0; // order remains unchanged
+      }
+    });
   } else {
     print('currentUserData is empty');
   }

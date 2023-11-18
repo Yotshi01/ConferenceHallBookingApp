@@ -1,7 +1,7 @@
 class UpdateBooking {
   String? message;
   String? status;
-  bool? data;
+  String? data;
 
   UpdateBooking({this.message, this.status, this.data});
 

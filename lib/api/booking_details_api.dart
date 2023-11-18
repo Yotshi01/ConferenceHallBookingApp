@@ -66,6 +66,12 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return UpdateBooking.fromJson(json.decode(response.body));
+  } else if (response.statusCode == 442) {
+    print('Validation error');
+    return UpdateBooking.fromJson(json.decode(response.body));
+  } else if (response.statusCode == 422) {
+    print('No slot available error');
+    return UpdateBooking.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to update booking details');
   }

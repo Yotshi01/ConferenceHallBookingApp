@@ -1444,6 +1444,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     "Booking updated successfully!"),
                                               ),
                                             );
+                                          } else if (response.message ==
+                                              'Validation failed') {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content:
+                                                    Text("${response.data}"),
+                                              ),
+                                            );
+                                          } else if (response.message ==
+                                              'The requested time slot is not available.') {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.red,
+                                                content:
+                                                    Text("${response.message}"),
+                                              ),
+                                            );
                                           } else {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(

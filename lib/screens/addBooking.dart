@@ -884,21 +884,34 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
 
-                    Container(
-                      width: screenWidth * 0.9, // Set the desired width
-                      child: ElevatedButton(
-                        onPressed: _showMultiSelectDepartments,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
-                          foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                    // Container(
+                    //   width: screenWidth * 0.9, // Set the desired width
+                    //   child: ElevatedButton(
+                    //     onPressed: _showMultiSelectDepartments,
+                    //     style: ElevatedButton.styleFrom(
+                    //       backgroundColor: Colors.amber[100],
+                    //       foregroundColor: Colors.black,
+                    //       padding: EdgeInsets.all(10),
+                    //       textStyle: TextStyle(fontSize: 18),
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(8),
+                    //       ),
+                    //     ),
+                    //     child: const Text(
+                    //         'Select Departments involved in meeting'),
+                    //   ),
+                    // ),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        'Select Departments',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                          fontFamily: 'Noto Sans',
+                          fontWeight: FontWeight.w700,
                         ),
-                        child: const Text(
-                            'Select Departments involved in meeting'),
                       ),
                     ),
 
@@ -915,6 +928,50 @@ class _AddBookingState extends State<AddBooking> {
                               ))
                           .toList(),
                     ),
+
+                    ElevatedButton(
+                      onPressed: _showMultiSelectDepartments,
+                      style: ElevatedButton.styleFrom(
+                        shape:
+                            CircleBorder(), // Use CircleBorder to make the button circular
+                        backgroundColor: Colors.grey[
+                            200], // Change the button color to your preference
+                        padding: EdgeInsets.all(
+                            11.0), // Adjust the padding as needed
+                      ),
+                      child: Icon(
+                        Icons.add, // You can use your preferred edit icon here
+                        color: Colors
+                            .black, // Change the icon color to your preference
+                      ),
+                    ),
+
+                    // InkWell(
+                    //   onTap: _showMultiSelectDepartments,
+                    //   child: Container(
+                    //     width: 40, // Set the desired width
+                    //     height: 40, // Set the desired height
+                    //     decoration: BoxDecoration(
+                    //       shape: BoxShape
+                    //           .circle, // Use BoxShape.circle to make the container circular
+                    //       color: Colors.amber[
+                    //           100], // Change the container color to your preference
+                    //     ),
+                    //     child: Center(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(
+                    //             8.0), // Adjust the padding as needed
+                    //         child: Icon(
+                    //           Icons
+                    //               .add, // You can use your preferred edit icon here
+                    //           color: Colors
+                    //               .black, // Change the icon color to your preference
+                    //           size: 24, // Set the desired size of the icon
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
 
                     SizedBox(
                       height: 20,
@@ -995,6 +1052,7 @@ class _AddBookingState extends State<AddBooking> {
                                     'success') {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  backgroundColor: Colors.green,
                                   content: Text(
                                       "Booking and booking departments added successfully!"),
                                 ),
@@ -1002,6 +1060,7 @@ class _AddBookingState extends State<AddBooking> {
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
+                                  backgroundColor: Colors.red,
                                   content: Text(
                                       "Failed to add booking and/or booking departments"),
                                 ),

@@ -199,17 +199,21 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     print('${listOfFilteredMeetingsAccordingToDropdownSelections} djkadnjzxc');
     if (listOfFilteredMeetingsAccordingToDropdownSelections.isNotEmpty) {
       print('ddfsfsd');
+
       // Generate a random color for each appointment
-      final Random random = Random();
-      final List<Color> appointmentColors = List.generate(
-        listOfFilteredMeetingsAccordingToDropdownSelections.length,
-        (index) => Color.fromRGBO(
-          random.nextInt(256),
-          random.nextInt(256),
-          random.nextInt(256),
-          1.0,
-        ),
-      );
+      // final Random random = Random();
+      // final List<Color> appointmentColors = List.generate(
+      //   listOfFilteredMeetingsAccordingToDropdownSelections.length,
+      //   (index) => Color.fromRGBO(
+      //     random.nextInt(256),
+      //     random.nextInt(256),
+      //     random.nextInt(256),
+      //     1.0,
+      //   ),
+      // );
+
+      // Use a single color for all appointments (amber)
+      final Color appointmentColor = Colors.amber;
 
       setState(() {
         _appointments = listOfFilteredMeetingsAccordingToDropdownSelections
@@ -217,27 +221,27 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
             .entries
             .map((entry) {
           final data = entry.value;
-          final color = appointmentColors[entry.key];
+          // final color = appointmentColors[entry.key];
 
           // Create a TimeRegion to represent the booked time slot
           final timeRegion = TimeRegion(
-            startTime: DateTime.parse(
-                data.bookingDate! + ' ' + data.bookingStartTime!),
-            endTime:
-                DateTime.parse(data.bookingDate! + ' ' + data.bookingEndTime!),
-            color: color, // Use the same color as the appointment
-          );
+              startTime: DateTime.parse(
+                  data.bookingDate! + ' ' + data.bookingStartTime!),
+              endTime: DateTime.parse(
+                  data.bookingDate! + ' ' + data.bookingEndTime!),
+              // color: color, // Use the same color as the appointment
+              color: appointmentColor);
 
           bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
 
           return Appointment(
-            startTime: DateTime.parse(
-                data.bookingDate! + ' ' + data.bookingStartTime!),
-            endTime:
-                DateTime.parse(data.bookingDate! + ' ' + data.bookingEndTime!),
-            subject: data.bookingMeetingTitle!,
-            color: color, // Use the random color
-          );
+              startTime: DateTime.parse(
+                  data.bookingDate! + ' ' + data.bookingStartTime!),
+              endTime: DateTime.parse(
+                  data.bookingDate! + ' ' + data.bookingEndTime!),
+              subject: data.bookingMeetingTitle!,
+              // color: color, // Use the random color
+              color: appointmentColor);
         }).toList();
       });
 
@@ -615,7 +619,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   Container(
                     width: 15,
                     height: 15,
-                    color: Colors.amber,
+                    color: Colors.green,
                   ),
                   SizedBox(
                       width:
@@ -663,7 +667,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   Container(
                     width: 15,
                     height: 15,
-                    color: Colors.redAccent,
+                    color: Colors.black,
                   ),
                   SizedBox(
                       width:
