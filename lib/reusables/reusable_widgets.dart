@@ -87,7 +87,8 @@ ElevatedButton bookNow(BuildContext context) {
   );
 }
 
-AppBar reusableAppBar(String pageName, BuildContext context) {
+AppBar reusableAppBar(
+    String pageName, BuildContext context, bool hasNotification) {
   return AppBar(
     elevation: 5,
     flexibleSpace: Container(),
@@ -126,18 +127,46 @@ AppBar reusableAppBar(String pageName, BuildContext context) {
     ),
     // backgroundColor: const Color(0xFF048B3F),
     actions: <Widget>[
-      IconButton(
-        icon: Icon(
-          Icons.notifications,
-          color: Colors.black,
-        ),
-        onPressed: () {
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => NotificationsScreen(),
-          ));
-        },
+      Stack(
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return Dialog(
+                    // Your notification UI here
+                    child: NotificationsScreen(),
+                  );
+                },
+              );
+              // Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (context) => NotificationsScreen(),
+              // ));
+            },
+          ),
+          if (hasNotification)
+            Positioned(
+                top: 5,
+                right: 10,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.red,
+                    ),
+                  ),
+                )),
+        ],
       )
     ],
   );
