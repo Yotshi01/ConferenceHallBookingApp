@@ -131,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // other works depending on the fetched data from api can be done after that
   @override
   void initState() {
+    _fetchCurrentUserDetails();
     bookingDetailsResponse = getBookingDetails();
     conferenceHallDetailsResponse = getConferenceHallDetails();
     locationDetailsResponse = getLocationDetails();
@@ -138,7 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
     _fetchBookingDetails();
     _fetchConferenceHallDetails();
     _fetchLocationDetails();
-    _fetchCurrentUserDetails();
     _fetchDepartmentDetails();
     super.initState();
   }

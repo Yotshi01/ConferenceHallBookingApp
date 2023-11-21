@@ -31,7 +31,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
       });
     } catch (error) {
       // Handle any errors that occur during the API request
-      print('Error fetching location data: $error');
+      print('Error fetching conference hall data: $error');
       // You can also show an error message here if needed
     }
   }

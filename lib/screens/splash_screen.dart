@@ -25,7 +25,10 @@ class _StartScreenState extends State<SplashScreen> {
                       // selected tab)
                       finalEmail == null
                           ? const LoginScreen()
-                          : const TabbarSetup())));
+                          : BlocProvider<BottomNavBarCubit>(
+                              create: (_) => BottomNavBarCubit(),
+                              child: TabbarSetup(),
+                            ))));
     });
     super.initState();
   }

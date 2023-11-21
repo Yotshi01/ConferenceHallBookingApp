@@ -21,11 +21,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    usernameController = TextEditingController(text: currentUserData!.name);
-    phonenumberController =
-        TextEditingController(text: currentUserData!.userContactNumber);
-    toBeEditedProfileData.name = usernameController.text;
-    toBeEditedProfileData.userContactNumber = phonenumberController.text;
     super.initState();
   }
 
@@ -54,6 +49,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    usernameController =
+        TextEditingController(text: currentUserData?.name ?? '');
+    phonenumberController =
+        TextEditingController(text: currentUserData?.userContactNumber ?? '');
+    toBeEditedProfileData.name = usernameController.text;
+    toBeEditedProfileData.userContactNumber = phonenumberController.text;
     String firstLetter = usernameController.text.isNotEmpty
         ? usernameController.text[0].toUpperCase()
         : '';
@@ -120,28 +121,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
-              width: 350,
-              height: 50,
-              color: Colors.amber[100],
-              child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('${currentUserData!.email}')),
+                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
+                width: 350,
+                height: 50,
+                color: Colors.amber[100],
+                child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('${currentUserData?.email ?? 'N/A'}'))
 
-              // Column(
-              //   children: [
-              //     TextFormField(
-              //       controller: emailidController,
-              //       style: TextStyle(fontSize: 12),
-              //       decoration: InputDecoration(
-              //       hintText: 'xyz@abc.com',
-              //       errorText: emailErrorText.isNotEmpty ? emailErrorText : null,
-              //
-              //       ),
-              //     ),
-              //   ],
-              // ),
-            ),
+                // Column(
+                //   children: [
+                //     TextFormField(
+                //       controller: emailidController,
+                //       style: TextStyle(fontSize: 12),
+                //       decoration: InputDecoration(
+                //       hintText: 'xyz@abc.com',
+                //       errorText: emailErrorText.isNotEmpty ? emailErrorText : null,
+                //
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                ),
             const SizedBox(height: 20),
             Text(
               'Edit Phone Number:',

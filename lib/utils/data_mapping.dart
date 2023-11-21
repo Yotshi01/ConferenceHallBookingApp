@@ -120,9 +120,10 @@ List<BookingData> otherMeetings() {
         print('${currentUserData!.id} ${booking.userId}');
         if ((currentUserData!.id != booking.userId &&
                 bookingDate!.isAfter(now)) ||
-            (bookingDate!.day == now.day &&
-                bookingDate.month == now.month &&
-                bookingDate.year == now.year)) {
+            ((currentUserData!.id != booking.userId) &&
+                (bookingDate!.day == now.day &&
+                    bookingDate.month == now.month &&
+                    bookingDate.year == now.year))) {
           // Use currentUserData without ! here
           otherBookings.add(booking);
           print(otherBookings);

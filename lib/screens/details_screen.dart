@@ -155,7 +155,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         context: context,
         initialDate: DateTime.now().add(Duration(seconds: 1)),
         firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
+        lastDate: DateTime.now()
+            .add(Duration(days: 30)), // Restrict to one month from today
       );
 
   // Future<TimeOfDay?> _selectedTime(BuildContext context) {
@@ -169,7 +170,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Future<TimeOfDay?> _selectedTime(BuildContext context) async {
     final now = DateTime.now();
     final selectedTime = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.dialOnly,
+      initialEntryMode: TimePickerEntryMode.inputOnly,
       context: context,
       initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
     );
@@ -1279,23 +1280,19 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     height: 20,
                                   ),
 
-                                  Container(
-                                    width: screenWidth *
-                                        0.9, // Set the desired width
-                                    child: ElevatedButton(
-                                      onPressed: _showMultiSelectDepartments,
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.amber[100],
-                                        foregroundColor: Colors.black,
-                                        padding: EdgeInsets.all(10),
-                                        textStyle: TextStyle(fontSize: 18),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(left: 15.0),
+                                      child: Text(
+                                        'Select Departments',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 14,
+                                          fontFamily: 'Noto Sans',
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
-                                      child: const Text(
-                                          'Select Departments involved in meeting'),
                                     ),
                                   ),
 
@@ -1313,56 +1310,74 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         .toList(),
                                   ),
 
+                                  ElevatedButton(
+                                    onPressed: _showMultiSelectDepartments,
+                                    style: ElevatedButton.styleFrom(
+                                      shape:
+                                          CircleBorder(), // Use CircleBorder to make the button circular
+                                      backgroundColor: Colors.grey[
+                                          200], // Change the button color to your preference
+                                      padding: EdgeInsets.all(
+                                          11.0), // Adjust the padding as needed
+                                    ),
+                                    child: Icon(
+                                      Icons
+                                          .add, // You can use your preferred edit icon here
+                                      color: Colors
+                                          .black, // Change the icon color to your preference
+                                    ),
+                                  ),
+
                                   SizedBox(
                                     height: 20,
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      'Facilities',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w700,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  SizedBox(
-                                    width: 300,
-                                    height: 210,
-                                    // height: 25,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 15.0,
-                                          vertical:
-                                              1), // Adjust the padding as needed
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[
-                                            200], // Use a light gray color
-                                        borderRadius: BorderRadius.circular(
-                                            10.0), // Adjust the value as needed
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: MeetingUpdateButtons(
-                                      bookingId:
-                                          widget.currentBookingData.bookingId!,
-                                      bookingUserId:
-                                          widget.currentBookingData.userId!,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
+                                  // Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: Text(
+                                  //     'Facilities',
+                                  //     style: TextStyle(
+                                  //       color: Colors.black,
+                                  //       fontSize: 14,
+                                  //       fontFamily: 'Noto Sans',
+                                  //       fontWeight: FontWeight.w700,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 10,
+                                  // ),
+                                  // SizedBox(
+                                  //   width: 300,
+                                  //   height: 210,
+                                  //   // height: 25,
+                                  //   child: Container(
+                                  //     padding: EdgeInsets.symmetric(
+                                  //         horizontal: 15.0,
+                                  //         vertical:
+                                  //             1), // Adjust the padding as needed
+                                  //     decoration: BoxDecoration(
+                                  //       color: Colors.grey[
+                                  //           200], // Use a light gray color
+                                  //       borderRadius: BorderRadius.circular(
+                                  //           10.0), // Adjust the value as needed
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                  // Align(
+                                  //   alignment: Alignment.center,
+                                  //   child: MeetingUpdateButtons(
+                                  //     bookingId:
+                                  //         widget.currentBookingData.bookingId!,
+                                  //     bookingUserId:
+                                  //         widget.currentBookingData.userId!,
+                                  //   ),
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,

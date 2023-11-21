@@ -7,6 +7,10 @@ export 'dart:math';
 export 'package:syncfusion_flutter_calendar/calendar.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:firebase_messaging/firebase_messaging.dart';
+export 'package:flutter/foundation.dart';
+export 'package:equatable/equatable.dart';
+export 'package:flutter_bloc/flutter_bloc.dart';
+
 //export 'firebase_options.dart';
 // export 'package:intl/intl.dart'; // Import the 'intl' package for date formatting
 
@@ -63,3 +67,8 @@ export 'package:conference_hall_booking/utils/other_conferences.dart';
 export 'package:conference_hall_booking/utils/todays_conferences.dart';
 export 'package:conference_hall_booking/utils/conversions.dart';
 export 'package:conference_hall_booking/utils/firebase_token.dart';
+export 'package:conference_hall_booking/utils/bottom_nav_bar.dart';
+export 'package:conference_hall_booking/utils/tab_navigator.dart';
+export 'package:conference_hall_booking/utils/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+
+export 'package:conference_hall_booking/enumerations.dart/bottom_nav_bar_items.dart';

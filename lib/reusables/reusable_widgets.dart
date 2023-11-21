@@ -145,7 +145,11 @@ AppBar reusableAppBar(
                     child: NotificationsScreen(),
                   );
                 },
-              );
+              ).then((value) {
+                // This block of code will be executed after the dialog is dismissed
+                print('Dialog closed');
+              });
+
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => NotificationsScreen(),
               // ));
