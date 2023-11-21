@@ -260,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search,
                       color: Colors.black, size: screenWidth * 0.07),
-                  labelText: 'Search here...',
+                  labelText: 'Search by Conference Room name',
                   labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
                   filled: true,
                   // suffixIcon: Icon(Icons.search),
@@ -346,7 +346,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'My Meeting',
+                  'My Meetings',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Color(0xFF615E5E),
@@ -451,7 +451,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Old Meeting',
+                  'Old Meetings',
                   textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Color(0xFFB88D05),

@@ -111,18 +111,19 @@ AppBar reusableAppBar(
         Icons.logout,
         color: Colors.black,
       ),
-      onPressed: () async {
+      onPressed: () {
+        _showLogoutConfirmationDialog(context);
         // Navigator.push(context,
         //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
         // Navigator.of(context).pushReplacement(MaterialPageRoute(
         //   builder: (context) => const LoginScreen(),
         // ));
-        final SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        sharedPreferences.remove('email');
-        sharedPreferences.remove('token');
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+        // final SharedPreferences sharedPreferences =
+        //     await SharedPreferences.getInstance();
+        // sharedPreferences.remove('email');
+        // sharedPreferences.remove('token');
+        // Navigator.pushReplacement(
+        //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
     ),
     // backgroundColor: const Color(0xFF048B3F),
@@ -173,5 +174,38 @@ AppBar reusableAppBar(
         ],
       )
     ],
+  );
+}
+
+void _showLogoutConfirmationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Logout'),
+        content: Text('Are you sure you want to logout?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop(); // Close the dialog
+            },
+            child: Text('No'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+              sharedPreferences.remove('email');
+              sharedPreferences.remove('token');
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+              );
+            },
+            child: Text('Yes'),
+          ),
+        ],
+      );
+    },
   );
 }

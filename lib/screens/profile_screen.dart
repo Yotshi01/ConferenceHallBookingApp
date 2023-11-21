@@ -121,28 +121,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
-                width: 350,
-                height: 50,
-                color: Colors.amber[100],
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('${currentUserData?.email ?? 'N/A'}'))
-
-                // Column(
-                //   children: [
-                //     TextFormField(
-                //       controller: emailidController,
-                //       style: TextStyle(fontSize: 12),
-                //       decoration: InputDecoration(
-                //       hintText: 'xyz@abc.com',
-                //       errorText: emailErrorText.isNotEmpty ? emailErrorText : null,
-                //
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                ),
+              padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
+              width: 350,
+              height: 50,
+              color: Colors.amber[100],
+              child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('${currentUserData?.email ?? 'N/A'}')),
+            ),
             const SizedBox(height: 20),
             Text(
               'Edit Phone Number:',
@@ -167,23 +153,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             const SizedBox(height: 20),
-            // Text(
-            //   'Password:',
-            //   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            // ),
-            // const SizedBox(height: 16),
-            // Container(padding: EdgeInsets.symmetric(
-            //     horizontal: 15.0,
-            //     vertical:
-            //     1),
-            //   width: 350,
-            //   height: 50,
-            //   color: Colors.grey[300],
-            //   //color: const Color.fromRGBO(255, 170, 0, 0.19),
-            //   // child: Column(
-            //   //
-            //   // ),
-            // ),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
@@ -192,7 +161,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //String newemailid = emailidController.text;
                 String newphonenumber = phonenumberController.text;
                 //String newPassword = passwordController.text; // Corrected variable name
-
+                if (newUsername.isEmpty || newphonenumber.isEmpty) {
+                  final snackBar = SnackBar(
+                    content: Text('Please fill in all mandatory fields'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  return; // Stop further execution if mandatory fields are empty
+                }
+                if (!RegExp(r'^[A-Za-z.]+$').hasMatch(newUsername) ||
+                    newUsername.length > 50) {
+                  final snackBar = SnackBar(
+                    content: Text(
+                      'Username should contain only alphabets and dots, up to 50 characters',
+                    ),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  return; // Stop further execution if username is invalid
+                }
+                if (!RegExp(r'^[0-9]{10}$').hasMatch(newphonenumber)) {
+                  final snackBar = SnackBar(
+                    content:
+                        Text('Phone number should be a 10-digit numeric value'),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  return; // Stop further execution if phone number is invalid
+                }
                 print('Username: $newUsername');
 
                 print('Phone Number: $newphonenumber');
@@ -221,31 +220,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
-                // if (validatePassword(newPassword)) {
-                //   print('Password: $newPassword');
-                // } else {
-                //   passwordErrorText = 'Password must be of 6 characters long including 1 capital letter, 3 small letters and 1 special character.';
-                //   final snackBar = SnackBar(
-                //     content: Text(passwordErrorText),
-                //     backgroundColor: Colors.red,
-                //     duration: Duration(seconds: 3), // Adjust the duration as needed
-                //   );
-                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                // }
-
-                // if (validateEmail(newemailid)) {
-                //   print('Email ID: $newemailid');
-                // } else {
-                //   emailErrorText = 'Please enter a valid email address';
-                //   final snackBar = SnackBar(
-                //     content: Text(emailErrorText),
-                //     backgroundColor: Colors.red,
-                //     duration: Duration(seconds: 3), // Adjust the duration as needed
-                //   );
-                //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                // }
-
-                // You can now update the user's profile with the new values
               },
               child: Text('Save Changes'),
               style: ButtonStyle(
