@@ -41,9 +41,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                   print(bookingData);
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
-                          screenWidth * 0.027,
-                          screenHeight * 0.02,
-                          screenWidth * 0.027,
+                          screenWidth * 0.02,
+                          screenHeight * 0.04,
+                          screenWidth * 0.02,
                           screenHeight * 0.0001),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
@@ -71,7 +71,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                               Row(
                                 children: [
                                   SizedBox(width: screenWidth * 0.02),
-                                  Text('${bookingData.bookingDate}'),
+                                  //Text('${bookingData.bookingDate}'),
                                   // SizedBox(width: screenWidth * 0.21),
                                   // Text(
                                   //   '${bookingData.userId}',

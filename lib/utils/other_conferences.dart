@@ -72,17 +72,17 @@ class _OtherConferencesState extends State<OtherConferences> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                '${bookingData.userId}',
-                                // textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  //color: Colors.black,
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 16,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              // Text(
+                              //   '${bookingData.userId}',
+                              //   // textAlign: TextAlign.left,
+                              //   style: TextStyle(
+                              //     //color: Colors.black,
+                              //     color: Color(0xFFB88D05),
+                              //     fontSize: 16,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w500,
+                              //   ),
+                              // ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: screenHeight * 0.02,

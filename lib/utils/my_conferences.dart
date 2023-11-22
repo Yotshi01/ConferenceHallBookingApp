@@ -72,17 +72,17 @@ class _MyConferencesState extends State<MyConferences> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              Text(
-                                '${bookingData.userId}',
-                                // textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  //color: Colors.black,
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 16,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              // Text(
+                              //   '${bookingData.userId}',
+                              //   // textAlign: TextAlign.left,
+                              //   style: TextStyle(
+                              //     //color: Colors.black,
+                              //     color: Color(0xFFB88D05),
+                              //     fontSize: 16,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w500,
+                              //   ),
+                              // ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: screenHeight * 0.02,
@@ -136,7 +136,7 @@ class _MyConferencesState extends State<MyConferences> {
                                 conferenceHallName,
                                 style: TextStyle(
                                   color: Color(0xFFB88D05),
-                                  fontSize: 13,
+                                  fontSize: 11,
                                   fontFamily: 'Noto Sans',
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -159,8 +159,8 @@ class _MyConferencesState extends State<MyConferences> {
                                       '${bookingData.bookingMeetingTitle}',
                                       // textAlign: TextAlign.left,
                                       style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 12,
+                                        color: Color(0xFFB88D05),
+                                        fontSize: 15,
                                         fontFamily: 'Noto Sans',
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -168,13 +168,6 @@ class _MyConferencesState extends State<MyConferences> {
                                   )),
                               Row(
                                 children: [
-                                  Icon(
-                                    Icons
-                                        .av_timer, // Replace with the icon you want
-                                    color: Color(
-                                        0xFF696767), // Set the color of the icon
-                                    size: 24, // Set the size of the icon
-                                  ),
                                   // SizedBox(
                                   //     width:
                                   //         8), // Add some spacing between the icon and text
@@ -182,18 +175,83 @@ class _MyConferencesState extends State<MyConferences> {
                                       child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 0,
-                                              ),
-                                              child: Text(
-                                                '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                style: TextStyle(
-                                                  color: Color(0xFF696767),
-                                                  fontSize: 12,
-                                                  fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 0,
+                                            ),
+                                            child: Column(
+                                              children: [
+                                                Divider(),
+                                                Row(children: [
+                                                  SizedBox(width: 8),
+                                                  Icon(
+                                                    Icons
+                                                        .date_range, // Replace with the icon you want
+                                                    color: Color(
+                                                        0xFF696767), // Set the color of the icon
+                                                    size:
+                                                        20, // Set the size of the icon
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                      '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
+                                                      style: TextStyle(
+                                                        color:
+                                                            Color(0xFF696767),
+                                                        fontSize: 12,
+                                                        fontFamily: 'Noto Sans',
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                                // Align(
+                                                //   alignment:
+                                                //       Alignment.centerLeft,
+                                                //   child: Text(
+                                                //     '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
+                                                //     style: TextStyle(
+                                                //       color: Color(0xFF696767),
+                                                //       fontSize: 12,
+                                                //       fontFamily: 'Noto Sans',
+                                                //       fontWeight:
+                                                //           FontWeight.w500,
+                                                //     ),
+                                                //   ),
+                                                // ),
+                                                Row(
+                                                  children: [
+                                                    SizedBox(width: 8),
+                                                    Icon(
+                                                      Icons
+                                                          .av_timer, // Replace with the icon you want
+                                                      color: Color(
+                                                          0xFF696767), // Set the color of the icon
+                                                      size:
+                                                          20, // Set the size of the icon
+                                                    ),
+                                                    Align(
+                                                        alignment: Alignment
+                                                            .centerLeft,
+                                                        child: Text(
+                                                          '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
+                                                          style: TextStyle(
+                                                            color: Color(
+                                                                0xFF696767),
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Noto Sans',
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                        )),
+                                                  ],
                                                 ),
-                                              ))))
+                                              ],
+                                            ),
+                                          )))
                                 ],
                               )
                             ]),
