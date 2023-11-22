@@ -46,6 +46,16 @@ int getConferenceHallId(String conferenceHallName) {
   return -1;
 }
 
+ConferenceHallData getConferenceHallDataByName(String name) {
+  var conferenceHall = ConferenceHallData();
+  for (conferenceHall in listOfConferenceHall) {
+    if (name == conferenceHall.conferenceName) {
+      return conferenceHall;
+    }
+  }
+  return conferenceHall;
+}
+
 String getLocationName(int locationId) {
   // Find the conference hall data with the matching conferenceName
   print('${listOfLocations} dmldqkdqdqmdw');
