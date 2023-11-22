@@ -38,3 +38,9 @@ int hourPartOfStringTime(String timeString) {
   int hour = timeDateTime.hour;
   return hour;
 }
+
+int minutePartOfStringTime(String timeString) {
+  DateTime timeDateTime = DateTime.parse('1970-01-01 $timeString');
+  int minute = timeDateTime.minute;
+  return minute;
+}

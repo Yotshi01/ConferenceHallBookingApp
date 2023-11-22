@@ -30,9 +30,9 @@ class NavigationDrawerFile extends StatelessWidget {
         //color: Colors.black54,
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ProfileScreen(),
-            ));
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => ProfileScreen(),
+            // ));
           },
           child: Container(
             padding: EdgeInsets.only(
@@ -56,25 +56,25 @@ class NavigationDrawerFile extends StatelessWidget {
                     Icon(Icons.account_circle_rounded,
                         size: 120, color: Colors.white54),
                     const SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                            top: 10,
-                          ),
-                          child: Text(
-                            'Username',
-                            style: TextStyle(
-                              fontSize: 35, //color: Color(0xFFB88D05)
-                              color: Color(0xFFB88D05),
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 1),
-                      ],
-                    ),
+                    // Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Padding(
+                    //       padding: EdgeInsets.only(
+                    //         top: 10,
+                    //       ),
+                    //       child: Text(
+                    //         'Username',
+                    //         style: TextStyle(
+                    //           fontSize: 35, //color: Color(0xFFB88D05)
+                    //           color: Color(0xFFB88D05),
+                    //           fontWeight: FontWeight.w700,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 1),
+                    //   ],
+                    // ),
                   ],
                 ),
               ],
@@ -89,24 +89,24 @@ class NavigationDrawerFile extends StatelessWidget {
       child: Wrap(
         runSpacing: 16,
         children: [
-          ListTile(
-            tileColor: Color.fromARGB(255, 241, 231, 195),
-            leading: Icon(
-              Icons.home,
-              color: Color(0xFFB88D05),
-            ),
-            title: const Text(
-              'Home',
-              style: TextStyle(
-                  color: Color(0xFFB88D05),
-                  fontWeight: FontWeight.w700,
-                  fontSize: 23),
-            ),
-            // onTap: () =>
-            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-            //   builder: (context) => const HomeScreen(),
-            // )),
-          ),
+          // ListTile(
+          //   tileColor: Color.fromARGB(255, 241, 231, 195),
+          //   leading: Icon(
+          //     Icons.home,
+          //     color: Color(0xFFB88D05),
+          //   ),
+          //   title: const Text(
+          //     'Home',
+          //     style: TextStyle(
+          //         color: Color(0xFFB88D05),
+          //         fontWeight: FontWeight.w700,
+          //         fontSize: 23),
+          //   ),
+          //   // onTap: () =>
+          //   //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+          //   //   builder: (context) => const HomeScreen(),
+          //   // )),
+          // ),
           //const Divider(),
 
           ListTile(

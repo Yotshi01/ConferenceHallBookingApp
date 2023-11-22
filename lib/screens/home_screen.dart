@@ -237,6 +237,7 @@ class _HomeScreenState extends State<HomeScreen> {
             end: Alignment(-0.21, 0.98),
             colors: [Colors.white, Color.fromARGB(0, 216, 207, 173)],
           ),
+          // color: Colors.white
         ),
         // width: screenWidth,
         // height: screenHeight,

@@ -42,7 +42,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
                           screenWidth * 0.02,
-                          screenHeight * 0.04,
+                          screenHeight * 0.01,
                           screenWidth * 0.02,
                           screenHeight * 0.0001),
                       child: Container(
@@ -50,7 +50,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                         width: screenWidth * 0.5,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
-                          color: Colors.white,
+                          color: (currentUserData!.id == bookingData.userId)
+                              ? Colors.amber[50]
+                              : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           shadows: [
@@ -133,26 +135,26 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  //   child: Text(
-                                  // 'Conference Room Floor - 02',
-                                  child: Text(
-                                conferenceHallName,
-                                style: TextStyle(
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 13,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )),
-                              const Divider(
-                                indent: 10,
-                                endIndent: 10,
-                                color: Color(
-                                    0xFFC2C0C0), // Set the color of the divider line
-                                thickness:
-                                    1, // Set the thickness of the divider line
-                              ),
+                              // SizedBox(
+                              //     //   child: Text(
+                              //     // 'Conference Room Floor - 02',
+                              //     child: Text(
+                              //   conferenceHallName,
+                              //   style: TextStyle(
+                              //     color: Color(0xFFB88D05),
+                              //     fontSize: 13,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w600,
+                              //   ),
+                              // )),
+                              // const Divider(
+                              //   indent: 10,
+                              //   endIndent: 10,
+                              //   color: Color(
+                              //       0xFFC2C0C0), // Set the color of the divider line
+                              //   thickness:
+                              //       1, // Set the thickness of the divider line
+                              // ),
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -170,9 +172,13 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                       ),
                                     ),
                                   )),
-                              SizedBox(
-                                width: screenWidth * 0.01,
-                                height: screenHeight * 0.004,
+                              const Divider(
+                                indent: 10,
+                                endIndent: 10,
+                                color: Color(
+                                    0xFFC2C0C0), // Set the color of the divider line
+                                thickness:
+                                    1, // Set the thickness of the divider line
                               ),
                               Row(
                                 children: [
@@ -193,10 +199,10 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                             Icon(
                                               Icons
                                                   .av_timer, // Replace with the icon you want
-                                              color: Colors.grey,
+                                              color: Color(0xFF696767),
                                               //     0xFF696767), // Set the color of the icon
                                               size:
-                                                  15, // Set the size of the icon
+                                                  20, // Set the size of the icon
                                             ),
                                             Text(
                                               '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
@@ -211,7 +217,31 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                         ),
                                       ))
                                 ],
-                              )
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Icon(
+                                    Icons.meeting_room_outlined,
+                                    color: Color(
+                                        0xFF696767), // Set the color of the icon
+                                    size: 20,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      conferenceHallName,
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ]),
                       ));
                 }))
