@@ -301,7 +301,8 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
-                  'Today\'s Meetings (${convertDateTimeDateIntoDesiredFormat(DateTime.now())})',
+                  'Today\'s Meetings',
+                  // 'Today\'s Meetings (${convertDateTimeDateIntoDesiredFormat(DateTime.now())})',
                   // textAlign: TextAlign.left,
                   style: TextStyle(
                     color: Color(0xFF615E5E),

@@ -51,11 +51,11 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                           screenWidth * 0.027,
                           screenHeight * 0.01,
                           screenWidth * 0,
-                          screenHeight * 0.01),
+                          screenHeight * 0.03),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.5,
-                        // height: screenHeight * 0.2,
+                        //height: screenHeight * 0.1,
                         decoration: ShapeDecoration(
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -72,17 +72,17 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(
-                                '${bookingData.userId}',
-                                // textAlign: TextAlign.left,
-                                style: TextStyle(
-                                  //color: Colors.black,
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 16,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              // Text(
+                              //   '${bookingData.userId}',
+                              //   // textAlign: TextAlign.left,
+                              //   style: TextStyle(
+                              //     //color: Colors.black,
+                              //     color: Color(0xFFB88D05),
+                              //     fontSize: 16,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w500,
+                              //   ),
+                              // ),
                               // Padding(
                               //   padding: EdgeInsets.symmetric(
                               //     vertical: screenHeight * 0.02,

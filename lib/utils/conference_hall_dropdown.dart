@@ -57,6 +57,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
         : Container(
             width: screenWidth * 0.83,
             decoration: BoxDecoration(
+              //color: Colors.blue[100],
               color: Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(

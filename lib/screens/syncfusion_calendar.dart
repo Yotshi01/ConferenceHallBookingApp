@@ -552,238 +552,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           SizedBox(
             height: screenHeight * 0.01,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.green,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Holiday',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 13),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.blueGrey,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Sunday',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  )
-                  // SizedBox(width: 13),
-                ],
-              ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.grey[300],
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Past',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 13),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Blackout Day',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-              Align(
-                alignment: Alignment.topRight,
-                child: FloatingActionButton(
-                  backgroundColor: Color.fromARGB(255, 241, 231, 195),
-                  // mini: true,
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.black,
-                  ),
-                  onPressed: () async {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (context) {
-                    //     return alertDialog;
-                    //   },
-                    // );
-                    // passedSelectedStartTime = selectedStartTime;
-                    // passedSelectedEndTime = selectedEndTime;
-                    setState(() {
-                      isConflicting = _isTimeRangeConflicting();
-                    });
 
-                    if (selectedStartTime != null && selectedEndTime != null) {
-                      final Duration duration =
-                          (selectedEndTime!.difference(selectedStartTime!))
-                              .abs();
-                      if (duration < Duration(minutes: 60)) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                'The selected duration should be atleast 60 minutes'),
-                          ),
-                        );
-                      } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content:
-                                Text('Start Time should be before End Time'),
-                          ),
-                        );
-                      } else if ((selectedStartTime!.year ==
-                                  selectedEndTime!.year &&
-                              selectedStartTime!.month ==
-                                  selectedEndTime!.month &&
-                              selectedStartTime!.day == selectedEndTime!.day) ==
-                          false) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                'Start Time and end time should be on the same day'),
-                          ),
-                        );
-                      } else if (isConflicting == true) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                                'Slot not available. Please book in unbooked time range'),
-                          ),
-                        );
-                      } else {
-                        // final DateFormat dateFormat = DateFormat.jm();
-                        // final String startTimeFormatted =
-                        //     dateFormat.format(selectedStartTime!);
-                        // final String endTimeFormatted = dateFormat.format(selectedEndTime!);
-
-                        // showDialog(
-                        //   context: context,
-                        //   builder: (BuildContext context) {
-                        //     return AddBooking(
-                        //         selectedStartTime: selectedStartTime ??
-                        //             DateTime
-                        //                 .now(), // Provide a default value or handle null appropriately
-
-                        //         selectedEndTime: selectedEndTime ?? DateTime.now());
-
-                        //     // AlertDialog(
-                        //     //   title: Text('Selected Time Range'),
-                        //     //   content: Column(
-                        //     //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     //     mainAxisSize: MainAxisSize.min,
-                        //     //     children: [
-                        //     //       Text('Start Time: $startTimeFormatted'),
-                        //     //       Text('End Time: $endTimeFormatted'),
-                        //     //     ],
-                        //     //   ),
-                        //     //   actions: [
-                        //     //     TextButton(
-                        //     //       onPressed: () {
-                        //     //         Navigator.of(context).pop();
-                        //     //       },
-                        //     //       child: Text('Close'),
-                        //     //     ),
-                        //     //   ],
-                        //     // );
-                        //   },
-                        // );
-
-                        if (selectedLocation != null &&
-                            selectedConferenceHall != null) {
-                          print('${selectedStartTime} sjxsaxkxx');
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AddBooking(
-                                        selectedStartTime: selectedStartTime ??
-                                            DateTime
-                                                .now(), // Provide a default value or handle null appropriately
-
-                                        selectedEndTime:
-                                            selectedEndTime ?? DateTime.now(),
-
-                                        selectedLocation: selectedLocation!,
-                                        selectedConferenceHall:
-                                            selectedConferenceHall!,
-                                      )));
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                  'Please select both location and conference hall to add booking'),
-                            ),
-                          );
-                        }
-
-                        // Clear the selected times for the next selection
-                        selectedStartTime = null;
-                        selectedEndTime = null;
-                      }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                              'Please select your time slot to add a booking'),
-                        ),
-                      );
-                    }
-                  },
-                ),
-              )
-            ],
-          ),
           // Transform.scale(
           //   scale: 0.8,
           //   child: CheckboxListTile(
@@ -842,7 +611,265 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 }
               },
             ),
-          )
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              Row(
+                children: [
+                  SizedBox(width: 10),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.green,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Holiday',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.blueGrey,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Sunday',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.grey[300],
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Past',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(width: 13),
+                  Container(
+                    width: 15,
+                    height: 15,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                      width:
+                          5), // Adjust the spacing between the square and the text
+                  Text(
+                    'Blackout Day',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              )
+              // SizedBox(width: 13),
+            ],
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          Container(
+            width: 380,
+            height: 50,
+            color: Colors.blue[50],
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 7,
+                ),
+                Text(
+                  'Continue booking by tapping in add button',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                SizedBox(
+                  width: 14,
+                ),
+                Align(
+                  alignment: Alignment.topRight,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.blue,
+                    //backgroundColor: Color.fromARGB(255, 241, 231, 195),
+                    mini: true,
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return alertDialog;
+                      //   },
+                      // );
+                      // passedSelectedStartTime = selectedStartTime;
+                      // passedSelectedEndTime = selectedEndTime;
+                      setState(() {
+                        isConflicting = _isTimeRangeConflicting();
+                      });
+
+                      if (selectedStartTime != null &&
+                          selectedEndTime != null) {
+                        final Duration duration =
+                            (selectedEndTime!.difference(selectedStartTime!))
+                                .abs();
+                        if (duration < Duration(minutes: 60)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'The selected duration should be atleast 60 minutes'),
+                            ),
+                          );
+                        } else if (selectedStartTime!
+                            .isAfter(selectedEndTime!)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content:
+                                  Text('Start Time should be before End Time'),
+                            ),
+                          );
+                        } else if ((selectedStartTime!.year ==
+                                    selectedEndTime!.year &&
+                                selectedStartTime!.month ==
+                                    selectedEndTime!.month &&
+                                selectedStartTime!.day ==
+                                    selectedEndTime!.day) ==
+                            false) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'Start Time and end time should be on the same day'),
+                            ),
+                          );
+                        } else if (isConflicting == true) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  'Slot not available. Please book in unbooked time range'),
+                            ),
+                          );
+                        } else {
+                          // final DateFormat dateFormat = DateFormat.jm();
+                          // final String startTimeFormatted =
+                          //     dateFormat.format(selectedStartTime!);
+                          // final String endTimeFormatted = dateFormat.format(selectedEndTime!);
+
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return AddBooking(
+                          //         selectedStartTime: selectedStartTime ??
+                          //             DateTime
+                          //                 .now(), // Provide a default value or handle null appropriately
+
+                          //         selectedEndTime: selectedEndTime ?? DateTime.now());
+
+                          //     // AlertDialog(
+                          //     //   title: Text('Selected Time Range'),
+                          //     //   content: Column(
+                          //     //     crossAxisAlignment: CrossAxisAlignment.start,
+                          //     //     mainAxisSize: MainAxisSize.min,
+                          //     //     children: [
+                          //     //       Text('Start Time: $startTimeFormatted'),
+                          //     //       Text('End Time: $endTimeFormatted'),
+                          //     //     ],
+                          //     //   ),
+                          //     //   actions: [
+                          //     //     TextButton(
+                          //     //       onPressed: () {
+                          //     //         Navigator.of(context).pop();
+                          //     //       },
+                          //     //       child: Text('Close'),
+                          //     //     ),
+                          //     //   ],
+                          //     // );
+                          //   },
+                          // );
+
+                          if (selectedLocation != null &&
+                              selectedConferenceHall != null) {
+                            print('${selectedStartTime} sjxsaxkxx');
+                            await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddBooking(
+                                          selectedStartTime: selectedStartTime ??
+                                              DateTime
+                                                  .now(), // Provide a default value or handle null appropriately
+
+                                          selectedEndTime:
+                                              selectedEndTime ?? DateTime.now(),
+
+                                          selectedLocation: selectedLocation!,
+                                          selectedConferenceHall:
+                                              selectedConferenceHall!,
+                                        )));
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'Please select both location and conference hall to add booking'),
+                              ),
+                            );
+                          }
+
+                          // Clear the selected times for the next selection
+                          selectedStartTime = null;
+                          selectedEndTime = null;
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                                'Please select your time slot to add a booking'),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 8,
+          ),
         ],
       ),
     );
