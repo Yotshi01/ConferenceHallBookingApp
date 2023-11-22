@@ -25,13 +25,13 @@ class NavigationDrawerFile extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-      color: Color.fromARGB(255, 241, 231, 195),
-    // elevation: 2,
-    //color: Colors.black54,
+        color: Color.fromARGB(255, 241, 231, 195),
+        // elevation: 2,
+        //color: Colors.black54,
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>  ProfileScreen(),
+              builder: (context) => ProfileScreen(),
             ));
           },
           child: Container(
@@ -66,12 +66,11 @@ class NavigationDrawerFile extends StatelessWidget {
                           child: Text(
                             'Username',
                             style: TextStyle(
-                                fontSize: 35, //color: Color(0xFFB88D05)
+                              fontSize: 35, //color: Color(0xFFB88D05)
                               color: Color(0xFFB88D05),
                               fontWeight: FontWeight.w700,
-                               ),
+                            ),
                           ),
-
                         ),
                         const SizedBox(height: 1),
                       ],
@@ -84,7 +83,8 @@ class NavigationDrawerFile extends StatelessWidget {
         ),
       );
 
-  Widget buildMenuItems(BuildContext context) => Container(decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+  Widget buildMenuItems(BuildContext context) => Container(
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
       padding: const EdgeInsets.all(24),
       child: Wrap(
         runSpacing: 16,
@@ -95,29 +95,67 @@ class NavigationDrawerFile extends StatelessWidget {
               Icons.home,
               color: Color(0xFFB88D05),
             ),
-            title: const Text('Home',style: TextStyle(color: Color(0xFFB88D05),fontWeight: FontWeight.w700,fontSize: 23 ),),
-            onTap: () =>
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const HomeScreen(),
-            )),
+            title: const Text(
+              'Home',
+              style: TextStyle(
+                  color: Color(0xFFB88D05),
+                  fontWeight: FontWeight.w700,
+                  fontSize: 23),
+            ),
+            // onTap: () =>
+            //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+            //   builder: (context) => const HomeScreen(),
+            // )),
           ),
           //const Divider(),
-          
+
           ListTile(
-              tileColor:Color.fromARGB(255, 241, 231, 195),
-              leading: Icon(Icons.logout,color: Color(0xFFB88D05) ),//color: Color(0xFFB88D05)
-              title: const Text('Log out',style: TextStyle(color: Color(0xFFB88D05),fontWeight: FontWeight.w700,fontSize: 23 ),),
+              tileColor: Color.fromARGB(255, 241, 231, 195),
+              leading: Icon(Icons.logout,
+                  color: Color(0xFFB88D05)), //color: Color(0xFFB88D05)
+              title: const Text(
+                'Log out',
+                style: TextStyle(
+                    color: Color(0xFFB88D05),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 23),
+              ),
               onTap: () async {
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //   builder: (context) => const LoginScreen(),
-                // ));
+                _showLogoutConfirmationDialog(context);
+              }),
+        ],
+      ));
+
+  void _showLogoutConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
                 final SharedPreferences sharedPreferences =
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('email');
                 sharedPreferences.remove('token');
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()));
-              }),
-        ],
-      ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                );
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }

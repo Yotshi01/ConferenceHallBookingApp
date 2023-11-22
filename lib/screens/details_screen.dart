@@ -293,6 +293,109 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
+  void _showEditBookingConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext builderContext) {
+        return AlertDialog(
+          title: Text('Edit Booking'),
+          content: Text('Are you sure you want to edit this booking?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(builderContext).pop(); // Close the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  toBeUpdatedBookingData.bookingId =
+                      widget.currentBookingData.bookingId;
+                  toBeUpdatedBookingData.bookingMeetingTitle =
+                      _meetingTitleController.text;
+                  toBeUpdatedBookingData.bookingMeetingDescription =
+                      _meetingDescriptionController.text;
+                  toBeUpdatedBookingData.bookingOtherDetails =
+                      _otherDetailsController.text;
+                  toBeUpdatedBookingData.bookingUpdatedAt =
+                      DateTime.now().toString();
+                  toBeUpdatedBookingData.bookingReportedBy =
+                      _meetingReportedByController.text;
+                });
+
+                var response = await updateBooking(toBeUpdatedBookingData);
+
+                var deleteBookingDepartmentsResponse =
+                    await deleteBookingDepartmentsByBookingId(
+                        widget.currentBookingData.bookingId!);
+
+                var bookingDepartmentsResponse = await addBookingDepartments(
+                    _selectedDepartments, widget.currentBookingData.bookingId!);
+
+                Navigator.of(builderContext).pop(); // Close the dialog
+
+                if (response.status == 'success' &&
+                    deleteBookingDepartmentsResponse.status == 'success' &&
+                    bookingDepartmentsResponse.status == 'success') {
+                  setState(() {
+                    isEditable = false;
+                  });
+                  await Future.delayed(
+                      Duration(milliseconds: 300)); // Add a delay if needed
+                  Navigator.of(context).popUntil((route) =>
+                      route.isFirst); // Navigate after the dialog is closed
+                  // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => const SyncfusionCalendar(),
+                  // ));
+                  // dialogContext
+                  //     .read<BottomNavBarCubit>()
+                  //     .updateSelectedItem(BottomNavBarItem.home);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.green[300],
+                      content: Text("Booking updated successfully!"),
+                    ),
+                  );
+                } else if (response.message == 'Validation failed') {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text("${response.data}"),
+                    ),
+                  );
+                } else if (response.message ==
+                    'The requested time slot is not available.') {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text("${response.message}"),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text("Failed to update booking"),
+                    ),
+                  );
+                }
+
+                // Navigator.of(dialogContext).pop(); // Close the dialog first
+                // await Future.delayed(
+                //     Duration(milliseconds: 300)); // Add a delay if needed
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   List<String> initialbookingDepartments = [];
   List<String> getListOfBookingDepartmentNames(
       List<BookingDepartmentsData> list) {
@@ -344,6 +447,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     print('${_selectedDepartments} ddjknncxz');
     print('${currentBookingDate} chgjvhjbkhj');
+    print('${widget.currentBookingData.bookingStartTime} chgjvhjbkhj');
+    print('${widget.currentBookingData.bookingEndTime} chgjvhjbkhj');
     print(
         '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
     return Scaffold(
@@ -352,7 +457,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           elevation: 1,
           centerTitle: true,
           title: const Text(
-            'Detail',
+            'Meeting Details',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,
@@ -1282,51 +1387,80 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                   Align(
                                     alignment: Alignment.centerLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 15.0),
-                                      child: Text(
-                                        'Select Departments',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 14,
-                                          fontFamily: 'Noto Sans',
-                                          fontWeight: FontWeight.w700,
+                                    child: Container(
+                                      width: screenWidth *
+                                          0.5, // Set the desired width
+                                      child: ElevatedButton(
+                                        onPressed: _showMultiSelectDepartments,
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.amber[100],
+                                          foregroundColor: Colors.black,
+                                          padding: EdgeInsets.all(10),
+                                          textStyle: TextStyle(fontSize: 18),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
                                         ),
+                                        child: const Text('Select Department'),
                                       ),
                                     ),
                                   ),
 
-                                  const Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness: 1,
+                                  SizedBox(
+                                    height: 20,
                                   ),
 
-                                  Wrap(
-                                    children: _selectedDepartments
-                                        .map((e) => Chip(
-                                              label: Text(e),
-                                            ))
-                                        .toList(),
+                                  // Align(
+                                  //   alignment: Alignment.centerLeft,
+                                  //   child: Padding(
+                                  //     padding: EdgeInsets.only(left: 15.0),
+                                  //     child: Text(
+                                  //       'Select Departments',
+                                  //       style: TextStyle(
+                                  //         color: Colors.black,
+                                  //         fontSize: 14,
+                                  //         fontFamily: 'Noto Sans',
+                                  //         fontWeight: FontWeight.w700,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
+
+                                  // const Divider(
+                                  //   color: Color(
+                                  //       0xFFC2C0C0), // Set the color of the divider line
+                                  //   thickness: 1,
+                                  // ),
+
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Wrap(
+                                      children: _selectedDepartments
+                                          .map((e) => Chip(
+                                                label: Text(e),
+                                              ))
+                                          .toList(),
+                                    ),
                                   ),
 
-                                  ElevatedButton(
-                                    onPressed: _showMultiSelectDepartments,
-                                    style: ElevatedButton.styleFrom(
-                                      shape:
-                                          CircleBorder(), // Use CircleBorder to make the button circular
-                                      backgroundColor: Colors.grey[
-                                          200], // Change the button color to your preference
-                                      padding: EdgeInsets.all(
-                                          11.0), // Adjust the padding as needed
-                                    ),
-                                    child: Icon(
-                                      Icons
-                                          .add, // You can use your preferred edit icon here
-                                      color: Colors
-                                          .black, // Change the icon color to your preference
-                                    ),
-                                  ),
+                                  // ElevatedButton(
+                                  //   onPressed: _showMultiSelectDepartments,
+                                  //   style: ElevatedButton.styleFrom(
+                                  //     shape:
+                                  //         CircleBorder(), // Use CircleBorder to make the button circular
+                                  //     backgroundColor: Colors.grey[
+                                  //         200], // Change the button color to your preference
+                                  //     padding: EdgeInsets.all(
+                                  //         11.0), // Adjust the padding as needed
+                                  //   ),
+                                  //   child: Icon(
+                                  //     Icons
+                                  //         .add, // You can use your preferred edit icon here
+                                  //     color: Colors
+                                  //         .black, // Change the icon color to your preference
+                                  //   ),
+                                  // ),
 
                                   SizedBox(
                                     height: 20,
@@ -1405,91 +1539,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                       ElevatedButton(
-                                        onPressed: () async {
-                                          setState(() {
-                                            toBeUpdatedBookingData.bookingId =
-                                                widget.currentBookingData
-                                                    .bookingId;
-                                            toBeUpdatedBookingData
-                                                    .bookingMeetingTitle =
-                                                _meetingTitleController.text;
-                                            toBeUpdatedBookingData
-                                                    .bookingMeetingDescription =
-                                                _meetingDescriptionController
-                                                    .text;
-                                            toBeUpdatedBookingData
-                                                    .bookingOtherDetails =
-                                                _otherDetailsController.text;
-                                            toBeUpdatedBookingData
-                                                    .bookingUpdatedAt =
-                                                DateTime.now().toString();
-                                            toBeUpdatedBookingData
-                                                    .bookingReportedBy =
-                                                _meetingReportedByController
-                                                    .text;
-                                          });
-
-                                          var response = await updateBooking(
-                                              toBeUpdatedBookingData);
-
-                                          var deleteBookingDepartmentsResponse =
-                                              await deleteBookingDepartmentsByBookingId(
-                                                  widget.currentBookingData
-                                                      .bookingId!);
-
-                                          var bookingDepartmentsResponse =
-                                              await addBookingDepartments(
-                                                  _selectedDepartments,
-                                                  widget.currentBookingData
-                                                      .bookingId!);
-
-                                          if (response.status == 'success' &&
-                                              deleteBookingDepartmentsResponse
-                                                      .status ==
-                                                  'success' &&
-                                              bookingDepartmentsResponse
-                                                      .status ==
-                                                  'success') {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                backgroundColor:
-                                                    Colors.green[300],
-                                                content: Text(
-                                                    "Booking updated successfully!"),
-                                              ),
-                                            );
-                                          } else if (response.message ==
-                                              'Validation failed') {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content:
-                                                    Text("${response.data}"),
-                                              ),
-                                            );
-                                          } else if (response.message ==
-                                              'The requested time slot is not available.') {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content:
-                                                    Text("${response.message}"),
-                                              ),
-                                            );
-                                          } else {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                backgroundColor: Colors.red,
-                                                content: Text(
-                                                    "Failed to update booking"),
-                                              ),
-                                            );
-                                          }
-                                          isEditable = false;
+                                        onPressed: () {
+                                          _showEditBookingConfirmationDialog(
+                                              context);
                                         },
                                         style: ElevatedButton.styleFrom(
                                           shape:

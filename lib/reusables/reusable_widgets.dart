@@ -106,26 +106,27 @@ AppBar reusableAppBar(
       ),
     ),
 
-    leading: IconButton(
-      icon: Icon(
-        Icons.logout,
-        color: Colors.black,
-      ),
-      onPressed: () {
-        _showLogoutConfirmationDialog(context);
-        // Navigator.push(context,
-        //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //   builder: (context) => const LoginScreen(),
-        // ));
-        // final SharedPreferences sharedPreferences =
-        //     await SharedPreferences.getInstance();
-        // sharedPreferences.remove('email');
-        // sharedPreferences.remove('token');
-        // Navigator.pushReplacement(
-        //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      },
-    ),
+    // leading: IconButton(
+    //   icon: Icon(
+    //     Icons.logout,
+    //     color: Colors.black,
+    //   ),
+    //   onPressed: () {
+    //     _showLogoutConfirmationDialog(context);
+
+    //     // Navigator.push(context,
+    //     //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
+    //     // Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //     //   builder: (context) => const LoginScreen(),
+    //     // ));
+    //     // final SharedPreferences sharedPreferences =
+    //     //     await SharedPreferences.getInstance();
+    //     // sharedPreferences.remove('email');
+    //     // sharedPreferences.remove('token');
+    //     // Navigator.pushReplacement(
+    //     //     context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    //   },
+    // ),
     // backgroundColor: const Color(0xFF048B3F),
     actions: <Widget>[
       Stack(

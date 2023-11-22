@@ -638,6 +638,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                     // );
                     // passedSelectedStartTime = selectedStartTime;
                     // passedSelectedEndTime = selectedEndTime;
+                    setState(() {
+                      isConflicting = _isTimeRangeConflicting();
+                    });
 
                     if (selectedStartTime != null && selectedEndTime != null) {
                       final Duration duration =
@@ -647,7 +650,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                                'The selected duration should be more than 60 minutes'),
+                                'The selected duration should be atleast 60 minutes'),
                           ),
                         );
                       } else if (selectedStartTime!.isAfter(selectedEndTime!)) {
@@ -796,7 +799,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               minDate: DateTime.now(),
               maxDate: DateTime.now().add(Duration(days: 30)),
               timeSlotViewSettings: TimeSlotViewSettings(
-                startHour: 7,
+                startHour: 8,
                 endHour: 22,
                 timeInterval: const Duration(minutes: 30),
                 minimumAppointmentDuration: const Duration(minutes: 30),

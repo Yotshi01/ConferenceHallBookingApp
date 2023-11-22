@@ -159,6 +159,144 @@ class _AddBookingState extends State<AddBooking> {
     }
   }
 
+  void _showDiscardBookingDetailConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Discard'),
+          content: Text(
+              'Are you sure you want to discard currently filled booking details?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(dialogContext).pop(); // Close the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(dialogContext).pop(); // Close the dialog first
+                await Future.delayed(
+                    Duration(milliseconds: 300)); // Add a delay if needed
+                Navigator.of(context).popUntil((route) =>
+                    route.isFirst); // Navigate after the dialog is closed
+                // try {
+                //   Navigator.of(dialogContext).popUntil((route) => route.isFirst);
+                // } catch (e) {
+                //   print('Error: $e');
+                // }
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _showAddNewBookingConfirmationDialog(BuildContext dialogContext) {
+    showDialog(
+      context: dialogContext,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Add Booking'),
+          content: Text('Are you sure you want to add this booking?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text('No'),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  // toBeUpdatedBookingData.bookingId =
+                  //     widget.currentBookingData
+                  //         .bookingId;
+                  toBeAddedBookingData.bookingMeetingTitle =
+                      _meetingTitleController.text;
+                  toBeAddedBookingData.bookingMeetingDescription =
+                      _meetingDescriptionController.text;
+                  toBeAddedBookingData.bookingOtherDetails =
+                      _otherDetailsController.text;
+                  toBeAddedBookingData.bookingCreatedAt =
+                      DateTime.now().toString();
+                  toBeAddedBookingData.bookingStatus = 1;
+                  toBeAddedBookingData.userId = currentUserData!.id;
+                  toBeAddedBookingData.bookingDate =
+                      widget.selectedStartTime.toString();
+                  toBeAddedBookingData.bookingStartTime =
+                      '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}';
+                  toBeAddedBookingData.bookingEndTime =
+                      '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
+                  toBeAddedBookingData.bookingReportedBy =
+                      _meetingReportedByController.text;
+
+                  print(
+                      "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingOtherDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
+                });
+
+                var response = await addBooking(toBeAddedBookingData);
+
+                var bookingDepartmentsResponse = await addBookingDepartments(
+                    _selectedDepartments, response.data!.bookingId!);
+
+                // var bookingDepartmentsResponse =
+                //     await addBookingDepartments(
+                //         _selectedDepartments, 15);
+
+                if (response.status == 'success' &&
+                    bookingDepartmentsResponse.status == 'success') {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text(
+                          "Booking and booking departments added successfully!"),
+                    ),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text(
+                          "Failed to add booking and/or booking departments"),
+                    ),
+                  );
+                }
+                // Navigator.pushReplacement(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => HomeScreen()));
+                // Update the selected tab to navigate to another tab
+
+                Navigator.of(context).pop(); // Close the dialog
+                await Future.delayed(
+                    Duration(milliseconds: 300)); // Add a delay if needed
+                Navigator.of(dialogContext).popUntil((route) =>
+                    route.isFirst); // Navigate after the dialog is closed
+                Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const SyncfusionCalendar(),
+                ));
+                dialogContext
+                    .read<BottomNavBarCubit>()
+                    .updateSelectedItem(BottomNavBarItem.home);
+                Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ));
+                // Navigator.of(dialogContext).pop(); // Close the dialog first
+                // await Future.delayed(
+                //     Duration(milliseconds: 300)); // Add a delay if needed
+              },
+              child: Text('Yes'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     print('${selectedLocation} sddddscddcdscsdcdscs');
@@ -884,41 +1022,44 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
 
-                    // Container(
-                    //   width: screenWidth * 0.9, // Set the desired width
-                    //   child: ElevatedButton(
-                    //     onPressed: _showMultiSelectDepartments,
-                    //     style: ElevatedButton.styleFrom(
-                    //       backgroundColor: Colors.amber[100],
-                    //       foregroundColor: Colors.black,
-                    //       padding: EdgeInsets.all(10),
-                    //       textStyle: TextStyle(fontSize: 18),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(8),
-                    //       ),
-                    //     ),
-                    //     child: const Text(
-                    //         'Select Departments involved in meeting'),
-                    //   ),
-                    // ),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Select Departments',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w700,
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectDepartments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
+                        child: const Text('Select Department'),
                       ),
                     ),
 
-                    const Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1,
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 15.0),
+                    //   child: Text(
+                    //     'Select Departments',
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontFamily: 'Noto Sans',
+                    //       fontWeight: FontWeight.w700,
+                    //     ),
+                    //   ),
+                    // ),
+
+                    // const Divider(
+                    //   color: Color(
+                    //       0xFFC2C0C0), // Set the color of the divider line
+                    //   thickness: 1,
+                    // ),
+
+                    SizedBox(
+                      height: 20,
                     ),
 
                     Wrap(
@@ -929,22 +1070,22 @@ class _AddBookingState extends State<AddBooking> {
                           .toList(),
                     ),
 
-                    ElevatedButton(
-                      onPressed: _showMultiSelectDepartments,
-                      style: ElevatedButton.styleFrom(
-                        shape:
-                            CircleBorder(), // Use CircleBorder to make the button circular
-                        backgroundColor: Colors.grey[
-                            200], // Change the button color to your preference
-                        padding: EdgeInsets.all(
-                            11.0), // Adjust the padding as needed
-                      ),
-                      child: Icon(
-                        Icons.add, // You can use your preferred edit icon here
-                        color: Colors
-                            .black, // Change the icon color to your preference
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: _showMultiSelectDepartments,
+                    //   style: ElevatedButton.styleFrom(
+                    //     shape:
+                    //         CircleBorder(), // Use CircleBorder to make the button circular
+                    //     backgroundColor: Colors.grey[
+                    //         200], // Change the button color to your preference
+                    //     padding: EdgeInsets.all(
+                    //         11.0), // Adjust the padding as needed
+                    //   ),
+                    //   child: Icon(
+                    //     Icons.add, // You can use your preferred edit icon here
+                    //     color: Colors
+                    //         .black, // Change the icon color to your preference
+                    //   ),
+                    // ),
 
                     // InkWell(
                     //   onTap: _showMultiSelectDepartments,
@@ -984,11 +1125,19 @@ class _AddBookingState extends State<AddBooking> {
                         ElevatedButton(
                           onPressed: () {
                             setState(() {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          SyncfusionCalendar()));
+                              // Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             SyncfusionCalendar()));
+                              // Pop until the base page is reached
+                              _showDiscardBookingDetailConfirmationDialog(
+                                  context);
+
+// Update the selected tab to navigate to another tab
+                              // context
+                              //     .read<BottomNavBarCubit>()
+                              //     .updateSelectedItem(BottomNavBarItem.home);
                             });
                           },
                           style: ElevatedButton.styleFrom(
@@ -1007,70 +1156,8 @@ class _AddBookingState extends State<AddBooking> {
                           ),
                         ),
                         ElevatedButton(
-                          onPressed: () async {
-                            setState(() {
-                              // toBeUpdatedBookingData.bookingId =
-                              //     widget.currentBookingData
-                              //         .bookingId;
-                              toBeAddedBookingData.bookingMeetingTitle =
-                                  _meetingTitleController.text;
-                              toBeAddedBookingData.bookingMeetingDescription =
-                                  _meetingDescriptionController.text;
-                              toBeAddedBookingData.bookingOtherDetails =
-                                  _otherDetailsController.text;
-                              toBeAddedBookingData.bookingCreatedAt =
-                                  DateTime.now().toString();
-                              toBeAddedBookingData.bookingStatus = 1;
-                              toBeAddedBookingData.userId = currentUserData!.id;
-                              toBeAddedBookingData.bookingDate =
-                                  widget.selectedStartTime.toString();
-                              toBeAddedBookingData.bookingStartTime =
-                                  '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}';
-                              toBeAddedBookingData.bookingEndTime =
-                                  '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
-                              toBeAddedBookingData.bookingReportedBy =
-                                  _meetingReportedByController.text;
-
-                              print(
-                                  "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingOtherDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
-                            });
-
-                            var response =
-                                await addBooking(toBeAddedBookingData);
-
-                            var bookingDepartmentsResponse =
-                                await addBookingDepartments(
-                                    _selectedDepartments,
-                                    response.data!.bookingId!);
-
-                            // var bookingDepartmentsResponse =
-                            //     await addBookingDepartments(
-                            //         _selectedDepartments, 15);
-
-                            if (response.status == 'success' &&
-                                bookingDepartmentsResponse.status ==
-                                    'success') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text(
-                                      "Booking and booking departments added successfully!"),
-                                ),
-                              );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                      "Failed to add booking and/or booking departments"),
-                                ),
-                              );
-                            }
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SyncfusionCalendar()));
+                          onPressed: () {
+                            _showAddNewBookingConfirmationDialog(context);
                           },
                           style: ElevatedButton.styleFrom(
                             shape:

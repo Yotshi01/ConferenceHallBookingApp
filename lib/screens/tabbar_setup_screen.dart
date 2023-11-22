@@ -9,42 +9,42 @@ class TabbarSetup extends StatefulWidget {
 }
 
 class _TabbarSetupState extends State<TabbarSetup> {
-  int _selectedIndex =
-      1; // this is the variable(storing index) by which we will refer to the tabbar content in list using index
-  // initially it is set to 1 i.e. for homescreen, 0 is for notifications page and 2 is for booking page
+  // int _selectedIndex =
+  //     1; // this is the variable(storing index) by which we will refer to the tabbar content in list using index
+  // // initially it is set to 1 i.e. for homescreen, 0 is for notifications page and 2 is for booking page
 
-  final GlobalKey<NavigatorState> homeTabNavigatorKey =
-      GlobalKey<NavigatorState>();
+  // final GlobalKey<NavigatorState> homeTabNavigatorKey =
+  //     GlobalKey<NavigatorState>();
 
-  final GlobalKey<NavigatorState> bookingTabNavigatorKey =
-      GlobalKey<NavigatorState>();
+  // final GlobalKey<NavigatorState> bookingTabNavigatorKey =
+  //     GlobalKey<NavigatorState>();
 
   String _appBarTitle = 'Welcome';
 
   bool get hasNotification => true; // Add a variable to hold the app bar text
 
-  void _navigateBottomBar(int index) {
-    setState(() {
-      _selectedIndex =
-          index; //sets the index of the to be displayed content in tabbar to the index of the content page
+  // void _navigateBottomBar(int index) {
+  //   setState(() {
+  //     _selectedIndex =
+  //         index; //sets the index of the to be displayed content in tabbar to the index of the content page
 
-      //Update the app bar text based on the selected tab
-      _appBarTitle = _getAppBarTitle(index);
-    });
-  }
+  //     //Update the app bar text based on the selected tab
+  //     _appBarTitle = _getAppBarTitle(index);
+  //   });
+  // }
 
-  String _getAppBarTitle(int index) {
-    switch (index) {
-      case 0:
-        return 'Profile';
-      case 1:
-        return 'Home';
-      case 2:
-        return 'Booking';
-      default:
-        return 'Welcome';
-    }
-  }
+  // String _getAppBarTitle(int index) {
+  //   switch (index) {
+  //     case 0:
+  //       return 'Profile';
+  //     case 1:
+  //       return 'Home';
+  //     case 2:
+  //       return 'Booking';
+  //     default:
+  //       return 'Welcome';
+  //   }
+  // }
 
   final Map<BottomNavBarItem, GlobalKey<NavigatorState>> navigatorKeys = {
     BottomNavBarItem.profile: GlobalKey<NavigatorState>(),
@@ -68,37 +68,37 @@ class _TabbarSetupState extends State<TabbarSetup> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _pages = [
-      // tabs
-      ProfileScreen(),
-      Builder(
-        builder: (context) => Navigator(
-          key: homeTabNavigatorKey,
-          onGenerateRoute: (settings) {
-            // You can set up custom routes and transitions here if needed.
-            return MaterialPageRoute(builder: (context) => HomeScreen());
-          },
-        ),
-      ),
-      // HomeScreen(),
+    // final List<Widget> _pages = [
+    //   // tabs
+    //   ProfileScreen(),
+    //   Builder(
+    //     builder: (context) => Navigator(
+    //       key: homeTabNavigatorKey,
+    //       onGenerateRoute: (settings) {
+    //         // You can set up custom routes and transitions here if needed.
+    //         return MaterialPageRoute(builder: (context) => HomeScreen());
+    //       },
+    //     ),
+    //   ),
+    //   // HomeScreen(),
 
-      Builder(
-        builder: (context) => Navigator(
-          key: bookingTabNavigatorKey,
-          onGenerateRoute: (settings) {
-            // You can set up custom routes and transitions here if needed.
-            return MaterialPageRoute(
-                builder: (context) => SyncfusionCalendar());
-          },
-        ),
-      ),
-      // const SyncfusionCalendar(),
-    ];
+    //   Builder(
+    //     builder: (context) => Navigator(
+    //       key: bookingTabNavigatorKey,
+    //       onGenerateRoute: (settings) {
+    //         // You can set up custom routes and transitions here if needed.
+    //         return MaterialPageRoute(
+    //             builder: (context) => SyncfusionCalendar());
+    //       },
+    //     ),
+    //   ),
+    //   // const SyncfusionCalendar(),
+    // ];
     return BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
         builder: (context, state) {
       return Scaffold(
           resizeToAvoidBottomInset: false,
-          // drawer: NavigationDrawerFile(),
+          drawer: NavigationDrawerFile(),
           // drawerScrimColor: Colors.transparent,
           appBar: reusableAppBar(_appBarTitle, context, hasNotification),
           ////// body: _pages[_selectedIndex],
