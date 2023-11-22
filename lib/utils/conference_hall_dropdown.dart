@@ -55,7 +55,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
     return isLoading
         ? CircularProgressIndicator() // Show a loading indicator while fetching data
         : Container(
-            width: screenWidth * 0.95,
+            width: screenWidth * 0.83,
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),

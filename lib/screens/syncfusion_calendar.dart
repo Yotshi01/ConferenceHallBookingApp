@@ -521,11 +521,34 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           SizedBox(
             height: screenHeight * 0.007,
           ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                if (selectedLocation != null)
+                  ConferenceHallDropdown(
+                      callBackFunction: callBackConferenceHallName,
+                      locationName: selectedLocation ?? ''),
+                if (selectedLocation != null)
+                  IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: Color.fromARGB(255, 236, 219, 158),
+                      size: 35,
+                    ),
+                    onPressed: () {
+                      if (selectedConferenceHall != null) {
+                        _showDetailsDialog();
+                      } else {
+                        // Handle case when no hall is selected
+                      }
+                    },
+                  ),
+              ],
+            ), // if (isCheckboxTicked == true)
+          ),
           // if (isCheckboxTicked == true)
-          if (selectedLocation != null)
-            ConferenceHallDropdown(
-                callBackFunction: callBackConferenceHallName,
-                locationName: selectedLocation ?? ''),
+
           SizedBox(
             height: screenHeight * 0.01,
           ),
@@ -933,6 +956,154 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
   _DataSource _getCalendarDataSource() {
     return _DataSource(_appointments);
+  }
+
+  void _showDetailsDialog() {
+    ConferenceHallData currentSelectedConferenceHall = ConferenceHallData();
+    currentSelectedConferenceHall =
+        getConferenceHallDataByName(selectedConferenceHall!);
+    String conferenceHallImageName =
+        getConferenceHallImageName(currentSelectedConferenceHall.conferenceId!);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            selectedConferenceHall!,
+            style: TextStyle(color: Colors.brown),
+          ),
+          backgroundColor: Colors.amber[50],
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              //Text("conferenceHallDetails"),
+              Align(
+                alignment: Alignment.center,
+                child: Image.asset(
+                  "assets/images/conference_hall_images/${conferenceHallImageName}",
+                  width: screenWidth * 0.24,
+                  height: screenHeight * 0.15,
+                ),
+              ),
+              SizedBox(height: 10),
+              //Text("${currentSelectedConferenceHall.conferenceName}"),
+              Text(
+                "About Room",
+                style: TextStyle(
+                  fontSize: 16.5,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.brown,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: 7,
+              ),
+              Divider(),
+              SizedBox(
+                height: 7,
+              ),
+              Text(
+                "${currentSelectedConferenceHall.conferenceAboutRoom}",
+                style: TextStyle(
+                  fontSize: 15,
+                  //fontWeight: FontWeight.bold,
+                  color: Colors.grey[600],
+                  // Add more styling properties as needed
+                ),
+                //textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 14),
+              Text(
+                "Other details",
+                style: TextStyle(
+                  fontSize: 16.5,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.brown,
+                ),
+                textAlign: TextAlign.left,
+              ),
+              Divider(),
+              Text(
+                "Seating Capacity: ${currentSelectedConferenceHall.conferenceSeatingCapacity}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // fontWeight: FontWeight.bold
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Audio System: ${currentSelectedConferenceHall.conferenceAudiosystem}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // fontWeight: FontWeight.bold
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Laptops Availability: ${currentSelectedConferenceHall.conferenceLaptop}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // fontWeight: FontWeight.bold
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Mic Availability: ${currentSelectedConferenceHall.conferenceMic}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // fontWeight: FontWeight.bold
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Others: ${currentSelectedConferenceHall.conferenceOther}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // fontWeight: FontWeight.bold
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              SizedBox(height: 5),
+              Text(
+                "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 
