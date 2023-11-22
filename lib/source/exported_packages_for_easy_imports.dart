@@ -10,6 +10,7 @@ export 'package:firebase_messaging/firebase_messaging.dart';
 export 'package:flutter/foundation.dart';
 export 'package:equatable/equatable.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
+export 'package:provider/provider.dart';
 
 //export 'firebase_options.dart';
 // export 'package:intl/intl.dart'; // Import the 'intl' package for date formatting

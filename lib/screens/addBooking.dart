@@ -276,15 +276,19 @@ class _AddBookingState extends State<AddBooking> {
                     Duration(milliseconds: 300)); // Add a delay if needed
                 Navigator.of(dialogContext).popUntil((route) =>
                     route.isFirst); // Navigate after the dialog is closed
-                Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const SyncfusionCalendar(),
-                ));
+                // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                //   builder: (context) => const SyncfusionCalendar(),
+                // ));
+                await Future.delayed(
+                    Duration(milliseconds: 300)); // Add a delay if needed
                 dialogContext
                     .read<BottomNavBarCubit>()
                     .updateSelectedItem(BottomNavBarItem.home);
-                Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ));
+                // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                //   builder: (context) => const HomeScreen(),
+                // ));
+
+                // dialogContext.read<BottomNavBarCubit>().refreshTabs();
                 // Navigator.of(dialogContext).pop(); // Close the dialog first
                 // await Future.delayed(
                 //     Duration(milliseconds: 300)); // Add a delay if needed
