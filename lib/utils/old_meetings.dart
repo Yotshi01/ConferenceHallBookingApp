@@ -51,7 +51,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                           screenWidth * 0.027,
                           screenHeight * 0.01,
                           screenWidth * 0,
-                          screenHeight * 0.03),
+                          screenHeight * 0.05),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.5,
