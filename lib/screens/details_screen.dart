@@ -533,7 +533,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                       DateTime.now().hour &&
                                                   minutePartOfStringTime(widget
                                                           .currentBookingData
-                                                          .bookingEndTime!) <
+                                                          .bookingEndTime!) >
                                                       DateTime.now().minute))))
                                     Row(
                                       children: [

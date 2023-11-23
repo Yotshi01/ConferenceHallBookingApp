@@ -137,20 +137,22 @@ AppBar reusableAppBar(
               color: Colors.black,
             ),
             onPressed: () {
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => NotificationsScreen()));
-              showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Dialog(
-                    // Your notification UI here
-                    child: NotificationsScreen(),
-                  );
-                },
-              ).then((value) {
-                // This block of code will be executed after the dialog is dismissed
-                print('Dialog closed');
-              });
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => NotificationsScreen()));
+              // showDialog(
+              //   context: context,
+              //   builder: (BuildContext context) {
+              //     return Dialog(
+              //       // Your notification UI here
+              //       child: NotificationsScreen(),
+              //     );
+              //   },
+              // ).then((value) {
+              //   // This block of code will be executed after the dialog is dismissed
+              //   print('Dialog closed');
+              // });
 
               // Navigator.of(context).push(MaterialPageRoute(
               //   builder: (context) => NotificationsScreen(),
