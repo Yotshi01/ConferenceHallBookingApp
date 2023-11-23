@@ -888,19 +888,35 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Meeting Title',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w700,
+                    Row(
+                      children: [
+                        Text(
+                          'Meeting Title',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
                     ),
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 15.0),
+                    //   child: Text(
+                    //     'Meeting Title',
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontFamily: 'Noto Sans',
+                    //       fontWeight: FontWeight.w700,
+                    //     ),
+                    //   ),
+                    // ),
                     Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
@@ -1055,18 +1071,24 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Meeting Description',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w700,
+                    Row(
+                      children: [
+                        Text(
+                          'Meeting Description',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
                     ),
+
                     Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
@@ -1101,18 +1123,22 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Other Details',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w700,
+                    Row(
+                      children: [
+                        Text(
+                          'Other Details',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
                     ),
 
                     Divider(
@@ -1155,18 +1181,37 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.0),
-                      child: Text(
-                        'Meeting Reported By',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 14,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w700,
+
+                    Row(
+                      children: [
+                        Text(
+                          'Meeting Reported By',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                    ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
+                    )
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 15.0),
+                    //   child: Text(
+                    //     'Meeting Reported By',
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontFamily: 'Noto Sans',
+                    //       fontWeight: FontWeight.w700,
+                    //     ),
+                    //   ),
+                    // ),
+                    ,
                     Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
