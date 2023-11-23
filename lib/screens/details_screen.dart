@@ -296,14 +296,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
   void _showEditBookingConfirmationDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext builderContext) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text('Edit Booking'),
           content: Text('Are you sure you want to edit this booking?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(builderContext).pop(); // Close the dialog
+                Navigator.of(dialogContext).pop(); // Close the dialog
               },
               child: Text('No'),
             ),
@@ -333,7 +333,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 var bookingDepartmentsResponse = await addBookingDepartments(
                     _selectedDepartments, widget.currentBookingData.bookingId!);
 
-                Navigator.of(builderContext).pop(); // Close the dialog
+                Navigator.of(dialogContext).pop(); // Close the dialog
 
                 if (response.status == 'success' &&
                     deleteBookingDepartmentsResponse.status == 'success' &&
@@ -351,9 +351,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   // dialogContext
                   //     .read<BottomNavBarCubit>()
                   //     .updateSelectedItem(BottomNavBarItem.home);
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const HomeScreen(),
-                  ));
+                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  //   builder: (context) => const HomeScreen(),
+                  // ));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green[300],

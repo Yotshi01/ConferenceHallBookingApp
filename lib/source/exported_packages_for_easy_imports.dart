@@ -71,6 +71,9 @@ export 'package:conference_hall_booking/utils/conversions.dart';
 export 'package:conference_hall_booking/utils/firebase_token.dart';
 export 'package:conference_hall_booking/utils/bottom_nav_bar.dart';
 export 'package:conference_hall_booking/utils/tab_navigator.dart';
-export 'package:conference_hall_booking/utils/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+export 'package:conference_hall_booking/utils/blocs/bottom_nav_bar/bottom_nav_bar_cubit.dart';
+// export 'package:conference_hall_booking/utils/blocs/bottom_nav_bar/bottom_nav_bar_state.dart';
 
 export 'package:conference_hall_booking/enumerations.dart/bottom_nav_bar_items.dart';
+
+export 'package:conference_hall_booking/config/custom_router.dart';

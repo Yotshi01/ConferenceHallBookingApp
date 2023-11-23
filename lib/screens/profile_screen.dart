@@ -19,8 +19,49 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   //String emailErrorText = '';
 
+  // function that fetches api response for current logged in user details
+  Future<void> _fetchCurrentUserDetailsAndInitializeTextControllers() async {
+    try {
+      final SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+
+      // we have already stored current logged in user data in
+      // sharedPreferences(in login_screen.dart when the user presses the login button).
+      // Now we are using the stored token foruser to get his/her user data from the database
+      var obtainedToken = sharedPreferences.getString('token');
+      var userData = await getCurrentUserData(
+          obtainedToken!); // calling getCurrentUserData() function to make an api request to get current uer data
+
+      setState(() {
+        currentUserData =
+            userData; // putting the value of fetched current user data in global variable currentUserData(defined in constants.dart file, is of type CurrentUserData which is a class in current_user_model.dart file).
+
+        // putting the current user data in a list
+        listOfCurrentUserData = [currentUserData!];
+
+        // calling specific utility functions to return data in list format
+        // to be stored in their respective global list variables. Theis
+        // purposes can be infered from their naming
+
+        // listOfMyMeetings = myMeetings();
+        // listOfTodayMeetings = todayMeetings();
+        // listOfMyOldMeetings = myOldMeetings();
+        // listOfOtherMeetings = otherMeetings();
+        usernameController =
+            TextEditingController(text: currentUserData?.name ?? '');
+        phonenumberController = TextEditingController(
+            text: currentUserData?.userContactNumber ?? '');
+        toBeEditedProfileData.name = usernameController.text;
+        toBeEditedProfileData.userContactNumber = phonenumberController.text;
+      });
+    } catch (error) {
+      print('Error fetching user data: $error');
+    }
+  }
+
   @override
   void initState() {
+    _fetchCurrentUserDetailsAndInitializeTextControllers();
     super.initState();
   }
 
@@ -49,12 +90,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    usernameController =
-        TextEditingController(text: currentUserData?.name ?? '');
-    phonenumberController =
-        TextEditingController(text: currentUserData?.userContactNumber ?? '');
-    toBeEditedProfileData.name = usernameController.text;
-    toBeEditedProfileData.userContactNumber = phonenumberController.text;
     String firstLetter = usernameController.text.isNotEmpty
         ? usernameController.text[0].toUpperCase()
         : '';

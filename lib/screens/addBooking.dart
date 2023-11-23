@@ -195,17 +195,17 @@ class _AddBookingState extends State<AddBooking> {
     );
   }
 
-  void _showAddNewBookingConfirmationDialog(BuildContext dialogContext) {
+  void _showAddNewBookingConfirmationDialog(BuildContext context) {
     showDialog(
-      context: dialogContext,
-      builder: (BuildContext context) {
+      context: context,
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text('Add Booking'),
           content: Text('Are you sure you want to add this booking?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(dialogContext).pop(); // Close the dialog
               },
               child: Text('No'),
             ),
@@ -271,20 +271,20 @@ class _AddBookingState extends State<AddBooking> {
                 //         builder: (context) => HomeScreen()));
                 // Update the selected tab to navigate to another tab
 
-                Navigator.of(context).pop(); // Close the dialog
+                Navigator.of(dialogContext).pop(); // Close the dialog
                 await Future.delayed(
                     Duration(milliseconds: 300)); // Add a delay if needed
-                Navigator.of(dialogContext).popUntil((route) =>
+                Navigator.of(context).popUntil((route) =>
                     route.isFirst); // Navigate after the dialog is closed
-                // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                // Navigator.of(context).pushReplacement(MaterialPageRoute(
                 //   builder: (context) => const SyncfusionCalendar(),
                 // ));
                 await Future.delayed(
                     Duration(milliseconds: 300)); // Add a delay if needed
-                dialogContext
+                context
                     .read<BottomNavBarCubit>()
                     .updateSelectedItem(BottomNavBarItem.home);
-                // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                // Navigator.of(context).pushReplacement(MaterialPageRoute(
                 //   builder: (context) => const HomeScreen(),
                 // ));
 
