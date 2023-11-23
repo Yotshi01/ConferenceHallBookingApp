@@ -703,20 +703,23 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
             height: 8,
           ),
           Container(
-            width: 380,
-            height: 50,
+            width: screenWidth * 0.95,
+            height: screenHeight * 0.07,
             color: Colors.blue[50],
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 7,
                 ),
-                Text(
-                  'Continue booking by tapping in add button',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
+                Expanded(
+                  child: Text(
+                    'Continue booking by tapping in add button',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
                 SizedBox(
                   width: 14,

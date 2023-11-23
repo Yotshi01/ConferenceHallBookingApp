@@ -418,115 +418,114 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               MyConferences(),
 
-              SizedBox(
-                height: screenHeight * 0.02,
+            SizedBox(
+              height: screenHeight * 0.02,
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.03,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.03,
-                ),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    'Other Meetings',
-                    // textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Color(0xFF615E5E),
-                      fontSize: 16,
-                      fontFamily: 'Noto Sans',
-                      fontWeight: FontWeight.w500,
-                    ),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  'Other Meetings',
+                  // textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Color(0xFF615E5E),
+                    fontSize: 16,
+                    fontFamily: 'Noto Sans',
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              Divider(
-                indent: 10,
-                endIndent: 10,
-                color: Color(0xFFC2C0C0), // Set the color of the divider line
-                thickness: 1, // Set the thickness of the divider line
-              ),
-              // SizedBox(
-              //   height: screenHeight * 0.03,
-              // ),
-              OtherConferences(),
-              // SizedBox(
-              //   height: screenHeight * 0.01,
-              //   child: Text(
-              //     'My Meetings',
-              //     textAlign: TextAlign.left,
-              //     style: TextStyle(
-              //       color: Color(0xFF615E5E),
-              //       fontSize: 16,
-              //       fontFamily: 'Noto Sans',
-              //       fontWeight: FontWeight.w500,
-              //     ),
-              //   ),
-              // ),
+            ),
+            Divider(
+              indent: 10,
+              endIndent: 10,
+              color: Color(0xFFC2C0C0), // Set the color of the divider line
+              thickness: 1, // Set the thickness of the divider line
+            ),
+            // SizedBox(
+            //   height: screenHeight * 0.03,
+            // ),
+            OtherConferences(),
+            // SizedBox(
+            //   height: screenHeight * 0.01,
+            //   child: Text(
+            //     'My Meetings',
+            //     textAlign: TextAlign.left,
+            //     style: TextStyle(
+            //       color: Color(0xFF615E5E),
+            //       fontSize: 16,
+            //       fontFamily: 'Noto Sans',
+            //       fontWeight: FontWeight.w500,
+            //     ),
+            //   ),
+            // ),
 
-              SizedBox(
-                height: screenHeight * 0.015,
-              ),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(
-              //     horizontal: screenWidth * 0.03,
-              //     // vertical: screenHeight * 0.03
-              //   ),
-              //   child: Align(
-              //     alignment: Alignment.centerLeft,
-              //     child: Text(
-              //       'Next Meeting',
-              //       textAlign: TextAlign.left,
-              //       style: TextStyle(
-              //         color: Color(0xFF615E5E),
-              //         fontSize: 16,
-              //         fontFamily: 'Noto Sans',
-              //         fontWeight: FontWeight.w500,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // Divider(
-              //   indent: 10,
-              //   endIndent: 10,
-              //   color: Color(0xFFC2C0C0), // Set the color of the divider line
-              //   thickness: 1, // Set the thickness of the divider line
-              // ),
-              // TodaysConferences(),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(
+            //     horizontal: screenWidth * 0.03,
+            //     // vertical: screenHeight * 0.03
+            //   ),
+            //   child: Align(
+            //     alignment: Alignment.centerLeft,
+            //     child: Text(
+            //       'Next Meeting',
+            //       textAlign: TextAlign.left,
+            //       style: TextStyle(
+            //         color: Color(0xFF615E5E),
+            //         fontSize: 16,
+            //         fontFamily: 'Noto Sans',
+            //         fontWeight: FontWeight.w500,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            // Divider(
+            //   indent: 10,
+            //   endIndent: 10,
+            //   color: Color(0xFFC2C0C0), // Set the color of the divider line
+            //   thickness: 1, // Set the thickness of the divider line
+            // ),
+            // TodaysConferences(),
 
-              // SizedBox(
-              //   height: screenHeight * 0.015,
-              // ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth * 0.03,
-                  // vertical: screenHeight * 0.03
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Old Meetings',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: Color(0xFFB88D05),
-                      //color: Color(0xFF615E5E),
-                      fontSize: 16,
-                      fontFamily: 'Noto Sans',
-                      fontWeight: FontWeight.w500,
-                    ),
+            // SizedBox(
+            //   height: screenHeight * 0.015,
+            // ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.03,
+                // vertical: screenHeight * 0.03
+              ),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Old Meetings',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Color(0xFFB88D05),
+                    //color: Color(0xFF615E5E),
+                    fontSize: 16,
+                    fontFamily: 'Noto Sans',
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
-              Divider(
-                indent: 10,
-                endIndent: 10,
-                color: Color(0xFFC2C0C0), // Set the color of the divider line
-                thickness: 1, // Set the thickness of the divider line
-              ),
-              MyOldConferences(),
-            ],
-          ),
+            ),
+            Divider(
+              indent: 10,
+              endIndent: 10,
+              color: Color(0xFFC2C0C0), // Set the color of the divider line
+              thickness: 1, // Set the thickness of the divider line
+            ),
+            MyOldConferences(),
+          ],
         ),
-      )),
-    );
+      ),
+    ));
   }
 }

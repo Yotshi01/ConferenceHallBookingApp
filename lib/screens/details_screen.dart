@@ -518,16 +518,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                   .currentBookingData.userId &&
                                           currentBookingDate!
                                               .isAfter(DateTime.now()) ||
-                                      (currentBookingDate!.day ==
-                                              DateTime.now().day &&
-                                          currentBookingDate!.month ==
-                                              DateTime.now().month &&
-                                          currentBookingDate!.year ==
-                                              DateTime.now().year &&
-                                          hourPartOfStringTime(widget
-                                                  .currentBookingData
-                                                  .bookingStartTime!) >
-                                              DateTime.now().hour))
+                                      ((currentUserData!.id ==
+                                              widget
+                                                  .currentBookingData.userId) &&
+                                          (currentBookingDate!.day ==
+                                                  DateTime.now().day &&
+                                              currentBookingDate!.month ==
+                                                  DateTime.now().month &&
+                                              currentBookingDate!.year ==
+                                                  DateTime.now().year &&
+                                              (hourPartOfStringTime(widget
+                                                          .currentBookingData
+                                                          .bookingEndTime!) >=
+                                                      DateTime.now().hour &&
+                                                  minutePartOfStringTime(widget
+                                                          .currentBookingData
+                                                          .bookingEndTime!) <
+                                                      DateTime.now().minute))))
                                     Row(
                                       children: [
                                         ElevatedButton(

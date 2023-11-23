@@ -27,7 +27,7 @@ class _MyConferencesState extends State<MyConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.35,
+            height: screenHeight * 0.40,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -57,7 +57,7 @@ class _MyConferencesState extends State<MyConferences> {
                         width: screenWidth * 0.5,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
-                          color: Colors.white,
+                          color: Colors.amber[50],
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
                           shadows: [
@@ -129,26 +129,26 @@ class _MyConferencesState extends State<MyConferences> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                  //   child: Text(
-                                  // 'Conference Room Floor - 02',
-                                  child: Text(
-                                conferenceHallName,
-                                style: TextStyle(
-                                  color: Color(0xFFB88D05),
-                                  fontSize: 11,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              )),
-                              const Divider(
-                                indent: 10,
-                                endIndent: 10,
-                                color: Color(
-                                    0xFFC2C0C0), // Set the color of the divider line
-                                thickness:
-                                    1, // Set the thickness of the divider line
-                              ),
+                              // SizedBox(
+                              //     //   child: Text(
+                              //     // 'Conference Room Floor - 02',
+                              //     child: Text(
+                              //   conferenceHallName,
+                              //   style: TextStyle(
+                              //     color: Color(0xFFB88D05),
+                              //     fontSize: 11,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w600,
+                              //   ),
+                              // )),
+                              // const Divider(
+                              //   indent: 10,
+                              //   endIndent: 10,
+                              //   color: Color(
+                              //       0xFFC2C0C0), // Set the color of the divider line
+                              //   thickness:
+                              //       1, // Set the thickness of the divider line
+                              // ),
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
@@ -180,7 +180,14 @@ class _MyConferencesState extends State<MyConferences> {
                                             ),
                                             child: Column(
                                               children: [
-                                                Divider(),
+                                                const Divider(
+                                                  indent: 10,
+                                                  endIndent: 10,
+                                                  color: Color(
+                                                      0xFFC2C0C0), // Set the color of the divider line
+                                                  thickness:
+                                                      1, // Set the thickness of the divider line
+                                                ),
                                                 Row(children: [
                                                   SizedBox(width: 8),
                                                   Icon(
@@ -253,7 +260,31 @@ class _MyConferencesState extends State<MyConferences> {
                                             ),
                                           )))
                                 ],
-                              )
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Icon(
+                                    Icons.meeting_room_outlined,
+                                    color: Color(
+                                        0xFF696767), // Set the color of the icon
+                                    size: 20,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      conferenceHallName,
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ]),
                       ));
                 }))
