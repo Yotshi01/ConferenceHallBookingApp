@@ -316,7 +316,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       _meetingTitleController.text;
                   toBeUpdatedBookingData.bookingMeetingDescription =
                       _meetingDescriptionController.text;
-                  toBeUpdatedBookingData.bookingOtherDetails =
+                  toBeUpdatedBookingData.bookingRequirementDetails =
                       _otherDetailsController.text;
                   toBeUpdatedBookingData.bookingUpdatedAt =
                       DateTime.now().toString();
@@ -416,7 +416,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     _meetingDescriptionController = TextEditingController(
         text: widget.currentBookingData.bookingMeetingDescription);
     _otherDetailsController = TextEditingController(
-        text: widget.currentBookingData.bookingOtherDetails);
+        text: widget.currentBookingData.bookingRequirementDetails);
     _meetingReportedByController = TextEditingController(
         text: widget.currentBookingData.bookingReportedBy);
     currentBookingDate =
@@ -453,22 +453,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
         '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          elevation: 1,
-          centerTitle: true,
-          title: const Text(
-            'Meeting Details',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-              height: 1.25,
-              letterSpacing: 0.16,
-            ),
-          ),
-        ),
+        // appBar: AppBar(
+        //   elevation: 1,
+        //   centerTitle: true,
+        //   title: const Text(
+        //     'Meeting Details',
+        //     textAlign: TextAlign.center,
+        //     style: TextStyle(
+        //       color: Colors.black,
+        //       fontSize: 16,
+        //       fontFamily: 'Roboto',
+        //       fontWeight: FontWeight.w500,
+        //       height: 1.25,
+        //       letterSpacing: 0.16,
+        //     ),
+        //   ),
+        // ),
         body: SingleChildScrollView(
             child: Container(
                 padding: EdgeInsets.only(
@@ -485,12 +485,37 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: screenHeight * 0.01,
+                      height: screenHeight * 0.03,
                     ),
-
-                    // SizedBox(
-                    //   height: screenHeight * 0.02,
-                    // ),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.1,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors.grey[
+                                  300], // Change the button color to your preference
+                              padding: EdgeInsets.all(
+                                  16.0), // Adjust the padding as needed
+                            ),
+                            child: Icon(
+                              Icons
+                                  .arrow_back, // You can use your preferred edit icon here
+                              color: Colors
+                                  .black, // Change the icon color to your preference
+                            ),
+                          ),
+                        )),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
                     Container(
                         padding: EdgeInsets.all(15),
                         width: 352,
@@ -513,28 +538,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (currentUserData!.id ==
-                                              widget
-                                                  .currentBookingData.userId &&
+                                  if (currentUserData!.id == widget.currentBookingData.userId &&
                                           currentBookingDate!
                                               .isAfter(DateTime.now()) ||
-                                      ((currentUserData!.id ==
-                                              widget
-                                                  .currentBookingData.userId) &&
-                                          (currentBookingDate!.day ==
-                                                  DateTime.now().day &&
+                                      ((currentUserData!.id == widget.currentBookingData.userId) &&
+                                          (currentBookingDate!.day == DateTime.now().day &&
                                               currentBookingDate!.month ==
                                                   DateTime.now().month &&
                                               currentBookingDate!.year ==
                                                   DateTime.now().year &&
-                                              (hourPartOfStringTime(widget
-                                                          .currentBookingData
-                                                          .bookingEndTime!) >=
-                                                      DateTime.now().hour &&
-                                                  minutePartOfStringTime(widget
-                                                          .currentBookingData
-                                                          .bookingEndTime!) >
-                                                      DateTime.now().minute))))
+                                              ((hourPartOfStringTime(widget.currentBookingData.bookingEndTime!) >
+                                                      DateTime.now().hour) ||
+                                                  ((hourPartOfStringTime(widget
+                                                              .currentBookingData
+                                                              .bookingEndTime!) ==
+                                                          DateTime.now()
+                                                              .hour) &&
+                                                      (minutePartOfStringTime(widget
+                                                              .currentBookingData
+                                                              .bookingEndTime!) >
+                                                          DateTime.now().minute))))))
                                     Row(
                                       children: [
                                         ElevatedButton(
@@ -796,7 +819,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         1, // Set the thickness of the divider line
                                   ),
                                   Text(
-                                    '${widget.currentBookingData.bookingOtherDetails}',
+                                    '${widget.currentBookingData.bookingRequirementDetails}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,
@@ -825,6 +848,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   Text(
                                     '${widget.currentBookingData.bookingReportedBy}',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      // fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                    height: screenHeight * 0.01,
+                                  ),
+                                  Text(
+                                    'Departments',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Color(
+                                        0xFFC2C0C0), // Set the color of the divider line
+                                    thickness:
+                                        1, // Set the thickness of the divider line
+                                  ),
+                                  Text(
+                                    '${initialbookingDepartments.join(', ')}',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 14,

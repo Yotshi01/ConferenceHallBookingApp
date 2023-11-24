@@ -33,7 +33,7 @@ class AddBookingResponseData {
   int? bookingLocationId;
   int? bookingConferenceId;
   String? bookingMeetingDescription;
-  String? bookingOtherDetails;
+  String? bookingRequirementDetails;
   int? bookingStatus;
   int? bookingWithdrawById;
   String? bookingWithdrawCreatedAt;
@@ -56,7 +56,7 @@ class AddBookingResponseData {
       this.bookingLocationId,
       this.bookingConferenceId,
       this.bookingMeetingDescription,
-      this.bookingOtherDetails,
+      this.bookingRequirementDetails,
       this.bookingStatus,
       this.bookingWithdrawById,
       this.bookingWithdrawCreatedAt,
@@ -79,7 +79,7 @@ class AddBookingResponseData {
     bookingLocationId = json['booking_location_id'];
     bookingConferenceId = json['booking_conference_id'];
     bookingMeetingDescription = json['booking_meeting_description'];
-    bookingOtherDetails = json['booking_other_details'];
+    bookingRequirementDetails = json['booking_requirement_details'];
     bookingStatus = json['booking_status'];
     bookingWithdrawById = json['booking_withdraw_by_id'];
     bookingWithdrawCreatedAt = json['booking_withdraw_created_at'];
@@ -104,7 +104,7 @@ class AddBookingResponseData {
     data['booking_location_id'] = this.bookingLocationId;
     data['booking_conference_id'] = this.bookingConferenceId;
     data['booking_meeting_description'] = this.bookingMeetingDescription;
-    data['booking_other_details'] = this.bookingOtherDetails;
+    data['booking_requirement_details'] = this.bookingRequirementDetails;
     data['booking_status'] = this.bookingStatus;
     data['booking_withdraw_by_id'] = this.bookingWithdrawById;
     data['booking_withdraw_created_at'] = this.bookingWithdrawCreatedAt;

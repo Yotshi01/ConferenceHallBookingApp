@@ -595,10 +595,12 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 endHour: 22,
                 timeInterval: const Duration(minutes: 30),
                 minimumAppointmentDuration: const Duration(minutes: 30),
-                timeFormat: 'h:ma',
+                timeFormat: 'h:mm a',
               ),
 
               allowViewNavigation: false,
+              headerDateFormat: 'MMM,yyy',
+
               onTap: (calendarTapDetails) {
                 if (calendarTapDetails.targetElement ==
                     CalendarElement.appointment) {

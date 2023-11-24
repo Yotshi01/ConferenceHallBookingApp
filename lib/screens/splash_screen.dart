@@ -61,40 +61,38 @@ class _StartScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-          body: Container(
-            height:
-                screenHeight, // giving container the height of the device screen currently being used
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.fill,
-              ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(
-                      screenWidth * 0,
-                      screenHeight * 0.2,
-                      screenWidth * 0,
-                      screenHeight * 0.08,
-                    ),
-                    child: Image.asset(
-                      "assets/images/booking.png",
-                      width: screenWidth * 0.7,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const CircularProgressIndicator(),
-                ],
-              ),
-            ),
+    return Scaffold(
+      body: Container(
+        height:
+            screenHeight, // giving container the height of the device screen currently being used
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/background.png"),
+            fit: BoxFit.fill,
           ),
-        ));
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  screenWidth * 0,
+                  screenHeight * 0.2,
+                  screenWidth * 0,
+                  screenHeight * 0.08,
+                ),
+                child: Image.asset(
+                  "assets/images/booking.png",
+                  width: screenWidth * 0.7,
+                ),
+              ),
+              const SizedBox(height: 20),
+              const CircularProgressIndicator(),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -70,7 +70,8 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
         toBeUpdatedBookingData.bookingConferenceId.toString(),
     "booking_meeting_description":
         toBeUpdatedBookingData.bookingMeetingDescription,
-    "booking_other_details": toBeUpdatedBookingData.bookingOtherDetails,
+    "booking_requirement_details":
+        toBeUpdatedBookingData.bookingRequirementDetails,
     "booking_date": toBeUpdatedBookingData.bookingDate,
     "booking_start_time": toBeUpdatedBookingData.bookingStartTime,
     "booking_end_time": toBeUpdatedBookingData.bookingEndTime,
@@ -126,7 +127,7 @@ Future<AddBookingData> addBooking(BookingData value) async {
   //   "location_id": toBeAddedBookingData.locationName.toString(),
   //   "conference_id": toBeAddedBookingData.conferenceName.toString(),
   //   "meeting_description": toBeAddedBookingData.meetingDes,
-  //   "other_details": toBeAddedBookingData.otherDetails,
+  //   "requirement_details": toBeAddedBookingData.requirementDetails,
   //   "booking_status": toBeAddedBookingData.bookingStatus,
   //   "user_id": toBeAddedBookingData.userId.toString(),
   //   "created_at": toBeUpdatedBookingData.createdAt,
@@ -143,7 +144,8 @@ Future<AddBookingData> addBooking(BookingData value) async {
         toBeAddedBookingData?.bookingConferenceId?.toString() ?? '',
     "booking_meeting_description":
         toBeAddedBookingData?.bookingMeetingDescription ?? '',
-    "booking_other_details": toBeAddedBookingData?.bookingOtherDetails ?? '',
+    "booking_requirement_details":
+        toBeAddedBookingData?.bookingRequirementDetails ?? '',
     "booking_status": toBeAddedBookingData?.bookingStatus.toString() ?? '',
     "user_id": toBeAddedBookingData?.userId?.toString() ?? '',
     "booking_created_at": toBeAddedBookingData?.bookingCreatedAt ?? '',

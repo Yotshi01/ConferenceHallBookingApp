@@ -179,8 +179,8 @@ class _AddBookingState extends State<AddBooking> {
                 Navigator.of(dialogContext).pop(); // Close the dialog first
                 await Future.delayed(
                     Duration(milliseconds: 300)); // Add a delay if needed
-                Navigator.of(context).popUntil((route) =>
-                    route.isFirst); // Navigate after the dialog is closed
+                Navigator.of(context)
+                    .pop(); // Navigate after the dialog is closed
                 // try {
                 //   Navigator.of(dialogContext).popUntil((route) => route.isFirst);
                 // } catch (e) {
@@ -219,7 +219,7 @@ class _AddBookingState extends State<AddBooking> {
                       _meetingTitleController.text;
                   toBeAddedBookingData.bookingMeetingDescription =
                       _meetingDescriptionController.text;
-                  toBeAddedBookingData.bookingOtherDetails =
+                  toBeAddedBookingData.bookingRequirementDetails =
                       _otherDetailsController.text;
                   toBeAddedBookingData.bookingCreatedAt =
                       DateTime.now().toString();
@@ -235,7 +235,7 @@ class _AddBookingState extends State<AddBooking> {
                       _meetingReportedByController.text;
 
                   print(
-                      "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingOtherDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
+                      "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingRequirementDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
                 });
 
                 var response = await addBooking(toBeAddedBookingData);
@@ -256,6 +256,17 @@ class _AddBookingState extends State<AddBooking> {
                           "Booking and booking departments added successfully!"),
                     ),
                   );
+                  Navigator.of(dialogContext).pop(); // Close the dialog
+                  await Future.delayed(
+                      Duration(milliseconds: 300)); // Add a delay if needed
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  await Future.delayed(
+                      Duration(milliseconds: 300)); // Add a delay if needed
+                  context
+                      .read<BottomNavBarCubit>()
+                      .updateSelectedItem(BottomNavBarItem.home);
+
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -270,28 +281,6 @@ class _AddBookingState extends State<AddBooking> {
                 //     MaterialPageRoute(
                 //         builder: (context) => HomeScreen()));
                 // Update the selected tab to navigate to another tab
-
-                Navigator.of(dialogContext).pop(); // Close the dialog
-                await Future.delayed(
-                    Duration(milliseconds: 300)); // Add a delay if needed
-                Navigator.of(context).popUntil((route) =>
-                    route.isFirst); // Navigate after the dialog is closed
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //   builder: (context) => const SyncfusionCalendar(),
-                // ));
-                await Future.delayed(
-                    Duration(milliseconds: 300)); // Add a delay if needed
-                context
-                    .read<BottomNavBarCubit>()
-                    .updateSelectedItem(BottomNavBarItem.home);
-                // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                //   builder: (context) => const HomeScreen(),
-                // ));
-
-                // dialogContext.read<BottomNavBarCubit>().refreshTabs();
-                // Navigator.of(dialogContext).pop(); // Close the dialog first
-                // await Future.delayed(
-                //     Duration(milliseconds: 300)); // Add a delay if needed
               },
               child: Text('Yes'),
             ),
@@ -327,6 +316,38 @@ class _AddBookingState extends State<AddBooking> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
+                Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.05,
+                      ),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape:
+                              CircleBorder(), // Use CircleBorder to make the button circular
+                          backgroundColor: Colors.grey[
+                              300], // Change the button color to your preference
+                          padding: EdgeInsets.all(
+                              16.0), // Adjust the padding as needed
+                        ),
+                        child: Icon(
+                          Icons
+                              .arrow_back, // You can use your preferred edit icon here
+                          color: Colors
+                              .black, // Change the icon color to your preference
+                        ),
+                      ),
+                    )),
+                SizedBox(
+                  height: screenHeight * 0.03,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -832,12 +853,14 @@ class _AddBookingState extends State<AddBooking> {
                                 ),
                               ),
                             )),
-                        Text(
-                          '${widget.selectedLocation}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
+                        Expanded(
+                          child: Text(
+                            '${widget.selectedLocation}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Noto Sans',
+                            ),
                           ),
                         ),
                       ],
@@ -874,14 +897,16 @@ class _AddBookingState extends State<AddBooking> {
                                 ),
                               ),
                             )),
-                        Text(
-                          '${widget.selectedConferenceHall}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
+                        Expanded(
+                          child: Text(
+                            '${widget.selectedConferenceHall}',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Noto Sans',
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
 
@@ -1126,7 +1151,7 @@ class _AddBookingState extends State<AddBooking> {
                     Row(
                       children: [
                         Text(
-                          'Other Details',
+                          'Requirement Details',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -1134,10 +1159,10 @@ class _AddBookingState extends State<AddBooking> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
-                          '*',
-                          style: TextStyle(color: Colors.red),
-                        )
+                        // Text(
+                        //   '*',
+                        //   style: TextStyle(color: Colors.red),
+                        // )
                       ],
                     ),
 

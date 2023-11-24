@@ -9,7 +9,9 @@ import 'package:flutter/src/material/colors.dart';
 //import 'source/constants.dart';
 
 class NavigationDrawerFile extends StatelessWidget {
-  const NavigationDrawerFile({super.key});
+  final VoidCallback? onLogoutPressed;
+  const NavigationDrawerFile({Key? key, this.onLogoutPressed})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -146,10 +148,16 @@ class NavigationDrawerFile extends StatelessWidget {
                     await SharedPreferences.getInstance();
                 sharedPreferences.remove('email');
                 sharedPreferences.remove('token');
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginScreen()),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => LoginScreen()),
+                // );
+                // Navigate to the login screen and remove all previous routes
+                // Close the drawer
+                Navigator.pop(context);
+
+                // Call the logout callback
+                onLogoutPressed?.call();
               },
               child: Text('Yes'),
             ),
