@@ -105,50 +105,71 @@ class _TabbarSetupState extends State<TabbarSetup> {
     //   ),
     //   // const SyncfusionCalendar(),
     // ];
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
-            builder: (context, state) {
-          return Scaffold(
-              resizeToAvoidBottomInset: false,
-              drawer: NavigationDrawerFile(onLogoutPressed: _logout),
-              // drawerScrimColor: Colors.transparent,
-              appBar: reusableAppBar(_appBarTitle, context, hasNotification),
-              ////// body: _pages[_selectedIndex],
-              body: Stack(
-                children: items
-                    .map((item, _) => MapEntry(
-                          item,
-                          _buildOffstageNavigator(
-                              item, item == state.selectedItem),
-                        ))
-                    .values
-                    .toList(),
-              ),
-              // bottomNavigationBar: BottomNavigationBar(
-              //     selectedItemColor: Colors.orange,
-              //     unselectedItemColor: Colors.grey,
-              //     currentIndex: _selectedIndex,
-              //     onTap: _navigateBottomBar,
-              //     items: const [
-              //       BottomNavigationBarItem(
-              //           icon: Icon(Icons.account_circle_rounded), label: 'Profile'),
-              //       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              //       BottomNavigationBarItem(
-              //           icon: Icon(Icons.book_rounded), label: 'Booking'),
-              //     ]),
+    return WillPopScope(onWillPop: () async {
+      final value = await showDialog<bool>(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Alert'),
+              content: Text('Do you want to exit'),
+              actions: [
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: Text('No'),
+                ),
+                ElevatedButton(
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text('Yes'),
+                ),
+              ],
+            );
+          });
+      if (value != null) {
+        return Future.value(value);
+      } else {
+        return Future.value(false);
+      }
+    }, child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+        builder: (context, state) {
+      return Scaffold(
+          resizeToAvoidBottomInset: false,
+          drawer: NavigationDrawerFile(onLogoutPressed: _logout),
+          // drawerScrimColor: Colors.transparent,
+          appBar: reusableAppBar(_appBarTitle, context, hasNotification),
+          ////// body: _pages[_selectedIndex],
+          body: Stack(
+            children: items
+                .map((item, _) => MapEntry(
+                      item,
+                      _buildOffstageNavigator(item, item == state.selectedItem),
+                    ))
+                .values
+                .toList(),
+          ),
+          // bottomNavigationBar: BottomNavigationBar(
+          //     selectedItemColor: Colors.orange,
+          //     unselectedItemColor: Colors.grey,
+          //     currentIndex: _selectedIndex,
+          //     onTap: _navigateBottomBar,
+          //     items: const [
+          //       BottomNavigationBarItem(
+          //           icon: Icon(Icons.account_circle_rounded), label: 'Profile'),
+          //       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          //       BottomNavigationBarItem(
+          //           icon: Icon(Icons.book_rounded), label: 'Booking'),
+          //     ]),
 
-              bottomNavigationBar: BottomNavBar(
-                items: items,
-                selectedItem: state.selectedItem,
-                onTap: (index) {
-                  final selectedItem = BottomNavBarItem.values[index];
+          bottomNavigationBar: BottomNavBar(
+            items: items,
+            selectedItem: state.selectedItem,
+            onTap: (index) {
+              final selectedItem = BottomNavBarItem.values[index];
 
-                  _selectBottomNavBarItem(context, selectedItem,
-                      selectedItem == state.selectedItem);
-                },
-              ));
-        }));
+              _selectBottomNavBarItem(
+                  context, selectedItem, selectedItem == state.selectedItem);
+            },
+          ));
+    }));
   }
 
   void _selectBottomNavBarItem(

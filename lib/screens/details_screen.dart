@@ -234,7 +234,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 print("Reason: $reason");
 
                 // You can use the 'reason' variable for further processing
-                print("${widget.currentBookingData.bookingId} fkjfjakdalsdka");
 
                 toBeWithdrawnBookingNeededData.bookingId =
                     widget.currentBookingData.bookingId;
@@ -249,49 +248,145 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                 toBeWithdrawnBookingNeededData.bookingWithdrawReason = reason;
 
-                // var response = await addReschedulingRequest(
-                //     toBeAddedReschedulingRequestData);
+                Navigator.of(context).pop(); // Close the reason dialog
 
-                // if (response.status == 'success') {
-                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                //     content: Text("Requested successfully!"),
-                //   ));
-                // } else {
-                //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                //     content: Text("Failed to make a request!"),
-                //   ));
-                // }
-                var response =
-                    await withdrawBooking(toBeWithdrawnBookingNeededData);
-                if (response.status == 'success') {
-                  print('Saved Changes');
-                  final snackBar = SnackBar(
-                    content: Text('Withdrawn Successfully'),
-                    backgroundColor: Colors.green,
-                    duration:
-                        Duration(seconds: 3), // Adjust the duration as needed
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else {
-                  final snackBar = SnackBar(
-                    content: Text('Failed to withdraw booking'),
-                    backgroundColor: Colors.red,
-                    duration:
-                        Duration(seconds: 3), // Adjust the duration as needed
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-
-                // print("Reason: $reason");
-                Navigator.of(context).pop();
+                _confirmWithdrawal(context); // Show the confirmation dialog
               },
-              child: Text("Withdraw"),
+              child: Text("Next"),
             ),
           ],
         );
       },
     );
   }
+
+  void _confirmWithdrawal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm Withdrawal'),
+          content: Text('Are you sure you want to withdraw?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                var response =
+                    await withdrawBooking(toBeWithdrawnBookingNeededData);
+                if (response.status == 'success') {
+                  print('Saved Changes');
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text("Withdrawn Successfully"),
+                    ),
+                  );
+
+                  // Navigator.of(context).pop(); // Close the dialog
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.green,
+                      content: Text("Withdraw booking unsuccessful!"),
+                    ),
+                  );
+                }
+              },
+            ),
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the confirmation dialog
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  // void _showWithdrawDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       String reason = ""; // Store the input reason
+  //
+  //       return AlertDialog(
+  //         title: Text("Reason for Withdrawing the "),
+  //         content: TextField(
+  //           onChanged: (text) {
+  //             reason = text;
+  //           },
+  //           decoration: InputDecoration(
+  //             hintText: "Enter your reason here",
+  //           ),
+  //           maxLines: null,
+  //         ),
+  //         actions: <Widget>[
+  //           ElevatedButton(
+  //             onPressed: () async {
+  //               print("Reason: $reason");
+  //
+  //               // You can use the 'reason' variable for further processing
+  //               print("${widget.currentBookingData.bookingId} fkjfjakdalsdka");
+  //
+  //               toBeWithdrawnBookingNeededData.bookingId =
+  //                   widget.currentBookingData.bookingId;
+  //
+  //               toBeWithdrawnBookingNeededData.bookingStatus = 0;
+  //
+  //               toBeWithdrawnBookingNeededData.bookingWithdrawById =
+  //                   currentUserData!.id;
+  //
+  //               toBeWithdrawnBookingNeededData.bookingWithdrawCreatedAt =
+  //                   DateTime.now().toString();
+  //
+  //               toBeWithdrawnBookingNeededData.bookingWithdrawReason = reason;
+  //
+  //               // var response = await addReschedulingRequest(
+  //               //     toBeAddedReschedulingRequestData);
+  //
+  //               // if (response.status == 'success') {
+  //               //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //               //     content: Text("Requested successfully!"),
+  //               //   ));
+  //               // } else {
+  //               //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //               //     content: Text("Failed to make a request!"),
+  //               //   ));
+  //               // }
+  //               var response =
+  //                   await withdrawBooking(toBeWithdrawnBookingNeededData);
+  //               if (response.status == 'success') {
+  //                 print('Saved Changes');
+  //                 final snackBar = SnackBar(
+  //                   content: Text('Withdrawn Successfully'),
+  //                   backgroundColor: Colors.green,
+  //                   duration:
+  //                       Duration(seconds: 3), // Adjust the duration as needed
+  //                 );
+  //                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //               } else {
+  //                 final snackBar = SnackBar(
+  //                   content: Text('Failed to withdraw booking'),
+  //                   backgroundColor: Colors.red,
+  //                   duration:
+  //                       Duration(seconds: 3), // Adjust the duration as needed
+  //                 );
+  //                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  //               }
+  //
+  //               // print("Reason: $reason");
+  //               Navigator.of(context).pop();
+  //             },
+  //             child: Text("Withdraw"),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   void _showEditBookingConfirmationDialog(BuildContext context) {
     showDialog(
@@ -643,17 +738,50 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   SizedBox(
                                     height: screenHeight * 0.01,
                                   ),
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      widget.currentConferenceRoomName,
-                                      style: TextStyle(
-                                        color: Color(0xFFB88D05),
-                                        fontSize: 16,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w600,
+                                  Row(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          widget.currentConferenceRoomName,
+                                          style: TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 16,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      IconButton(
+                                        alignment: Alignment.centerLeft,
+                                        icon: Icon(
+                                          Icons.info,
+                                          color: Colors.grey[400],
+                                          // Color.fromARGB(
+                                          //     255, 236, 219, 158),
+                                          size: 20,
+                                        ),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                  '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
+                                                  style: TextStyle(
+                                                    color: Colors.grey[850],
+                                                    fontSize: 14,
+                                                    fontFamily: 'Noto Sans',
+                                                    // fontWeight: FontWeight.w700,
+                                                  ),
+                                                ),
+                                                // Add other AlertDialog properties if needed
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
 
                                   SizedBox(
@@ -774,32 +902,48 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                   ),
                                   SizedBox(height: screenHeight * 0.02),
-                                  Text(
-                                    'About Room',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Color(
-                                        0xFFC2C0C0), // Set the color of the divider line
-                                    thickness:
-                                        1, // Set the thickness of the divider line
-                                  ),
-                                  Text(
-                                    getConferenceHallDescription(widget
-                                        .currentBookingData
-                                        .bookingConferenceId!),
-                                    style: TextStyle(
-                                      color: Colors.grey[850],
-                                      fontSize: 14,
-                                      fontFamily: 'Noto Sans',
-                                      // fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
+                                  // Row(
+                                  //   children: [
+                                  //     Text(
+                                  //       'About Room',
+                                  //       style: TextStyle(
+                                  //         color: Colors.black,
+                                  //         fontSize: 14,
+                                  //         fontFamily: 'Noto Sans',
+                                  //         fontWeight: FontWeight.w700,
+                                  //       ),
+                                  //     ),
+                                  //     IconButton(
+                                  //       icon: Icon(
+                                  //         Icons.info,
+                                  //         color: Color.fromARGB(
+                                  //             255, 236, 219, 158),
+                                  //         size: 35,
+                                  //       ),
+                                  //       onPressed: () {
+                                  //         showDialog(
+                                  //           context: context,
+                                  //           builder: (BuildContext context) {
+                                  //             return AlertDialog(
+                                  //               title: Text(
+                                  //                 '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
+                                  //                 style: TextStyle(
+                                  //                   color: Colors.grey[850],
+                                  //                   fontSize: 14,
+                                  //                   fontFamily: 'Noto Sans',
+                                  //                   // fontWeight: FontWeight.w700,
+                                  //                 ),
+                                  //               ),
+                                  //               // Add other AlertDialog properties if needed
+                                  //             );
+                                  //           },
+                                  //         );
+                                  //       },
+                                  //     ),
+                                  //   ],
+                                  // ),
+
+                                  // Set the thickness of the divider
                                   SizedBox(
                                     height: screenHeight * 0.01,
                                   ),
@@ -884,18 +1028,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                   ),
 
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: MeetingUpdateButtons(
-                                      bookingUserId:
-                                          widget.currentBookingData.userId!,
-                                      bookingId:
-                                          widget.currentBookingData.bookingId!,
-                                    ),
-                                  ),
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                  // Align(
+                                  //   alignment: Alignment.center,
+                                  //   child: MeetingUpdateButtons(
+                                  //     bookingUserId:
+                                  //         widget.currentBookingData.userId!,
+                                  //     bookingId:
+                                  //         widget.currentBookingData.bookingId!,
+                                  //   ),
+                                  // ),
                                 ],
                               )
                             else
@@ -1439,10 +1583,45 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-
+                                  // SizedBox(
+                                  //   height: 20,
+                                  // ),
+                                  // Column(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: <Widget>[
+                                  //     Text(
+                                  //       'How many people are going to attend the meeting?',
+                                  //       textAlign: TextAlign.center,
+                                  //       style: TextStyle(fontSize: 18.0),
+                                  //     ),
+                                  //     SizedBox(height: 20.0),
+                                  //
+                                  //     DropdownButton<int>(
+                                  //       value: _selectedAttendees,
+                                  //       onChanged: (int? newValue) {
+                                  //         setState(() {
+                                  //           _selectedAttendees = newValue!;
+                                  //         });
+                                  //       },
+                                  //       items:
+                                  //           _attendeeOptions.map((int value) {
+                                  //         return DropdownMenuItem<int>(
+                                  //           value: value,
+                                  //           child: Text(value.toString()),
+                                  //         );
+                                  //       }).toList(),
+                                  //     ),
+                                  //     SizedBox(height: 20.0),
+                                  //     ElevatedButton(
+                                  //       onPressed: () {
+                                  //         // Perform actions with the selected number of attendees
+                                  //         print(
+                                  //             'Selected Attendees: $_selectedAttendees');
+                                  //       },
+                                  //       child: Text('Confirm'),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Container(
@@ -1558,18 +1737,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   // SizedBox(
                                   //   height: 20,
                                   // ),
-                                  // Align(
-                                  //   alignment: Alignment.center,
-                                  //   child: MeetingUpdateButtons(
-                                  //     bookingId:
-                                  //         widget.currentBookingData.bookingId!,
-                                  //     bookingUserId:
-                                  //         widget.currentBookingData.userId!,
-                                  //   ),
-                                  // ),
-                                  // SizedBox(
-                                  //   height: 20,
-                                  // ),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: MeetingUpdateButtons(
+                                      bookingId:
+                                          widget.currentBookingData.bookingId!,
+                                      bookingUserId:
+                                          widget.currentBookingData.userId!,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,

@@ -94,41 +94,41 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   height: screenHeight * 0.1,
                                 ),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // Add your onPressed callback function here
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailsScreen(
-                                              currentBookingData: bookingData,
-                                              currentConferenceRoomName:
-                                                  conferenceHallName,
-                                              currentLocationName: locationName,
-                                              currentConferenceHallImageName:
-                                                  conferenceHallImageName)));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Color(0x59FFC304), // Background color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
-                                  elevation: 4, // Shadow blur radius
-                                ),
-                                child: Container(
-                                  width: 91,
-                                  height: 27,
-                                  child: const Center(
-                                    child: Text(
-                                      "View Detail",
-                                      style: TextStyle(
-                                        color: Colors.black, // Text color
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // ElevatedButton(
+                              //   onPressed: () {
+                              //     // Add your onPressed callback function here
+                              //     Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (context) => DetailsScremeeen(
+                              //                 currentBookingData: bookingData,
+                              //                 currentConferenceRoomName:
+                              //                     conferenceHallName,
+                              //                 currentLocationName: locationName,
+                              //                 currentConferenceHallImageName:
+                              //                     conferenceHallImageName)));
+                              //   },
+                              //   style: ElevatedButton.styleFrom(
+                              //     backgroundColor:
+                              //         Color(0x59FFC304), // Background color
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(15),
+                              //     ),
+                              //     elevation: 4, // Shadow blur radius
+                              //   ),
+                              //   child: Container(
+                              //     width: 91,
+                              //     height: 27,
+                              //     child: const Center(
+                              //       child: Text(
+                              //         "View Detail",
+                              //         style: TextStyle(
+                              //           color: Colors.black, // Text color
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
 
                               // const Divider(
                               //   indent: 10,
@@ -236,7 +236,7 @@ class _OtherConferencesState extends State<OtherConferences> {
         : const Center(
             child: Text(
               'No results found',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontSize: 13),
             ),
           );
   }
