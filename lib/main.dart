@@ -64,13 +64,10 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner:
               false, // making it false removes the debug banner on top right corner of app display
-          // home: WillPopScope(
-          //   onWillPop: () async => false,
-          //   child: SplashScreen(),
-          // )
+          home: SplashScreen(),
           // Splash Screen is the first loading screen that we see when we start the app. Here we are navigating to the SplashScreen() widget in the splash_screen.dart file
-          onGenerateRoute: CustomRouter.onGenerateRoute,
-          initialRoute: SplashScreen.routeName,
+          // onGenerateRoute: CustomRouter.onGenerateRoute,
+          // initialRoute: SplashScreen.routeName,
         ));
   }
 }

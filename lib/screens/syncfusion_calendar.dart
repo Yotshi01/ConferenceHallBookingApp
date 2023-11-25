@@ -384,11 +384,31 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       }
     }
 
+    // Add a region for the selected start time cell
+    if (selectedStartTime != null) {
+      regions.add(TimeRegion(
+        startTime: selectedStartTime!,
+        endTime: selectedStartTime!
+            .add(Duration(minutes: 30)), // Adjust duration for the cell size
+        color: Colors.blue[600], // Customize the start time cell color
+      ));
+    }
+
+// Add a region for the selected end time cell
+    if (selectedEndTime != null) {
+      regions.add(TimeRegion(
+        startTime: selectedEndTime!.subtract(
+            Duration(minutes: 30)), // Adjust duration for the cell size
+        endTime: selectedEndTime!,
+        color: Colors.blue[600], // Customize the end time cell color
+      ));
+    }
+
     // Add a region for the selected time slot
     if (selectedStartTime != null && selectedEndTime != null) {
       regions.add(TimeRegion(
-        startTime: selectedStartTime!,
-        endTime: selectedEndTime!,
+        startTime: selectedStartTime!.add(Duration(minutes: 30)),
+        endTime: selectedEndTime!.subtract(Duration(minutes: 30)),
         color: Colors.blue.withOpacity(0.5), // Customize the color
       ));
     }
