@@ -40,6 +40,7 @@ export 'package:conference_hall_booking/models/departments.dart';
 export 'package:conference_hall_booking/models/delete_booking_departments.dart';
 export 'package:conference_hall_booking/models/add_firebase_token_model.dart';
 export 'package:conference_hall_booking/models/blackout_days_model.dart';
+export 'package:conference_hall_booking/models/booking_departments_model.dart';
 
 export 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 
@@ -56,6 +57,8 @@ export 'package:conference_hall_booking/screens/splash_screen.dart';
 export 'package:conference_hall_booking/screens/syncfusion_calendar.dart';
 export 'package:conference_hall_booking/screens/tabbar_setup_screen.dart';
 export 'package:conference_hall_booking/navigation_drawer.dart';
+export 'package:conference_hall_booking/screens/syncfusion_calendar_for_edit.dart';
+export 'package:conference_hall_booking/screens/editBooking.dart';
 
 export 'package:conference_hall_booking/utils/booking_alert_dialog.dart';
 export 'package:conference_hall_booking/utils/conference_hall_dropdown.dart';

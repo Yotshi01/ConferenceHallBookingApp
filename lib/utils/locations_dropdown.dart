@@ -97,11 +97,20 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   toBeAddedBookingData.bookingLocationId =
                       getLocationId(locationChoosed!);
                   widget.callBackFunction(locationChoosed);
-                  listOfFilteredMeetingsAccordingToDropdownSelections =
+                  listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
                   print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelections} thidrhkhsdjnsa');
+                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsa');
+                  conferenceHallsAtSelectedLocation =
+                      getConferenceHallDataAccordingToSelectedLocation(
+                          locationChoosed!);
+
+                  listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
+                      getBookingDataAccordingToSelectedLocation(
+                          locationChoosed!);
+                  print(
+                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =
                       getConferenceHallDataAccordingToSelectedLocation(
                           locationChoosed!);

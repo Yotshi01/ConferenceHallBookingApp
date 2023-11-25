@@ -44,3 +44,10 @@ int minutePartOfStringTime(String timeString) {
   int minute = timeDateTime.minute;
   return minute;
 }
+
+DateTime combineStringDateAndTimeIntoDateTimeFormat(
+    String dateString, String timeString) {
+  DateTime timeDateTime = DateTime.parse('$dateString $timeString');
+
+  return timeDateTime;
+}

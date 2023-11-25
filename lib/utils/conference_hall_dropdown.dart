@@ -105,11 +105,16 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   print(
                       '${widget.locationName}, ${conferenceRoomChoosed} cjadasdakmx');
 
-                  listOfFilteredMeetingsAccordingToDropdownSelections =
+                  listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocationAndConferenceHall(
                           widget.locationName, conferenceRoomChoosed!);
                   print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelections} thidrhkhsdjnsafefaefaf');
+                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsafefaefaf');
+                  listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
+                      getBookingDataAccordingToSelectedLocationAndConferenceHall(
+                          widget.locationName, conferenceRoomChoosed!);
+                  print(
+                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsafefaefaf');
                 });
               },
               value: conferenceRoomChoosed,

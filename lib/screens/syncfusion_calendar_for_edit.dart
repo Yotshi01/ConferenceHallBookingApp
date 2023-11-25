@@ -2,14 +2,19 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:intl/intl.dart';
 
-class SyncfusionCalendar extends StatefulWidget {
-  const SyncfusionCalendar({Key? key}) : super(key: key);
+class SyncfusionCalendarForEdit extends StatefulWidget {
+  final BookingData currentBookingData;
+  const SyncfusionCalendarForEdit({
+    Key? key,
+    required this.currentBookingData,
+  }) : super(key: key);
 
   @override
-  State<SyncfusionCalendar> createState() => _SyncfusionCalendarState();
+  State<SyncfusionCalendarForEdit> createState() =>
+      _SyncfusionCalendarForEditState();
 }
 
-class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
+class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
   // late Future<BookingDetails>
   //     bookingDetailsResponse; // Make bookingDetailsResponse a Future
 
@@ -27,6 +32,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
   bool isCheckboxTicked = false;
   bool areAllDataSelected = false;
 
+  String? selectedLocation;
+  String? selectedConferenceHall;
+
   @override
   void initState() {
     super.initState();
@@ -35,11 +43,22 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     _fetchHolidayDetails();
     blackoutDaysDetailsResponse = getBlackoutDaysDetails();
     _fetchBlackoutDaysDetails();
-    // listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = listOfBookings;
-    listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
+    selectedLocation =
+        getLocationName(widget.currentBookingData.bookingLocationId!);
+    selectedConferenceHall =
+        getConferenceHallName(widget.currentBookingData.bookingConferenceId);
+    // listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking = listOfBookings;
+    listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
+        getBookingDataAccordingToSelectedLocationAndConferenceHall(
+            selectedLocation!, selectedConferenceHall!);
+    selectedStartTime = combineStringDateAndTimeIntoDateTimeFormat(
+        widget.currentBookingData.bookingDate!,
+        widget.currentBookingData.bookingStartTime!);
+    selectedEndTime = combineStringDateAndTimeIntoDateTimeFormat(
+        widget.currentBookingData.bookingDate!,
+        widget.currentBookingData.bookingEndTime!);
   }
 
-  String? selectedLocation;
   callBackLocationName(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
@@ -50,7 +69,6 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     });
   }
 
-  String? selectedConferenceHall;
   callBackConferenceHallName(varSelectedConferenceHall) {
     setState(() {
       selectedConferenceHall = varSelectedConferenceHall;
@@ -215,18 +233,18 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     bookedTimeSlots = [];
     print('vjhghhhhj');
     // List<BookingData> bookingDataList = [];
-    // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking;
+    // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking;
 
     print(
-        '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} djkadnjzxc');
-    if (listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking
+        '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} djkadnjzxc');
+    if (listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking
         .isNotEmpty) {
       print('ddfsfsd');
 
       // Generate a random color for each appointment
       // final Random random = Random();
       // final List<Color> appointmentColors = List.generate(
-      //   listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking.length,
+      //   listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking.length,
       //   (index) => Color.fromRGBO(
       //     random.nextInt(256),
       //     random.nextInt(256),
@@ -240,7 +258,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
       setState(() {
         _appointments =
-            listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking
+            listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking
                 .asMap()
                 .entries
                 .map((entry) {
@@ -254,9 +272,11 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               endTime: DateTime.parse(
                   data.bookingDate! + ' ' + data.bookingEndTime!),
               // color: color, // Use the same color as the appointment
-              color: appointmentColor);
+              color: Colors.amber[800]);
 
-          bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
+          if (data.bookingId != widget.currentBookingData.bookingId) {
+            bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
+          }
 
           return Appointment(
               startTime: DateTime.parse(
@@ -264,15 +284,13 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
               endTime: DateTime.parse(
                   data.bookingDate! + ' ' + data.bookingEndTime!),
               subject: data.bookingMeetingTitle!,
+              id: data.bookingId,
               // color: color, // Use the random color
               color: appointmentColor);
         }).toList();
       });
-
-      // Ensure the state is updated after loading appointments
-      if (mounted) {
-        setState(() {});
-      }
+      _appointments.removeWhere((appointment) =>
+          appointment.id == widget.currentBookingData.bookingId);
     } else {
       _appointments = [];
     }
@@ -387,31 +405,11 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
       }
     }
 
-    // Add a region for the selected start time cell
-    if (selectedStartTime != null) {
-      regions.add(TimeRegion(
-        startTime: selectedStartTime!,
-        endTime: selectedStartTime!
-            .add(Duration(minutes: 30)), // Adjust duration for the cell size
-        color: Colors.blue[600], // Customize the start time cell color
-      ));
-    }
-
-// Add a region for the selected end time cell
-    if (selectedEndTime != null) {
-      regions.add(TimeRegion(
-        startTime: selectedEndTime!.subtract(
-            Duration(minutes: 30)), // Adjust duration for the cell size
-        endTime: selectedEndTime!,
-        color: Colors.blue[600], // Customize the end time cell color
-      ));
-    }
-
     // Add a region for the selected time slot
     if (selectedStartTime != null && selectedEndTime != null) {
       regions.add(TimeRegion(
-        startTime: selectedStartTime!.add(Duration(minutes: 30)),
-        endTime: selectedEndTime!.subtract(Duration(minutes: 30)),
+        startTime: selectedStartTime!,
+        endTime: selectedEndTime!,
         color: Colors.blue.withOpacity(0.5), // Customize the color
       ));
     }
@@ -540,7 +538,10 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
           SizedBox(
             height: screenHeight * 0.01,
           ),
-          LocationsDropdown(callBackFunction: callBackLocationName),
+          LocationsDropdown(
+              callBackFunction: callBackLocationName,
+              initialSelectedLocation: getLocationName(
+                  widget.currentBookingData.bookingLocationId!)),
           SizedBox(
             height: screenHeight * 0.007,
           ),
@@ -551,7 +552,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 if (selectedLocation != null)
                   ConferenceHallDropdown(
                       callBackFunction: callBackConferenceHallName,
-                      locationName: selectedLocation ?? ''),
+                      locationName: selectedLocation ?? '',
+                      initialSelectedConferenceHall: getConferenceHallName(
+                          widget.currentBookingData.bookingConferenceId)),
                 if (selectedLocation != null)
                   IconButton(
                     icon: Icon(
@@ -856,7 +859,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                             await Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AddBooking(
+                                    builder: (context) => EditBooking(
                                           selectedStartTime: selectedStartTime ??
                                               DateTime
                                                   .now(), // Provide a default value or handle null appropriately
@@ -867,6 +870,8 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                                           selectedLocation: selectedLocation!,
                                           selectedConferenceHall:
                                               selectedConferenceHall!,
+                                          currentBookingData:
+                                              widget.currentBookingData,
                                         )));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
