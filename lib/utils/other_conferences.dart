@@ -141,14 +141,23 @@ class _OtherConferencesState extends State<OtherConferences> {
                               //   ),
                               // ),
 
-                              // const Divider(
-                              //   indent: 10,
-                              //   endIndent: 10,
-                              //   color: Color(
-                              //       0xFFC2C0C0), // Set the color of the divider line
-                              //   thickness:
-                              //       1, // Set the thickness of the divider line
-                              // ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: MeetingUpdateButtons(
+                                  bookingUserId: bookingData.userId!,
+                                  bookingId: bookingData.bookingId!,
+                                ),
+                              ),
+
+                              const Divider(
+                                indent: 10,
+                                endIndent: 10,
+                                color: Color(
+                                    0xFFC2C0C0), // Set the color of the divider line
+                                thickness:
+                                    1, // Set the thickness of the divider line
+                              ),
+
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(

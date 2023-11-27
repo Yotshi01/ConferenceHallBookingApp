@@ -137,54 +137,66 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   height: screenHeight * 0.1,
                                 ),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  navigatorKeys[BottomNavBarItem.home]!
-                                      .currentState!
-                                      .push(
-                                        MaterialPageRoute(
-                                            builder: (context) => DetailsScreen(
-                                                currentBookingData: bookingData,
-                                                currentConferenceRoomName:
-                                                    conferenceHallName,
-                                                currentLocationName:
-                                                    locationName,
-                                                currentConferenceHallImageName:
-                                                    conferenceHallImageName)),
-                                      );
-                                  // Add your onPressed callback function here
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => DetailsScreen(
-                                  // currentBookingData: bookingData,
-                                  // currentConferenceRoomName:
-                                  //     conferenceHallName,
-                                  // currentLocationName: locationName,
-                                  // currentConferenceHallImageName:
-                                  //     conferenceHallImageName)));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:
-                                      Color(0x59FFC304), // Background color
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
+
+                              if (bookingData.userId == currentUserData!.id)
+                                ElevatedButton(
+                                  onPressed: () {
+                                    navigatorKeys[BottomNavBarItem.home]!
+                                        .currentState!
+                                        .push(
+                                          MaterialPageRoute(
+                                              builder: (context) => DetailsScreen(
+                                                  currentBookingData:
+                                                      bookingData,
+                                                  currentConferenceRoomName:
+                                                      conferenceHallName,
+                                                  currentLocationName:
+                                                      locationName,
+                                                  currentConferenceHallImageName:
+                                                      conferenceHallImageName)),
+                                        );
+                                    // Add your onPressed callback function here
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => DetailsScreen(
+                                    // currentBookingData: bookingData,
+                                    // currentConferenceRoomName:
+                                    //     conferenceHallName,
+                                    // currentLocationName: locationName,
+                                    // currentConferenceHallImageName:
+                                    //     conferenceHallImageName)));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color(0x59FFC304), // Background color
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    elevation: 4, // Shadow blur radius
                                   ),
-                                  elevation: 4, // Shadow blur radius
-                                ),
-                                child: Container(
-                                  width: 91,
-                                  height: 27,
-                                  child: const Center(
-                                    child: Text(
-                                      "View Detail",
-                                      style: TextStyle(
-                                        color: Colors.black, // Text color
+                                  child: Container(
+                                    width: 91,
+                                    height: 27,
+                                    child: const Center(
+                                      child: Text(
+                                        "View Detail",
+                                        style: TextStyle(
+                                          color: Colors.black, // Text color
+                                        ),
                                       ),
                                     ),
                                   ),
+                                )
+                              else
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: MeetingUpdateButtons(
+                                    bookingUserId: bookingData.userId!,
+                                    bookingId: bookingData.bookingId!,
+                                  ),
                                 ),
-                              ),
+
                               // SizedBox(
                               //     //   child: Text(
                               //     // 'Conference Room Floor - 02',
