@@ -683,6 +683,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           ),
                                         ),
                                       ),
+                                      SizedBox(
+                                        width: screenWidth * 0.12,
+                                      ),
                                       ElevatedButton(
                                         onPressed: () {
                                           navigatorKeys[BottomNavBarItem.home]!
@@ -711,7 +714,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           backgroundColor: Colors.grey[
                                               100], // Change the button color to your preference
                                           padding: EdgeInsets.all(
-                                              11.0), // Adjust the padding as needed
+                                              10.0), // Adjust the padding as needed
                                         ),
                                         child: Icon(
                                           Icons
