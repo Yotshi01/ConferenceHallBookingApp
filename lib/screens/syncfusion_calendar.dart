@@ -1009,7 +1009,7 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
     String formattedEndTime = DateFormat('h:mm a').format(appointment.endTime);
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           content: Container(
             //padding: EdgeInsets.all(16), // Add padding to the Container
@@ -1037,10 +1037,10 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                           size: 25.0,
                         ),
                         onPressed: () {
-                          // Navigator.of(context).pop();
-                          navigatorKeys[BottomNavBarItem.booking]!
-                              .currentState!
-                              .pop();
+                          Navigator.of(dialogContext).pop();
+                          // navigatorKeys[BottomNavBarItem.booking]!
+                          //     .currentState!
+                          //     .pop();
                         },
                       ),
                     )

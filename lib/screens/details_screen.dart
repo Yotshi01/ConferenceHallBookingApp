@@ -590,38 +590,38 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 child: Column(
                   children: [
-                    SizedBox(
-                      height: screenHeight * 0.03,
-                    ),
-                    Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: screenWidth * 0.1,
-                          ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              // Navigator.of(context).pop();
-                              navigatorKeys[BottomNavBarItem.home]!
-                                  .currentState!
-                                  .pop();
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape:
-                                  CircleBorder(), // Use CircleBorder to make the button circular
-                              backgroundColor: Colors.grey[
-                                  300], // Change the button color to your preference
-                              padding: EdgeInsets.all(
-                                  16.0), // Adjust the padding as needed
-                            ),
-                            child: Icon(
-                              Icons
-                                  .arrow_back, // You can use your preferred edit icon here
-                              color: Colors
-                                  .black, // Change the icon color to your preference
-                            ),
-                          ),
-                        )),
+                    // SizedBox(
+                    //   height: screenHeight * 0.03,
+                    // ),
+                    // Align(
+                    //     alignment: Alignment.centerLeft,
+                    //     child: Padding(
+                    //       padding: EdgeInsets.symmetric(
+                    //         horizontal: screenWidth * 0.1,
+                    //       ),
+                    //       child: ElevatedButton(
+                    //         onPressed: () {
+                    //           // Navigator.of(context).pop();
+                    //           navigatorKeys[BottomNavBarItem.home]!
+                    //               .currentState!
+                    //               .pop();
+                    //         },
+                    //         style: ElevatedButton.styleFrom(
+                    //           shape:
+                    //               CircleBorder(), // Use CircleBorder to make the button circular
+                    //           backgroundColor: Colors.grey[
+                    //               300], // Change the button color to your preference
+                    //           padding: EdgeInsets.all(
+                    //               16.0), // Adjust the padding as needed
+                    //         ),
+                    //         child: Icon(
+                    //           Icons
+                    //               .arrow_back, // You can use your preferred edit icon here
+                    //           color: Colors
+                    //               .black, // Change the icon color to your preference
+                    //         ),
+                    //       ),
+                    //     )),
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
@@ -667,7 +667,22 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                             widget.currentBookingData.bookingEndTime!) >
                                                         DateTime.now().minute))))))
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(
+                                            right: screenWidth * 0.25),
+                                        child: Text(
+                                          '${widget.currentBookingData.bookingMeetingTitle}',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w700,
+                                            // fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
                                       ElevatedButton(
                                         onPressed: () {
                                           navigatorKeys[BottomNavBarItem.home]!
@@ -693,16 +708,16 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         style: ElevatedButton.styleFrom(
                                           shape:
                                               CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors
-                                              .blue, // Change the button color to your preference
+                                          backgroundColor: Colors.grey[
+                                              100], // Change the button color to your preference
                                           padding: EdgeInsets.all(
-                                              16.0), // Adjust the padding as needed
+                                              11.0), // Adjust the padding as needed
                                         ),
                                         child: Icon(
                                           Icons
                                               .edit, // You can use your preferred edit icon here
-                                          color: Colors
-                                              .white, // Change the icon color to your preference
+                                          color: Colors.grey[
+                                              600], // Change the icon color to your preference
                                         ),
                                       ),
                                       ElevatedButton(
@@ -714,108 +729,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         style: ElevatedButton.styleFrom(
                                           shape:
                                               CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors
-                                              .red, // Change the button color to your preference
+                                          backgroundColor: Colors.grey[
+                                              100], // Change the button color to your preference
                                           padding: EdgeInsets.all(
-                                              16.0), // Adjust the padding as needed
+                                              11.0), // Adjust the padding as needed
                                         ),
                                         child: Icon(
                                           Icons
                                               .delete, // You can use your preferred edit icon here
-                                          color: Colors
-                                              .white, // Change the icon color to your preference
+                                          color: Colors.grey[
+                                              600], // Change the icon color to your preference
                                         ),
                                       ),
                                     ],
                                   ),
-                                Container(),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: screenWidth * 0.01,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Image.asset(
-                                          "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
-                                          width: screenWidth * 0.24,
-                                          height: screenHeight * 0.15,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-
-                                Text(
-                                  '${widget.currentBookingData.bookingMeetingTitle}',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
-                                    // fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                Divider(
-                                  color: Color(
-                                      0xFFC2C0C0), // Set the color of the divider line
-                                  thickness:
-                                      1, // Set the thickness of the divider line
-                                ),
-
-                                SizedBox(
-                                  height: screenHeight * 0.01,
-                                ),
-                                Row(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        widget.currentConferenceRoomName,
-                                        style: TextStyle(
-                                          color: Color(0xFFB88D05),
-                                          fontSize: 16,
-                                          fontFamily: 'Noto Sans',
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                    IconButton(
-                                      alignment: Alignment.centerLeft,
-                                      icon: Icon(
-                                        Icons.info,
-                                        color: Colors.grey[400],
-                                        // Color.fromARGB(
-                                        //     255, 236, 219, 158),
-                                        size: 20,
-                                      ),
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text(
-                                                '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
-                                                style: TextStyle(
-                                                  color: Colors.grey[850],
-                                                  fontSize: 14,
-                                                  fontFamily: 'Noto Sans',
-                                                  // fontWeight: FontWeight.w700,
-                                                ),
-                                              ),
-                                              // Add other AlertDialog properties if needed
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ],
-                                ),
-
-                                SizedBox(
-                                  height: screenHeight * 0.01,
-                                ),
+                                SizedBox(height: screenHeight * 0.02),
                                 Row(
                                   children: [
                                     Icon(
@@ -873,35 +801,188 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             )))
                                   ],
                                 ),
-                                SizedBox(height: screenHeight * 0.01),
+
+                                // Text(
+                                //   '${widget.currentBookingData.bookingMeetingDescription}',
+                                //   style: TextStyle(
+                                //     color: Colors.black,
+                                //     fontSize: 14,
+                                //     fontFamily: 'Noto Sans',
+                                //     fontWeight: FontWeight.w700,
+                                //     // fontWeight: FontWeight.w700,
+                                //   ),
+                                // ),
+
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: screenWidth * 0.01,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
+                                          width: screenWidth * 0.24,
+                                          height: screenHeight * 0.15,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+
+                                // SizedBox(
+                                //   height: screenHeight * 0.01,
+                                // ),
                                 Row(
                                   children: [
+                                    // Row(
+                                    //   children: [
+                                    //     Icon(
+                                    //       Icons
+                                    //           .pin_drop_outlined, // Replace with the icon you want
+                                    //       color: Color(0xFF696767),
+                                    //       size: 20, // Set the size of the icon
+                                    //     ),
+                                    //     // SizedBox(
+                                    //     //     width:
+                                    //     //         8), // Add some spacing between the icon and text
+                                    //     Align(
+                                    //         alignment: Alignment.centerLeft,
+                                    //         child: Padding(
+                                    //             padding: EdgeInsets.symmetric(
+                                    //               horizontal: 5,
+                                    //             ),
+                                    //             child: Text(
+                                    //               ,
+                                    //               style: TextStyle(
+                                    //                 color: Color(0xFFB88D05),
+                                    //                 fontSize: 14,
+                                    //                 fontFamily: 'Noto Sans',
+                                    //                 fontWeight: FontWeight.w500,
+                                    //               ),
+                                    //             )))
+                                    //   ],
+                                    // ),
                                     Icon(
                                       Icons
                                           .pin_drop_outlined, // Replace with the icon you want
                                       color: Color(0xFF696767),
-                                      size: 20, // Set the size of the icon
+                                      size: 25, // Set the size of the icon
                                     ),
-                                    // SizedBox(
-                                    //     width:
-                                    //         8), // Add some spacing between the icon and text
+                                    // SizedBox(child: Text(', ')),
                                     Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 5,
-                                            ),
-                                            child: Text(
-                                              widget.currentLocationName,
-                                              style: TextStyle(
-                                                color: Color(0xFF696767),
-                                                fontSize: 14,
-                                                fontFamily: 'Noto Sans',
-                                                fontWeight: FontWeight.w500,
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        '${widget.currentLocationName}, ${widget.currentConferenceRoomName}',
+                                        style: TextStyle(
+                                          color: Color(0xFFB88D05),
+                                          fontSize: 16,
+                                          fontFamily: 'Noto Sans',
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      alignment: Alignment.centerLeft,
+                                      icon: Icon(
+                                        Icons.info,
+                                        color: Colors.grey[400],
+                                        // Color.fromARGB(
+                                        //     255, 236, 219, 158),
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(
+                                                '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
+                                                style: TextStyle(
+                                                  color: Colors.grey[850],
+                                                  fontSize: 14,
+                                                  fontFamily: 'Noto Sans',
+                                                  // fontWeight: FontWeight.w700,
+                                                ),
                                               ),
-                                            )))
+                                              // Add other AlertDialog properties if needed
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ],
                                 ),
+
+                                // SizedBox(
+                                //   height: screenHeight * 0.01,
+                                // ),
+                                // Row(
+                                //   children: [
+                                //     Icon(
+                                //       Icons
+                                //           .calendar_month, // Replace with the icon you want
+                                //       color: Color(
+                                //           0xFF696767), // Set the color of the icon
+                                //       size: 20, // Set the size of the icon
+                                //     ),
+                                //     // SizedBox(
+                                //     //     width:
+                                //     //         8), // Add some spacing between the icon and text
+                                //     Align(
+                                //         alignment: Alignment.centerLeft,
+                                //         child: Padding(
+                                //             padding: EdgeInsets.symmetric(
+                                //               horizontal: 5,
+                                //             ),
+                                //             child: Text(
+                                //               '${convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)}',
+                                //               style: TextStyle(
+                                //                 color: Color(0xFF696767),
+                                //                 fontSize: 12,
+                                //                 fontFamily: 'Noto Sans',
+                                //                 fontWeight: FontWeight.w500,
+                                //               ),
+                                //             ))),
+                                //     SizedBox(
+                                //       width: screenWidth * 0.05,
+                                //     ),
+                                //     Icon(
+                                //       Icons
+                                //           .av_timer, // Replace with the icon you want
+                                //       color: Color(
+                                //           0xFF696767), // Set the color of the icon
+                                //       size: 20, // Set the size of the icon
+                                //     ),
+                                //     // SizedBox(
+                                //     //     width:
+                                //     //         8), // Add some spacing between the icon and text
+                                //     Align(
+                                //         alignment: Alignment.centerLeft,
+                                //         child: Padding(
+                                //             padding: EdgeInsets.symmetric(
+                                //               horizontal: 5,
+                                //             ),
+                                //             child: Text(
+                                //               '${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingEndTime!)}',
+                                //               style: TextStyle(
+                                //                 color: Color(0xFF696767),
+                                //                 fontSize: 12,
+                                //                 fontFamily: 'Noto Sans',
+                                //                 fontWeight: FontWeight.w500,
+                                //               ),
+                                //             )))
+                                //   ],
+                                // ),
+                                // SizedBox(height: screenHeight * 0.01),
+
                                 // Text(
                                 //   'Location',
                                 //   style: TextStyle(
@@ -917,8 +998,24 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 //   thickness:
                                 //       1, // Set the thickness of the divider line
                                 //),
-                                SizedBox(
-                                  height: screenHeight * 0.01,
+                                // SizedBox(
+                                //   height: screenHeight * 0.02,
+                                // ),
+
+                                Text(
+                                  'Meeting Description',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
                                 ),
 
                                 Text(
@@ -930,7 +1027,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                                SizedBox(height: screenHeight * 0.02),
+
                                 // Row(
                                 //   children: [
                                 //     Text(
