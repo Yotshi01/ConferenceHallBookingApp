@@ -54,6 +54,8 @@ dependencies:
   firebase_auth: ^4.14.1
   firebase_storage: ^11.5.2
   timeago: ^3.6.0
+  path_provider: ^2.1.1
+  share_plus: ^7.2.1
 
 dev_dependencies:
   flutter_test:

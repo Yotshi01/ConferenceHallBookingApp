@@ -169,18 +169,33 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                 height: 30,
                                 child: ElevatedButton(
                                   onPressed: () {
+                                    navigatorKeys[BottomNavBarItem.home]!
+                                        .currentState!
+                                        .push(
+                                          MaterialPageRoute(
+                                              builder: (context) => DetailsScreen(
+                                                  currentBookingData:
+                                                      bookingData,
+                                                  currentConferenceRoomName:
+                                                      conferenceHallName,
+                                                  currentLocationName:
+                                                      locationName,
+                                                  currentConferenceHallImageName:
+                                                      conferenceHallImageName)),
+                                        );
+
                                     // Add your onPressed callback function here
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => DetailsScreen(
-                                                currentBookingData: bookingData,
-                                                currentConferenceRoomName:
-                                                    conferenceHallName,
-                                                currentLocationName:
-                                                    locationName,
-                                                currentConferenceHallImageName:
-                                                    conferenceHallImageName)));
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (context) => DetailsScreen(
+                                    //             currentBookingData: bookingData,
+                                    //             currentConferenceRoomName:
+                                    //                 conferenceHallName,
+                                    //             currentLocationName:
+                                    //                 locationName,
+                                    //             currentConferenceHallImageName:
+                                    //                 conferenceHallImageName)));
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Colors.white,

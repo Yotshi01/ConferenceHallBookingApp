@@ -1,4 +1,4 @@
-// import 'package:conference_hall_booking/source/constants.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class TabbarSetup extends StatefulWidget {
@@ -23,6 +23,8 @@ class _TabbarSetupState extends State<TabbarSetup> {
 
   bool get hasNotification => true; // Add a variable to hold the app bar text
 
+  var currentlySelectedTab = BottomNavBarItem.home;
+
   // void _navigateBottomBar(int index) {
   //   setState(() {
   //     _selectedIndex =
@@ -33,24 +35,18 @@ class _TabbarSetupState extends State<TabbarSetup> {
   //   });
   // }
 
-  // String _getAppBarTitle(int index) {
-  //   switch (index) {
-  //     case 0:
-  //       return 'Profile';
-  //     case 1:
-  //       return 'Home';
-  //     case 2:
-  //       return 'Booking';
-  //     default:
-  //       return 'Welcome';
-  //   }
-  // }
-
-  final Map<BottomNavBarItem, GlobalKey<NavigatorState>> navigatorKeys = {
-    BottomNavBarItem.profile: GlobalKey<NavigatorState>(),
-    BottomNavBarItem.home: GlobalKey<NavigatorState>(),
-    BottomNavBarItem.booking: GlobalKey<NavigatorState>(),
-  };
+  String _getAppBarTitle(int index) {
+    switch (index) {
+      case 0:
+        return 'Profile';
+      case 1:
+        return 'Home';
+      case 2:
+        return 'Booking';
+      default:
+        return 'Welcome';
+    }
+  }
 
   final Map<BottomNavBarItem, IconData> items = const {
     BottomNavBarItem.profile: Icons.account_circle_rounded,
@@ -106,28 +102,35 @@ class _TabbarSetupState extends State<TabbarSetup> {
     //   // const SyncfusionCalendar(),
     // ];
     return WillPopScope(onWillPop: () async {
-      final value = await showDialog<bool>(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Alert'),
-              content: Text('Do you want to exit'),
-              actions: [
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(false),
-                  child: Text('No'),
-                ),
-                ElevatedButton(
-                  onPressed: () => Navigator.of(context).pop(true),
-                  child: Text('Yes'),
-                ),
-              ],
-            );
-          });
-      if (value != null) {
-        return Future.value(value);
+      if (navigatorKeys[currentlySelectedTab]!.currentState!.canPop()) {
+        navigatorKeys[currentlySelectedTab]!.currentState!.pop();
+        return false; // Do not exit the app
       } else {
-        return Future.value(false);
+        final value = await showDialog<bool>(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text('Alert'),
+                content: Text('Do you want to exit'),
+                actions: [
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(false),
+                    child: Text('No'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Navigator.of(context).pop(true),
+                    child: Text('Yes'),
+                  ),
+                ],
+              );
+            });
+        if (value != null) {
+          return Future.value(value);
+        } else {
+          return Future.value(false);
+        }
+        // // Handle other cases or return true to exit the app
+        // return true;
       }
     }, child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
         builder: (context, state) {
@@ -164,9 +167,13 @@ class _TabbarSetupState extends State<TabbarSetup> {
             selectedItem: state.selectedItem,
             onTap: (index) {
               final selectedItem = BottomNavBarItem.values[index];
+              currentlySelectedTab = selectedItem;
 
               _selectBottomNavBarItem(
                   context, selectedItem, selectedItem == state.selectedItem);
+              setState(() {
+                _appBarTitle = _getAppBarTitle(index);
+              });
             },
           ));
     }));

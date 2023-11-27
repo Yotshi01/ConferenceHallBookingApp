@@ -21,7 +21,11 @@ class AddBooking extends StatefulWidget {
 
 class MultiSelectDepartments extends StatefulWidget {
   final List<String> departments;
-  const MultiSelectDepartments({Key? key, required this.departments})
+  final List<String> initialSelectedDepartments; // New property
+  const MultiSelectDepartments(
+      {Key? key,
+      required this.departments,
+      required this.initialSelectedDepartments})
       : super(key: key);
 
   @override
@@ -30,7 +34,7 @@ class MultiSelectDepartments extends StatefulWidget {
 
 class _MultiSelectDepartmentsState extends State<MultiSelectDepartments> {
   // this variable holds the selected departments
-  final List<String> _selectedDepartments = [];
+  late List<String> _selectedDepartments;
 
   // This function is triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
@@ -51,6 +55,12 @@ class _MultiSelectDepartmentsState extends State<MultiSelectDepartments> {
   // this function is called when the submit button is tapped
   void _submit() {
     Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartments = widget.initialSelectedDepartments;
   }
 
   @override
@@ -95,19 +105,14 @@ class _AddBookingState extends State<AddBooking> {
   TimeOfDay? selectedEndTime;
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
+  final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+
   String? selectedLocation;
   callBack(varSelectedLocation) {
     setState(() {
       selectedLocation = varSelectedLocation;
     });
   }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   conferenceHallDetailsResponse = getConferenceHallDetails();
-  //   _fetchConferenceHallData();
-  // }
 
   // Future<void> _addBooking() async {
   //   // Create a BookingDetails object with the data you want to add
@@ -141,7 +146,7 @@ class _AddBookingState extends State<AddBooking> {
         lastDate: DateTime(2100),
       );
 
-  List<String> _selectedDepartments = [];
+  late List<String> _selectedDepartments;
 
   void _showMultiSelectDepartments() async {
     List<String> departments = getDepartmentNames();
@@ -149,7 +154,10 @@ class _AddBookingState extends State<AddBooking> {
     final List<String>? results = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return MultiSelectDepartments(departments: departments);
+          return MultiSelectDepartments(
+            departments: departments,
+            initialSelectedDepartments: _selectedDepartments,
+          );
         });
 
     if (results != null) {
@@ -157,6 +165,12 @@ class _AddBookingState extends State<AddBooking> {
         _selectedDepartments = results;
       });
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartments = [];
   }
 
   void _showDiscardBookingDetailConfirmationDialog(BuildContext context) {
@@ -179,8 +193,9 @@ class _AddBookingState extends State<AddBooking> {
                 Navigator.of(dialogContext).pop(); // Close the dialog first
                 await Future.delayed(
                     Duration(milliseconds: 300)); // Add a delay if needed
-                Navigator.of(context)
-                    .pop(); // Navigate after the dialog is closed
+                // Navigator.of(context)
+                //     .pop(); // Navigate after the dialog is closed
+                navigatorKeys[BottomNavBarItem.booking]!.currentState!.pop();
                 // try {
                 //   Navigator.of(dialogContext).popUntil((route) => route.isFirst);
                 // } catch (e) {
@@ -249,6 +264,9 @@ class _AddBookingState extends State<AddBooking> {
 
                 if (response.status == 'success' &&
                     bookingDepartmentsResponse.status == 'success') {
+                  // setState(() {
+                  //   isRefreshNeeded = true;
+                  // });
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green,
@@ -256,17 +274,30 @@ class _AddBookingState extends State<AddBooking> {
                           "Booking and booking departments added successfully!"),
                     ),
                   );
+
+                  if (homeScreenState != null) {
+                    homeScreenState!.loadData();
+                  }
+
                   Navigator.of(dialogContext).pop(); // Close the dialog
-                  await Future.delayed(
-                      Duration(milliseconds: 300)); // Add a delay if needed
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  await Future.delayed(
-                      Duration(milliseconds: 300)); // Add a delay if needed
+                  // await Future.delayed(
+                  //     Duration(milliseconds: 300)); // Add a delay if needed
+
+                  navigatorKeys[BottomNavBarItem.home]!
+                      .currentState!
+                      .popUntil((route) => route.isFirst);
+
+                  // Navigator.of(context).popUntil((route) => route.isFirst);
+                  // await Future.delayed(
+                  //     Duration(milliseconds: 300)); // Add a delay if needed
+
                   context
                       .read<BottomNavBarCubit>()
                       .updateSelectedItem(BottomNavBarItem.home);
 
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  navigatorKeys[BottomNavBarItem.booking]!
+                      .currentState!
+                      .popUntil((route) => route.isFirst);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -327,7 +358,10 @@ class _AddBookingState extends State<AddBooking> {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          // Navigator.of(context).pop();
+                          navigatorKeys[BottomNavBarItem.booking]!
+                              .currentState!
+                              .pop();
                         },
                         style: ElevatedButton.styleFrom(
                           shape:

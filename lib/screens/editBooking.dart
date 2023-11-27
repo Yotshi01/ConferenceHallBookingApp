@@ -23,7 +23,11 @@ class EditBooking extends StatefulWidget {
 
 class MultiSelectDepartmentsForEdit extends StatefulWidget {
   final List<String> departments;
-  const MultiSelectDepartmentsForEdit({Key? key, required this.departments})
+  final List<String> initialSelectedDepartments; // New property
+  const MultiSelectDepartmentsForEdit(
+      {Key? key,
+      required this.departments,
+      required this.initialSelectedDepartments})
       : super(key: key);
 
   @override
@@ -34,7 +38,7 @@ class MultiSelectDepartmentsForEdit extends StatefulWidget {
 class _MultiSelectDepartmentsForEditState
     extends State<MultiSelectDepartmentsForEdit> {
   // this variable holds the selected departments
-  final List<String> _selectedDepartments = [];
+  late List<String> _selectedDepartments;
 
   // This function is triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected) {
@@ -55,6 +59,12 @@ class _MultiSelectDepartmentsForEditState
   // this function is called when the submit button is tapped
   void _submit() {
     Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartments = widget.initialSelectedDepartments;
   }
 
   @override
@@ -101,6 +111,9 @@ class _EditBookingState extends State<EditBooking> {
 
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
+  late List<String> _selectedDepartments;
+
+  final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
   String? selectedLocation;
   callBack(varSelectedLocation) {
@@ -186,6 +199,8 @@ class _EditBookingState extends State<EditBooking> {
 
     toBeUpdatedBookingData.bookingReportedBy =
         widget.currentBookingData.bookingReportedBy;
+
+    _selectedDepartments = [];
   }
 
   Future<TimeOfDay?> _selectedTime(BuildContext context) {
@@ -203,15 +218,15 @@ class _EditBookingState extends State<EditBooking> {
         lastDate: DateTime(2100),
       );
 
-  List<String> _selectedDepartments = [];
-
   void _showMultiSelectDepartments() async {
     List<String> departments = getDepartmentNames();
 
     final List<String>? results = await showDialog(
         context: context,
         builder: (BuildContext context) {
-          return MultiSelectDepartmentsForEdit(departments: departments);
+          return MultiSelectDepartmentsForEdit(
+              departments: departments,
+              initialSelectedDepartments: _selectedDepartments);
         });
 
     if (results != null) {
@@ -241,8 +256,9 @@ class _EditBookingState extends State<EditBooking> {
                 Navigator.of(dialogContext).pop(); // Close the dialog first
                 await Future.delayed(
                     Duration(milliseconds: 300)); // Add a delay if needed
-                Navigator.of(context)
-                    .pop(); // Navigate after the dialog is closed
+                // Navigator.of(context)
+                //     .pop(); // Navigate after the dialog is closed
+                navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
                 // try {
                 //   Navigator.of(dialogContext).popUntil((route) => route.isFirst);
                 // } catch (e) {
@@ -312,19 +328,35 @@ class _EditBookingState extends State<EditBooking> {
                 if (response.status == 'success' &&
                     deleteBookingDepartmentsResponse.status == 'success' &&
                     bookingDepartmentsResponse.status == 'success') {
-                  await Future.delayed(
-                      Duration(milliseconds: 300)); // Add a delay if needed
-                  Navigator.of(context).popUntil((route) =>
-                      route.isFirst); // Navigate after the dialog is closed
+                  // await Future.delayed(
+                  //     Duration(milliseconds: 300)); // Add a delay if needed
+
+                  // Navigator.of(context).popUntil((route) =>
+                  //     route.isFirst); // Navigate after the dialog is closed
                   // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
                   //   builder: (context) => const SyncfusionCalendar(),
                   // ));
-                  // dialogContext
+
+                  // Check if the state is not null and call the function
+                  if (homeScreenState != null) {
+                    homeScreenState!.loadData();
+                  }
+
+                  navigatorKeys[BottomNavBarItem.home]!
+                      .currentState!
+                      .popUntil((route) => route.isFirst);
+
+                  // context
                   //     .read<BottomNavBarCubit>()
                   //     .updateSelectedItem(BottomNavBarItem.home);
+
                   // Navigator.of(context).pushReplacement(MaterialPageRoute(
                   //   builder: (context) => const HomeScreen(),
                   // ));
+                  // setState(() {
+                  //   isRefreshNeeded = true;
+                  // });
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green[300],
@@ -404,7 +436,10 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          // Navigator.of(context).pop();
+                          navigatorKeys[BottomNavBarItem.home]!
+                              .currentState!
+                              .pop();
                         },
                         style: ElevatedButton.styleFrom(
                           shape:

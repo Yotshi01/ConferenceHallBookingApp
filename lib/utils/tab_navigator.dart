@@ -1,4 +1,5 @@
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 
 class TabNavigator extends StatelessWidget {
   static const String tabNavigatorRoot = '/';
@@ -36,7 +37,7 @@ class TabNavigator extends StatelessWidget {
         return ProfileScreen();
       // return Container();
       case BottomNavBarItem.home:
-        return HomeScreen();
+        return HomeScreen(key: homeScreenKey);
       case BottomNavBarItem.booking:
         return SyncfusionCalendar();
       default:

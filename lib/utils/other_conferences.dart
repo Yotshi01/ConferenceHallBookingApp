@@ -96,17 +96,28 @@ class _OtherConferencesState extends State<OtherConferences> {
                               ),
                               // ElevatedButton(
                               //   onPressed: () {
-                              //     // Add your onPressed callback function here
-                              //     Navigator.push(
-                              //         context,
+                              // navigatorKeys[BottomNavBarItem.home]!
+                              //       .currentState!
+                              //       .push(
                               //         MaterialPageRoute(
-                              //             builder: (context) => DetailsScremeeen(
-                              //                 currentBookingData: bookingData,
+                              //             builder: (context) => DetailsScreen(
                               //                 currentConferenceRoomName:
-                              //                     conferenceHallName,
-                              //                 currentLocationName: locationName,
-                              //                 currentConferenceHallImageName:
-                              //                     conferenceHallImageName)));
+                              //                   conferenceHallName,
+                              //               currentLocationName: locationName,
+                              //               currentConferenceHallImageName:
+                              //                   conferenceHallImageName)),
+                              //       );
+                              //   // Add your onPressed callback function here
+                              //   // Navigator.push(
+                              //   //     context,
+                              //   //     MaterialPageRoute(
+                              //   //         builder: (context) => DetailsScreen(
+                              //   //             currentBookingData: bookingData,
+                              //   //             currentConferenceRoomName:
+                              //   //                 conferenceHallName,
+                              //   //             currentLocationName: locationName,
+                              //   //             currentConferenceHallImageName:
+                              //   //                 conferenceHallImageName)));
                               //   },
                               //   style: ElevatedButton.styleFrom(
                               //     backgroundColor:

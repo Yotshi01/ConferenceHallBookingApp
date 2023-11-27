@@ -109,6 +109,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
 
+  final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+
   Future<void> _fetchBookingDepartmentsByBookingIdDetails() async {
     try {
       final BookingDepartmentsResponse data =
@@ -213,7 +215,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   void _showWithdrawDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         String reason = ""; // Store the input reason
 
         return AlertDialog(
@@ -229,7 +231,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           ),
           actions: <Widget>[
             ElevatedButton(
-              onPressed: () async {
+              onPressed: () {
                 print("Reason: $reason");
 
                 // You can use the 'reason' variable for further processing
@@ -247,7 +249,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                 toBeWithdrawnBookingNeededData.bookingWithdrawReason = reason;
 
-                Navigator.of(context).pop(); // Close the reason dialog
+                Navigator.of(dialogContext).pop(); // Close the reason dialog
 
                 _confirmWithdrawal(context); // Show the confirmation dialog
               },
@@ -262,7 +264,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   void _confirmWithdrawal(BuildContext context) {
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (BuildContext dialogContext) {
         return AlertDialog(
           title: Text('Confirm Withdrawal'),
           content: Text('Are you sure you want to withdraw?'),
@@ -274,19 +276,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 var response =
                     await withdrawBooking(toBeWithdrawnBookingNeededData);
                 if (response.status == 'success') {
+                  if (homeScreenState != null) {
+                    homeScreenState!.loadData();
+                  }
+
                   print('Saved Changes');
-                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.of(dialogContext).pop();
+                  // Navigator.of(context).popUntil((route) => route.isFirst);
+                  // navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
+                      backgroundColor: Colors.green,
                       content: Text("Withdrawn Successfully"),
                     ),
                   );
+
+                  navigatorKeys[BottomNavBarItem.home]!
+                      .currentState!
+                      .popUntil((route) => route.isFirst);
 
                   // Navigator.of(context).pop(); // Close the dialog
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      backgroundColor: Colors.green,
+                      // backgroundColor: Colors.green,
                       content: Text("Withdraw booking unsuccessful!"),
                     ),
                   );
@@ -434,8 +448,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     bookingDepartmentsResponse.status == 'success') {
                   await Future.delayed(
                       Duration(milliseconds: 300)); // Add a delay if needed
-                  Navigator.of(context).popUntil((route) =>
-                      route.isFirst); // Navigate after the dialog is closed
+                  navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
+                  // Navigator.of(context).popUntil((route) =>
+                  //     route.isFirst); // Navigate after the dialog is closed
                   // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
                   //   builder: (context) => const SyncfusionCalendar(),
                   // ));
@@ -586,7 +601,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           ),
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              // Navigator.of(context).pop();
+                              navigatorKeys[BottomNavBarItem.home]!
+                                  .currentState!
+                                  .pop();
                             },
                             style: ElevatedButton.styleFrom(
                               shape:
@@ -652,15 +670,25 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  SyncfusionCalendarForEdit(
-                                                      currentBookingData: widget
-                                                          .currentBookingData),
-                                            ),
-                                          );
+                                          navigatorKeys[BottomNavBarItem.home]!
+                                              .currentState!
+                                              .push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SyncfusionCalendarForEdit(
+                                                            currentBookingData:
+                                                                widget
+                                                                    .currentBookingData)),
+                                              );
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         SyncfusionCalendarForEdit(
+                                          //             currentBookingData: widget
+                                          //                 .currentBookingData),
+                                          //   ),
+                                          // );
                                         },
                                         style: ElevatedButton.styleFrom(
                                           shape:

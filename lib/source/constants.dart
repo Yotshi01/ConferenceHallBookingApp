@@ -49,3 +49,13 @@ ReschedulingRequestData toBeAddedReschedulingRequestData =
     ReschedulingRequestData();
 String? conferenceRoomChoosed;
 String? currentUserNotificationFirebaseToken;
+
+final Map<BottomNavBarItem, GlobalKey<NavigatorState>> navigatorKeys = {
+  BottomNavBarItem.profile: GlobalKey<NavigatorState>(),
+  BottomNavBarItem.home: GlobalKey<NavigatorState>(),
+  BottomNavBarItem.booking: GlobalKey<NavigatorState>(),
+};
+
+bool isRefreshNeeded = false;
+
+final GlobalKey<HomeScreenState> homeScreenKey = GlobalKey();

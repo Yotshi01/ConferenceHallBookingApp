@@ -83,6 +83,44 @@ class _MyConferencesState extends State<MyConferences> {
                               //     fontWeight: FontWeight.w500,
                               //   ),
                               // ),
+
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    // Construct the message with basic information
+                                    String message = '''
+      Meeting Title: ${bookingData.bookingMeetingTitle}
+      Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
+      Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
+      Conference Hall: ${conferenceHallName}
+      Location: ${locationName}
+      
+    ''';
+
+                                    // Share the message
+                                    await Share.share(message);
+                                    // await Share.share(
+                                    //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape:
+                                        CircleBorder(), // Use CircleBorder to make the button circular
+                                    backgroundColor: Colors.brown[
+                                        100], // Change the button color to your preference
+                                    padding: EdgeInsets.all(
+                                        10.0), // Adjust the padding as needed
+                                  ),
+                                  child: Icon(
+                                    Icons
+                                        .share, // You can use your preferred edit icon here
+                                    color: Colors
+                                        .white, // Change the icon color to your preference
+                                    // size: 15
+                                  ),
+                                ),
+                              ),
+
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: screenHeight * 0.02,
@@ -96,17 +134,30 @@ class _MyConferencesState extends State<MyConferences> {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  // Add your onPressed callback function here
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => DetailsScreen(
-                                              currentBookingData: bookingData,
-                                              currentConferenceRoomName:
-                                                  conferenceHallName,
-                                              currentLocationName: locationName,
-                                              currentConferenceHallImageName:
-                                                  conferenceHallImageName)));
+                                  navigatorKeys[BottomNavBarItem.home]!
+                                      .currentState!
+                                      .push(
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailsScreen(
+                                                currentBookingData: bookingData,
+                                                currentConferenceRoomName:
+                                                    conferenceHallName,
+                                                currentLocationName:
+                                                    locationName,
+                                                currentConferenceHallImageName:
+                                                    conferenceHallImageName)),
+                                      );
+                                  // // Add your onPressed callback function here
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => DetailsScreen(
+                                  //             currentBookingData: bookingData,
+                                  //             currentConferenceRoomName:
+                                  //                 conferenceHallName,
+                                  //             currentLocationName: locationName,
+                                  //             currentConferenceHallImageName:
+                                  //                 conferenceHallImageName)));
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor:

@@ -2,33 +2,31 @@ import 'package:conference_hall_booking/source/exported_packages_for_easy_import
 import 'package:conference_hall_booking/source/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
 String enteredKeywordState =
     ""; // variable that stores the keyword searched in search bar
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   CurrentUserData toBeAddedFirebaseToken = CurrentUserData();
   // function that fetches api response for getting all booking details
   Future<void> _fetchBookingDetails() async {
     try {
       final BookingDetails data = await bookingDetailsResponse;
-      setState(() {
-        if (data.data != null) {
-          // accessing the 'data'(in key value pair, 'data' is a key in api response
-          // and has some value) of the api response and storing the value in global
-          // variable listOfBookings(defined in constants.dart file) after convering
-          // it in list format. .toList() function is used to convert the data in list
-          // format.
-          listOfBookings = data.data!.map((item) {
-            return BookingData.fromJson(item.toJson());
-          }).toList();
-        }
-      });
+      if (data.data != null) {
+        // accessing the 'data'(in key value pair, 'data' is a key in api response
+        // and has some value) of the api response and storing the value in global
+        // variable listOfBookings(defined in constants.dart file) after convering
+        // it in list format. .toList() function is used to convert the data in list
+        // format.
+        listOfBookings = data.data!.map((item) {
+          return BookingData.fromJson(item.toJson());
+        }).toList();
+      }
     } catch (error) {
       print('Error fetching booking list data: $error');
     }
@@ -155,10 +153,15 @@ class _HomeScreenState extends State<HomeScreen> {
     await _fetchConferenceHallDetails();
     await _fetchLocationDetails();
     await _fetchDepartmentDetails();
-    listOfMyMeetings = myMeetings();
-    listOfTodayMeetings = todayMeetings();
-    listOfMyOldMeetings = myOldMeetings();
-    listOfOtherMeetings = otherMeetings();
+    setState(() {
+      listOfMyMeetings = myMeetings();
+      listOfTodayMeetings = todayMeetings();
+      listOfMyOldMeetings = myOldMeetings();
+      listOfOtherMeetings = otherMeetings();
+    });
+    // setState(() {
+    //   isRefreshNeeded = false;
+    // });
   }
 
   @override
@@ -277,7 +280,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // _loadData();
+    // if (isRefreshNeeded == true) {
+    //   loadData();
+    // }
+
     return RefreshIndicator(
         onRefresh: loadData,
         child: Scaffold(
