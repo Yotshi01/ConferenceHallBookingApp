@@ -73,34 +73,32 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.05,
+                          horizontal: screenWidth * 0.08,
+                          vertical: screenHeight * 0.03,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextField(
-                                controller: _emailTextController,
-                                //obscureText: _obscuredText,
-                                decoration: InputDecoration(
-                                  labelText: 'Username',
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      Icons.person,
-                                      color: Colors.grey,
-                                    ),
-                                    onPressed: () {
-                                      // setState(() {
-                                      //   //_obscuredText = !_obscuredText;
-                                      // }
-                                      //);
-                                    },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextField(
+                              controller: _emailTextController,
+                              //obscureText: _obscuredText,
+                              decoration: InputDecoration(
+                                labelText: 'Username',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    Icons.person,
+                                    color: Colors.grey,
                                   ),
+                                  onPressed: () {
+                                    // setState(() {
+                                    //   //_obscuredText = !_obscuredText;
+                                    // }
+                                    //);
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                       //   reusableTextField("Enter Your Username",
@@ -108,47 +106,50 @@ class _LoginScreenState extends State<LoginScreen> {
                       // ),
                       Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: screenWidth * 0.05,
-                          vertical: screenHeight * 0.01,
+                          horizontal: screenWidth * 0.08,
+                          vertical: screenHeight * 0.03,
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextField(
-                                controller: _passwordTextController,
-                                obscureText: _obscureText,
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _obscureText
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: Colors.grey,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _obscureText = !_obscureText;
-                                      });
-                                    },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextField(
+                              controller: _passwordTextController,
+                              obscureText: _obscureText,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _obscureText
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Colors.grey,
                                   ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscureText = !_obscureText;
+                                    });
+                                  },
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                       // reusableTextField("Enter Your Password",
                       //     Icons.lock, true, _passwordTextController),
 
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       horizontal: screenWidth * 0.05,
-                      //       vertical: screenHeight * 0.02),
-                      //   child: forgetPassword(context),
-                      // ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: screenWidth * 0.06,
+                          // vertical: screenHeight * 0.01
+                        ),
+                        child: forgetPassword(context),
+                      ),
+
+                      SizedBox(
+                        height: screenHeight * 0.03,
+                      ),
+
                       ElevatedButton(
                         onPressed: () async {
                           print("Login Button clicked");

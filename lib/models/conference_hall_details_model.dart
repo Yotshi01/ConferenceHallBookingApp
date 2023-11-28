@@ -30,6 +30,7 @@ class ConferenceHallDetails {
 class ConferenceHallData {
   int? conferenceId;
   String? conferenceName;
+  String? conferenceShortName;
   int? conferenceLocationId;
   String? conferenceAddress;
   String? conferenceOther;
@@ -50,6 +51,7 @@ class ConferenceHallData {
   ConferenceHallData(
       {this.conferenceId,
       this.conferenceName,
+      this.conferenceShortName,
       this.conferenceLocationId,
       this.conferenceAddress,
       this.conferenceOther,
@@ -70,6 +72,7 @@ class ConferenceHallData {
   ConferenceHallData.fromJson(Map<String, dynamic> json) {
     conferenceId = json['conference_id'];
     conferenceName = json['conference_name'];
+    conferenceShortName = json['conference_short_name'];
     conferenceLocationId = json['conference_location_id'];
     conferenceAddress = json['conference_address'];
     conferenceOther = json['conference_other'];

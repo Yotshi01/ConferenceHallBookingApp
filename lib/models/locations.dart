@@ -30,6 +30,7 @@ class LocationDetails {
 class LocationData {
   int? locationId;
   String? locationName;
+  String? locationShortName;
   int? locationCountryId;
   int? locationStateId;
   int? locationDistrictId;
@@ -44,6 +45,7 @@ class LocationData {
   LocationData(
       {this.locationId,
       this.locationName,
+      this.locationShortName,
       this.locationCountryId,
       this.locationStateId,
       this.locationDistrictId,
@@ -58,6 +60,7 @@ class LocationData {
   LocationData.fromJson(Map<String, dynamic> json) {
     locationId = json['location_id'];
     locationName = json['location_name'];
+    locationShortName = json['location_short_name'];
     locationCountryId = json['location_country_id'];
     locationStateId = json['location_state_id'];
     locationDistrictId = json['location_district_id'];
@@ -74,6 +77,7 @@ class LocationData {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['location_id'] = this.locationId;
     data['location_name'] = this.locationName;
+    data['location_short_name'] = this.locationShortName;
     data['location_country_id'] = this.locationCountryId;
     data['location_state_id'] = this.locationStateId;
     data['location_district_id'] = this.locationDistrictId;

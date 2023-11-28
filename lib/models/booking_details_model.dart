@@ -49,6 +49,7 @@ class BookingData {
   int? bookingCreatedById;
   int? bookingUpdatedById;
   String? bookingReportedBy;
+  int? bookingNumberOfAttendees;
 
   BookingData(
       {this.bookingId,
@@ -71,7 +72,8 @@ class BookingData {
       this.bookingUpdatedAt,
       this.bookingCreatedById,
       this.bookingUpdatedById,
-      this.bookingReportedBy});
+      this.bookingReportedBy,
+      this.bookingNumberOfAttendees});
 
   BookingData.fromJson(Map<String, dynamic> json) {
     bookingId = json['booking_id'];
@@ -95,6 +97,7 @@ class BookingData {
     bookingCreatedById = json['booking_created_by_id'];
     bookingUpdatedById = json['booking_updated_by_id'];
     bookingReportedBy = json['booking_reported_by'];
+    bookingNumberOfAttendees = json['booking_number_of_attendees'];
   }
 
   Map<String, dynamic> toJson() {
@@ -120,6 +123,7 @@ class BookingData {
     data['booking_created_by_id'] = this.bookingCreatedById;
     data['booking_updated_by_id'] = this.bookingUpdatedById;
     data['booking_reported_by'] = this.bookingReportedBy;
+    data['booking_number_of_attendees'] = this.bookingNumberOfAttendees;
     return data;
   }
 }

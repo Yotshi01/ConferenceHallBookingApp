@@ -91,7 +91,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Add your login logic here
+                            // reset password api call logic
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color(0xFFFFB500),

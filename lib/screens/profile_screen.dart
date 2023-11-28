@@ -29,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // sharedPreferences(in login_screen.dart when the user presses the login button).
       // Now we are using the stored token foruser to get his/her user data from the database
       var obtainedToken = sharedPreferences.getString('token');
+      // var obtainedToken = '10|YCH2NW85mYQr70gedkIohzYyL0mkz2Tly8p8EcDG7cfb166a';
       var userData = await getCurrentUserData(
           obtainedToken!); // calling getCurrentUserData() function to make an api request to get current uer data
 
