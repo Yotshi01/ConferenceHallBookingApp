@@ -165,6 +165,8 @@ class HomeScreenState extends State<HomeScreen> {
     // });
   }
 
+  NotificationServices notificationServices = NotificationServices();
+
   @override
   void initState() {
     // await _fetchCurrentUserDetails();
@@ -181,6 +183,7 @@ class HomeScreenState extends State<HomeScreen> {
     // listOfMyOldMeetings = myOldMeetings();
     // listOfOtherMeetings = otherMeetings();
     loadData();
+    notificationServices.requestNotificationPermission();
     super.initState();
   }
 
