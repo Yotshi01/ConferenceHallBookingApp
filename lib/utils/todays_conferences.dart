@@ -41,10 +41,10 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                   print(bookingData);
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
-                          screenWidth * 0.02,
+                          screenWidth * 0.027,
                           screenHeight * 0.01,
-                          screenWidth * 0.02,
-                          screenHeight * 0.0001),
+                          screenWidth * 0,
+                          screenHeight * 0.07),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.5,
@@ -67,13 +67,85 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              if (currentUserData!.id == bookingData.userId)
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      // Construct the message with basic information
-                                      String message = '''
+                              Row(
+                                children: [
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        child: Text(
+                                          '${bookingData.bookingMeetingTitle}',
+                                          // textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 15,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )),
+                                  if (currentUserData!.id == bookingData.userId)
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth * 0.242,
+                                        ),
+                                        PopupMenuButton<String>(
+                                          itemBuilder: (BuildContext context) =>
+                                              <PopupMenuEntry<String>>[
+                                            PopupMenuItem<String>(
+                                              value: 'view_details',
+                                              child: ListTile(
+                                                leading:
+                                                    Icon(Icons.info_outline),
+                                                title: Text('View Details'),
+                                              ),
+                                            ),
+                                            PopupMenuItem<String>(
+                                              value: 'share',
+                                              child: ListTile(
+                                                leading: Icon(Icons.share),
+                                                title: Text('Share'),
+                                              ),
+                                            ),
+                                          ],
+                                          onSelected: (String value) {
+                                            if (value == 'view_details') {
+                                              navigatorKeys[
+                                                      BottomNavBarItem.home]!
+                                                  .currentState!
+                                                  .push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) => DetailsScreen(
+                                                            currentBookingData:
+                                                                bookingData,
+                                                            currentConferenceRoomName:
+                                                                conferenceHallName,
+                                                            currentLocationName:
+                                                                locationName,
+                                                            currentConferenceHallImageName:
+                                                                conferenceHallImageName)),
+                                                  );
+                                              // // Add your onPressed callback function here
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //         builder: (context) => DetailsScreen(
+                                              //             currentBookingData: bookingData,
+                                              //             currentConferenceRoomName:
+                                              //                 conferenceHallName,
+                                              //             currentLocationName: locationName,
+                                              //             currentConferenceHallImageName:
+                                              //                 conferenceHallImageName)));
+
+                                              // Navigate to view details screen
+                                              // Your navigation code goes here
+                                            } else if (value == 'share') {
+                                              // Construct the message with basic information
+
+                                              String message = '''
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
@@ -82,49 +154,100 @@ class _TodaysConferencesState extends State<TodaysConferences> {
       
     ''';
 
-                                      // Share the message
-                                      await Share.share(message);
-                                      // await Share.share(
-                                      //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      shape:
-                                          CircleBorder(), // Use CircleBorder to make the button circular
-                                      backgroundColor: Colors.brown[
-                                          100], // Change the button color to your preference
-                                      padding: EdgeInsets.all(
-                                          10.0), // Adjust the padding as needed
+                                              // Share the message
+                                              Share.share(message);
+                                              // await Share.share(
+                                              //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
+
+                                              // Share functionality
+                                              // Your share functionality goes here
+                                            }
+                                          },
+                                        )
+                                      ],
+                                    )
+                                  else
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: screenWidth * 0.14,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.center,
+                                          child: MeetingUpdateButtons(
+                                            bookingUserId: bookingData.userId!,
+                                            bookingId: bookingData.bookingId!,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    child: Icon(
-                                      Icons
-                                          .share, // You can use your preferred edit icon here
-                                      color: Colors
-                                          .white, // Change the icon color to your preference
-                                      // size: 15
-                                    ),
-                                  ),
-                                ),
+                                ],
+                              ),
+                              const Divider(
+                                indent: 10,
+                                endIndent: 10,
+                                color: Color(
+                                    0xFFC2C0C0), // Set the color of the divider line
+                                thickness:
+                                    1, // Set the thickness of the divider line
+                              ),
+                              //                             Align(
+                              //                               alignment: Alignment.centerRight,
+                              //                               child: ElevatedButton(
+                              //                                 onPressed: () async {
+                              //                                   // Construct the message with basic information
+                              //                                   String message = '''
+                              //   Meeting Title: ${bookingData.bookingMeetingTitle}
+                              //   Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
+                              //   Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
+                              //   Conference Hall: ${conferenceHallName}
+                              //   Location: ${locationName}
+                              //
+                              // ''';
+                              //
+                              //                                   // Share the message
+                              //                                   await Share.share(message);
+                              //                                   // await Share.share(
+                              //                                   //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
+                              //                                 },
+                              //                                 style: ElevatedButton.styleFrom(
+                              //                                   shape:
+                              //                                       CircleBorder(), // Use CircleBorder to make the button circular
+                              //                                   backgroundColor: Colors.brown[
+                              //                                       100], // Change the button color to your preference
+                              //                                   padding: EdgeInsets.all(
+                              //                                       10.0), // Adjust the padding as needed
+                              //                                 ),
+                              //                                 child: Icon(
+                              //                                   Icons
+                              //                                       .share, // You can use your preferred edit icon here
+                              //                                   color: Colors
+                              //                                       .white, // Change the icon color to your preference
+                              //                                   // size: 15
+                              //                                 ),
+                              //                               ),
+                              //                             ),
                               // SizedBox(
                               //   height: screenHeight * 0.01,
                               // ),
-                              Row(
-                                children: [
-                                  SizedBox(width: screenWidth * 0.02),
-                                  //Text('${bookingData.bookingDate}'),
-                                  // SizedBox(width: screenWidth * 0.21),
-                                  // Text(
-                                  //   '${bookingData.userId}',
-                                  //   // textAlign: TextAlign.left,
-                                  //   style: TextStyle(
-                                  //     //color: Colors.black,
-                                  //     color: Color(0xFFB88D05),
-                                  //     fontSize: 16,
-                                  //     fontFamily: 'Noto Sans',
-                                  //     fontWeight: FontWeight.w500,
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     SizedBox(width: screenWidth * 0.02),
+                              //     //Text('${bookingData.bookingDate}'),
+                              //     // SizedBox(width: screenWidth * 0.21),
+                              //     // Text(
+                              //     //   '${bookingData.userId}',
+                              //     //   // textAlign: TextAlign.left,
+                              //     //   style: TextStyle(
+                              //     //     //color: Colors.black,
+                              //     //     color: Color(0xFFB88D05),
+                              //     //     fontSize: 16,
+                              //     //     fontFamily: 'Noto Sans',
+                              //     //     fontWeight: FontWeight.w500,
+                              //     //   ),
+                              //     // ),
+                              //   ],
+                              // ),
                               //'${bookingData.bookingDate} |
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -138,64 +261,69 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                 ),
                               ),
 
-                              if (bookingData.userId == currentUserData!.id)
-                                ElevatedButton(
-                                  onPressed: () {
-                                    navigatorKeys[BottomNavBarItem.home]!
-                                        .currentState!
-                                        .push(
-                                          MaterialPageRoute(
-                                              builder: (context) => DetailsScreen(
-                                                  currentBookingData:
-                                                      bookingData,
-                                                  currentConferenceRoomName:
-                                                      conferenceHallName,
-                                                  currentLocationName:
-                                                      locationName,
-                                                  currentConferenceHallImageName:
-                                                      conferenceHallImageName)),
-                                        );
-                                    // Add your onPressed callback function here
-                                    // Navigator.push(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => DetailsScreen(
-                                    // currentBookingData: bookingData,
-                                    // currentConferenceRoomName:
-                                    //     conferenceHallName,
-                                    // currentLocationName: locationName,
-                                    // currentConferenceHallImageName:
-                                    //     conferenceHallImageName)));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        Color(0x59FFC304), // Background color
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    elevation: 4, // Shadow blur radius
-                                  ),
-                                  child: Container(
-                                    width: 91,
-                                    height: 27,
-                                    child: const Center(
-                                      child: Text(
-                                        "View Detail",
-                                        style: TextStyle(
-                                          color: Colors.black, // Text color
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              else
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: MeetingUpdateButtons(
-                                    bookingUserId: bookingData.userId!,
-                                    bookingId: bookingData.bookingId!,
-                                  ),
-                                ),
+                              // if (bookingData.userId != currentUserData!.id)
+                              // ElevatedButton(
+                              //   onPressed: () {
+                              //     navigatorKeys[BottomNavBarItem.home]!
+                              //         .currentState!
+                              //         .push(
+                              //           MaterialPageRoute(
+                              //               builder: (context) => DetailsScreen(
+                              //                   currentBookingData:
+                              //                       bookingData,
+                              //                   currentConferenceRoomName:
+                              //                       conferenceHallName,
+                              //                   currentLocationName:
+                              //                       locationName,
+                              //                   currentConferenceHallImageName:
+                              //                       conferenceHallImageName)),
+                              //         );
+                              //     // Add your onPressed callback function here
+                              //     // Navigator.push(
+                              //     //     context,
+                              //     //     MaterialPageRoute(
+                              //     //         builder: (context) => DetailsScreen(
+                              //     // currentBookingData: bookingData,
+                              //     // currentConferenceRoomName:
+                              //     //     conferenceHallName,
+                              //     // currentLocationName: locationName,
+                              //     // currentConferenceHallImageName:
+                              //     //     conferenceHallImageName)));
+                              //   },
+                              //   style: ElevatedButton.styleFrom(
+                              //     backgroundColor:
+                              //         Color(0x59FFC304), // Background color
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(15),
+                              //     ),
+                              //     elevation: 4, // Shadow blur radius
+                              //   ),
+                              //   child: Container(
+                              //     width: 91,
+                              //     height: 27,
+                              //     child: const Center(
+                              //       child: Text(
+                              //         "View Detail",
+                              //         style: TextStyle(
+                              //           color: Colors.black, // Text color
+                              //         ),
+                              //       ),
+                              //     ),
+                              //   ),
+                              // )
+                              // Column(
+                              //   children: [
+                              //
+                              //   ],
+                              // )
+
+                              // Align(
+                              //   alignment: Alignment.center,
+                              //   child: MeetingUpdateButtons(
+                              //     bookingUserId: bookingData.userId!,
+                              //     bookingId: bookingData.bookingId!,
+                              //   ),
+                              // ),
 
                               // SizedBox(
                               //     //   child: Text(
@@ -217,31 +345,31 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                               //   thickness:
                               //       1, // Set the thickness of the divider line
                               // ),
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: Text(
-                                      '${bookingData.bookingMeetingTitle}',
-                                      // textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )),
-                              const Divider(
-                                indent: 10,
-                                endIndent: 10,
-                                color: Color(
-                                    0xFFC2C0C0), // Set the color of the divider line
-                                thickness:
-                                    1, // Set the thickness of the divider line
-                              ),
+                              // Align(
+                              //     alignment: Alignment.centerLeft,
+                              //     child: Padding(
+                              //       padding: EdgeInsets.symmetric(
+                              //         horizontal: 10,
+                              //       ),
+                              //       child: Text(
+                              //         '${bookingData.bookingMeetingTitle}',
+                              //         // textAlign: TextAlign.left,
+                              //         style: TextStyle(
+                              //           color: Colors.black,
+                              //           fontSize: 14,
+                              //           fontFamily: 'Noto Sans',
+                              //           fontWeight: FontWeight.w500,
+                              //         ),
+                              //       ),
+                              //     )),
+                              // const Divider(
+                              //   indent: 10,
+                              //   endIndent: 10,
+                              //   color: Color(
+                              //       0xFFC2C0C0), // Set the color of the divider line
+                              //   thickness:
+                              //       1, // Set the thickness of the divider line
+                              // ),
                               Row(
                                 children: [
                                   // SizedBox(

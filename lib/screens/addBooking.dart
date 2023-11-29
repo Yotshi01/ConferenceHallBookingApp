@@ -106,6 +106,31 @@ class _AddBookingState extends State<AddBooking> {
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+  int selectedAttendees = 1;
+
+  @override
+  Widget attendeeItems(BuildContext context) {
+    List<DropdownMenuItem<int>> _getAttendeeItems() {
+      List<DropdownMenuItem<int>> items = [];
+      for (int i = 1; i <= 250; i++) {
+        items.add(DropdownMenuItem(
+          value: i,
+          child: Text('$i'),
+        ));
+      }
+      return items;
+    }
+
+    return DropdownButton<int>(
+      value: selectedAttendees,
+      onChanged: (int? value) {
+        setState(() {
+          selectedAttendees = value!;
+        });
+      },
+      items: _getAttendeeItems(),
+    );
+  }
 
   String? selectedLocation;
   callBack(varSelectedLocation) {
@@ -248,6 +273,8 @@ class _AddBookingState extends State<AddBooking> {
                       '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}';
                   toBeAddedBookingData.bookingReportedBy =
                       _meetingReportedByController.text;
+                  toBeAddedBookingData.bookingNumberOfAttendees =
+                      selectedAttendees;
 
                   print(
                       "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingRequirementDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
@@ -947,6 +974,7 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
+
                     Row(
                       children: [
                         Text(
@@ -1302,6 +1330,35 @@ class _AddBookingState extends State<AddBooking> {
                         ),
                       ),
                     ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Number of Attendees',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        attendeeItems(context),
+                      ],
+                    ),
+
+                    // Divider(
+                    //   color: Color(
+                    //       0xFFC2C0C0), // Set the color of the divider line
+                    //   thickness: 1, // Set the thickness of the divider line
+                    // ),
+
                     SizedBox(
                       height: 20,
                     ),
