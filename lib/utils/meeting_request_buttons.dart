@@ -22,35 +22,41 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
             onPressed: () {
               _showRequestDialog(context);
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Color(0xFFFFC304),
-              elevation: 4,
+            style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(
+                  Size(40, 40)), // Set your desired size
+              padding: MaterialStateProperty.all(
+                  EdgeInsets.zero), // Remove default padding
+              //backgroundColor: MaterialStateProperty.all(Colors.blue), // Change background color if needed
+              // Other style properties you might want to adjust
             ),
-            child: Container(
-              width: screenWidth * 0.27,
-              height: screenHeight * 0.03,
-              decoration: BoxDecoration(
-                color: Color(0xFFFFC304),
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x3F000000),
-                    // blurRadius: 4,
-                    // offset: Offset(0, 4),
-                    spreadRadius: 0,
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  "Request",
-                  style: TextStyle(
-                    color: Colors.black, // You can set your text color here
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
+            // ),
+            child: Icon(Icons.outgoing_mail),
+            // child: Container(
+            //   width: screenWidth * 0.27,
+            //   height: screenHeight * 0.03,
+            //   decoration: BoxDecoration(
+            //     color: Color(0xFFFFC304),
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Color(0x3F000000),
+            //         // blurRadius: 4,
+            //         // offset: Offset(0, 4),
+            //         spreadRadius: 0,
+            //       ),
+            //     ],
+            //   ),
+            //   child: Center(
+            //     child: Text(
+            //       "Request",
+            //       style: TextStyle(
+            //         color: Colors.black, // You can set your text color here
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 16,
+            //       ),
+            //     ),
+            //   ),
+            // ),
           );
   }
 
@@ -61,7 +67,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
         String reason = ""; // Store the input reason
 
         return AlertDialog(
-          title: Text("Reason for Request"),
+          title: Text("Send Request"),
           content: TextField(
             onChanged: (text) {
               reason = text;
@@ -120,7 +126,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                 }
 
                 // print("Reason: $reason");
-                 Navigator.of(context).pop();
+                Navigator.of(context).pop();
               },
               child: Text("Send"),
             ),

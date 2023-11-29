@@ -646,107 +646,160 @@ class _DetailsScreenState extends State<DetailsScreen> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                if (currentUserData!.id ==
-                                            widget.currentBookingData.userId &&
-                                        currentBookingDate!
-                                            .isAfter(DateTime.now()) ||
-                                    ((currentUserData!.id ==
-                                            widget.currentBookingData.userId) &&
-                                        (currentBookingDate!.day == DateTime.now().day &&
-                                            currentBookingDate!.month ==
-                                                DateTime.now().month &&
-                                            currentBookingDate!.year ==
-                                                DateTime.now().year &&
-                                            ((hourPartOfStringTime(widget.currentBookingData.bookingEndTime!) >
-                                                    DateTime.now().hour) ||
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(
+                                          right: screenWidth * 0.25),
+                                      child: Text(
+                                        '${widget.currentBookingData.bookingMeetingTitle}',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 25,
+                                          fontFamily: 'Noto Sans',
+                                          fontWeight: FontWeight.w700,
+                                          // fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: screenWidth * 0.18,
+                                    ),
+                                    if (currentUserData!.id == widget.currentBookingData.userId &&
+                                            currentBookingDate!
+                                                .isAfter(DateTime.now()) ||
+                                        ((currentUserData!.id ==
+                                                widget.currentBookingData
+                                                    .userId) &&
+                                            (currentBookingDate!.day == DateTime.now().day &&
+                                                currentBookingDate!.month ==
+                                                    DateTime.now().month &&
+                                                currentBookingDate!.year ==
+                                                    DateTime.now().year &&
                                                 ((hourPartOfStringTime(widget
                                                             .currentBookingData
-                                                            .bookingEndTime!) ==
-                                                        DateTime.now().hour) &&
-                                                    (minutePartOfStringTime(
-                                                            widget.currentBookingData.bookingEndTime!) >
-                                                        DateTime.now().minute))))))
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            right: screenWidth * 0.25),
-                                        child: Text(
-                                          '${widget.currentBookingData.bookingMeetingTitle}',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 25,
-                                            fontFamily: 'Noto Sans',
-                                            fontWeight: FontWeight.w700,
-                                            // fontWeight: FontWeight.w700,
+                                                            .bookingEndTime!) >
+                                                        DateTime.now().hour) ||
+                                                    ((hourPartOfStringTime(widget.currentBookingData.bookingEndTime!) ==
+                                                            DateTime.now()
+                                                                .hour) &&
+                                                        (minutePartOfStringTime(widget.currentBookingData.bookingEndTime!) >
+                                                            DateTime.now().minute))))))
+                                      Row(
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              navigatorKeys[
+                                                      BottomNavBarItem.home]!
+                                                  .currentState!
+                                                  .push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SyncfusionCalendarForEdit(
+                                                                currentBookingData:
+                                                                    widget
+                                                                        .currentBookingData)),
+                                                  );
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.grey[100],
+                                              ),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Icon(
+                                                Icons.edit,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: screenWidth * 0.12,
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          navigatorKeys[BottomNavBarItem.home]!
-                                              .currentState!
-                                              .push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        SyncfusionCalendarForEdit(
-                                                            currentBookingData:
-                                                                widget
-                                                                    .currentBookingData)),
-                                              );
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         SyncfusionCalendarForEdit(
-                                          //             currentBookingData: widget
-                                          //                 .currentBookingData),
+
+                                          // ElevatedButton(
+                                          //   onPressed: () {
+                                          //     navigatorKeys[BottomNavBarItem.home]!
+                                          //         .currentState!
+                                          //         .push(
+                                          //           MaterialPageRoute(
+                                          //               builder: (context) =>
+                                          //                   SyncfusionCalendarForEdit(
+                                          //                       currentBookingData:
+                                          //                           widget
+                                          //                               .currentBookingData)),
+                                          //         );
+                                          //     // Navigator.push(
+                                          //     //   context,
+                                          //     //   MaterialPageRoute(
+                                          //     //     builder: (context) =>
+                                          //     //         SyncfusionCalendarForEdit(
+                                          //     //             currentBookingData: widget
+                                          //     //                 .currentBookingData),
+                                          //     //   ),
+                                          //     // );
+                                          //   },
+                                          //   style: ElevatedButton.styleFrom(
+                                          //     shape:
+                                          //         CircleBorder(), // Use CircleBorder to make the button circular
+                                          //     backgroundColor: Colors.grey[
+                                          //         100], // Change the button color to your preference
+                                          //     // padding: EdgeInsets.all(
+                                          //     //     10.0), // Adjust the padding as needed
                                           //   ),
-                                          // );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape:
-                                              CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors.grey[
-                                              100], // Change the button color to your preference
-                                          padding: EdgeInsets.all(
-                                              10.0), // Adjust the padding as needed
-                                        ),
-                                        child: Icon(
-                                          Icons
-                                              .edit, // You can use your preferred edit icon here
-                                          color: Colors.grey[
-                                              600], // Change the icon color to your preference
-                                        ),
-                                      ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _showWithdrawDialog(context);
-                                          });
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape:
-                                              CircleBorder(), // Use CircleBorder to make the button circular
-                                          backgroundColor: Colors.grey[
-                                              100], // Change the button color to your preference
-                                          padding: EdgeInsets.all(
-                                              11.0), // Adjust the padding as needed
-                                        ),
-                                        child: Icon(
-                                          Icons
-                                              .delete, // You can use your preferred edit icon here
-                                          color: Colors.grey[
-                                              600], // Change the icon color to your preference
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                SizedBox(height: screenHeight * 0.02),
+                                          //   child: Icon(
+                                          //     Icons
+                                          //         .edit, // You can use your preferred edit icon here
+                                          //     color: Colors.grey[
+                                          //         600], // Change the icon color to your preference
+                                          //   ),
+                                          // ),
+                                          SizedBox(
+                                            width: screenWidth * 0.01,
+                                          ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                _showWithdrawDialog(context);
+                                              });
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.grey[100],
+                                              ),
+                                              padding: EdgeInsets.all(10.0),
+                                              child: Icon(
+                                                Icons.delete,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                          ),
+                                          // ElevatedButton(
+                                          //   onPressed: () {
+                                          //     setState(() {
+                                          //       _showWithdrawDialog(context);
+                                          //     });
+                                          //   },
+                                          //   style: ElevatedButton.styleFrom(
+                                          //     shape:
+                                          //         CircleBorder(), // Use CircleBorder to make the button circular
+                                          //     backgroundColor: Colors.grey[
+                                          //         100], // Change the button color to your preference
+                                          //     // padding: EdgeInsets.all(
+                                          //     //     10.0), // Adjust the padding as needed
+                                          //   ),
+                                          //   child: Icon(
+                                          //     Icons
+                                          //         .delete, // You can use your preferred edit icon here
+                                          //     color: Colors.grey[600],
+                                          //     // Change the icon color to your preference
+                                          //   ),
+                                          // ),
+                                        ],
+                                      )
+                                  ],
+                                ),
+
+                                SizedBox(height: screenHeight * 0.006),
                                 Row(
                                   children: [
                                     Icon(
@@ -833,7 +886,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         child: Image.asset(
                                           "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
                                           width: screenWidth * 0.24,
-                                          height: screenHeight * 0.15,
+                                          height: screenHeight * 0.1,
                                         ),
                                       )
                                     ],
@@ -873,12 +926,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     //             )))
                                     //   ],
                                     // ),
-                                    Icon(
-                                      Icons
-                                          .pin_drop_outlined, // Replace with the icon you want
-                                      color: Color(0xFF696767),
-                                      size: 25, // Set the size of the icon
-                                    ),
+                                    // Icon(
+                                    //   Icons
+                                    //       .pin_drop_outlined, // Replace with the icon you want
+                                    //   color: Color(0xFF696767),
+                                    //   size: 25, // Set the size of the icon
+                                    // ),
                                     // SizedBox(child: Text(', ')),
                                     Align(
                                       alignment: Alignment.centerLeft,
@@ -886,7 +939,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         '${widget.currentLocationName}, ${widget.currentConferenceRoomName}',
                                         style: TextStyle(
                                           color: Color(0xFFB88D05),
-                                          fontSize: 16,
+                                          fontSize: 15,
                                           fontFamily: 'Noto Sans',
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -896,7 +949,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       alignment: Alignment.centerLeft,
                                       icon: Icon(
                                         Icons.info,
-                                        color: Colors.grey[400],
+                                        color: Color(0xFFB88D05),
                                         // Color.fromARGB(
                                         //     255, 236, 219, 158),
                                         size: 20,
@@ -1008,7 +1061,26 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 Text(
                                   'Meeting Description',
                                   style: TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    // fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                // Divider(
+                                //   color: Color(
+                                //       0xFFC2C0C0), // Set the color of the divider line
+                                //   thickness:
+                                //       1, // Set the thickness of the divider line
+                                // ),
+
+                                Text(
+                                  '${widget.currentBookingData.bookingMeetingDescription}',
+                                  style: TextStyle(
+                                    color: Colors.black87,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
@@ -1020,17 +1092,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-
-                                Text(
-                                  '${widget.currentBookingData.bookingMeetingDescription}',
-                                  style: TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 14,
-                                    fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-
                                 // Row(
                                 //   children: [
                                 //     Text(
@@ -1079,17 +1140,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 Text(
                                   'Additional Requirements',
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
+                                    //fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
-                                  color: Color(
-                                      0xFFC2C0C0), // Set the color of the divider line
-                                  thickness:
-                                      1, // Set the thickness of the divider line
+                                SizedBox(
+                                  height: screenHeight * 0.006,
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingRequirementDetails}',
@@ -1097,19 +1155,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
-                                    // fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-
-                                SizedBox(
-                                  height: screenHeight * 0.01,
-                                ),
-                                Text(
-                                  'Meeting Reported By',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1118,6 +1163,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
                                       1, // Set the thickness of the divider line
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                Text(
+                                  'Meeting Reported By',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingReportedBy}',
@@ -1125,15 +1185,32 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
-                                    // fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
                                 Text(
                                   'Departments',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  '${initialbookingDepartments.join(', ')}',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -1147,16 +1224,36 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
+                                SizedBox(
+                                  height: 20,
+                                ),
                                 Text(
-                                  '${initialbookingDepartments.join(', ')}',
+                                  'Number of Attendees',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  '${widget.currentBookingData.bookingNumberOfAttendees}',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
-                                    // fontWeight: FontWeight.w700,
+                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
-
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
                                 SizedBox(
                                   height: 20,
                                 ),

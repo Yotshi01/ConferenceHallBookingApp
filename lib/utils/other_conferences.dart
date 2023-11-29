@@ -51,7 +51,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                           screenWidth * 0.027,
                           screenHeight * 0.01,
                           screenWidth * 0,
-                          screenHeight * 0.01),
+                          screenHeight * 0.07),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.47,
@@ -70,7 +70,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               // Text(
                               //   '${bookingData.userId}',
@@ -83,6 +83,45 @@ class _OtherConferencesState extends State<OtherConferences> {
                               //     fontWeight: FontWeight.w500,
                               //   ),
                               // ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 10,
+                                        ),
+                                        child: Text(
+                                          '${bookingData.bookingMeetingTitle}',
+                                          // textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 15,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      )),
+                                  // SizedBox(
+                                  //   width: screenWidth * 0.09,
+                                  // ),
+
+                                  //mainaxisalignment: Alignment.topRight,
+                                  MeetingUpdateButtons(
+                                    bookingUserId: bookingData.userId!,
+                                    bookingId: bookingData.bookingId!,
+                                  ),
+                                ],
+                              ),
+                              const Divider(
+                                indent: 10,
+                                endIndent: 10,
+                                color: Color(
+                                    0xFFC2C0C0), // Set the color of the divider line
+                                thickness:
+                                    1, // Set the thickness of the divider line
+                              ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
                                   vertical: screenHeight * 0.02,
@@ -141,41 +180,16 @@ class _OtherConferencesState extends State<OtherConferences> {
                               //   ),
                               // ),
 
-                              Align(
-                                alignment: Alignment.center,
-                                child: MeetingUpdateButtons(
-                                  bookingUserId: bookingData.userId!,
-                                  bookingId: bookingData.bookingId!,
-                                ),
-                              ),
+                              // Align(
+                              //   alignment: Alignment.center,
+                              //   child: MeetingUpdateButtons(
+                              //     bookingUserId: bookingData.userId!,
+                              //     bookingId: bookingData.bookingId!,
+                              //   ),
+                              // ),
+                              //
 
-                              const Divider(
-                                indent: 10,
-                                endIndent: 10,
-                                color: Color(
-                                    0xFFC2C0C0), // Set the color of the divider line
-                                thickness:
-                                    1, // Set the thickness of the divider line
-                              ),
-
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: Text(
-                                      '${bookingData.bookingMeetingTitle}',
-                                      // textAlign: TextAlign.left,
-                                      style: TextStyle(
-                                        color: Color(0xFFB88D05),
-                                        fontSize: 15,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )),
-                              Divider(),
+                              //Divider(),
                               Row(
                                 children: [
                                   SizedBox(width: 8),

@@ -150,6 +150,8 @@ Future<AddBookingData> addBooking(BookingData value) async {
     "user_id": toBeAddedBookingData?.userId?.toString() ?? '',
     "booking_created_at": toBeAddedBookingData?.bookingCreatedAt ?? '',
     "booking_reported_by": toBeAddedBookingData?.bookingReportedBy ?? '',
+    "booking_number_of_attendees":
+        toBeAddedBookingData?.bookingNumberOfAttendees.toString(),
   };
 
   var response = await http.post(urlUri,

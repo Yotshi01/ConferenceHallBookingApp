@@ -201,7 +201,7 @@ class _MyConferencesState extends State<MyConferences> {
                                         ),
                                       )),
                                   SizedBox(
-                                    width: screenWidth * 0.25,
+                                    width: screenWidth * 0.242,
                                   ),
                                   PopupMenuButton<String>(
                                     itemBuilder: (BuildContext context) =>
