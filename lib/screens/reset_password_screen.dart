@@ -95,58 +95,60 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     SizedBox(
                                       height: screenHeight * 0.03,
                                     ),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        // reset password api call logic
-                                        response = await sendRequest(
-                                            _emailVerificationTextController
-                                                .text);
-
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-
-                                        if (response.success == true) {
+                                    if (!isLoading)
+                                      ElevatedButton(
+                                        onPressed: () async {
                                           setState(() {
-                                            messageSentToEmail = true;
+                                            isLoading = true;
                                           });
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              backgroundColor: Colors.green,
-                                              content: Text(
-                                                  "Mail sent successfully!"),
-                                            ),
-                                          );
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              // backgroundColor: Colors.green,
-                                              content:
-                                                  Text("${response.message}"),
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Color(0xFFFFB500),
-                                        elevation: 4,
-                                        shadowColor: Color(0x3F000000),
-                                        minimumSize: Size(172, 41),
-                                      ),
-                                      child: const Text(
-                                        'Send',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.white,
+                                          // reset password api call logic
+                                          response = await sendRequest(
+                                              _emailVerificationTextController
+                                                  .text);
+
+                                          setState(() {
+                                            isLoading = false;
+                                          });
+
+                                          if (response.success == true) {
+                                            setState(() {
+                                              messageSentToEmail = true;
+                                            });
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                backgroundColor: Colors.green,
+                                                content: Text(
+                                                    "Mail sent successfully!"),
+                                              ),
+                                            );
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                // backgroundColor: Colors.green,
+                                                content:
+                                                    Text("${response.message}"),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Color(0xFFFFB500),
+                                          elevation: 4,
+                                          shadowColor: Color(0x3F000000),
+                                          minimumSize: Size(172, 41),
                                         ),
-                                      ),
-                                    ),
-                                    if (isLoading) CircularProgressIndicator(),
+                                        child: const Text(
+                                          'Send',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      )
+                                    else
+                                      CircularProgressIndicator(),
                                     SizedBox(
                                       height: screenHeight * 0.03,
                                     ),

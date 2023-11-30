@@ -23,4 +23,10 @@ class PushNotificationService {
     currentUserNotificationFirebaseToken = token;
     return token;
   }
+
+  void isTokenRefresh() async {
+    _fcm.onTokenRefresh.listen((event) {
+      event.toString();
+    });
+  }
 }

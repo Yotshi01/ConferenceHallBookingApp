@@ -126,6 +126,26 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _assetRequirementsAvailableDetails() async {
+    try {
+      final AssetRequirementsAvailableDetails data =
+          await assetRequirementsAvailableDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfAssetRequirementsAvailable = data.data!.map((item) {
+            return AssetRequirementsAvailableData.fromJson(item.toJson());
+          }).toList();
+        }
+      });
+    } catch (error) {
+      print('Error fetching department list data: $error');
+    }
+  }
+
   // all the api calling functions are called here in this initState
   // function so that the process of fetching required data as response
   // is done at the very start of this file being executed so that all the
@@ -150,6 +170,7 @@ class HomeScreenState extends State<HomeScreen> {
     conferenceHallDetailsResponse = getConferenceHallDetails();
     locationDetailsResponse = getLocationDetails();
     departmentDetailsResponse = getDepartmentDetails();
+    assetRequirementsAvailableDetailsResponse = getAssetRequirementsAvailable();
     await _fetchBookingDetails();
     await _fetchConferenceHallDetails();
     await _fetchLocationDetails();
@@ -166,6 +187,7 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   NotificationServices notificationServices = NotificationServices();
+  PushNotificationService pushNotificationService = PushNotificationService();
 
   @override
   void initState() {
@@ -183,7 +205,9 @@ class HomeScreenState extends State<HomeScreen> {
     // listOfMyOldMeetings = myOldMeetings();
     // listOfOtherMeetings = otherMeetings();
     loadData();
+    pushNotificationService.isTokenRefresh();
     notificationServices.requestNotificationPermission();
+
     super.initState();
   }
 

@@ -20,6 +20,7 @@ List<BookingData> listOfMyMeetings = [];
 List<BookingData> listOfMyOldMeetings = [];
 List<BookingData> listOfTodayMeetings = [];
 List<BookingData> listOfOtherMeetings = [];
+List<AssetRequirementsAvailableData> listOfAssetRequirementsAvailable = [];
 List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
 List<BookingData>
@@ -32,6 +33,8 @@ late Future<DepartmentDetails> departmentDetailsResponse;
 late Future<LocationDetails> locationDetailsResponse;
 late Future<HolidayDetails> holidayDetailsResponse;
 late Future<BlackoutDaysDetails> blackoutDaysDetailsResponse;
+late Future<AssetRequirementsAvailableDetails>
+    assetRequirementsAvailableDetailsResponse;
 
 // late Future<CurrentUserData> currentUserDataResponse;
 bool isSearched = false;

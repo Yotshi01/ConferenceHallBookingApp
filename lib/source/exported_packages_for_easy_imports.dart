@@ -26,6 +26,7 @@ export 'package:conference_hall_booking/api/login_api.dart';
 export 'package:conference_hall_booking/api/departments_api.dart';
 export 'package:conference_hall_booking/api/blackout_days_api.dart';
 export 'package:conference_hall_booking/api/forgot_password_api.dart';
+export 'package:conference_hall_booking/api/asset_requirements_available_api.dart';
 
 export 'package:conference_hall_booking/models/add_booking_model.dart';
 export 'package:conference_hall_booking/models/conference_hall_details_model.dart';
@@ -44,6 +45,7 @@ export 'package:conference_hall_booking/models/add_firebase_token_model.dart';
 export 'package:conference_hall_booking/models/blackout_days_model.dart';
 export 'package:conference_hall_booking/models/booking_departments_model.dart';
 export 'package:conference_hall_booking/models/forgot_password_model.dart';
+export 'package:conference_hall_booking/models/asset_requirements_available.dart';
 
 export 'package:conference_hall_booking/reusables/reusable_widgets.dart';
 
