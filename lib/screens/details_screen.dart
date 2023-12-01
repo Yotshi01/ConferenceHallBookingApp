@@ -739,19 +739,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   children: [
                                     SizedBox(
                                       width: screenWidth * 0.5858,
-                                      child: Expanded(
-                                        child: Padding(
-                                          padding: EdgeInsets.only(
-                                              right: screenWidth * 0.1),
-                                          child: Text(
-                                            '${widget.currentBookingData.bookingMeetingTitle}',
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 25,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w700,
-                                              // fontWeight: FontWeight.w700,
-                                            ),
+                                      child: Padding(
+                                        padding: EdgeInsets.only(
+                                            right: screenWidth * 0.1),
+                                        child: Text(
+                                          '${widget.currentBookingData.bookingMeetingTitle}',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w700,
+                                            // fontWeight: FontWeight.w700,
                                           ),
                                         ),
                                       ),

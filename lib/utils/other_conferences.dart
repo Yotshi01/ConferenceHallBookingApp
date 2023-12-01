@@ -83,26 +83,25 @@ class _OtherConferencesState extends State<OtherConferences> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                      width: screenWidth * 0.33,
-                                      child: Expanded(
-                                        child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                horizontal: 10,
-                                              ),
-                                              child: Text(
-                                                '${bookingData.bookingMeetingTitle}',
-                                                // textAlign: TextAlign.left,
-                                                style: TextStyle(
-                                                  color: Color(0xFFB88D05),
-                                                  fontSize: 15,
-                                                  fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ),
-                                            )),
-                                      )),
+                                    width: screenWidth * 0.33,
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            '${bookingData.bookingMeetingTitle}',
+                                            // textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: Color(0xFFB88D05),
+                                              fontSize: 15,
+                                              fontFamily: 'Noto Sans',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        )),
+                                  ),
                                   // SizedBox(
                                   //   width: screenWidth * 0.09,
                                   // ),

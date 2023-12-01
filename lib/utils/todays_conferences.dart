@@ -68,25 +68,23 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                 children: [
                                   SizedBox(
                                     width: screenWidth * 0.3775,
-                                    child: Expanded(
-                                      child: Align(
-                                          alignment: Alignment.topLeft,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 10,
+                                    child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          child: Text(
+                                            '${bookingData.bookingMeetingTitle}',
+                                            // textAlign: TextAlign.left,
+                                            style: TextStyle(
+                                              color: Color(0xFFB88D05),
+                                              fontSize: 15,
+                                              fontFamily: 'Noto Sans',
+                                              fontWeight: FontWeight.w500,
                                             ),
-                                            child: Text(
-                                              '${bookingData.bookingMeetingTitle}',
-                                              // textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                color: Color(0xFFB88D05),
-                                                fontSize: 15,
-                                                fontFamily: 'Noto Sans',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          )),
-                                    ),
+                                          ),
+                                        )),
                                   ),
                                   if (currentUserData!.id == bookingData.userId)
                                     Align(
@@ -421,38 +419,37 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   // SizedBox(
                                   //     width:
                                   //         8), // Add some spacing between the icon and text
-                                  Expanded(
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                            padding: EdgeInsets.symmetric(
-                                              horizontal: 0,
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                          horizontal: 0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            SizedBox(
+                                              width: screenWidth * 0.02,
                                             ),
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  width: screenWidth * 0.02,
-                                                ),
-                                                Icon(
-                                                  Icons
-                                                      .av_timer, // Replace with the icon you want
-                                                  color: Color(0xFF696767),
-                                                  //     0xFF696767), // Set the color of the icon
-                                                  size:
-                                                      20, // Set the size of the icon
-                                                ),
-                                                Text(
-                                                  '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                  style: TextStyle(
-                                                    color: Color(0xFF696767),
-                                                    fontSize: 12,
-                                                    fontFamily: 'Noto Sans',
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                )
-                                              ],
+                                            Icon(
+                                              Icons
+                                                  .av_timer, // Replace with the icon you want
+                                              color: Color(0xFF696767),
+                                              //     0xFF696767), // Set the color of the icon
+                                              size:
+                                                  20, // Set the size of the icon
                                             ),
-                                          ))),
+                                            Text(
+                                              '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
+                                              style: TextStyle(
+                                                color: Color(0xFF696767),
+                                                fontSize: 12,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ))
                                 ],
                               ),
                               Row(
