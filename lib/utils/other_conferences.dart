@@ -26,7 +26,7 @@ class _OtherConferencesState extends State<OtherConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.40,
+            height: screenHeight * 0.34,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -47,11 +47,7 @@ class _OtherConferencesState extends State<OtherConferences> {
 
                   print("${bookingData} cnkajcajajc");
                   return Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          screenWidth * 0.027,
-                          screenHeight * 0.01,
-                          screenWidth * 0,
-                          screenHeight * 0.07),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.47,
@@ -86,22 +82,26 @@ class _OtherConferencesState extends State<OtherConferences> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                        ),
-                                        child: Text(
-                                          '${bookingData.bookingMeetingTitle}',
-                                          // textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Color(0xFFB88D05),
-                                            fontSize: 15,
-                                            fontFamily: 'Noto Sans',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
+                                  SizedBox(
+                                      width: screenWidth * 0.33,
+                                      child: Expanded(
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                              ),
+                                              child: Text(
+                                                '${bookingData.bookingMeetingTitle}',
+                                                // textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: Color(0xFFB88D05),
+                                                  fontSize: 15,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            )),
                                       )),
                                   // SizedBox(
                                   //   width: screenWidth * 0.09,

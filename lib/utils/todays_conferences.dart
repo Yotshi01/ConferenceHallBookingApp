@@ -18,7 +18,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
     print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
-            height: screenHeight * 0.35,
+            height: screenHeight * 0.32,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -40,15 +40,11 @@ class _TodaysConferencesState extends State<TodaysConferences> {
 
                   print(bookingData);
                   return Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          screenWidth * 0.027,
-                          screenHeight * 0.01,
-                          screenWidth * 0,
-                          screenHeight * 0.07),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.5,
-                        // height: screenHeight * 0.2,
+                        //height: screenHeight * 0.7,
                         decoration: ShapeDecoration(
                           color: (currentUserData!.id == bookingData.userId)
                               ? Colors.amber[50]
@@ -65,87 +61,98 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Row(
+                                // crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                        ),
-                                        child: Text(
-                                          '${bookingData.bookingMeetingTitle}',
-                                          // textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Color(0xFFB88D05),
-                                            fontSize: 15,
-                                            fontFamily: 'Noto Sans',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      )),
+                                  SizedBox(
+                                    width: screenWidth * 0.3775,
+                                    child: Expanded(
+                                      child: Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 10,
+                                            ),
+                                            child: Text(
+                                              '${bookingData.bookingMeetingTitle}',
+                                              // textAlign: TextAlign.left,
+                                              style: TextStyle(
+                                                color: Color(0xFFB88D05),
+                                                fontSize: 15,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          )),
+                                    ),
+                                  ),
                                   if (currentUserData!.id == bookingData.userId)
-                                    Row(
-                                      children: [
-                                        // SizedBox(
-                                        //   width: screenWidth * 0.242,
-                                        // ),
-                                        PopupMenuButton<String>(
-                                          itemBuilder: (BuildContext context) =>
-                                              <PopupMenuEntry<String>>[
-                                            PopupMenuItem<String>(
-                                              value: 'view_details',
-                                              child: ListTile(
-                                                leading:
-                                                    Icon(Icons.info_outline),
-                                                title: Text('View Details'),
-                                              ),
-                                            ),
-                                            PopupMenuItem<String>(
-                                              value: 'share',
-                                              child: ListTile(
-                                                leading: Icon(Icons.share),
-                                                title: Text('Share'),
-                                              ),
-                                            ),
-                                          ],
-                                          onSelected: (String value) {
-                                            if (value == 'view_details') {
-                                              navigatorKeys[
-                                                      BottomNavBarItem.home]!
-                                                  .currentState!
-                                                  .push(
-                                                    MaterialPageRoute(
-                                                        builder: (context) => DetailsScreen(
-                                                            currentBookingData:
-                                                                bookingData,
-                                                            currentConferenceRoomName:
-                                                                conferenceHallName,
-                                                            currentLocationName:
-                                                                locationName,
-                                                            currentConferenceHallImageName:
-                                                                conferenceHallImageName)),
-                                                  );
-                                              // // Add your onPressed callback function here
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) => DetailsScreen(
-                                              //             currentBookingData: bookingData,
-                                              //             currentConferenceRoomName:
-                                              //                 conferenceHallName,
-                                              //             currentLocationName: locationName,
-                                              //             currentConferenceHallImageName:
-                                              //                 conferenceHallImageName)));
+                                    Align(
+                                        alignment: Alignment.topRight,
+                                        child: Row(
+                                          // crossAxisAlignment:
+                                          //     CrossAxisAlignment.end,
+                                          children: [
+                                            // SizedBox(
+                                            //   width: screenWidth * 0.242,
+                                            // ),
+                                            PopupMenuButton<String>(
+                                              itemBuilder:
+                                                  (BuildContext context) =>
+                                                      <PopupMenuEntry<String>>[
+                                                PopupMenuItem<String>(
+                                                  value: 'view_details',
+                                                  child: ListTile(
+                                                    leading: Icon(
+                                                        Icons.info_outline),
+                                                    title: Text('View Details'),
+                                                  ),
+                                                ),
+                                                PopupMenuItem<String>(
+                                                  value: 'share',
+                                                  child: ListTile(
+                                                    leading: Icon(Icons.share),
+                                                    title: Text('Share'),
+                                                  ),
+                                                ),
+                                              ],
+                                              onSelected: (String value) {
+                                                if (value == 'view_details') {
+                                                  navigatorKeys[BottomNavBarItem
+                                                          .home]!
+                                                      .currentState!
+                                                      .push(
+                                                        MaterialPageRoute(
+                                                            builder: (context) => DetailsScreen(
+                                                                currentBookingData:
+                                                                    bookingData,
+                                                                currentConferenceRoomName:
+                                                                    conferenceHallName,
+                                                                currentLocationName:
+                                                                    locationName,
+                                                                currentConferenceHallImageName:
+                                                                    conferenceHallImageName)),
+                                                      );
+                                                  // // Add your onPressed callback function here
+                                                  // Navigator.push(
+                                                  //     context,
+                                                  //     MaterialPageRoute(
+                                                  //         builder: (context) => DetailsScreen(
+                                                  //             currentBookingData: bookingData,
+                                                  //             currentConferenceRoomName:
+                                                  //                 conferenceHallName,
+                                                  //             currentLocationName: locationName,
+                                                  //             currentConferenceHallImageName:
+                                                  //                 conferenceHallImageName)));
 
-                                              // Navigate to view details screen
-                                              // Your navigation code goes here
-                                            } else if (value == 'share') {
-                                              // Construct the message with basic information
+                                                  // Navigate to view details screen
+                                                  // Your navigation code goes here
+                                                } else if (value == 'share') {
+                                                  // Construct the message with basic information
 
-                                              String message = '''
+                                                  String message = '''
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
@@ -154,26 +161,26 @@ class _TodaysConferencesState extends State<TodaysConferences> {
       
     ''';
 
-                                              // Share the message
-                                              Share.share(message);
-                                              // await Share.share(
-                                              //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
+                                                  // Share the message
+                                                  Share.share(message);
+                                                  // await Share.share(
+                                                  //     'This a test message to test the capablity of our app to share data :), And lets introduce the helper for it -----> https://pub.dev/packages/share_plus');
 
-                                              // Share functionality
-                                              // Your share functionality goes here
-                                            }
-                                          },
-                                        )
-                                      ],
-                                    )
+                                                  // Share functionality
+                                                  // Your share functionality goes here
+                                                }
+                                              },
+                                            )
+                                          ],
+                                        ))
                                   else
                                     Row(
                                       children: [
-                                        SizedBox(
-                                          width: screenWidth * 0.14,
-                                        ),
+                                        // SizedBox(
+                                        //   width: screenWidth * 0.28,
+                                        // ),
                                         Align(
-                                          alignment: Alignment.center,
+                                          alignment: Alignment.topRight,
                                           child: MeetingUpdateButtons(
                                             bookingUserId: bookingData.userId!,
                                             bookingId: bookingData.bookingId!,

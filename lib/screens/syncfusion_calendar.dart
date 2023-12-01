@@ -611,13 +611,16 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
           body: Column(
             children: [
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
               if (showAddBookingButton == true &&
                   selectedLocation != null &&
                   selectedConferenceHall != null)
                 Container(
                   width: screenWidth * 0.95,
                   height: screenHeight * 0.07,
-                  color: Colors.blue[50],
+                  //color: Colors.blue[50],
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -628,18 +631,19 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                         child: Text(
                           'Continue booking by tapping in add button',
                           style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 16,
+                              color: Colors.amber,
+                              fontSize: 16.15,
                               fontWeight: FontWeight.w600),
                         ),
                       ),
                       SizedBox(
-                        width: 14,
+                        width: 12,
                       ),
                       Align(
                         alignment: Alignment.topRight,
                         child: FloatingActionButton(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Colors.amberAccent,
+
                           //backgroundColor: Color.fromARGB(255, 241, 231, 195),
                           mini: true,
                           child: Icon(

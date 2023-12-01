@@ -27,7 +27,7 @@ class _MyConferencesState extends State<MyConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.40,
+            height: screenHeight * 0.34,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -47,11 +47,7 @@ class _MyConferencesState extends State<MyConferences> {
 
                   print(bookingData);
                   return Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          screenWidth * 0.027,
-                          screenHeight * 0.01,
-                          screenWidth * 0,
-                          screenHeight * 0.07),
+                      padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
                         width: screenWidth * 0.5,
@@ -180,26 +176,35 @@ class _MyConferencesState extends State<MyConferences> {
                               //       0xFFC2C0C0), // Set the color of the divider line
                               //   thickness:
                               //       1, // Set the thickness of the divider line
-                              // ),
+                              // ),SizedBox(
+                              //                                     width: screenWidth * 0.3775,
+                              //                                     child: Expanded(
+                              //                                       child:
+
                               Row(
                                 children: [
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 10,
-                                        ),
-                                        child: Text(
-                                          '${bookingData.bookingMeetingTitle}',
-                                          // textAlign: TextAlign.left,
-                                          style: TextStyle(
-                                            color: Color(0xFFB88D05),
-                                            fontSize: 15,
-                                            fontFamily: 'Noto Sans',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
+                                  SizedBox(
+                                      width: screenWidth * 0.3775,
+                                      child: Expanded(
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 10,
+                                              ),
+                                              child: Text(
+                                                '${bookingData.bookingMeetingTitle}',
+                                                // textAlign: TextAlign.left,
+                                                style: TextStyle(
+                                                  color: Color(0xFFB88D05),
+                                                  fontSize: 15,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            )),
                                       )),
+
                                   // SizedBox(
                                   //   width: screenWidth * 0.242,
                                   // ),
@@ -303,8 +308,8 @@ class _MyConferencesState extends State<MyConferences> {
                                   testBaseUrl +
                                       "/uploads/conferences/" +
                                       conferenceHallImageName,
-                                  width: screenWidth * 0.24,
-                                  height: screenHeight * 0.15,
+                                  width: screenWidth * 0.18,
+                                  height: screenHeight * 0.1,
                                   loadingBuilder: (BuildContext context,
                                       Widget child,
                                       ImageChunkEvent? loadingProgress) {

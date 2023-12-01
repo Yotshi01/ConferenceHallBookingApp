@@ -353,15 +353,12 @@ class _AddBookingState extends State<AddBooking> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(
-                  height: screenHeight * 0.03,
-                ),
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                        horizontal: screenWidth * 0.05,
-                      ),
+                          //horizontal: screenWidth * 0.05,
+                          ),
                       child: ElevatedButton(
                         onPressed: () {
                           // Navigator.of(context).pop();
@@ -375,7 +372,7 @@ class _AddBookingState extends State<AddBooking> {
                           backgroundColor: Colors.grey[
                               300], // Change the button color to your preference
                           padding: EdgeInsets.all(
-                              16.0), // Adjust the padding as needed
+                              0.0), // Adjust the padding as needed
                         ),
                         child: Icon(
                           Icons
@@ -388,6 +385,35 @@ class _AddBookingState extends State<AddBooking> {
                 SizedBox(
                   height: screenHeight * 0.03,
                 ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.network(
+                    testBaseUrl +
+                        "/uploads/conferences/" +
+                        conferenceHallImageName,
+                    width: screenWidth * 0.27,
+                    height: screenHeight * 0.09,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                : null,
+                          ),
+                        );
+                      }
+                    },
+                    errorBuilder: (BuildContext context, Object error,
+                        StackTrace? stackTrace) {
+                      return Text('Error loading image');
+                    },
+                  ),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -397,9 +423,9 @@ class _AddBookingState extends State<AddBooking> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: 20,
-                          ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
                           // Align(
                           //   alignment: Alignment.center,
                           //   child: Image.asset(
@@ -409,41 +435,41 @@ class _AddBookingState extends State<AddBooking> {
                           //   ),
                           // )
 
-                          Align(
-                            alignment: Alignment.center,
-                            child: Image.network(
-                              testBaseUrl +
-                                  "/uploads/conferences/" +
-                                  conferenceHallImageName,
-                              width: screenWidth * 0.24,
-                              height: screenHeight * 0.15,
-                              loadingBuilder: (BuildContext context,
-                                  Widget child,
-                                  ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) {
-                                  return child;
-                                } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  (loadingProgress
-                                                          .expectedTotalBytes ??
-                                                      1)
-                                              : null,
-                                    ),
-                                  );
-                                }
-                              },
-                              errorBuilder: (BuildContext context, Object error,
-                                  StackTrace? stackTrace) {
-                                return Text('Error loading image');
-                              },
-                            ),
-                          ),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: Image.network(
+                          //     testBaseUrl +
+                          //         "/uploads/conferences/" +
+                          //         conferenceHallImageName,
+                          //     width: screenWidth * 0.24,
+                          //     height: screenHeight * 0.15,
+                          //     loadingBuilder: (BuildContext context,
+                          //         Widget child,
+                          //         ImageChunkEvent? loadingProgress) {
+                          //       if (loadingProgress == null) {
+                          //         return child;
+                          //       } else {
+                          //         return Center(
+                          //           child: CircularProgressIndicator(
+                          //             value:
+                          //                 loadingProgress.expectedTotalBytes !=
+                          //                         null
+                          //                     ? loadingProgress
+                          //                             .cumulativeBytesLoaded /
+                          //                         (loadingProgress
+                          //                                 .expectedTotalBytes ??
+                          //                             1)
+                          //                     : null,
+                          //           ),
+                          //         );
+                          //       }
+                          //     },
+                          //     errorBuilder: (BuildContext context, Object error,
+                          //         StackTrace? stackTrace) {
+                          //       return Text('Error loading image');
+                          //     },
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -452,215 +478,38 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    Column(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Date',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
-                        Text(
-                          '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                        ),
-                      ],
-                    ),
-                    // Divider(
-                    //   color: Color(
-                    //       0xFFC2C0C0), // Set the color of the divider line
-                    //   thickness: 1, // Set the thickness of the divider line
-                    // ),
-                    // SizedBox(
-                    //   width: 300,
-                    //   child: ElevatedButton(
-                    //     onPressed: () async {
-                    //       final date = await _selectedDate(context);
-                    //       if (date == null) return;
-                    //       setState(() {
-                    //         dateTime = date;
-                    //         selectedDate = date;
-                    //         toBeAddedBookingData.bookingDate =
-                    //             selectedDate.toString();
-                    //       });
-                    //       print('${date} date date date date date');
-                    //       print(
-                    //           '${selectedDate.toString()} date date date date date');
-                    //     },
-                    //     style: ElevatedButton.styleFrom(
-                    //       minimumSize: Size(
-                    //           300, 50), // Adjust the width and height as needed
-                    //       primary: Colors.grey[
-                    //           200], // Set the background color to light gray
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(
-                    //             10.0), // Adjust the value as needed
-                    //       ),
-                    //     ),
-                    //     child: Row(
-                    //       children: [
-                    //         Icon(
-                    //           Icons
-                    //               .calendar_month, // Replace with the icon you want
-                    //           color: Color(
-                    //               0xFF696767), // Set the color of the icon
-                    //           size: 24, // Set the size of the icon
-                    //         ),
-                    //         SizedBox(
-                    //             width:
-                    //                 8), // Add some spacing between the icon and text
-                    //         Text(
-                    //           selectedDate != null
-                    //               ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
-                    //               :
-                    //               // controller: _meetingTitleController,
-                    //               'Select Date',
-                    //           style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontSize: 14,
-                    //             fontFamily: 'Noto Sans',
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-
-                    // SizedBox(
-                    //   child: Container(
-                    //     width: screenWidth * 0.9, // Adjust the width as needed
-                    //     height: 50, // Adjust the height as needed
-                    //     decoration: BoxDecoration(
-                    //       color: Colors.grey[
-                    //           200], // Set the background color to light gray
-                    //       borderRadius: BorderRadius.circular(
-                    //           10.0), // Adjust the value as needed
-                    //     ),
-                    //     child: Row(
-                    //       children: [
-                    //         Padding(
-                    //           padding: EdgeInsets.only(
-                    //             left: 15,
-                    //           ),
-                    //           child: Icon(
-                    //             Icons
-                    //                 .calendar_month, // Replace with the icon you want
-                    //             color: Color(
-                    //                 0xFF696767), // Set the color of the icon
-                    //             size: 24, // Set the size of the icon
-                    //           ),
-                    //         ),
-                    //         SizedBox(
-                    //             width:
-                    //                 8), // Add some spacing between the icon and text
-                    //         Text(
-                    //           '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
-                    //           style: TextStyle(
-                    //             color: Colors.black,
-                    //             fontSize: 14,
-                    //             fontFamily: 'Noto Sans',
-                    //           ),
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 15.0),
-                    //   child: Text(
-                    //     'Timing',
-                    //     style: TextStyle(
-                    //       color: Colors.black,
-                    //       fontSize: 14,
-                    //       fontFamily: 'Noto Sans',
-                    //       fontWeight: FontWeight.w700,
-                    //     ),
-                    //   ),
-                    // ),
-
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Time',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
-                              '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                                fontFamily: 'Noto Sans',
-                              ),
-                            ),
                             Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 15,
-                              ),
-                              child: Text(
-                                'to ',
-                                style: TextStyle(
-                                  color: Color(0xFF696767),
-                                  fontSize: 12,
-                                  fontFamily: 'Noto Sans',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              padding: EdgeInsets.only(left: 15.0),
+                              child: Icon(Icons.date_range_outlined),
+                              // Text(
+                              //   'Date',
+                              //   style: TextStyle(
+                              //     color: Colors.black,
+                              //     fontSize: 14,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
                             ),
+                            // SizedBox(
+                            //     width: 30,
+                            //     child: Align(
+                            //       alignment: Alignment.center,
+                            //       child: Text(
+                            //         '-',
+                            //         style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 14,
+                            //           fontFamily: 'Noto Sans',
+                            //         ),
+                            //       ),
+                            //     )),
                             Text(
-                              // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
-                              '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
+                              '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -669,323 +518,516 @@ class _AddBookingState extends State<AddBooking> {
                             ),
                           ],
                         ),
+                        // Divider(
+                        //   color: Color(
+                        //       0xFFC2C0C0), // Set the color of the divider line
+                        //   thickness: 1, // Set the thickness of the divider line
+                        // ),
+                        // SizedBox(
+                        //   width: 300,
+                        //   child: ElevatedButton(
+                        //     onPressed: () async {
+                        //       final date = await _selectedDate(context);
+                        //       if (date == null) return;
+                        //       setState(() {
+                        //         dateTime = date;
+                        //         selectedDate = date;
+                        //         toBeAddedBookingData.bookingDate =
+                        //             selectedDate.toString();
+                        //       });
+                        //       print('${date} date date date date date');
+                        //       print(
+                        //           '${selectedDate.toString()} date date date date date');
+                        //     },
+                        //     style: ElevatedButton.styleFrom(
+                        //       minimumSize: Size(
+                        //           300, 50), // Adjust the width and height as needed
+                        //       primary: Colors.grey[
+                        //           200], // Set the background color to light gray
+                        //       shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(
+                        //             10.0), // Adjust the value as needed
+                        //       ),
+                        //     ),
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(
+                        //           Icons
+                        //               .calendar_month, // Replace with the icon you want
+                        //           color: Color(
+                        //               0xFF696767), // Set the color of the icon
+                        //           size: 24, // Set the size of the icon
+                        //         ),
+                        //         SizedBox(
+                        //             width:
+                        //                 8), // Add some spacing between the icon and text
+                        //         Text(
+                        //           selectedDate != null
+                        //               ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
+                        //               :
+                        //               // controller: _meetingTitleController,
+                        //               'Select Date',
+                        //           style: TextStyle(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontFamily: 'Noto Sans',
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+
+                        // SizedBox(
+                        //   child: Container(
+                        //     width: screenWidth * 0.9, // Adjust the width as needed
+                        //     height: 50, // Adjust the height as needed
+                        //     decoration: BoxDecoration(
+                        //       color: Colors.grey[
+                        //           200], // Set the background color to light gray
+                        //       borderRadius: BorderRadius.circular(
+                        //           10.0), // Adjust the value as needed
+                        //     ),
+                        //     child: Row(
+                        //       children: [
+                        //         Padding(
+                        //           padding: EdgeInsets.only(
+                        //             left: 15,
+                        //           ),
+                        //           child: Icon(
+                        //             Icons
+                        //                 .calendar_month, // Replace with the icon you want
+                        //             color: Color(
+                        //                 0xFF696767), // Set the color of the icon
+                        //             size: 24, // Set the size of the icon
+                        //           ),
+                        //         ),
+                        //         SizedBox(
+                        //             width:
+                        //                 8), // Add some spacing between the icon and text
+                        //         Text(
+                        //           '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
+                        //           style: TextStyle(
+                        //             color: Colors.black,
+                        //             fontSize: 14,
+                        //             fontFamily: 'Noto Sans',
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(left: 15.0),
+                        //   child: Text(
+                        //     'Timing',
+                        //     style: TextStyle(
+                        //       color: Colors.black,
+                        //       fontSize: 14,
+                        //       fontFamily: 'Noto Sans',
+                        //       fontWeight: FontWeight.w700,
+                        //     ),
+                        //   ),
+                        // ),
+
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 15.0),
+                              child: Icon(Icons.access_time),
+                              // Text(
+                              //   'Time',
+                              //   style: TextStyle(
+                              //     color: Colors.black,
+                              //     fontSize: 14,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
+                            ),
+                            // SizedBox(
+                            //     width: 30,
+                            //     child: Align(
+                            //       alignment: Alignment.center,
+                            //       child: Text(
+                            //         '-',
+                            //         style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 14,
+                            //           fontFamily: 'Noto Sans',
+                            //         ),
+                            //       ),
+                            //     )),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
+                                  '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 5,
+                                  ),
+                                  child: Text(
+                                    'to ',
+                                    style: TextStyle(
+                                      color: Color(0xFF696767),
+                                      fontSize: 12,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
+                                  '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        // Divider(
+                        //   color: Color(
+                        //       0xFFC2C0C0), // Set the color of the divider line
+                        //   thickness: 1, // Set the thickness of the divider line
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     // Icon(
+                        //     //   Icons
+                        //     //       .av_timer, // Replace with the icon you want
+                        //     //   color: Color(
+                        //     //       0xFF696767), // Set the color of the icon
+                        //     //   size: 24, // Set the size of the icon
+                        //     // ),
+                        //     // SizedBox(
+                        //     //     width:
+                        //     //         8), // Add some spacing between the icon and text
+
+                        //     // SizedBox(
+                        //     //   width: 140,
+                        //     //   child: ElevatedButton(
+                        //     //     onPressed: () async {
+                        //     //       // Handle button tap here
+                        //     //       print('Button tapped');
+                        //     //       final time = await _selectedTime(context);
+                        //     //       if (time == null) return;
+                        //     //       print(selectedStartTime);
+                        //     //       setState(() {
+                        //     //         printedStartTime = time;
+                        //     //         selectedStartTime = time;
+                        //     //         toBeAddedBookingData.strTime =
+                        //     //             '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
+                        //     //       });
+                        //     //     },
+                        //     //     style: ElevatedButton.styleFrom(
+                        //     //       minimumSize: Size(100,
+                        //     //           50), // Adjust the width and height as needed
+                        //     //       primary: Colors.grey[
+                        //     //           200], // Set the background color to light gray
+                        //     //       shape: RoundedRectangleBorder(
+                        //     //         borderRadius: BorderRadius.circular(
+                        //     //             10.0), // Adjust the value as needed
+                        //     //       ),
+                        //     //     ),
+                        //     //     child: Row(
+                        //     //       children: [
+                        //     //         Icon(
+                        //     //           Icons
+                        //     //               .av_timer, // Replace with the icon you want
+                        //     //           color: Color(
+                        //     //               0xFF696767), // Set the color of the icon
+                        //     //           size: 24, // Set the size of the icon
+                        //     //         ),
+                        //     //         SizedBox(
+                        //     //             width:
+                        //     //                 8), // Add some spacing between the icon and text
+                        //     //         Text(
+                        //     //           // controller: _meetingTitleController,
+                        //     //           selectedStartTime != null
+                        //     //               ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
+                        //     //               : 'Start Time',
+                        //     //           style: TextStyle(
+                        //     //             color: Colors.black,
+                        //     //             fontSize: 14,
+                        //     //             fontFamily: 'Noto Sans',
+                        //     //           ),
+                        //     //         ),
+                        //     //       ],
+                        //     //     ),
+                        //     //   ),
+                        //     // ),
+
+                        //     SizedBox(
+                        //         width: 130,
+                        //         child: Container(
+                        //           width: 140,
+                        //           child: Card(
+                        //             color: Colors.grey[
+                        //                 200], // Set the background color to light gray
+                        //             shape: RoundedRectangleBorder(
+                        //               borderRadius: BorderRadius.circular(
+                        //                   10.0), // Adjust the value as needed
+                        //             ),
+                        //             child: Padding(
+                        //               padding: const EdgeInsets.all(8.0),
+                        //               child: Row(
+                        //                 mainAxisAlignment: MainAxisAlignment.center,
+                        //                 children: [
+                        //                   Icon(
+                        //                     Icons
+                        //                         .av_timer, // Replace with the icon you want
+                        //                     color: Color(
+                        //                         0xFF696767), // Set the color of the icon
+                        //                     size: 24, // Set the size of the icon
+                        //                   ),
+                        //                   SizedBox(
+                        //                       width:
+                        //                           8), // Add some spacing between the icon and text
+
+                        //                   Text(
+                        //                     //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
+                        //                     '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
+                        //                     style: TextStyle(
+                        //                       color: Colors.black,
+                        //                       fontSize: 14,
+                        //                       fontFamily: 'Noto Sans',
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         )),
+
+                        //     Padding(
+                        //       padding: EdgeInsets.symmetric(
+                        //         horizontal: 15,
+                        //       ),
+                        //       child: Text(
+                        //         'to ',
+                        //         style: TextStyle(
+                        //           color: Color(0xFF696767),
+                        //           fontSize: 12,
+                        //           fontFamily: 'Noto Sans',
+                        //           fontWeight: FontWeight.w500,
+                        //         ),
+                        //       ),
+                        //     ),
+
+                        //     // SizedBox(
+                        //     //   width: 140,
+                        //     //   child: ElevatedButton(
+                        //     //     onPressed: () async {
+                        //     //       // Handle button tap here
+                        //     //       print('Button tapped');
+                        //     //       final time = await _selectedTime(context);
+                        //     //       if (time == null) return;
+                        //     //       print(selectedEndTime);
+                        //     //       setState(() {
+                        //     //         printedEndTime = time;
+                        //     //         selectedEndTime = time;
+                        //     //         toBeAddedBookingData.endTime =
+                        //     //             '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
+                        //     //       });
+                        //     //     },
+                        //     //     style: ElevatedButton.styleFrom(
+                        //     //       minimumSize: Size(100,
+                        //     //           50), // Adjust the width and height as needed
+                        //     //       primary: Colors.grey[
+                        //     //           200], // Set the background color to light gray
+                        //     //       shape: RoundedRectangleBorder(
+                        //     //         borderRadius: BorderRadius.circular(
+                        //     //             10.0), // Adjust the value as needed
+                        //     //       ),
+                        //     //     ),
+                        //     //     child: Row(
+                        //     //       children: [
+                        //     //         Icon(
+                        //     //           Icons
+                        //     //               .av_timer, // Replace with the icon you want
+                        //     //           color: Color(
+                        //     //               0xFF696767), // Set the color of the icon
+                        //     //           size: 24, // Set the size of the icon
+                        //     //         ),
+                        //     //         SizedBox(
+                        //     //             width:
+                        //     //                 8), // Add some spacing between the icon and text
+                        //     //         Text(
+                        //     //           // controller: _meetingTitleController,
+                        //     //           selectedEndTime != null
+                        //     //               ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
+                        //     //               : 'End Time',
+                        //     //           style: TextStyle(
+                        //     //             color: Colors.black,
+                        //     //             fontSize: 14,
+                        //     //             fontFamily: 'Noto Sans',
+                        //     //           ),
+                        //     //         ),
+                        //     //       ],
+                        //     //     ),
+                        //     //   ),
+                        //     // ),
+
+                        //     SizedBox(
+                        //         width: 130,
+                        //         child: Container(
+                        //           width: 140,
+                        //           child: Card(
+                        //             color: Colors.grey[
+                        //                 200], // Set the background color to light gray
+                        //             shape: RoundedRectangleBorder(
+                        //               borderRadius: BorderRadius.circular(
+                        //                   10.0), // Adjust the value as needed
+                        //             ),
+                        //             child: Padding(
+                        //               padding: const EdgeInsets.all(8.0),
+                        //               child: Row(
+                        //                 mainAxisAlignment: MainAxisAlignment.center,
+                        //                 children: [
+                        //                   Icon(
+                        //                     Icons
+                        //                         .av_timer, // Replace with the icon you want
+                        //                     color: Color(
+                        //                         0xFF696767), // Set the color of the icon
+                        //                     size: 24, // Set the size of the icon
+                        //                   ),
+                        //                   SizedBox(
+                        //                       width:
+                        //                           8), // Add some spacing between the icon and text
+                        //                   Text(
+                        //                     // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
+                        //                     '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
+                        //                     style: TextStyle(
+                        //                       color: Colors.black,
+                        //                       fontSize: 14,
+                        //                       fontFamily: 'Noto Sans',
+                        //                     ),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         )),
+                        //   ],
+                        // ),
+
+                        SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 15.0),
+                              child: Icon(Icons.location_on_outlined),
+                              // child: Text(
+                              //   'Location',
+                              //   style: TextStyle(
+                              //     color: Colors.black,
+                              //     fontSize: 14,
+                              //     fontFamily: 'Noto Sans',
+                              //     fontWeight: FontWeight.w700,
+                              //   ),
+                              // ),
+                            ),
+                            // SizedBox(
+                            //     width: 30,
+                            //     child: Align(
+                            //       alignment: Alignment.center,
+                            //       child: Text(
+                            //         '-',
+                            //         style: TextStyle(
+                            //           color: Colors.black,
+                            //           fontSize: 14,
+                            //           fontFamily: 'Noto Sans',
+                            //         ),
+                            //       ),
+                            //     )),
+                            Expanded(
+                              child: Text(
+                                '${widget.selectedLocation} , ${widget.selectedConferenceHall}',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Noto Sans',
+                                ),
+                              ),
+                            ),
+
+                            // Expanded(
+                            //   child: Text(
+                            //     '${widget.selectedConferenceHall}',
+                            //     style: TextStyle(
+                            //       color: Colors.black,
+                            //       fontSize: 14,
+                            //       fontFamily: 'Noto Sans',
+                            //     ),
+                            //   ),
+                            // ),
+                          ],
+                        ),
+
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
                       ],
                     ),
-                    // Divider(
-                    //   color: Color(
-                    //       0xFFC2C0C0), // Set the color of the divider line
-                    //   thickness: 1, // Set the thickness of the divider line
-                    // ),
                     // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
                     //   children: [
-                    //     // Icon(
-                    //     //   Icons
-                    //     //       .av_timer, // Replace with the icon you want
-                    //     //   color: Color(
-                    //     //       0xFF696767), // Set the color of the icon
-                    //     //   size: 24, // Set the size of the icon
-                    //     // ),
-                    //     // SizedBox(
-                    //     //     width:
-                    //     //         8), // Add some spacing between the icon and text
-
-                    //     // SizedBox(
-                    //     //   width: 140,
-                    //     //   child: ElevatedButton(
-                    //     //     onPressed: () async {
-                    //     //       // Handle button tap here
-                    //     //       print('Button tapped');
-                    //     //       final time = await _selectedTime(context);
-                    //     //       if (time == null) return;
-                    //     //       print(selectedStartTime);
-                    //     //       setState(() {
-                    //     //         printedStartTime = time;
-                    //     //         selectedStartTime = time;
-                    //     //         toBeAddedBookingData.strTime =
-                    //     //             '${selectedStartTime!.hour.toString().padLeft(2, '0')}:${selectedStartTime!.minute.toString().padLeft(2, '0')}';
-                    //     //       });
-                    //     //     },
-                    //     //     style: ElevatedButton.styleFrom(
-                    //     //       minimumSize: Size(100,
-                    //     //           50), // Adjust the width and height as needed
-                    //     //       primary: Colors.grey[
-                    //     //           200], // Set the background color to light gray
-                    //     //       shape: RoundedRectangleBorder(
-                    //     //         borderRadius: BorderRadius.circular(
-                    //     //             10.0), // Adjust the value as needed
-                    //     //       ),
-                    //     //     ),
-                    //     //     child: Row(
-                    //     //       children: [
-                    //     //         Icon(
-                    //     //           Icons
-                    //     //               .av_timer, // Replace with the icon you want
-                    //     //           color: Color(
-                    //     //               0xFF696767), // Set the color of the icon
-                    //     //           size: 24, // Set the size of the icon
-                    //     //         ),
-                    //     //         SizedBox(
-                    //     //             width:
-                    //     //                 8), // Add some spacing between the icon and text
-                    //     //         Text(
-                    //     //           // controller: _meetingTitleController,
-                    //     //           selectedStartTime != null
-                    //     //               ? '${printedStartTime.hour.toString().padLeft(2, '0')}:${printedStartTime.minute.toString().padLeft(2, '0')}'
-                    //     //               : 'Start Time',
-                    //     //           style: TextStyle(
-                    //     //             color: Colors.black,
-                    //     //             fontSize: 14,
-                    //     //             fontFamily: 'Noto Sans',
-                    //     //           ),
-                    //     //         ),
-                    //     //       ],
-                    //     //     ),
-                    //     //   ),
-                    //     // ),
-
-                    //     SizedBox(
-                    //         width: 130,
-                    //         child: Container(
-                    //           width: 140,
-                    //           child: Card(
-                    //             color: Colors.grey[
-                    //                 200], // Set the background color to light gray
-                    //             shape: RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(
-                    //                   10.0), // Adjust the value as needed
-                    //             ),
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(8.0),
-                    //               child: Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: [
-                    //                   Icon(
-                    //                     Icons
-                    //                         .av_timer, // Replace with the icon you want
-                    //                     color: Color(
-                    //                         0xFF696767), // Set the color of the icon
-                    //                     size: 24, // Set the size of the icon
-                    //                   ),
-                    //                   SizedBox(
-                    //                       width:
-                    //                           8), // Add some spacing between the icon and text
-
-                    //                   Text(
-                    //                     //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
-                    //                     '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
-                    //                     style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontSize: 14,
-                    //                       fontFamily: 'Noto Sans',
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
-                    //             ),
-                    //           ),
-                    //         )),
-
                     //     Padding(
-                    //       padding: EdgeInsets.symmetric(
-                    //         horizontal: 15,
-                    //       ),
+                    //       padding: EdgeInsets.only(left: 15.0),
                     //       child: Text(
-                    //         'to ',
+                    //         'Conference Room Name',
                     //         style: TextStyle(
-                    //           color: Color(0xFF696767),
-                    //           fontSize: 12,
+                    //           color: Colors.black,
+                    //           fontSize: 14,
                     //           fontFamily: 'Noto Sans',
-                    //           fontWeight: FontWeight.w500,
+                    //           fontWeight: FontWeight.w700,
                     //         ),
                     //       ),
                     //     ),
-
-                    //     // SizedBox(
-                    //     //   width: 140,
-                    //     //   child: ElevatedButton(
-                    //     //     onPressed: () async {
-                    //     //       // Handle button tap here
-                    //     //       print('Button tapped');
-                    //     //       final time = await _selectedTime(context);
-                    //     //       if (time == null) return;
-                    //     //       print(selectedEndTime);
-                    //     //       setState(() {
-                    //     //         printedEndTime = time;
-                    //     //         selectedEndTime = time;
-                    //     //         toBeAddedBookingData.endTime =
-                    //     //             '${selectedEndTime!.hour.toString().padLeft(2, '0')}:${selectedEndTime!.minute.toString().padLeft(2, '0')}';
-                    //     //       });
-                    //     //     },
-                    //     //     style: ElevatedButton.styleFrom(
-                    //     //       minimumSize: Size(100,
-                    //     //           50), // Adjust the width and height as needed
-                    //     //       primary: Colors.grey[
-                    //     //           200], // Set the background color to light gray
-                    //     //       shape: RoundedRectangleBorder(
-                    //     //         borderRadius: BorderRadius.circular(
-                    //     //             10.0), // Adjust the value as needed
-                    //     //       ),
-                    //     //     ),
-                    //     //     child: Row(
-                    //     //       children: [
-                    //     //         Icon(
-                    //     //           Icons
-                    //     //               .av_timer, // Replace with the icon you want
-                    //     //           color: Color(
-                    //     //               0xFF696767), // Set the color of the icon
-                    //     //           size: 24, // Set the size of the icon
-                    //     //         ),
-                    //     //         SizedBox(
-                    //     //             width:
-                    //     //                 8), // Add some spacing between the icon and text
-                    //     //         Text(
-                    //     //           // controller: _meetingTitleController,
-                    //     //           selectedEndTime != null
-                    //     //               ? '${printedEndTime.hour.toString().padLeft(2, '0')}:${printedEndTime.minute.toString().padLeft(2, '0')}'
-                    //     //               : 'End Time',
-                    //     //           style: TextStyle(
-                    //     //             color: Colors.black,
-                    //     //             fontSize: 14,
-                    //     //             fontFamily: 'Noto Sans',
-                    //     //           ),
-                    //     //         ),
-                    //     //       ],
-                    //     //     ),
-                    //     //   ),
-                    //     // ),
-
                     //     SizedBox(
-                    //         width: 130,
-                    //         child: Container(
-                    //           width: 140,
-                    //           child: Card(
-                    //             color: Colors.grey[
-                    //                 200], // Set the background color to light gray
-                    //             shape: RoundedRectangleBorder(
-                    //               borderRadius: BorderRadius.circular(
-                    //                   10.0), // Adjust the value as needed
-                    //             ),
-                    //             child: Padding(
-                    //               padding: const EdgeInsets.all(8.0),
-                    //               child: Row(
-                    //                 mainAxisAlignment: MainAxisAlignment.center,
-                    //                 children: [
-                    //                   Icon(
-                    //                     Icons
-                    //                         .av_timer, // Replace with the icon you want
-                    //                     color: Color(
-                    //                         0xFF696767), // Set the color of the icon
-                    //                     size: 24, // Set the size of the icon
-                    //                   ),
-                    //                   SizedBox(
-                    //                       width:
-                    //                           8), // Add some spacing between the icon and text
-                    //                   Text(
-                    //                     // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
-                    //                     '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
-                    //                     style: TextStyle(
-                    //                       color: Colors.black,
-                    //                       fontSize: 14,
-                    //                       fontFamily: 'Noto Sans',
-                    //                     ),
-                    //                   ),
-                    //                 ],
-                    //               ),
+                    //         width: 30,
+                    //         child: Align(
+                    //           alignment: Alignment.center,
+                    //           child: Text(
+                    //             '-',
+                    //             style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontSize: 14,
+                    //               fontFamily: 'Noto Sans',
                     //             ),
                     //           ),
                     //         )),
+                    //     Expanded(
+                    //       child: Text(
+                    //         '${widget.selectedConferenceHall}',
+                    //         style: TextStyle(
+                    //           color: Colors.black,
+                    //           fontSize: 14,
+                    //           fontFamily: 'Noto Sans',
+                    //         ),
+                    //       ),
+                    //     )
                     //   ],
                     // ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Location',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                          child: Text(
-                            '${widget.selectedLocation}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Conference Room Name',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                          child: Text(
-                            '${widget.selectedConferenceHall}',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -1049,6 +1091,9 @@ class _AddBookingState extends State<AddBooking> {
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 20,
                     ),
                     // SizedBox(
                     //   height: 20,
@@ -1165,121 +1210,55 @@ class _AddBookingState extends State<AddBooking> {
                     //     ),
                     //   ),
                     // ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Meeting Description',
-                          style: TextStyle(
-                            color: Colors.black,
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectDepartments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          //foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        Text(
-                          '*',
-                          style: TextStyle(color: Colors.red),
-                        )
-                      ],
-                    ),
-
-                    Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1, // Set the thickness of the divider line
-                    ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingDescriptionController,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
-                          ),
+                        child: Row(
+                          children: [
+                            const Text('Select Department'),
+                            Text(
+                              '*',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.05,
+                            ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Requirement Details',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        // Text(
-                        //   '*',
-                        //   style: TextStyle(color: Colors.red),
-                        // )
-                      ],
-                    ),
-
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
                     ),
 
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _otherDetailsController,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
-                          ),
-                        ),
-                      ),
+                    Wrap(
+                      children: _selectedDepartments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
                     ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
                     SizedBox(
                       height: 20,
                     ),
@@ -1287,7 +1266,7 @@ class _AddBookingState extends State<AddBooking> {
                     Row(
                       children: [
                         Text(
-                          'Meeting Reported By',
+                          'Booking Requested By',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -1345,10 +1324,111 @@ class _AddBookingState extends State<AddBooking> {
                         ),
                       ),
                     ),
-
                     SizedBox(
                       height: 20,
                     ),
+
+                    Row(
+                      children: [
+                        Text(
+                          'Meeting Description',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
+                    ),
+
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    SizedBox(
+                      child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                            vertical: 1), // Adjust the padding as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200], // Use a light gray color
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the value as needed
+                        ),
+                        child: TextField(
+                          controller: _meetingDescriptionController,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder
+                                .none, // Remove the default TextField border
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: screenWidth * 0.52, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectAssets,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text('Select Requirements'),
+                            Text(
+                              '*',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.05,
+                            ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    Wrap(
+                      children: _selectedAssets
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
                     Row(
                       children: [
                         Text(
@@ -1364,36 +1444,136 @@ class _AddBookingState extends State<AddBooking> {
                           '*',
                           style: TextStyle(color: Colors.red),
                         ),
+                        SizedBox(
+                          width: screenWidth * 0.1,
+                        ),
                         attendeeItems(context),
                       ],
                     ),
-
                     // Divider(
                     //   color: Color(
                     //       0xFFC2C0C0), // Set the color of the divider line
                     //   thickness: 1, // Set the thickness of the divider line
                     // ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
                     Container(
-                      width: screenWidth * 0.5, // Set the desired width
+                      width: screenWidth * 0.52, // Set the desired width
                       child: ElevatedButton(
-                        onPressed: _showMultiSelectDepartments,
+                        onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
+                          backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
                           padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('Select Department'),
+                        child: Row(
+                          children: [
+                            const Text('Select Refreshments'),
+                            Text(
+                              '*',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            SizedBox(
+                              width: screenWidth * 0.05,
+                            ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
                       ),
                     ),
+
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    Wrap(
+                      children: _selectedRefreshments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       'Requirement Details',
+                    //       style: TextStyle(
+                    //         color: Colors.black,
+                    //         fontSize: 14,
+                    //         fontFamily: 'Noto Sans',
+                    //         fontWeight: FontWeight.w700,
+                    //       ),
+                    //     ),
+                    //     // Text(
+                    //     //   '*',
+                    //     //   style: TextStyle(color: Colors.red),
+                    //     // )
+                    //   ],
+                    // ),
+                    //
+                    // Divider(
+                    //   color: Color(
+                    //       0xFFC2C0C0), // Set the color of the divider line
+                    //   thickness: 1, // Set the thickness of the divider line
+                    // ),
+                    //
+                    // SizedBox(
+                    //   child: Container(
+                    //     width: screenWidth * 0.9,
+                    //     height: 50,
+                    //     padding: EdgeInsets.symmetric(
+                    //         horizontal: 15.0,
+                    //         vertical: 1), // Adjust the padding as needed
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.grey[200], // Use a light gray color
+                    //       borderRadius: BorderRadius.circular(
+                    //           10.0), // Adjust the value as needed
+                    //     ),
+                    //     child: TextField(
+                    //       controller: _otherDetailsController,
+                    //       style: TextStyle(
+                    //         color: Colors.black,
+                    //         fontSize: 14,
+                    //         fontFamily: 'Noto Sans',
+                    //       ),
+                    //       decoration: InputDecoration(
+                    //         border: InputBorder
+                    //             .none, // Remove the default TextField border
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    //
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    //
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    //
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    //
+                    // // Divider(
+                    // //   color: Color(
+                    // //       0xFFC2C0C0), // Set the color of the divider line
+                    // //   thickness: 1, // Set the thickness of the divider line
+                    // // ),
+                    //
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
 
                     // Padding(
                     //   padding: EdgeInsets.only(left: 15.0),
@@ -1413,83 +1593,26 @@ class _AddBookingState extends State<AddBooking> {
                     //       0xFFC2C0C0), // Set the color of the divider line
                     //   thickness: 1,
                     // ),
+                    // Divider(
+                    //   color: Color(
+                    //       0xFFC2C0C0), // Set the color of the divider line
+                    //   thickness: 1, // Set the thickness of the divider line
+                    // ),
+
+                    // Wrap(
+                    //   children: _selectedDepartments
+                    //       .map((e) => Chip(
+                    //             label: Text(e),
+                    //           ))
+                    //       .toList(),
+                    // ),
+                    //
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
 
                     SizedBox(
                       height: 20,
-                    ),
-
-                    Wrap(
-                      children: _selectedDepartments
-                          .map((e) => Chip(
-                                label: Text(e),
-                              ))
-                          .toList(),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Container(
-                      width: screenWidth * 0.5, // Set the desired width
-                      child: ElevatedButton(
-                        onPressed: _showMultiSelectRefreshments,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
-                          foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text('Select Refreshments'),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Wrap(
-                      children: _selectedRefreshments
-                          .map((e) => Chip(
-                                label: Text(e),
-                              ))
-                          .toList(),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Container(
-                      width: screenWidth * 0.5, // Set the desired width
-                      child: ElevatedButton(
-                        onPressed: _showMultiSelectAssets,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
-                          foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text('Select Assets'),
-                      ),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Wrap(
-                      children: _selectedAssets
-                          .map((e) => Chip(
-                                label: Text(e),
-                              ))
-                          .toList(),
                     ),
 
                     // ElevatedButton(
@@ -1566,7 +1689,7 @@ class _AddBookingState extends State<AddBooking> {
                             shape:
                                 CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
-                                .red, // Change the button color to your preference
+                                .grey, // Change the button color to your preference
                             padding: EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
@@ -1585,13 +1708,13 @@ class _AddBookingState extends State<AddBooking> {
                             shape:
                                 CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
-                                .green, // Change the button color to your preference
+                                .grey, // Change the button color to your preference
                             padding: EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
                           child: Icon(
                             Icons
-                                .check, // You can use your preferred edit icon here
+                                .check_circle, // You can use your preferred edit icon here
                             color: Colors
                                 .white, // Change the icon color to your preference
                           ),

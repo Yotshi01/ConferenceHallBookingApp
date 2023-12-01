@@ -1543,10 +1543,15 @@ class _EditBookingState extends State<EditBooking> {
                       child: ElevatedButton(
                         onPressed: _showMultiSelectDepartments,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
+                          backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
                           padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1574,10 +1579,11 @@ class _EditBookingState extends State<EditBooking> {
                     //   thickness: 1,
                     // ),
 
-                    SizedBox(
-                      height: 20,
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
                     ),
-
                     Wrap(
                       children: _selectedDepartments
                           .map((e) => Chip(
@@ -1595,10 +1601,15 @@ class _EditBookingState extends State<EditBooking> {
                       child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
+                          backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
                           padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1607,8 +1618,10 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                     ),
 
-                    SizedBox(
-                      height: 20,
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
                     ),
 
                     Wrap(
@@ -1628,10 +1641,15 @@ class _EditBookingState extends State<EditBooking> {
                       child: ElevatedButton(
                         onPressed: _showMultiSelectAssetRequirements,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[100],
+                          backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
                           padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(fontSize: 18),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1640,10 +1658,11 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                     ),
 
-                    SizedBox(
-                      height: 20,
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
                     ),
-
                     Wrap(
                       children: _selectedAssets
                           .map((e) => Chip(
@@ -1726,7 +1745,7 @@ class _EditBookingState extends State<EditBooking> {
                             shape:
                                 CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
-                                .red, // Change the button color to your preference
+                                .grey, // Change the button color to your preference
                             padding: EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
@@ -1745,13 +1764,13 @@ class _EditBookingState extends State<EditBooking> {
                             shape:
                                 CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
-                                .green, // Change the button color to your preference
+                                .grey, // Change the button color to your preference
                             padding: EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
                           child: Icon(
                             Icons
-                                .check, // You can use your preferred edit icon here
+                                .check_circle, // You can use your preferred edit icon here
                             color: Colors
                                 .white, // Change the icon color to your preference
                           ),
