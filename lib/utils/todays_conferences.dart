@@ -18,7 +18,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
     print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
-            height: screenHeight * 0.32,
+            height: screenHeight * 0.4,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,

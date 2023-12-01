@@ -11,8 +11,8 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
     "request_id": toBeAddedReschedulingRequestData?.requestId.toString() ?? '',
     "request_booking_id":
         toBeAddedReschedulingRequestData?.requestBookingId.toString() ?? '',
-    "request_organizer_id":
-        toBeAddedReschedulingRequestData?.requestOrganizerId.toString() ?? '',
+    "request_booking_user_id":
+        toBeAddedReschedulingRequestData?.requestBookingUserId.toString() ?? '',
     "request_requester_id":
         toBeAddedReschedulingRequestData?.requestRequesterId.toString() ?? '',
     "request_reason":

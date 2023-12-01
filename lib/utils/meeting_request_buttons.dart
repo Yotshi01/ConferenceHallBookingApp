@@ -85,7 +85,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                 // You can use the 'reason' variable for further processing
                 toBeAddedReschedulingRequestData.requestRequesterId =
                     currentUserData!.id;
-                toBeAddedReschedulingRequestData.requestOrganizerId =
+                toBeAddedReschedulingRequestData.requestBookingUserId =
                     widget.bookingUserId;
                 toBeAddedReschedulingRequestData.requestReason = reason;
                 toBeAddedReschedulingRequestData.requestStatus = 'Pending';

@@ -26,7 +26,7 @@ class ReschedulingRequestDetails {
 
 class ReschedulingRequestData {
   int? requestBookingId;
-  int? requestOrganizerId;
+  int? requestBookingUserId;
   int? requestRequesterId;
   String? requestReason;
   String? requestStatus;
@@ -34,7 +34,7 @@ class ReschedulingRequestData {
 
   ReschedulingRequestData(
       {this.requestBookingId,
-      this.requestOrganizerId,
+      this.requestBookingUserId,
       this.requestRequesterId,
       this.requestReason,
       this.requestStatus,
@@ -42,7 +42,7 @@ class ReschedulingRequestData {
 
   ReschedulingRequestData.fromJson(Map<String, dynamic> json) {
     requestBookingId = json['request_booking_id'].toInt();
-    requestOrganizerId = json['request_organizer_id'].toInt();
+    requestBookingUserId = json['request_booking_user_id'].toInt();
     requestRequesterId = json['request_requester_id'].toInt();
     requestReason = json['request_reason'];
     requestStatus = json['request_status'];
@@ -52,7 +52,7 @@ class ReschedulingRequestData {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['request_booking_id'] = this.requestBookingId;
-    data['request_organizer_id'] = this.requestOrganizerId;
+    data['request_booking_user_id'] = this.requestBookingUserId;
     data['request_requester_id'] = this.requestRequesterId;
     data['request_reason'] = this.requestReason;
     data['request_status'] = this.requestStatus;
