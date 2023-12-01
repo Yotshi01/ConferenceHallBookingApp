@@ -19,79 +19,6 @@ class AddBooking extends StatefulWidget {
   State<AddBooking> createState() => _AddBookingState();
 }
 
-class MultiSelectDepartments extends StatefulWidget {
-  final List<String> departments;
-  final List<String> initialSelectedDepartments; // New property
-  const MultiSelectDepartments(
-      {Key? key,
-      required this.departments,
-      required this.initialSelectedDepartments})
-      : super(key: key);
-
-  @override
-  State<MultiSelectDepartments> createState() => _MultiSelectDepartmentsState();
-}
-
-class _MultiSelectDepartmentsState extends State<MultiSelectDepartments> {
-  // this variable holds the selected departments
-  late List<String> _selectedDepartments;
-
-  // This function is triggered when a checkbox is checked or unchecked
-  void _itemChange(String itemValue, bool isSelected) {
-    setState(() {
-      if (isSelected) {
-        _selectedDepartments.add(itemValue);
-      } else {
-        _selectedDepartments.remove(itemValue);
-      }
-    });
-  }
-
-  // This function is called when the cancel button is pressed
-  void _cancel() {
-    Navigator.pop(context);
-  }
-
-  // this function is called when the submit button is tapped
-  void _submit() {
-    Navigator.pop(context, _selectedDepartments);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDepartments = widget.initialSelectedDepartments;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Select Departments'),
-      content: SingleChildScrollView(
-          child: ListBody(
-        children: widget.departments
-            .map((department) => CheckboxListTile(
-                  value: _selectedDepartments.contains(department),
-                  title: Text(department),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  onChanged: (isChecked) => _itemChange(department, isChecked!),
-                ))
-            .toList(),
-      )),
-      actions: [
-        TextButton(
-          onPressed: _cancel,
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: _submit,
-          child: const Text('Submit'),
-        )
-      ],
-    );
-  }
-}
-
 class _AddBookingState extends State<AddBooking> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
@@ -108,7 +35,6 @@ class _AddBookingState extends State<AddBooking> {
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
   int selectedAttendees = 1;
 
-  @override
   Widget attendeeItems(BuildContext context) {
     List<DropdownMenuItem<int>> _getAttendeeItems() {
       List<DropdownMenuItem<int>> items = [];
@@ -192,10 +118,54 @@ class _AddBookingState extends State<AddBooking> {
     }
   }
 
+  late List<String> _selectedRefreshments;
+
+  void _showMultiSelectRefreshments() async {
+    List<String> refreshments = getRefreshmentNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectRefreshments(
+            refreshments: refreshments,
+            initialSelectedRefreshments: _selectedRefreshments,
+          );
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedRefreshments = results;
+      });
+    }
+  }
+
+  late List<String> _selectedAssets;
+
+  void _showMultiSelectAssets() async {
+    List<String> assets = getAssetNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectAssetRequirements(
+            assets: assets,
+            initialSelectedAssets: _selectedAssets,
+          );
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedAssets = results;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _selectedDepartments = [];
+    _selectedRefreshments = [];
+    _selectedAssets = [];
   }
 
   void _showDiscardBookingDetailConfirmationDialog(BuildContext context) {
@@ -285,12 +255,21 @@ class _AddBookingState extends State<AddBooking> {
                 var bookingDepartmentsResponse = await addBookingDepartments(
                     _selectedDepartments, response.data!.bookingId!);
 
+                var bookingRefreshmentsResponse = await addBookingRefreshments(
+                    _selectedRefreshments, response.data!.bookingId!);
+
+                var bookingAssetRequirementsResponse =
+                    await addBookingAssetRequirement(
+                        _selectedAssets, response.data!.bookingId!);
+
                 // var bookingDepartmentsResponse =
                 //     await addBookingDepartments(
                 //         _selectedDepartments, 15);
 
                 if (response.status == 'success' &&
-                    bookingDepartmentsResponse.status == 'success') {
+                    bookingDepartmentsResponse.status == 'success' &&
+                    bookingRefreshmentsResponse.status == 'success' &&
+                    bookingAssetRequirementsResponse.status == 'success') {
                   // setState(() {
                   //   isRefreshNeeded = true;
                   // });
@@ -421,14 +400,50 @@ class _AddBookingState extends State<AddBooking> {
                           SizedBox(
                             height: 20,
                           ),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: Image.asset(
+                          //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+                          //     width: screenWidth * 0.24,
+                          //     height: screenHeight * 0.15,
+                          //   ),
+                          // )
+
                           Align(
                             alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/images/conference_hall_images/${conferenceHallImageName}",
+                            child: Image.network(
+                              testBaseUrl +
+                                  "/uploads/conferences/" +
+                                  conferenceHallImageName,
                               width: screenWidth * 0.24,
                               height: screenHeight * 0.15,
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                    ),
+                                  );
+                                }
+                              },
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return Text('Error loading image');
+                              },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -1411,6 +1426,72 @@ class _AddBookingState extends State<AddBooking> {
                           .toList(),
                     ),
 
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectRefreshments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Select Refreshments'),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Wrap(
+                      children: _selectedRefreshments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectAssets,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Select Assets'),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Wrap(
+                      children: _selectedAssets
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
                     // ElevatedButton(
                     //   onPressed: _showMultiSelectDepartments,
                     //   style: ElevatedButton.styleFrom(
@@ -1525,6 +1606,228 @@ class _AddBookingState extends State<AddBooking> {
               ],
             )),
       ),
+    );
+  }
+}
+
+class MultiSelectDepartments extends StatefulWidget {
+  final List<String> departments;
+  final List<String> initialSelectedDepartments; // New property
+  const MultiSelectDepartments(
+      {Key? key,
+      required this.departments,
+      required this.initialSelectedDepartments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectDepartments> createState() => _MultiSelectDepartmentsState();
+}
+
+class _MultiSelectDepartmentsState extends State<MultiSelectDepartments> {
+  // this variable holds the selected departments
+  late List<String> _selectedDepartments;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedDepartments.add(itemValue);
+      } else {
+        _selectedDepartments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartments = widget.initialSelectedDepartments;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Departments'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.departments
+            .map((department) => CheckboxListTile(
+                  value: _selectedDepartments.contains(department),
+                  title: Text(department),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) => _itemChange(department, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectRefreshments extends StatefulWidget {
+  final List<String> refreshments;
+  final List<String> initialSelectedRefreshments; // New property
+  const MultiSelectRefreshments(
+      {Key? key,
+      required this.refreshments,
+      required this.initialSelectedRefreshments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectRefreshments> createState() =>
+      _MultiSelectRefreshmentsState();
+}
+
+class _MultiSelectRefreshmentsState extends State<MultiSelectRefreshments> {
+  // this variable holds the selected departments
+  late List<String> _selectedRefreshments;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedRefreshments.add(itemValue);
+      } else {
+        _selectedRefreshments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedRefreshments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedRefreshments = widget.initialSelectedRefreshments;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Refreshments'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.refreshments
+            .map((refreshment) => CheckboxListTile(
+                  value: _selectedRefreshments.contains(refreshment),
+                  title: Text(refreshment),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) =>
+                      _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectAssetRequirements extends StatefulWidget {
+  final List<String> assets;
+  final List<String> initialSelectedAssets; // New property
+  const MultiSelectAssetRequirements(
+      {Key? key, required this.assets, required this.initialSelectedAssets})
+      : super(key: key);
+
+  @override
+  State<MultiSelectAssetRequirements> createState() =>
+      _MultiSelectAssetRequirementsState();
+}
+
+class _MultiSelectAssetRequirementsState
+    extends State<MultiSelectAssetRequirements> {
+  // this variable holds the selected departments
+  late List<String> _selectedAssets;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedAssets.add(itemValue);
+      } else {
+        _selectedAssets.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedAssets);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedAssets = widget.initialSelectedAssets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Assets'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.assets
+            .map((refreshment) => CheckboxListTile(
+                  value: _selectedAssets.contains(refreshment),
+                  title: Text(refreshment),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) =>
+                      _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
     );
   }
 }

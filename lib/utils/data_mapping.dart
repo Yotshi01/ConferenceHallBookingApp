@@ -339,6 +339,22 @@ List<String> getDepartmentNames() {
   return departmentNames;
 }
 
+List<String> getRefreshmentNames() {
+  List<String> refreshmentNames = [];
+  for (var refreshment in listOfRefreshmentsAvailable) {
+    refreshmentNames.add(refreshment.refreshmentName!);
+  }
+  return refreshmentNames;
+}
+
+List<String> getAssetNames() {
+  List<String> assetNames = [];
+  for (var asset in listOfAssetRequirementsAvailable) {
+    assetNames.add(asset.assetRequirementName!);
+  }
+  return assetNames;
+}
+
 int getDepartmentIdByName(String departmentName) {
   for (var department in listOfDepartments) {
     if (departmentName == department.departmentName) {
@@ -348,10 +364,46 @@ int getDepartmentIdByName(String departmentName) {
   return 0;
 }
 
+int getRefreshmentIdByName(String refreshmentName) {
+  for (var refreshment in listOfRefreshmentsAvailable) {
+    if (refreshmentName == refreshment.refreshmentName) {
+      return refreshment.refreshmentId!;
+    }
+  }
+  return 0;
+}
+
+int getAssetIdByName(String assetName) {
+  for (var asset in listOfAssetRequirementsAvailable) {
+    if (assetName == asset.assetRequirementName) {
+      return asset.assetRequirementId!;
+    }
+  }
+  return 0;
+}
+
 String getDepartmentNameById(int departmentId) {
   for (var department in listOfDepartments) {
     if (departmentId == department.departmentId) {
       return department.departmentName!;
+    }
+  }
+  return '';
+}
+
+String getRefreshmentNameById(int refreshmentId) {
+  for (var refreshment in listOfRefreshmentsAvailable) {
+    if (refreshmentId == refreshment.refreshmentId) {
+      return refreshment.refreshmentName!;
+    }
+  }
+  return '';
+}
+
+String getAssetNameById(int assetId) {
+  for (var asset in listOfAssetRequirementsAvailable) {
+    if (assetId == asset.assetRequirementId) {
+      return asset.assetRequirementName!;
     }
   }
   return '';

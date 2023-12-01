@@ -611,196 +611,6 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
           body: Column(
             children: [
-              SizedBox(
-                height: screenHeight * 0.015,
-              ),
-              LocationsDropdown(callBackFunction: callBackLocationName),
-              SizedBox(
-                height: screenHeight * 0.015,
-              ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    if (selectedLocation != null)
-                      ConferenceHallDropdown(
-                          callBackFunction: callBackConferenceHallName,
-                          locationName: selectedLocation ?? ''),
-                    if (selectedLocation != null)
-                      IconButton(
-                        icon: Icon(
-                          Icons.info,
-                          color: Color.fromARGB(255, 236, 219, 158),
-                          size: 35,
-                        ),
-                        onPressed: () {
-                          if (selectedConferenceHall != null) {
-                            _showDetailsDialog();
-                          } else {
-                            // Handle case when no hall is selected
-                          }
-                        },
-                      ),
-                  ],
-                ), // if (isCheckboxTicked == true)
-              ),
-              // if (isCheckboxTicked == true)
-
-              SizedBox(
-                height: screenHeight * 0.01,
-              ),
-
-              // Transform.scale(
-              //   scale: 0.8,
-              //   child: CheckboxListTile(
-              //     tileColor: Colors.grey[200],
-              //     title: const Text(
-              //       'Filter By Conference Room',
-              //       style: TextStyle(
-              //         color: Color(0xFF898383),
-              //         fontSize: 17,
-              //         fontFamily: 'Noto Sans',
-              //         fontWeight: FontWeight.w400,
-              //         //height: 0,
-              //       ),
-              //     ),
-              //     value: isCheckboxTicked,
-              //     secondary: Icon(Icons.filter_list_alt),
-              //     controlAffinity: ListTileControlAffinity.leading,
-              //     onChanged: (bool? value) {
-              //       setState(() {
-              //         isCheckboxTicked = value!;
-              //       });
-              //     },
-              //     activeColor: Colors.green,
-              //     checkColor: Colors.black,
-              //   ),
-              // ),
-              // SizedBox(
-              //   height: 30,
-              // ),
-              Expanded(
-                child: SfCalendar(
-                  specialRegions: _getDisabledTimeRegions(),
-                  // specialRegions: _disabledTimeRegions,
-                  view: CalendarView.week,
-                  dataSource: _getCalendarDataSource(),
-                  minDate: DateTime.now(),
-                  maxDate: DateTime.now().add(Duration(days: 30)),
-                  timeSlotViewSettings: TimeSlotViewSettings(
-                    startHour: 8,
-                    endHour: 22,
-                    timeInterval: const Duration(minutes: 30),
-                    minimumAppointmentDuration: const Duration(minutes: 30),
-                    timeFormat: 'h:mm a',
-                  ),
-
-                  allowViewNavigation: false,
-                  headerDateFormat: 'MMM,yyy',
-
-                  onTap: (calendarTapDetails) {
-                    if (calendarTapDetails.targetElement ==
-                        CalendarElement.appointment) {
-                      final tappedAppointment =
-                          calendarTapDetails.appointments!.first as Appointment;
-                      _showEventDetailsDialog(tappedAppointment);
-                    } else {
-                      // Handle the calendar tap event for time range selection
-                      handleCalendarTap(calendarTapDetails);
-                    }
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.green,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Holiday',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 13),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.blueGrey,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Sunday',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.grey[300],
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Past',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(width: 13),
-                      Container(
-                        width: 15,
-                        height: 15,
-                        color: Colors.black,
-                      ),
-                      SizedBox(
-                          width:
-                              5), // Adjust the spacing between the square and the text
-                      Text(
-                        'Blackout Day',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ],
-                  )
-                  // SizedBox(width: 13),
-                ],
-              ),
-              SizedBox(
-                height: 8,
-              ),
               if (showAddBookingButton == true &&
                   selectedLocation != null &&
                   selectedConferenceHall != null)
@@ -995,8 +805,199 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   ),
                 ),
               SizedBox(
+                height: screenHeight * 0.015,
+              ),
+              LocationsDropdown(callBackFunction: callBackLocationName),
+              SizedBox(
+                height: screenHeight * 0.015,
+              ),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    if (selectedLocation != null)
+                      ConferenceHallDropdown(
+                          callBackFunction: callBackConferenceHallName,
+                          locationName: selectedLocation ?? ''),
+                    if (selectedLocation != null)
+                      IconButton(
+                        icon: Icon(
+                          Icons.info,
+                          color: Color.fromARGB(255, 236, 219, 158),
+                          size: 35,
+                        ),
+                        onPressed: () {
+                          if (selectedConferenceHall != null) {
+                            _showDetailsDialog();
+                          } else {
+                            // Handle case when no hall is selected
+                          }
+                        },
+                      ),
+                  ],
+                ), // if (isCheckboxTicked == true)
+              ),
+              // if (isCheckboxTicked == true)
+
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+
+              // Transform.scale(
+              //   scale: 0.8,
+              //   child: CheckboxListTile(
+              //     tileColor: Colors.grey[200],
+              //     title: const Text(
+              //       'Filter By Conference Room',
+              //       style: TextStyle(
+              //         color: Color(0xFF898383),
+              //         fontSize: 17,
+              //         fontFamily: 'Noto Sans',
+              //         fontWeight: FontWeight.w400,
+              //         //height: 0,
+              //       ),
+              //     ),
+              //     value: isCheckboxTicked,
+              //     secondary: Icon(Icons.filter_list_alt),
+              //     controlAffinity: ListTileControlAffinity.leading,
+              //     onChanged: (bool? value) {
+              //       setState(() {
+              //         isCheckboxTicked = value!;
+              //       });
+              //     },
+              //     activeColor: Colors.green,
+              //     checkColor: Colors.black,
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 30,
+              // ),
+              Expanded(
+                child: SfCalendar(
+                  specialRegions: _getDisabledTimeRegions(),
+                  // specialRegions: _disabledTimeRegions,
+                  view: CalendarView.week,
+                  dataSource: _getCalendarDataSource(),
+                  minDate: DateTime.now(),
+                  maxDate: DateTime.now().add(Duration(days: 30)),
+                  timeSlotViewSettings: TimeSlotViewSettings(
+                    startHour: 8,
+                    endHour: 22,
+                    timeInterval: const Duration(minutes: 30),
+                    minimumAppointmentDuration: const Duration(minutes: 30),
+                    timeFormat: 'h:mm a',
+                  ),
+
+                  allowViewNavigation: false,
+                  headerDateFormat: 'MMM,yyy',
+
+                  onTap: (calendarTapDetails) {
+                    if (calendarTapDetails.targetElement ==
+                        CalendarElement.appointment) {
+                      final tappedAppointment =
+                          calendarTapDetails.appointments!.first as Appointment;
+                      _showEventDetailsDialog(tappedAppointment);
+                    } else {
+                      // Handle the calendar tap event for time range selection
+                      handleCalendarTap(calendarTapDetails);
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
                 height: 8,
               ),
+              Row(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 10),
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.green,
+                      ),
+                      SizedBox(
+                          width:
+                              5), // Adjust the spacing between the square and the text
+                      Text(
+                        'Holiday',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: 13),
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.blueGrey,
+                      ),
+                      SizedBox(
+                          width:
+                              5), // Adjust the spacing between the square and the text
+                      Text(
+                        'Sunday',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.grey[300],
+                      ),
+                      SizedBox(
+                          width:
+                              5), // Adjust the spacing between the square and the text
+                      Text(
+                        'Past',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(width: 13),
+                      Container(
+                        width: 15,
+                        height: 15,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                          width:
+                              5), // Adjust the spacing between the square and the text
+                      Text(
+                        'Blackout Day',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  )
+                  // SizedBox(width: 13),
+                ],
+              ),
+              SizedBox(
+                height: 8,
+              ),
+
+              // SizedBox(
+              //   height: 8,
+              // ),
             ],
           ),
         ));
@@ -1138,12 +1139,41 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               //Text("conferenceHallDetails"),
+              // Align(
+              //   alignment: Alignment.center,
+              //   child: Image.asset(
+              //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+              //     width: screenWidth * 0.24,
+              //     height: screenHeight * 0.15,
+              //   ),
+              // ),
               Align(
                 alignment: Alignment.center,
-                child: Image.asset(
-                  "assets/images/conference_hall_images/${conferenceHallImageName}",
+                child: Image.network(
+                  testBaseUrl +
+                      "/uploads/conferences/" +
+                      conferenceHallImageName,
                   width: screenWidth * 0.24,
                   height: screenHeight * 0.15,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          value: loadingProgress.expectedTotalBytes != null
+                              ? loadingProgress.cumulativeBytesLoaded /
+                                  (loadingProgress.expectedTotalBytes ?? 1)
+                              : null,
+                        ),
+                      );
+                    }
+                  },
+                  errorBuilder: (BuildContext context, Object error,
+                      StackTrace? stackTrace) {
+                    return Text('Error loading image');
+                  },
                 ),
               ),
               SizedBox(height: 10),

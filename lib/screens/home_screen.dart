@@ -142,7 +142,28 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print('Error fetching department list data: $error');
+      print(
+          'Error fetching asset requirements available data list data: $error');
+    }
+  }
+
+  Future<void> _refreshmentsAvailableDetails() async {
+    try {
+      final RefreshmentsAvailableDetails data =
+          await refreshmentsAvailableDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfRefreshmentsAvailable = data.data!.map((item) {
+            return RefreshmentsAvailableData.fromJson(item.toJson());
+          }).toList();
+        }
+      });
+    } catch (error) {
+      print('Error fetching refreshments available list data: $error');
     }
   }
 
@@ -171,10 +192,13 @@ class HomeScreenState extends State<HomeScreen> {
     locationDetailsResponse = getLocationDetails();
     departmentDetailsResponse = getDepartmentDetails();
     assetRequirementsAvailableDetailsResponse = getAssetRequirementsAvailable();
+    refreshmentsAvailableDetailsResponse = getRefreshmentsAvailableDetails();
     await _fetchBookingDetails();
     await _fetchConferenceHallDetails();
     await _fetchLocationDetails();
     await _fetchDepartmentDetails();
+    await _assetRequirementsAvailableDetails();
+    await _refreshmentsAvailableDetails();
     setState(() {
       listOfMyMeetings = myMeetings();
       listOfTodayMeetings = todayMeetings();

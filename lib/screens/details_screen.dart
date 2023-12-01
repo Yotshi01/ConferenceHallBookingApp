@@ -107,7 +107,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
   DateTime? currentBookingDate;
   BookingData toBeWithdrawnBookingNeededData = new BookingData();
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
+  late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
+  late Future<BookingAssetRequirementDetails>
+      bookingAssetRequirementsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
+  List<BookingRefreshmentData> listOfBookingRefreshmentsByBookingId = [];
+  List<BookingAssetRequirementData> listOfBookingAssetRequirementsByBookingId =
+      [];
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
@@ -128,6 +134,54 @@ class _DetailsScreenState extends State<DetailsScreen> {
           print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
           _selectedDepartments = getListOfBookingDepartmentNames(
               listOfBookingDepartmentsByBookingId);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking departments by booking id data: $error');
+    }
+  }
+
+  Future<void> _fetchBookingRefreshmentsByBookingIdDetails() async {
+    try {
+      final BookingRefreshmentDetails data =
+          await bookingRefreshmentsByBookingIdResponse;
+      print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingRefreshmentsByBookingId = data.data!.map((item) {
+            return BookingRefreshmentData.fromJson(item.toJson());
+          }).toList();
+          print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          _selectedRefreshments = getListOfBookingRefreshmentsNames(
+              listOfBookingRefreshmentsByBookingId);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking departments by booking id data: $error');
+    }
+  }
+
+  Future<void> _fetchBookingAssetsByBookingIdDetails() async {
+    try {
+      final BookingAssetRequirementDetails data =
+          await bookingAssetRequirementsByBookingIdResponse;
+      print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingAssetRequirementsByBookingId = data.data!.map((item) {
+            return BookingAssetRequirementData.fromJson(item.toJson());
+          }).toList();
+          print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
+          _selectedAssets = getListOfBookingAssetRequirementNames(
+              listOfBookingAssetRequirementsByBookingId);
         }
       });
     } catch (error) {
@@ -195,6 +249,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
   }
 
   List<String> _selectedDepartments = [];
+  List<String> _selectedRefreshments = [];
+  List<String> _selectedAssets = [];
 
   void _showMultiSelectDepartments() async {
     List<String> departments = getDepartmentNames();
@@ -310,7 +366,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
             TextButton(
               child: Text('No'),
               onPressed: () {
-                Navigator.of(context).pop(); // Close the confirmation dialog
+                Navigator.of(dialogContext)
+                    .pop(); // Close the confirmation dialog
               },
             ),
           ],
@@ -514,6 +571,30 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return initialbookingDepartments;
   }
 
+  List<String> initialbookingRefreshments = [];
+  List<String> getListOfBookingRefreshmentsNames(
+      List<BookingRefreshmentData> list) {
+    print("${list} dhkdjkdasdas");
+    for (var bookingRefreshment in list) {
+      print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      initialbookingRefreshments
+          .add(getRefreshmentNameById(bookingRefreshment.refreshmentId!));
+    }
+    return initialbookingRefreshments;
+  }
+
+  List<String> initialbookingAssets = [];
+  List<String> getListOfBookingAssetRequirementNames(
+      List<BookingAssetRequirementData> list) {
+    print("${list} dhkdjkdasdas");
+    for (var bookingAsset in list) {
+      print('${bookingAsset.assetRequirementId} njxsxxZXZ');
+      initialbookingAssets
+          .add(getAssetNameById(bookingAsset.assetRequirementId!));
+    }
+    return initialbookingAssets;
+  }
+
   @override
   void initState() {
     _meetingTitleController = TextEditingController(
@@ -545,6 +626,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
     bookingDepartmentsByBookingIdResponse =
         getBookingDepartmentsByBookingId(widget.currentBookingData.bookingId!);
     _fetchBookingDepartmentsByBookingIdDetails();
+    bookingRefreshmentsByBookingIdResponse =
+        getBookingRefreshmentsByBookingId(widget.currentBookingData.bookingId!);
+    _fetchBookingRefreshmentsByBookingIdDetails();
+    bookingAssetRequirementsByBookingIdResponse =
+        getBookingAssetRequirementsByBookingId(
+            widget.currentBookingData.bookingId!);
+    _fetchBookingAssetsByBookingIdDetails();
 
     super.initState();
   }
@@ -651,7 +739,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(
-                                          right: screenWidth * 0.25),
+                                          right: screenWidth * 0.1),
                                       child: Text(
                                         '${widget.currentBookingData.bookingMeetingTitle}',
                                         style: TextStyle(
@@ -663,9 +751,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(
-                                      width: screenWidth * 0.18,
-                                    ),
+                                    // SizedBox(
+                                    //   width: screenWidth * 0.18,
+                                    // ),
                                     if (currentUserData!.id == widget.currentBookingData.userId &&
                                             currentBookingDate!
                                                 .isAfter(DateTime.now()) ||
@@ -881,14 +969,53 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   ),
                                   child: Column(
                                     children: [
+                                      // Align(
+                                      //   alignment: Alignment.center,
+                                      //   child: Image.asset(
+                                      //     "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
+                                      //     width: screenWidth * 0.24,
+                                      //     height: screenHeight * 0.1,
+                                      //   ),
+                                      // ),
                                       Align(
                                         alignment: Alignment.center,
-                                        child: Image.asset(
-                                          "assets/images/conference_hall_images/${widget.currentConferenceHallImageName}",
+                                        child: Image.network(
+                                          testBaseUrl +
+                                              "/uploads/conferences/" +
+                                              widget
+                                                  .currentConferenceHallImageName,
                                           width: screenWidth * 0.24,
-                                          height: screenHeight * 0.1,
+                                          height: screenHeight * 0.15,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            } else {
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          (loadingProgress
+                                                                  .expectedTotalBytes ??
+                                                              1)
+                                                      : null,
+                                                ),
+                                              );
+                                            }
+                                          },
+                                          errorBuilder: (BuildContext context,
+                                              Object error,
+                                              StackTrace? stackTrace) {
+                                            return Text('Error loading image');
+                                          },
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -1211,6 +1338,72 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${initialbookingDepartments.join(', ')}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                Text(
+                                  'Refreshments',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  '${initialbookingRefreshments.join(', ')}',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                Text(
+                                  'Assets Required',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  '${initialbookingAssets.join(', ')}',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,

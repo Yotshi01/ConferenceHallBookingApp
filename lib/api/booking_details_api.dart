@@ -77,6 +77,8 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
     "booking_end_time": toBeUpdatedBookingData.bookingEndTime,
     "booking_updated_at": toBeUpdatedBookingData.bookingUpdatedAt,
     "booking_reported_by": toBeUpdatedBookingData.bookingReportedBy,
+    "booking_number_of_attendees":
+        toBeUpdatedBookingData.bookingNumberOfAttendees.toString(),
   };
 
   var response = await http.post(urlUri,
@@ -111,6 +113,44 @@ Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
   // if (response
 
   return BookingDepartmentsResponse.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
+}
+
+Future<BookingRefreshmentDetails> getBookingRefreshmentsByBookingId(
+    int bookingId) async {
+  String url = testUrl + "get_booking_refreshments/${bookingId}";
+  print('${url} nknjjxczx');
+  Uri urlUri = Uri.parse(url);
+  // Map<String, String> requestBody = {
+  //   'mobile1': mobile,
+  //   'password': password,
+  // };
+  final response = await http.get(urlUri);
+  print("${response.body} nksdkjad");
+  // if (response
+
+  return BookingRefreshmentDetails.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
+}
+
+Future<BookingAssetRequirementDetails> getBookingAssetRequirementsByBookingId(
+    int bookingId) async {
+  String url = testUrl + "get_booking_asset_requirements/${bookingId}";
+  print('${url} nknjjxczx');
+  Uri urlUri = Uri.parse(url);
+  // Map<String, String> requestBody = {
+  //   'mobile1': mobile,
+  //   'password': password,
+  // };
+  final response = await http.get(urlUri);
+  print("${response.body} nksdkjad");
+  // if (response
+
+  return BookingAssetRequirementDetails.fromJson(json.decode(response.body));
   // } else {
   //   throw Exception('Failed to load Data');
   // }
@@ -241,5 +281,116 @@ Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
     return DeleteBookingDepartmentDetails.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to delete booking departments');
+  }
+}
+
+Future<DeleteBookingRefreshmentDetails> deleteBookingRefreshmentsByBookingId(
+    int bookingId) async {
+  String url = testUrl + "delete_booking_refreshments/${bookingId}";
+  Uri urlUri = Uri.parse(url);
+
+  var response = await http.delete(
+    urlUri,
+    // headers: {"Content-Type": "application/json"},
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return DeleteBookingRefreshmentDetails.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to delete booking refreshments');
+  }
+}
+
+Future<DeleteBookingAssetRequirementDetails>
+    deleteBookingAssetRequirementsByBookingId(int bookingId) async {
+  String url = testUrl + "delete_booking_asset_requirements/${bookingId}";
+  Uri urlUri = Uri.parse(url);
+
+  var response = await http.delete(
+    urlUri,
+    // headers: {"Content-Type": "application/json"},
+  );
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return DeleteBookingAssetRequirementDetails.fromJson(
+        json.decode(response.body));
+  } else {
+    throw Exception('Failed to delete booking asset requirements');
+  }
+}
+
+Future<BookingRefreshmentDetails> addBookingRefreshments(
+    List<String> refreshmentsToBeAdded, int bookingId) async {
+  String url = testUrl + "add_booking_refreshments";
+  Uri urlUri = Uri.parse(url);
+
+  // Create a list to store the JSON objects
+  List<Map<String, dynamic>> requestBodyList = [];
+
+  // Iterate through the department names and create JSON objects
+  for (String refreshmentName in refreshmentsToBeAdded) {
+    var returnValue = getRefreshmentIdByName(refreshmentName);
+    if (returnValue == 0) {
+      print(
+          "please check refreshment name as it doesnot exists in the database");
+    } else {
+      var requestBody = {
+        "booking_id": bookingId.toString(),
+        "refreshment_id": returnValue
+            .toString(), // Assuming departmentName can be used as department_id
+        "created_at": DateTime.now().toString(),
+      };
+      requestBodyList.add(requestBody);
+    }
+  }
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: jsonEncode(requestBodyList));
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return BookingRefreshmentDetails.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add booking refreshments');
+  }
+}
+
+Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
+    List<String> assetRequirementsToBeAdded, int bookingId) async {
+  String url = testUrl + "add_booking_asset_requirements";
+  Uri urlUri = Uri.parse(url);
+
+  // Create a list to store the JSON objects
+  List<Map<String, dynamic>> requestBodyList = [];
+
+  // Iterate through the department names and create JSON objects
+  for (String assetName in assetRequirementsToBeAdded) {
+    var returnValue = getAssetIdByName(assetName);
+    if (returnValue == 0) {
+      print(
+          "please check asset requirement name as it doesnot exists in the database");
+    } else {
+      var requestBody = {
+        "booking_id": bookingId.toString(),
+        "asset_requirement_id": returnValue
+            .toString(), // Assuming departmentName can be used as department_id
+        "created_at": DateTime.now().toString(),
+      };
+      requestBodyList.add(requestBody);
+    }
+  }
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: jsonEncode(requestBodyList));
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return BookingAssetRequirementDetails.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add booking asset requirement');
   }
 }

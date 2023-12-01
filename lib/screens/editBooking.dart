@@ -21,81 +21,6 @@ class EditBooking extends StatefulWidget {
   State<EditBooking> createState() => _EditBookingState();
 }
 
-class MultiSelectDepartmentsForEdit extends StatefulWidget {
-  final List<String> departments;
-  final List<String> initialSelectedDepartments; // New property
-  const MultiSelectDepartmentsForEdit(
-      {Key? key,
-      required this.departments,
-      required this.initialSelectedDepartments})
-      : super(key: key);
-
-  @override
-  State<MultiSelectDepartmentsForEdit> createState() =>
-      _MultiSelectDepartmentsForEditState();
-}
-
-class _MultiSelectDepartmentsForEditState
-    extends State<MultiSelectDepartmentsForEdit> {
-  // this variable holds the selected departments
-  late List<String> _selectedDepartments;
-
-  // This function is triggered when a checkbox is checked or unchecked
-  void _itemChange(String itemValue, bool isSelected) {
-    setState(() {
-      if (isSelected) {
-        _selectedDepartments.add(itemValue);
-      } else {
-        _selectedDepartments.remove(itemValue);
-      }
-    });
-  }
-
-  // This function is called when the cancel button is pressed
-  void _cancel() {
-    Navigator.pop(context);
-  }
-
-  // this function is called when the submit button is tapped
-  void _submit() {
-    Navigator.pop(context, _selectedDepartments);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDepartments = widget.initialSelectedDepartments;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Select Departments'),
-      content: SingleChildScrollView(
-          child: ListBody(
-        children: widget.departments
-            .map((department) => CheckboxListTile(
-                  value: _selectedDepartments.contains(department),
-                  title: Text(department),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  onChanged: (isChecked) => _itemChange(department, isChecked!),
-                ))
-            .toList(),
-      )),
-      actions: [
-        TextButton(
-          onPressed: _cancel,
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: _submit,
-          child: const Text('Submit'),
-        )
-      ],
-    );
-  }
-}
-
 class _EditBookingState extends State<EditBooking> {
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
@@ -110,10 +35,43 @@ class _EditBookingState extends State<EditBooking> {
   TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
 
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
+  late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
+  late Future<BookingAssetRequirementDetails>
+      bookingAssetRequirementsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
+  List<BookingRefreshmentData> listOfBookingRefreshmentsByBookingId = [];
+  List<BookingAssetRequirementData> listOfBookingAssetRequirementsByBookingId =
+      [];
   late List<String> _selectedDepartments;
+  late List<String> _selectedRefreshments;
+  late List<String> _selectedAssets;
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+
+  int selectedAttendees = 1;
+
+  Widget attendeeItems(BuildContext context) {
+    List<DropdownMenuItem<int>> _getAttendeeItems() {
+      List<DropdownMenuItem<int>> items = [];
+      for (int i = 1; i <= 250; i++) {
+        items.add(DropdownMenuItem(
+          value: i,
+          child: Text('$i'),
+        ));
+      }
+      return items;
+    }
+
+    return DropdownButton<int>(
+      value: selectedAttendees,
+      onChanged: (int? value) {
+        setState(() {
+          selectedAttendees = value!;
+        });
+      },
+      items: _getAttendeeItems(),
+    );
+  }
 
   String? selectedLocation;
   callBack(varSelectedLocation) {
@@ -158,6 +116,78 @@ class _EditBookingState extends State<EditBooking> {
     return initialbookingDepartments;
   }
 
+  Future<void> _fetchBookingRefreshmentsByBookingIdDetails() async {
+    try {
+      final BookingRefreshmentDetails data =
+          await bookingRefreshmentsByBookingIdResponse;
+      print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingRefreshmentsByBookingId = data.data!.map((item) {
+            return BookingRefreshmentData.fromJson(item.toJson());
+          }).toList();
+          print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          _selectedRefreshments = getListOfBookingRefreshmentsNames(
+              listOfBookingRefreshmentsByBookingId);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking departments by booking id data: $error');
+    }
+  }
+
+  List<String> initialbookingRefreshments = [];
+  List<String> getListOfBookingRefreshmentsNames(
+      List<BookingRefreshmentData> list) {
+    print("${list} dhkdjkdasdas");
+    for (var bookingRefreshment in list) {
+      print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      initialbookingRefreshments
+          .add(getRefreshmentNameById(bookingRefreshment.refreshmentId!));
+    }
+    return initialbookingRefreshments;
+  }
+
+  Future<void> _fetchBookingAssetsByBookingIdDetails() async {
+    try {
+      final BookingAssetRequirementDetails data =
+          await bookingAssetRequirementsByBookingIdResponse;
+      print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingAssetRequirementsByBookingId = data.data!.map((item) {
+            return BookingAssetRequirementData.fromJson(item.toJson());
+          }).toList();
+          print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
+          _selectedAssets = getListOfBookingAssetRequirementNames(
+              listOfBookingAssetRequirementsByBookingId);
+        }
+      });
+    } catch (error) {
+      print('Error fetching booking departments by booking id data: $error');
+    }
+  }
+
+  List<String> initialbookingAssets = [];
+  List<String> getListOfBookingAssetRequirementNames(
+      List<BookingAssetRequirementData> list) {
+    print("${list} dhkdjkdasdas");
+    for (var bookingAsset in list) {
+      print('${bookingAsset.assetRequirementId} njxsxxZXZ');
+      initialbookingAssets
+          .add(getAssetNameById(bookingAsset.assetRequirementId!));
+    }
+    return initialbookingAssets;
+  }
+
   // @override
   // void initState() {
   //   super.initState();
@@ -196,11 +226,22 @@ class _EditBookingState extends State<EditBooking> {
     bookingDepartmentsByBookingIdResponse =
         getBookingDepartmentsByBookingId(widget.currentBookingData.bookingId!);
     _fetchBookingDepartmentsByBookingIdDetails();
+    bookingRefreshmentsByBookingIdResponse =
+        getBookingRefreshmentsByBookingId(widget.currentBookingData.bookingId!);
+    _fetchBookingRefreshmentsByBookingIdDetails();
+    bookingAssetRequirementsByBookingIdResponse =
+        getBookingAssetRequirementsByBookingId(
+            widget.currentBookingData.bookingId!);
+    _fetchBookingAssetsByBookingIdDetails();
 
     toBeUpdatedBookingData.bookingReportedBy =
         widget.currentBookingData.bookingReportedBy;
 
+    selectedAttendees = widget.currentBookingData.bookingNumberOfAttendees!;
+
     _selectedDepartments = [];
+    _selectedRefreshments = [];
+    _selectedAssets = [];
   }
 
   Future<TimeOfDay?> _selectedTime(BuildContext context) {
@@ -232,6 +273,41 @@ class _EditBookingState extends State<EditBooking> {
     if (results != null) {
       setState(() {
         _selectedDepartments = results;
+      });
+    }
+  }
+
+  void _showMultiSelectRefreshments() async {
+    List<String> refreshments = getRefreshmentNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectRefreshmentsForEdit(
+              refreshments: refreshments,
+              initialSelectedRefreshments: _selectedRefreshments);
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedRefreshments = results;
+      });
+    }
+  }
+
+  void _showMultiSelectAssetRequirements() async {
+    List<String> assets = getAssetNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectAssetRequirementsForEdit(
+              assets: assets, initialSelectedAssets: _selectedAssets);
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedAssets = results;
       });
     }
   }
@@ -312,6 +388,8 @@ class _EditBookingState extends State<EditBooking> {
                       _meetingReportedByController.text;
                   toBeUpdatedBookingData.bookingUpdatedAt =
                       DateTime.now().toString();
+                  toBeUpdatedBookingData.bookingNumberOfAttendees =
+                      selectedAttendees;
                 });
 
                 var response = await updateBooking(toBeUpdatedBookingData);
@@ -323,11 +401,32 @@ class _EditBookingState extends State<EditBooking> {
                 var bookingDepartmentsResponse = await addBookingDepartments(
                     _selectedDepartments, widget.currentBookingData.bookingId!);
 
+                var deleteBookingRefreshmentsResponse =
+                    await deleteBookingRefreshmentsByBookingId(
+                        widget.currentBookingData.bookingId!);
+
+                var bookingRefreshmentsResponse = await addBookingRefreshments(
+                    _selectedRefreshments,
+                    widget.currentBookingData.bookingId!);
+
+                var deleteBookingAssetRequirementsResponse =
+                    await deleteBookingAssetRequirementsByBookingId(
+                        widget.currentBookingData.bookingId!);
+
+                var bookingAssetRequirementsResponse =
+                    await addBookingAssetRequirement(
+                        _selectedAssets, widget.currentBookingData.bookingId!);
+
                 Navigator.of(dialogContext).pop(); // Close the dialog
 
                 if (response.status == 'success' &&
                     deleteBookingDepartmentsResponse.status == 'success' &&
-                    bookingDepartmentsResponse.status == 'success') {
+                    bookingDepartmentsResponse.status == 'success' &&
+                    deleteBookingRefreshmentsResponse.status == 'success' &&
+                    bookingRefreshmentsResponse.status == 'success' &&
+                    deleteBookingAssetRequirementsResponse.status ==
+                        'success' &&
+                    bookingAssetRequirementsResponse.status == 'success') {
                   // await Future.delayed(
                   //     Duration(milliseconds: 300)); // Add a delay if needed
 
@@ -472,14 +571,49 @@ class _EditBookingState extends State<EditBooking> {
                           SizedBox(
                             height: 20,
                           ),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: Image.asset(
+                          //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+                          //     width: screenWidth * 0.24,
+                          //     height: screenHeight * 0.15,
+                          //   ),
+                          // ),
                           Align(
                             alignment: Alignment.center,
-                            child: Image.asset(
-                              "assets/images/conference_hall_images/${conferenceHallImageName}",
+                            child: Image.network(
+                              testBaseUrl +
+                                  "/uploads/conferences/" +
+                                  conferenceHallImageName,
                               width: screenWidth * 0.24,
                               height: screenHeight * 0.15,
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                } else {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                    ),
+                                  );
+                                }
+                              },
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return Text('Error loading image');
+                              },
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -1380,6 +1514,26 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                       ),
                     ),
+
+                    Row(
+                      children: [
+                        Text(
+                          'Number of Attendees',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        attendeeItems(context),
+                      ],
+                    ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -1426,6 +1580,72 @@ class _EditBookingState extends State<EditBooking> {
 
                     Wrap(
                       children: _selectedDepartments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectRefreshments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Select Refreshments'),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Wrap(
+                      children: _selectedRefreshments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectAssetRequirements,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[100],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(fontSize: 18),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Select Assets'),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Wrap(
+                      children: _selectedAssets
                           .map((e) => Chip(
                                 label: Text(e),
                               ))
@@ -1546,6 +1766,231 @@ class _EditBookingState extends State<EditBooking> {
               ],
             )),
       ),
+    );
+  }
+}
+
+class MultiSelectDepartmentsForEdit extends StatefulWidget {
+  final List<String> departments;
+  final List<String> initialSelectedDepartments; // New property
+  const MultiSelectDepartmentsForEdit(
+      {Key? key,
+      required this.departments,
+      required this.initialSelectedDepartments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectDepartmentsForEdit> createState() =>
+      _MultiSelectDepartmentsForEditState();
+}
+
+class _MultiSelectDepartmentsForEditState
+    extends State<MultiSelectDepartmentsForEdit> {
+  // this variable holds the selected departments
+  late List<String> _selectedDepartments;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedDepartments.add(itemValue);
+      } else {
+        _selectedDepartments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedDepartments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedDepartments = widget.initialSelectedDepartments;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Departments'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.departments
+            .map((department) => CheckboxListTile(
+                  value: _selectedDepartments.contains(department),
+                  title: Text(department),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) => _itemChange(department, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectRefreshmentsForEdit extends StatefulWidget {
+  final List<String> refreshments;
+  final List<String> initialSelectedRefreshments; // New property
+  const MultiSelectRefreshmentsForEdit(
+      {Key? key,
+      required this.refreshments,
+      required this.initialSelectedRefreshments})
+      : super(key: key);
+
+  @override
+  State<MultiSelectRefreshmentsForEdit> createState() =>
+      _MultiSelectRefreshmentsForEditState();
+}
+
+class _MultiSelectRefreshmentsForEditState
+    extends State<MultiSelectRefreshmentsForEdit> {
+  // this variable holds the selected departments
+  late List<String> _selectedRefreshments;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedRefreshments.add(itemValue);
+      } else {
+        _selectedRefreshments.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedRefreshments);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedRefreshments = widget.initialSelectedRefreshments;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Refreshments'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.refreshments
+            .map((refreshment) => CheckboxListTile(
+                  value: _selectedRefreshments.contains(refreshment),
+                  title: Text(refreshment),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) =>
+                      _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectAssetRequirementsForEdit extends StatefulWidget {
+  final List<String> assets;
+  final List<String> initialSelectedAssets; // New property
+  const MultiSelectAssetRequirementsForEdit(
+      {Key? key, required this.assets, required this.initialSelectedAssets})
+      : super(key: key);
+
+  @override
+  State<MultiSelectAssetRequirementsForEdit> createState() =>
+      _MultiSelectAssetRequirementsForEditState();
+}
+
+class _MultiSelectAssetRequirementsForEditState
+    extends State<MultiSelectAssetRequirementsForEdit> {
+  // this variable holds the selected departments
+  late List<String> _selectedAssets;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedAssets.add(itemValue);
+      } else {
+        _selectedAssets.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedAssets);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedAssets = widget.initialSelectedAssets;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Assets'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.assets
+            .map((refreshment) => CheckboxListTile(
+                  value: _selectedAssets.contains(refreshment),
+                  title: Text(refreshment),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) =>
+                      _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
     );
   }
 }

@@ -122,15 +122,53 @@ class _OtherConferencesState extends State<OtherConferences> {
                                 thickness:
                                     1, // Set the thickness of the divider line
                               ),
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(
+                              //     vertical: screenHeight * 0.02,
+                              //     horizontal: screenWidth * 0.01,
+                              //   ),
+                              //   child: Image.asset(
+                              //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+                              //     width: screenWidth * 0.3,
+                              //     height: screenHeight * 0.1,
+                              //   ),
+                              // ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: screenHeight * 0.02,
-                                  horizontal: screenWidth * 0.01,
+                                  vertical: screenHeight * 0,
+                                  horizontal: screenWidth * 0,
                                 ),
-                                child: Image.asset(
-                                  "assets/images/conference_hall_images/${conferenceHallImageName}",
-                                  width: screenWidth * 0.3,
-                                  height: screenHeight * 0.1,
+                                child: Image.network(
+                                  testBaseUrl +
+                                      "/uploads/conferences/" +
+                                      conferenceHallImageName,
+                                  width: screenWidth * 0.24,
+                                  height: screenHeight * 0.15,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    return Text('Error loading image');
+                                  },
                                 ),
                               ),
                               // ElevatedButton(

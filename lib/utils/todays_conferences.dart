@@ -89,9 +89,9 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   if (currentUserData!.id == bookingData.userId)
                                     Row(
                                       children: [
-                                        SizedBox(
-                                          width: screenWidth * 0.242,
-                                        ),
+                                        // SizedBox(
+                                        //   width: screenWidth * 0.242,
+                                        // ),
                                         PopupMenuButton<String>(
                                           itemBuilder: (BuildContext context) =>
                                               <PopupMenuEntry<String>>[
@@ -249,15 +249,54 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                               //   ],
                               // ),
                               //'${bookingData.bookingDate} |
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(
+                              //     vertical: screenHeight * 0.015,
+                              //     horizontal: screenWidth * 0.009,
+                              //   ),
+                              //   child: Image.asset(
+                              //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+                              //     width: screenWidth * 0.3,
+                              //     height: screenHeight * 0.1,
+                              //   ),
+                              // ),
+
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                  vertical: screenHeight * 0.015,
-                                  horizontal: screenWidth * 0.009,
+                                  vertical: screenHeight * 0,
+                                  horizontal: screenWidth * 0,
                                 ),
-                                child: Image.asset(
-                                  "assets/images/conference_hall_images/${conferenceHallImageName}",
-                                  width: screenWidth * 0.3,
-                                  height: screenHeight * 0.1,
+                                child: Image.network(
+                                  testBaseUrl +
+                                      "/uploads/conferences/" +
+                                      conferenceHallImageName,
+                                  width: screenWidth * 0.24,
+                                  height: screenHeight * 0.15,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                        ),
+                                      );
+                                    }
+                                  },
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    return Text('Error loading image');
+                                  },
                                 ),
                               ),
 
@@ -375,37 +414,38 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   // SizedBox(
                                   //     width:
                                   //         8), // Add some spacing between the icon and text
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 0,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            SizedBox(
-                                              width: screenWidth * 0.02,
+                                  Expanded(
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 0,
                                             ),
-                                            Icon(
-                                              Icons
-                                                  .av_timer, // Replace with the icon you want
-                                              color: Color(0xFF696767),
-                                              //     0xFF696767), // Set the color of the icon
-                                              size:
-                                                  20, // Set the size of the icon
+                                            child: Row(
+                                              children: [
+                                                SizedBox(
+                                                  width: screenWidth * 0.02,
+                                                ),
+                                                Icon(
+                                                  Icons
+                                                      .av_timer, // Replace with the icon you want
+                                                  color: Color(0xFF696767),
+                                                  //     0xFF696767), // Set the color of the icon
+                                                  size:
+                                                      20, // Set the size of the icon
+                                                ),
+                                                Text(
+                                                  '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
+                                                  style: TextStyle(
+                                                    color: Color(0xFF696767),
+                                                    fontSize: 12,
+                                                    fontFamily: 'Noto Sans',
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                            Text(
-                                              '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                              style: TextStyle(
-                                                color: Color(0xFF696767),
-                                                fontSize: 12,
-                                                fontFamily: 'Noto Sans',
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ))
+                                          ))),
                                 ],
                               ),
                               Row(
@@ -419,15 +459,13 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                         0xFF696767), // Set the color of the icon
                                     size: 20,
                                   ),
-                                  Expanded(
-                                    child: Text(
-                                      conferenceHallName,
-                                      style: TextStyle(
-                                        color: Color(0xFF696767),
-                                        fontSize: 12.1,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                  Text(
+                                    conferenceHallName,
+                                    style: TextStyle(
+                                      color: Color(0xFF696767),
+                                      fontSize: 12.1,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],

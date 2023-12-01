@@ -30,8 +30,8 @@ class RefreshmentsAvailableDetails {
 class RefreshmentsAvailableData {
   int? refreshmentId;
   String? refreshmentName;
-  Null? refreshmentCreatedAt;
-  Null? refreshmentUpdatedBy;
+  String? refreshmentCreatedAt;
+  String? refreshmentUpdatedBy;
 
   RefreshmentsAvailableData(
       {this.refreshmentId,
