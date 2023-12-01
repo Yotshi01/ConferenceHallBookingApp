@@ -9,20 +9,51 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+  Future<void> _fetchReschedulingRequestDetails() async {
+    try {
+      final ReschedulingRequestResponse data =
+          await reschedulingRequestResponse;
+      if (data.data != null) {
+        // accessing the 'data'(in key value pair, 'data' is a key in api response
+        // and has some value) of the api response and storing the value in global
+        // variable listOfBookings(defined in constants.dart file) after convering
+        // it in list format. .toList() function is used to convert the data in list
+        // format.
+        listOfReschedulingRequestsResponse = data.data!.map((item) {
+          return ReschedulingRequestResponseData.fromJson(item.toJson());
+        }).toList();
+        // listOfReschedulingRequests = [
+        //   ReschedulingRequestData.fromJson(data.data!.toJson())
+        // ];
+      }
+    } catch (error) {
+      print('Error fetching rescheduling request list data: $error');
+    }
+  }
+
+  @override
+  void initState() {
+    reschedulingRequestResponse =
+        getReschedulingRequestsByCurrentUserId(currentUserData!.id!);
+    _fetchReschedulingRequestDetails;
+    // listOfMyMeetings = myMeetings();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(0.21, -0.98),
-              end: Alignment(-0.21, 0.98),
-              colors: [Colors.white, Color(0x00DBCC95)],
-            ),
-          ),
-        ),
+        // flexibleSpace: Container(
+        //   decoration: BoxDecoration(
+        //     gradient: LinearGradient(
+        //       begin: Alignment(0.21, -0.98),
+        //       end: Alignment(-0.21, 0.98),
+        //       colors: [Colors.white, Color(0x00DBCC95)],
+        //     ),
+        //   ),
+        // ),
         centerTitle: true,
         title: Text(
           'Notification',

@@ -13,13 +13,13 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
   final String notificationTimeAgo =
       '5 min ago'; // Replace with notification timestamp
   final List<Map<String, dynamic>> _notifications = [
+    {"id": 7, "type": "postpone_request", "notification": "notification7"},
     {"id": 1, "type": "normal", "notification": "notification1"},
     {"id": 2, "type": "normal", "notification": "notification2"},
     {"id": 3, "type": "normal", "notification": "notification3"},
     {"id": 4, "type": "normal", "notification": "notification4"},
     {"id": 5, "type": "normal", "notification": "notification5"},
     {"id": 6, "type": "normal", "notification": "notification6"},
-    {"id": 7, "type": "postpone_request", "notification": "notification7"},
   ];
 
   @override
@@ -30,19 +30,159 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
             scrollDirection: Axis.vertical,
             itemCount: _notifications.length,
             itemBuilder: (context, index) {
-              final data = _notifications[index];
-              final notificationType = data['type'];
+              // final data = _notifications[index];
+              // final notificationType = data['type'];
 
-              switch (notificationType) {
-                case 'normal':
-                  return _buildNormalNotification(data);
-                case 'postpone_request':
-                  return _buildPostponeRequestNotification(data);
-                // Add more cases for different types...
-                default:
-                  return Container(); // Default case or handle unknown type
-              }
+              // switch (notificationType) {
+              //   case 'postpone_request':
+              //     return _buildPostponeRequestNotification(data);
+
+              //   case 'normal':
+              //     return _buildNormalNotification(data);
+
+              //   // Add more cases for different types...
+              //   default:
+              //     return Container(); // Default case or handle unknown type
+              // }
+
+              final data = listOfReschedulingRequestsResponse[index];
+
+              return _buildPostponeRequestNotification(data);
             }));
+  }
+
+  Widget _buildPostponeRequestNotification(
+      ReschedulingRequestResponseData data) {
+    return Padding(
+        padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
+            screenWidth * 0.027, screenHeight * 0.01),
+        child: (currentUserData!.id == data.requestBookingUserId)
+            ? Card(
+                elevation: 4.0,
+                child: ExpansionTile(
+                  title: ListTile(
+                    contentPadding: EdgeInsets.all(8.0),
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.black26,
+                      radius: 30,
+                      child: Text(
+                        'S',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      ),
+                    ),
+                    title: Text(
+                      "${data.requestRequesterId}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    // subtitle: Text(
+                    //   'Sent $notificationTimeAgo',
+                    //   style: TextStyle(
+                    //     color: Colors.grey,
+                    //   ),
+                    // ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(
+                          //   'Request notification from 10:00 AM to 11:00 AM',
+                          //   style: TextStyle(
+                          //     fontSize: 16.0,
+                          //   ),
+                          // ),
+                          SizedBox(height: 20.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add functionality for accept button
+                                },
+                                child: Text('Reschedule Meeting'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add functionality for reject button
+                                },
+                                child: Text('Reject Request'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            : Card(
+                elevation: 4.0,
+                child: ExpansionTile(
+                  title: ListTile(
+                    contentPadding: EdgeInsets.all(8.0),
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.black26,
+                      radius: 30,
+                      child: Text(
+                        'S',
+                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      ),
+                    ),
+                    title: Text(
+                      "${data.requestRequesterId}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    // subtitle: Text(
+                    //   'Sent $notificationTimeAgo',
+                    //   style: TextStyle(
+                    //     color: Colors.grey,
+                    //   ),
+                    // ),
+                  ),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Text(
+                          //   'Request notification from 10:00 AM to 11:00 AM',
+                          //   style: TextStyle(
+                          //     fontSize: 16.0,
+                          //   ),
+                          // ),
+                          SizedBox(height: 20.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add functionality for accept button
+                                },
+                                child: Text('Reschedule Meeting'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Add functionality for reject button
+                                },
+                                child: Text('Reject Request'),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ));
   }
 
   Widget _buildNormalNotification(Map<String, dynamic> data) {
@@ -183,77 +323,6 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                 ],
               ),
             )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPostponeRequestNotification(Map<String, dynamic> data) {
-    // Customize the appearance for type2 notifications
-    return Padding(
-      padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
-          screenWidth * 0.027, screenHeight * 0.01),
-      child: Card(
-        elevation: 4.0,
-        child: ExpansionTile(
-          title: ListTile(
-            contentPadding: EdgeInsets.all(8.0),
-            leading: CircleAvatar(
-              backgroundColor: Colors.black26,
-              radius: 30,
-              child: Text(
-                'S',
-                style: TextStyle(fontSize: 25, color: Colors.white),
-              ),
-            ),
-            title: Text(
-              userName,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),
-            ),
-            subtitle: Text(
-              'Sent $notificationTimeAgo',
-              style: TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-          ),
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Request notification from 10:00 AM to 11:00 AM',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          // Add functionality for accept button
-                        },
-                        child: Text('Accept'),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          // Add functionality for reject button
-                        },
-                        child: Text('Deny'),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

@@ -91,7 +91,7 @@ AppBar reusableAppBar(
     String pageName, BuildContext context, bool hasNotification) {
   return AppBar(
     elevation: 5,
-    flexibleSpace: Container(),
+    // flexibleSpace: Container(),
     centerTitle: true,
     title: Text(
       pageName,

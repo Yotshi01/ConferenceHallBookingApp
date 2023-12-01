@@ -28,50 +28,50 @@ class BlackoutDaysDetails {
 }
 
 class BlackoutDaysData {
-  int? prebookingId;
-  String? prebookingTitle;
-  String? prebookingDate;
-  int? prebookingLocationId;
-  String? prebookingCreatedAt;
-  String? prebookingUpdatedAt;
-  int? prebookingCreatedById;
-  int? prebookingUpdatedById;
-  int? prebookingStatus;
+  int? blackoutDateId;
+  String? blackoutDateTitle;
+  String? blackoutDateDate;
+  int? blackoutDateLocationId;
+  String? blackoutDateCreatedAt;
+  String? blackoutDateUpdatedAt;
+  int? blackoutDateCreatedById;
+  int? blackoutDateUpdatedById;
+  int? blackoutDateStatus;
 
   BlackoutDaysData(
-      {this.prebookingId,
-      this.prebookingTitle,
-      this.prebookingDate,
-      this.prebookingLocationId,
-      this.prebookingCreatedAt,
-      this.prebookingUpdatedAt,
-      this.prebookingCreatedById,
-      this.prebookingUpdatedById,
-      this.prebookingStatus});
+      {this.blackoutDateId,
+      this.blackoutDateTitle,
+      this.blackoutDateDate,
+      this.blackoutDateLocationId,
+      this.blackoutDateCreatedAt,
+      this.blackoutDateUpdatedAt,
+      this.blackoutDateCreatedById,
+      this.blackoutDateUpdatedById,
+      this.blackoutDateStatus});
 
   BlackoutDaysData.fromJson(Map<String, dynamic> json) {
-    prebookingId = json['prebooking_id'];
-    prebookingTitle = json['prebooking_title'];
-    prebookingDate = json['prebooking_date'];
-    prebookingLocationId = json['prebooking_location_id'];
-    prebookingCreatedAt = json['prebooking_created_at'];
-    prebookingUpdatedAt = json['prebooking_updated_at'];
-    prebookingCreatedById = json['prebooking_created_by_id'];
-    prebookingUpdatedById = json['prebooking_updated_by_id'];
-    prebookingStatus = json['prebooking_status'];
+    blackoutDateId = json['blackout_date_id'];
+    blackoutDateTitle = json['blackout_date_title'];
+    blackoutDateDate = json['blackout_date_date'];
+    blackoutDateLocationId = json['blackout_date_location_id'];
+    blackoutDateCreatedAt = json['blackout_date_created_at'];
+    blackoutDateUpdatedAt = json['blackout_date_updated_at'];
+    blackoutDateCreatedById = json['blackout_date_created_by_id'];
+    blackoutDateUpdatedById = json['blackout_date_updated_by_id'];
+    blackoutDateStatus = json['blackout_date_status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['prebooking_id'] = this.prebookingId;
-    data['prebooking_title'] = this.prebookingTitle;
-    data['prebooking_date'] = this.prebookingDate;
-    data['prebooking_location_id'] = this.prebookingLocationId;
-    data['prebooking_created_at'] = this.prebookingCreatedAt;
-    data['prebooking_updated_at'] = this.prebookingUpdatedAt;
-    data['prebooking_created_by_id'] = this.prebookingCreatedById;
-    data['prebooking_updated_by_id'] = this.prebookingUpdatedById;
-    data['prebooking_status'] = this.prebookingStatus;
+    data['blackout_date_id'] = this.blackoutDateId;
+    data['blackout_date_title'] = this.blackoutDateTitle;
+    data['blackout_date_date'] = this.blackoutDateDate;
+    data['blackout_date_location_id'] = this.blackoutDateLocationId;
+    data['blackout_date_created_at'] = this.blackoutDateCreatedAt;
+    data['blackout_date_updated_at'] = this.blackoutDateUpdatedAt;
+    data['blackout_date_created_by_id'] = this.blackoutDateCreatedById;
+    data['blackout_date_updated_by_id'] = this.blackoutDateUpdatedById;
+    data['blackout_date_status'] = this.blackoutDateStatus;
     return data;
   }
 }

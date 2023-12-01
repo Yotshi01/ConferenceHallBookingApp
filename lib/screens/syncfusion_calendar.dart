@@ -295,9 +295,9 @@ class _SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
     for (final blackoutDaysDetails in listOfBlackoutDays) {
       DateTime? blackoutDay =
-          DateTime.tryParse(blackoutDaysDetails.prebookingDate!);
+          DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
       specifiedBlackoutDates.add(blackoutDay!);
-      print('${blackoutDay} ${blackoutDaysDetails.prebookingDate!}');
+      print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
     }
 
     // final List<DateTime> specifiedDates = [

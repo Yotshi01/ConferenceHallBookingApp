@@ -91,6 +91,8 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                 toBeAddedReschedulingRequestData.requestStatus = 'Pending';
                 toBeAddedReschedulingRequestData.requestBookingId =
                     widget.bookingId;
+                toBeAddedReschedulingRequestData.bookingRequestCreatedAt =
+                    DateTime.now().toString();
 
                 // var response = await addReschedulingRequest(
                 //     toBeAddedReschedulingRequestData);

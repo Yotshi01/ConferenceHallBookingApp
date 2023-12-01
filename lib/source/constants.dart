@@ -47,6 +47,7 @@ late Future<BlackoutDaysDetails> blackoutDaysDetailsResponse;
 late Future<AssetRequirementsAvailableDetails>
     assetRequirementsAvailableDetailsResponse;
 late Future<RefreshmentsAvailableDetails> refreshmentsAvailableDetailsResponse;
+late Future<ReschedulingRequestResponse> reschedulingRequestResponse;
 
 // late Future<CurrentUserData> currentUserDataResponse;
 bool isSearched = false;
@@ -57,6 +58,7 @@ List<BookingData> listOfFoundBookingFromTodayMeetings = [];
 List<BookingData> listOfFoundBookingsFromOtherMeetings = [];
 List<HolidayData> listOfHolidays = [];
 List<BlackoutDaysData> listOfBlackoutDays = [];
+List<ReschedulingRequestResponseData> listOfReschedulingRequestsResponse = [];
 BookingData toBeUpdatedBookingData = BookingData();
 BookingData toBeAddedBookingData = BookingData();
 CurrentUserData toBeEditedProfileData = CurrentUserData();

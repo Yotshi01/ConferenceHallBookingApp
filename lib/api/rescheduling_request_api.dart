@@ -18,6 +18,8 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
     "request_reason":
         toBeAddedReschedulingRequestData?.requestReason?.toString() ?? '',
     "request_status": toBeAddedReschedulingRequestData?.requestStatus ?? '',
+    "booking_request_created_at":
+        toBeAddedReschedulingRequestData?.bookingRequestCreatedAt ?? '',
   };
 
   var response = await http.post(urlUri,
@@ -30,4 +32,24 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
   } else {
     throw Exception('Failed to request');
   }
+}
+
+Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
+    int currentUserId) async {
+  String url =
+      testUrl + "get_reschedule_request_by_current_user_id/${currentUserId}";
+  print('${url} nknjjxczx');
+  Uri urlUri = Uri.parse(url);
+  // Map<String, String> requestBody = {
+  //   'mobile1': mobile,
+  //   'password': password,
+  // };
+  final response = await http.get(urlUri);
+  print("${response.body} nksdkjad");
+  // if (response
+
+  return ReschedulingRequestResponse.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
 }
