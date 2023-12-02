@@ -419,6 +419,7 @@ class _MyConferencesState extends State<MyConferences> {
                                       ))
                                 ],
                               ),
+
                               Row(
                                 children: [
                                   SizedBox(

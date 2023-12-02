@@ -53,3 +53,25 @@ Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
   //   throw Exception('Failed to load Data');
   // }
 }
+
+Future<RequestResponseResponse> responseToReschedulingRequest(
+    int id, String status) async {
+  String url = testUrl + "response_to_rescheduling_request";
+  Uri urlUri = Uri.parse(url);
+  var requestBody = {
+    "request_id": id.toString(),
+    "request_status": status,
+  };
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: requestBody);
+  print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return RequestResponseResponse.fromJson(json.decode(response.body));
+  } else {
+    throw Exception(
+        'Failed to make a response to rescheduling request details');
+  }
+}

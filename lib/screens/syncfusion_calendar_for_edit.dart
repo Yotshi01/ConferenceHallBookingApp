@@ -4,10 +4,14 @@ import 'package:intl/intl.dart';
 
 class SyncfusionCalendarForEdit extends StatefulWidget {
   final BookingData currentBookingData;
-  const SyncfusionCalendarForEdit({
-    Key? key,
-    required this.currentBookingData,
-  }) : super(key: key);
+  final bool? requestedEdit;
+  final ReschedulingRequestResponseData? data;
+  const SyncfusionCalendarForEdit(
+      {Key? key,
+      required this.currentBookingData,
+      this.requestedEdit,
+      this.data})
+      : super(key: key);
 
   @override
   State<SyncfusionCalendarForEdit> createState() =>
@@ -804,6 +808,9 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                                                   selectedConferenceHall!,
                                               currentBookingData:
                                                   widget.currentBookingData,
+                                              requestedEdit:
+                                                  widget.requestedEdit,
+                                              data: widget.data,
                                             )),
                                   );
 

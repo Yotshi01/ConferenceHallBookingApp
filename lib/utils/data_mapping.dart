@@ -408,3 +408,22 @@ String getAssetNameById(int assetId) {
   }
   return '';
 }
+
+String getUserNameById(int id) {
+  for (var user in listOfUsers) {
+    if (user.id == id) {
+      return user.name!;
+    }
+  }
+  return '';
+}
+
+BookingData getBookingByBookingId(int id) {
+  BookingData foundBooking = BookingData();
+  for (var booking in listOfBookings) {
+    if (booking.bookingId == id) {
+      foundBooking = booking;
+    }
+  }
+  return foundBooking;
+}

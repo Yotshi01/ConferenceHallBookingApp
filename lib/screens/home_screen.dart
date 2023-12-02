@@ -167,6 +167,51 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _fetchReschedulingRequestResponses() async {
+    try {
+      final ReschedulingRequestResponse data =
+          await reschedulingRequestResponse;
+      if (data.data != null) {
+        // accessing the 'data'(in key value pair, 'data' is a key in api response
+        // and has some value) of the api response and storing the value in global
+        // variable listOfBookings(defined in constants.dart file) after convering
+        // it in list format. .toList() function is used to convert the data in list
+        // format.
+        listOfReschedulingRequestsResponse = data.data!.map((item) {
+          return ReschedulingRequestResponseData.fromJson(item.toJson());
+        }).toList();
+        print('${listOfReschedulingRequestsResponse}ssxmnsc');
+        // listOfReschedulingRequests = [
+        //   ReschedulingRequestData.fromJson(data.data!.toJson())
+        // ];
+      }
+    } catch (error) {
+      print('Error fetching rescheduling request list data: $error');
+    }
+  }
+
+  Future<void> _fetchUsers() async {
+    try {
+      final UsersApiResponse data = await usersApiResponse;
+      if (data.data != null) {
+        // accessing the 'data'(in key value pair, 'data' is a key in api response
+        // and has some value) of the api response and storing the value in global
+        // variable listOfBookings(defined in constants.dart file) after convering
+        // it in list format. .toList() function is used to convert the data in list
+        // format.
+        listOfUsers = data.data!.map((item) {
+          return UsersData.fromJson(item.toJson());
+        }).toList();
+        print('${listOfUsers}ssxmnsc');
+        // listOfReschedulingRequests = [
+        //   ReschedulingRequestData.fromJson(data.data!.toJson())
+        // ];
+      }
+    } catch (error) {
+      print('Error fetching users list data: $error');
+    }
+  }
+
   // all the api calling functions are called here in this initState
   // function so that the process of fetching required data as response
   // is done at the very start of this file being executed so that all the
@@ -193,12 +238,18 @@ class HomeScreenState extends State<HomeScreen> {
     departmentDetailsResponse = getDepartmentDetails();
     assetRequirementsAvailableDetailsResponse = getAssetRequirementsAvailable();
     refreshmentsAvailableDetailsResponse = getRefreshmentsAvailableDetails();
+    reschedulingRequestResponse =
+        getReschedulingRequestsByCurrentUserId(currentUserData!.id!);
+    usersApiResponse = getUsers();
     await _fetchBookingDetails();
     await _fetchConferenceHallDetails();
     await _fetchLocationDetails();
     await _fetchDepartmentDetails();
     await _assetRequirementsAvailableDetails();
     await _refreshmentsAvailableDetails();
+    await _fetchReschedulingRequestResponses();
+    await _fetchUsers();
+
     setState(() {
       listOfMyMeetings = myMeetings();
       listOfTodayMeetings = todayMeetings();

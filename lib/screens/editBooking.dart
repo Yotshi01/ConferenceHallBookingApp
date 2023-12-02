@@ -8,13 +8,17 @@ class EditBooking extends StatefulWidget {
   final String selectedLocation;
   final String selectedConferenceHall;
   final BookingData currentBookingData;
+  final bool? requestedEdit;
+  final ReschedulingRequestResponseData? data;
   const EditBooking(
       {Key? key,
       required this.selectedStartTime,
       required this.selectedEndTime,
       required this.selectedLocation,
       required this.selectedConferenceHall,
-      required this.currentBookingData})
+      required this.currentBookingData,
+      this.requestedEdit,
+      this.data})
       : super(key: key);
 
   @override
@@ -437,6 +441,30 @@ class _EditBookingState extends State<EditBooking> {
                   // ));
 
                   // Check if the state is not null and call the function
+                  if (widget.requestedEdit == true) {
+                    var response = await responseToReschedulingRequest(
+                        widget.data!.requestId!, 'Accepted');
+                    if (response.status == 'success') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.grey,
+                          content: Text("Rescheduling Request Accepted"),
+                        ),
+                      );
+                      // if (homeScreenState != null) {
+                      //   homeScreenState!.loadData();
+                      // }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.grey,
+                          content:
+                              Text("Failed to rejected rescheduling Request"),
+                        ),
+                      );
+                    }
+                  }
+
                   if (homeScreenState != null) {
                     homeScreenState!.loadData();
                   }

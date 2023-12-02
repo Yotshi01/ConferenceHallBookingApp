@@ -7,12 +7,16 @@ class DetailsScreen extends StatefulWidget {
   final String currentConferenceRoomName;
   final String currentLocationName;
   final String currentConferenceHallImageName;
+  final bool? requestedEdit;
+  final ReschedulingRequestResponseData? data;
   const DetailsScreen(
       {Key? key,
       required this.currentBookingData,
       required this.currentConferenceRoomName,
       required this.currentLocationName,
-      required this.currentConferenceHallImageName})
+      required this.currentConferenceHallImageName,
+      this.requestedEdit,
+      this.data})
       : super(key: key);
 
   @override
@@ -328,16 +332,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
             TextButton(
               child: Text('Yes'),
               onPressed: () async {
-                Navigator.of(context).pop();
+                Navigator.of(dialogContext).pop();
                 var response =
                     await withdrawBooking(toBeWithdrawnBookingNeededData);
                 if (response.status == 'success') {
-                  if (homeScreenState != null) {
-                    homeScreenState!.loadData();
-                  }
-
                   print('Saved Changes');
-                  Navigator.of(dialogContext).pop();
+
                   // Navigator.of(context).popUntil((route) => route.isFirst);
                   // navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
 
@@ -347,6 +347,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       content: Text("Withdrawn Successfully"),
                     ),
                   );
+
+                  if (widget.requestedEdit == true) {
+                    var response = await responseToReschedulingRequest(
+                        widget.data!.requestId!, 'Accepted');
+                    if (response.status == 'success') {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.grey,
+                          content: Text("Rescheduling Request Accepted"),
+                        ),
+                      );
+                      // if (homeScreenState != null) {
+                      //   homeScreenState!.loadData();
+                      // }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: Colors.grey,
+                          content:
+                              Text("Failed to rejected rescheduling Request"),
+                        ),
+                      );
+                    }
+                  }
+
+                  if (homeScreenState != null) {
+                    homeScreenState!.loadData();
+                  }
 
                   navigatorKeys[BottomNavBarItem.home]!
                       .currentState!
@@ -788,9 +816,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                     MaterialPageRoute(
                                                         builder: (context) =>
                                                             SyncfusionCalendarForEdit(
-                                                                currentBookingData:
-                                                                    widget
-                                                                        .currentBookingData)),
+                                                              currentBookingData:
+                                                                  widget
+                                                                      .currentBookingData,
+                                                              requestedEdit: widget
+                                                                  .requestedEdit,
+                                                              data: widget.data,
+                                                            )),
                                                   );
                                             },
                                             child: Container(
