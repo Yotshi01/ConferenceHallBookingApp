@@ -206,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   return; // Stop further execution if mandatory fields are empty
                 }
-                if (!RegExp(r'^[A-Za-z.]+$').hasMatch(newUsername) ||
+                if (!RegExp(r'^[A-Za-z.\s]+$').hasMatch(newUsername) ||
                     newUsername.length > 50) {
                   final snackBar = SnackBar(
                     content: Text(
