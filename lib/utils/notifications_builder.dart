@@ -73,18 +73,24 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                 title: ListTile(
                   contentPadding: EdgeInsets.all(8.0),
                   leading: CircleAvatar(
-                    backgroundColor: Colors.black26,
+                    backgroundColor: Colors.orange[200],
                     radius: 30,
                     child: Text(
-                      'S',
-                      style: TextStyle(fontSize: 25, color: Colors.white),
+                      requesterName.isNotEmpty
+                          ? requesterName[0].toUpperCase()
+                          : '',
+                      style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                   title: Text(
-                    "Rescheduling request from ${requesterName}",
+                    "${requesterName.isEmpty ? '' : requesterName[0].toUpperCase()}${requesterName.substring(1)} has requested a reschedule",
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w700,
                       fontSize: 18.0,
+                      color: Colors.orangeAccent,
                     ),
                   ),
                   // subtitle: Text(
@@ -100,42 +106,63 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'For Booking :',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                          ),
+                        // Text(
+                        //   'For Booking :',
+                        //   style: TextStyle(
+                        //     fontSize: 16.0,
+                        //   ),
+                        // ),
+                        Divider(
+                          color: Colors.grey,
+                          thickness: 1,
                         ),
-                        Text(
-                          '${onBooking.bookingMeetingTitle}',
-                          // textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Color(0xFFB88D05),
-                            fontSize: 15,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.event_available,
+                              color: Colors.blue,
+                              size: 30,
+                            ),
+                            SizedBox(width: 10),
+                            Text(
+                              'Meeting: ${onBooking.bookingMeetingTitle}',
+                              style: TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        Text(
-                          '${locationName}',
-                          // textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Color(0xFFB88D05),
-                            fontSize: 15,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          '${conferenceHallName}',
-                          // textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Color(0xFFB88D05),
-                            fontSize: 15,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+                        // Text(
+                        //   '${onBooking.bookingMeetingTitle}',
+                        //   // textAlign: TextAlign.left,
+                        //   style: TextStyle(
+                        //     color: Color(0xFFB88D05),
+                        //     fontSize: 15,
+                        //     fontFamily: 'Noto Sans',
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        // Text(
+                        //   '${locationName}',
+                        //   // textAlign: TextAlign.left,
+                        //   style: TextStyle(
+                        //     color: Color(0xFFB88D05),
+                        //     fontSize: 15,
+                        //     fontFamily: 'Noto Sans',
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+                        // Text(
+                        //   '${conferenceHallName}',
+                        //   // textAlign: TextAlign.left,
+                        //   style: TextStyle(
+                        //     color: Color(0xFFB88D05),
+                        //     fontSize: 15,
+                        //     fontFamily: 'Noto Sans',
+                        //     fontWeight: FontWeight.w500,
+                        //   ),
+                        // ),
+
                         Row(
                           children: [
                             // SizedBox(
@@ -147,24 +174,23 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 0,
                                   ),
-                                  child: Column(
+                                  child: Row(
                                     children: [
                                       Row(children: [
-                                        SizedBox(width: 8),
+                                        //SizedBox(width: 8),
                                         Icon(
-                                          Icons
-                                              .date_range, // Replace with the icon you want
-                                          color: Color(
-                                              0xFF696767), // Set the color of the icon
-                                          size: 20, // Set the size of the icon
+                                          Icons.access_time,
+                                          color: Colors.orange,
+                                          size: 30,
                                         ),
+                                        SizedBox(width: 10),
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
-                                            '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}',
+                                            '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ',
                                             style: TextStyle(
                                               color: Color(0xFF696767),
-                                              fontSize: 12,
+                                              fontSize: 16,
                                               fontFamily: 'Noto Sans',
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -187,22 +213,22 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                       // ),
                                       Row(
                                         children: [
-                                          SizedBox(width: 8),
-                                          Icon(
-                                            Icons
-                                                .av_timer, // Replace with the icon you want
-                                            color: Color(
-                                                0xFF696767), // Set the color of the icon
-                                            size:
-                                                20, // Set the size of the icon
-                                          ),
+                                          // SizedBox(width: 8),
+                                          // Icon(
+                                          //   Icons
+                                          //       .av_timer, // Replace with the icon you want
+                                          //   color: Color(
+                                          //       0xFF696767), // Set the color of the icon
+                                          //   size:
+                                          //       20, // Set the size of the icon
+                                          // ),
                                           Align(
                                               alignment: Alignment.centerLeft,
                                               child: Text(
                                                 '${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
                                                 style: TextStyle(
                                                   color: Color(0xFF696767),
-                                                  fontSize: 12,
+                                                  fontSize: 16,
                                                   fontFamily: 'Noto Sans',
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -212,6 +238,42 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                     ],
                                   ),
                                 ))
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.pin_drop,
+                              color: Colors.orange,
+
+                              //color: Color(0xFFB88D05),
+                              // color: Color(0xFF696767),
+                              size: 30,
+                            ),
+                            SizedBox(width: 5),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  ' ${locationName}, ',
+                                  style: TextStyle(
+                                    color: Color(0xFF696767),
+                                    fontSize: 16,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                Text(
+                                  '${conferenceHallName}',
+                                  style: TextStyle(
+                                    color: Color(0xFF696767),
+                                    fontSize: 16,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                         SizedBox(height: 20.0),
@@ -246,7 +308,21 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                               data: data)),
                                     );
                               },
-                              child: Text('Reschedule Meeting'),
+                              child: Text(
+                                'Reschedule',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
                             ),
                             ElevatedButton(
                               onPressed: () async {
@@ -275,7 +351,21 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   );
                                 }
                               },
-                              child: Text('Reject Request'),
+                              child: Text(
+                                'Reject',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontFamily: 'Noto Sans',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                                foregroundColor: Colors.white,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
                             ),
                           ],
                         ),
@@ -286,162 +376,342 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
               ),
             )
           : (currentUserData!.id == data.requestRequesterId)
-              ? Container(
-                  // width: screenWidth * 0.95,
-                  height: screenHeight * 0.15,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 4,
-                        offset: Offset(0, 4),
-                        spreadRadius: 0,
-                      )
-                    ],
-                  ),
-                  padding: EdgeInsets.all(7.0),
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      // Row(
-                      //   //mainAxisAlignment: MainAxisAlignment.start,
-                      //   //crossAxisAlignment: CrossAxisAlignment.center,
-
-                      //   children: [
-                      //     Text(
-                      //       '24 Aug 2023 01:00 PM',
-                      //       //textAlign: TextAlign.center,
-                      //       style: TextStyle(
-                      //         color: Color(0xFF848080),
-                      //         fontSize: 10,
-                      //         fontFamily: 'Noto Sans',
-                      //         fontWeight: FontWeight.w400,
-                      //         height: 0,
-                      //       ),
-                      //     ),
-                      //     //SizedBox(
-                      //     //  width: 16.0, // Adjust the width as needed
-                      //     //),
-                      //     SizedBox(
-                      //       width: screenWidth * 0.34,
-                      //     ),
-                      //     Icon(
-                      //       Icons.mail, // Replace with the icon you want
-                      //       color: Color(0xFF696767),
-                      //       // Set the color of the icon
-                      //       size: 16, // Set the size of the icon
-                      //     ),
-                      //   ],
-                      // ),
-                      Text(
-                        'Rescheduling Request made to :',
+              ? Card(
+                  elevation: 4.0,
+                  //
+                  // margin: EdgeInsets.all(8.0),
+                  child: ExpansionTile(
+                    title: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: Colors.orange[200],
+                        radius: 30,
+                        child: Icon(Icons.outgoing_mail, color: Colors.white),
+                      ),
+                      title: Text(
+                        'Meeting Reschedule Request',
                         style: TextStyle(
-                          color: Color(0xFF696767),
-                          fontSize: 11,
-                          fontFamily: 'Noto Sans',
-                          fontWeight: FontWeight.w500,
-                          height: 0,
-                        ),
+                            color: Colors.orange,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '${onBooking.bookingMeetingTitle}',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                      Divider(
-                        indent: 10,
-                        endIndent: 10,
-                        color: Color(0xFFC2C0C0),
-                        // Set the color of the divider line
-                        thickness: 1, // Set the thickness of the divider line
-                      ),
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '${conferenceHallName}',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: Color(0xFFB88D05),
-                            fontSize: 12,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w600,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: screenHeight * 0.005,
-                      ),
-                      Align(
-                        alignment: Alignment.bottomLeft,
-                        child: Row(
+                      //trailing: Icon(Icons.expand_more),
+                    ),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(
-                              Icons.pin_drop,
-                              color: Color(0xFFB88D05),
-                              // Set the color of the icon
-                              size: 28,
-                            ),
-                            SizedBox(
-                              width: screenWidth * 0.04,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
-                                    style: TextStyle(
-                                      color: Color(0xFF696767),
-                                      fontSize: 11,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w500,
-                                      height: 0,
-                                    ),
-                                  ),
+                                //     Icon(
+                                //       Icons.event_note,
+                                //       color: Colors.blue,
+                                //       size: 35,
+                                //     ),
+                                SizedBox(width: 10),
+
+                                // Text(
+                                //   'Meeting reschedule request',
+                                //   style: TextStyle(
+                                //     fontSize: 16,
+                                //     fontWeight: FontWeight.bold,
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                            //SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.event_note,
+                                  color: Colors.blue,
+                                  size: 35,
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '${locationName}',
-                                    style: TextStyle(
-                                      color: Color(0xFF696767),
-                                      fontSize: 11,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w500,
-                                      height: 0,
-                                    ),
+                                SizedBox(width: 10),
+                                Text(
+                                  '${onBooking.bookingMeetingTitle}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
                                   ),
                                 ),
                               ],
-                            )
+                            ),
+
+                            Divider(
+                              color: Color(0xFFC2C0C0),
+                              thickness: 1.5,
+                              height: 30,
+                            ),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.pin_drop,
+                                  color: Colors.orangeAccent,
+                                  size: 30,
+                                ),
+                                SizedBox(width: 10),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '$conferenceHallName, ',
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      '$locationName',
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            //SizedBox(height: 20),
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.schedule,
+                                  color: Colors.orangeAccent,
+                                  size: 30,
+                                ),
+                                SizedBox(width: 10),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    // Text(
+                                    //   'Time:',
+                                    //   style: TextStyle(
+                                    //     fontSize: 16,
+                                    //     fontWeight: FontWeight.bold,
+                                    //     color: Colors.green,
+                                    //   ),
+                                    // ),
+                                    Text(
+                                      '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            // SizedBox(height: 20),
+                            // Row(
+                            //   children: [
+                            //     Icon(
+                            //       Icons.pin_drop,
+                            //       color: Colors.orange,
+                            //       size: 35,
+                            //     ),
+                            //     SizedBox(width: 10),
+                            //     Column(
+                            //       crossAxisAlignment: CrossAxisAlignment.start,
+                            //       children: [
+                            //         Text(
+                            //           'Address:',
+                            //           style: TextStyle(
+                            //             fontSize: 16,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: Colors.orange,
+                            //           ),
+                            //         ),
+                            //         Text(
+                            //           '$locationName',
+                            //           style: TextStyle(
+                            //             fontSize: 16,
+                            //             fontFamily: 'Noto Sans',
+                            //             fontWeight: FontWeight.w600,
+                            //             color: Colors.black,
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ],
+                            // ),
+                            //SizedBox(height: ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  '${data.requestStatus}',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Icon(
+                                  Icons.error,
+                                  color: Colors.redAccent,
+                                  size: 35,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          '${data.requestStatus}',
-                          style: TextStyle(
-                            color: Color(0xFF696767),
-                            fontSize: 11,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
+                        // child: Column(
+                        //   //mainAxisAlignment: MainAxisAlignment.start,
+                        //   children: [
+                        //     // Row(
+                        //     //   //mainAxisAlignment: MainAxisAlignment.start,
+                        //     //   //crossAxisAlignment: CrossAxisAlignment.center,
+                        //
+                        //     //   children: [
+                        //     //     Text(
+                        //     //       '24 Aug 2023 01:00 PM',
+                        //     //       //textAlign: TextAlign.center,
+                        //     //       style: TextStyle(
+                        //     //         color: Color(0xFF848080),
+                        //     //         fontSize: 10,
+                        //     //         fontFamily: 'Noto Sans',
+                        //     //         fontWeight: FontWeight.w400,
+                        //     //         height: 0,
+                        //     //       ),
+                        //     //     ),
+                        //     //     //SizedBox(
+                        //     //     //  width: 16.0, // Adjust the width as needed
+                        //     //     //),
+                        //     //     SizedBox(
+                        //     //       width: screenWidth * 0.34,
+                        //     //     ),
+                        //     //     Icon(
+                        //     //       Icons.mail, // Replace with the icon you want
+                        //     //       color: Color(0xFF696767),
+                        //     //       // Set the color of the icon
+                        //     //       size: 16, // Set the size of the icon
+                        //     //     ),
+                        //     //   ],
+                        //     // ),
+                        //     Text(
+                        //       'Rescheduling Request made to :',
+                        //       style: TextStyle(
+                        //         color: Color(0xFF696767),
+                        //         fontSize: 11,
+                        //         fontFamily: 'Noto Sans',
+                        //         fontWeight: FontWeight.w500,
+                        //         height: 0,
+                        //       ),
+                        //     ),
+                        //     Align(
+                        //       alignment: Alignment.centerLeft,
+                        //       child: Text(
+                        //         '${onBooking.bookingMeetingTitle}',
+                        //         textAlign: TextAlign.left,
+                        //         style: TextStyle(
+                        //           color: Colors.black,
+                        //           fontSize: 14,
+                        //           fontFamily: 'Noto Sans',
+                        //           fontWeight: FontWeight.w700,
+                        //           height: 0,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Divider(
+                        //       indent: 10,
+                        //       endIndent: 10,
+                        //       color: Color(0xFFC2C0C0),
+                        //       // Set the color of the divider line
+                        //       thickness: 1, // Set the thickness of the divider line
+                        //     ),
+                        //     Align(
+                        //       alignment: Alignment.centerLeft,
+                        //       child: Text(
+                        //         '${conferenceHallName}',
+                        //         textAlign: TextAlign.left,
+                        //         style: TextStyle(
+                        //           color: Color(0xFFB88D05),
+                        //           fontSize: 12,
+                        //           fontFamily: 'Noto Sans',
+                        //           fontWeight: FontWeight.w600,
+                        //           height: 0,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     SizedBox(
+                        //       height: screenHeight * 0.005,
+                        //     ),
+                        //     Align(
+                        //       alignment: Alignment.bottomLeft,
+                        //       child: Row(
+                        //         children: [
+                        //           Icon(
+                        //             Icons.pin_drop,
+                        //             color: Color(0xFFB88D05),
+                        //             // Set the color of the icon
+                        //             size: 28,
+                        //           ),
+                        //           SizedBox(
+                        //             width: screenWidth * 0.04,
+                        //           ),
+                        //           Column(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: [
+                        //               Align(
+                        //                 alignment: Alignment.centerRight,
+                        //                 child: Text(
+                        //                   '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
+                        //                   style: TextStyle(
+                        //                     color: Color(0xFF696767),
+                        //                     fontSize: 11,
+                        //                     fontFamily: 'Noto Sans',
+                        //                     fontWeight: FontWeight.w500,
+                        //                     height: 0,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //               Align(
+                        //                 alignment: Alignment.centerRight,
+                        //                 child: Text(
+                        //                   '${locationName}',
+                        //                   style: TextStyle(
+                        //                     color: Color(0xFF696767),
+                        //                     fontSize: 11,
+                        //                     fontFamily: 'Noto Sans',
+                        //                     fontWeight: FontWeight.w500,
+                        //                     height: 0,
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           )
+                        //         ],
+                        //       ),
+                        //     ),
+                        //     Align(
+                        //       alignment: Alignment.centerRight,
+                        //       child: Text(
+                        //         '${data.requestStatus}',
+                        //         style: TextStyle(
+                        //           color: Color(0xFF696767),
+                        //           fontSize: 11,
+                        //           fontFamily: 'Noto Sans',
+                        //           fontWeight: FontWeight.w500,
+                        //           height: 0,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                      )
                     ],
                   ),
                 )
