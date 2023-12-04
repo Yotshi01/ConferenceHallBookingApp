@@ -1095,15 +1095,17 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     //   size: 25, // Set the size of the icon
                                     // ),
                                     // SizedBox(child: Text(', ')),
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        '${widget.currentLocationName}, ${widget.currentConferenceRoomName}',
-                                        style: TextStyle(
-                                          color: Color(0xFFB88D05),
-                                          fontSize: 15,
-                                          fontFamily: 'Noto Sans',
-                                          fontWeight: FontWeight.w600,
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          '${widget.currentLocationName}, ${widget.currentConferenceRoomName}',
+                                          style: TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 15,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -1372,7 +1374,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   height: screenHeight * 0.006,
                                 ),
                                 Text(
-                                  '${initialbookingDepartments.join(', ')}',
+                                  (initialbookingDepartments.isNotEmpty)
+                                      ? '${initialbookingDepartments.join(', ')}'
+                                      : 'No departments selected',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -1405,7 +1409,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   height: screenHeight * 0.006,
                                 ),
                                 Text(
-                                  '${initialbookingRefreshments.join(', ')}',
+                                  (initialbookingRefreshments.isNotEmpty)
+                                      ? '${initialbookingRefreshments.join(', ')}'
+                                      : 'No refreshments selected',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -1438,7 +1444,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   height: screenHeight * 0.006,
                                 ),
                                 Text(
-                                  '${initialbookingAssets.join(', ')}',
+                                  (initialbookingAssets.isNotEmpty)
+                                      ? '${initialbookingAssets.join(', ')}'
+                                      : 'No assets selected',
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,

@@ -67,7 +67,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
         String reason = ""; // Store the input reason
 
         return AlertDialog(
-          title: Text("Send Request"),
+          title: Text("Send rescheduling request"),
           content: TextField(
             onChanged: (text) {
               reason = text;

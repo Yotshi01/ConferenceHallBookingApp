@@ -50,14 +50,22 @@ class _EditBookingState extends State<EditBooking> {
   late List<String> _selectedRefreshments;
   late List<String> _selectedAssets;
 
+  bool isMeetingTitleValid = true,
+      isBookingRequestedByValid = true,
+      isMeetingDescriptionValid = true;
+
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
-  int selectedAttendees = 1;
+  int? selectedAttendees;
 
   Widget attendeeItems(BuildContext context) {
-    List<DropdownMenuItem<int>> _getAttendeeItems() {
-      List<DropdownMenuItem<int>> items = [];
-      for (int i = 1; i <= 250; i++) {
+    List<DropdownMenuItem<int?>> _getAttendeeItems() {
+      List<DropdownMenuItem<int?>> items = [];
+      items.add(DropdownMenuItem(
+        value: null, // Set the initial value to null
+        child: Text('Select'),
+      ));
+      for (int i = 1; i <= 120; i++) {
         items.add(DropdownMenuItem(
           value: i,
           child: Text('$i'),
@@ -66,7 +74,7 @@ class _EditBookingState extends State<EditBooking> {
       return items;
     }
 
-    return DropdownButton<int>(
+    return DropdownButton<int?>(
       value: selectedAttendees,
       onChanged: (int? value) {
         setState(() {
@@ -369,6 +377,7 @@ class _EditBookingState extends State<EditBooking> {
             ),
             TextButton(
               onPressed: () async {
+                Navigator.of(dialogContext).pop(); // Close the dialog
                 setState(() {
                   toBeUpdatedBookingData.bookingId =
                       widget.currentBookingData.bookingId;
@@ -396,127 +405,147 @@ class _EditBookingState extends State<EditBooking> {
                       selectedAttendees;
                 });
 
-                var response = await updateBooking(toBeUpdatedBookingData);
+                if (isMeetingTitleValid &&
+                    isBookingRequestedByValid &&
+                    isMeetingDescriptionValid &&
+                    selectedAttendees != null) {
+                  var response = await updateBooking(toBeUpdatedBookingData);
 
-                var deleteBookingDepartmentsResponse =
-                    await deleteBookingDepartmentsByBookingId(
-                        widget.currentBookingData.bookingId!);
+                  var deleteBookingDepartmentsResponse =
+                      await deleteBookingDepartmentsByBookingId(
+                          widget.currentBookingData.bookingId!);
 
-                var bookingDepartmentsResponse = await addBookingDepartments(
-                    _selectedDepartments, widget.currentBookingData.bookingId!);
+                  if (_selectedDepartments.isNotEmpty) {
+                    var bookingDepartmentsResponse =
+                        await addBookingDepartments(_selectedDepartments,
+                            widget.currentBookingData.bookingId!);
+                  }
 
-                var deleteBookingRefreshmentsResponse =
-                    await deleteBookingRefreshmentsByBookingId(
-                        widget.currentBookingData.bookingId!);
+                  var deleteBookingRefreshmentsResponse =
+                      await deleteBookingRefreshmentsByBookingId(
+                          widget.currentBookingData.bookingId!);
 
-                var bookingRefreshmentsResponse = await addBookingRefreshments(
-                    _selectedRefreshments,
-                    widget.currentBookingData.bookingId!);
+                  if (_selectedRefreshments.isNotEmpty) {
+                    var bookingRefreshmentsResponse =
+                        await addBookingRefreshments(_selectedRefreshments,
+                            widget.currentBookingData.bookingId!);
+                  }
 
-                var deleteBookingAssetRequirementsResponse =
-                    await deleteBookingAssetRequirementsByBookingId(
-                        widget.currentBookingData.bookingId!);
+                  var deleteBookingAssetRequirementsResponse =
+                      await deleteBookingAssetRequirementsByBookingId(
+                          widget.currentBookingData.bookingId!);
 
-                var bookingAssetRequirementsResponse =
-                    await addBookingAssetRequirement(
-                        _selectedAssets, widget.currentBookingData.bookingId!);
+                  if (_selectedAssets.isNotEmpty) {
+                    var bookingAssetRequirementsResponse =
+                        await addBookingAssetRequirement(_selectedAssets,
+                            widget.currentBookingData.bookingId!);
+                  }
 
-                Navigator.of(dialogContext).pop(); // Close the dialog
+                  // if (response.status == 'success' &&
+                  //     deleteBookingDepartmentsResponse.status == 'success' &&
+                  //     bookingDepartmentsResponse.status == 'success' &&
+                  //     deleteBookingRefreshmentsResponse.status == 'success' &&
+                  //     bookingRefreshmentsResponse.status == 'success' &&
+                  //     deleteBookingAssetRequirementsResponse.status ==
+                  //         'success' &&
+                  //     bookingAssetRequirementsResponse.status == 'success') {
 
-                if (response.status == 'success' &&
-                    deleteBookingDepartmentsResponse.status == 'success' &&
-                    bookingDepartmentsResponse.status == 'success' &&
-                    deleteBookingRefreshmentsResponse.status == 'success' &&
-                    bookingRefreshmentsResponse.status == 'success' &&
-                    deleteBookingAssetRequirementsResponse.status ==
-                        'success' &&
-                    bookingAssetRequirementsResponse.status == 'success') {
+                  if (response.status == 'success') {
+                    // await Future.delayed(
+                    //     Duration(milliseconds: 300)); // Add a delay if needed
+
+                    // Navigator.of(context).popUntil((route) =>
+                    //     route.isFirst); // Navigate after the dialog is closed
+                    // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
+                    //   builder: (context) => const SyncfusionCalendar(),
+                    // ));
+
+                    // Check if the state is not null and call the function
+                    if (widget.requestedEdit == true) {
+                      var response = await responseToReschedulingRequest(
+                          widget.data!.requestId!, 'Accepted');
+                      if (response.status == 'success') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.grey,
+                            content: Text("Rescheduling Request Accepted"),
+                          ),
+                        );
+                        // if (homeScreenState != null) {
+                        //   homeScreenState!.loadData();
+                        // }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            backgroundColor: Colors.grey,
+                            content:
+                                Text("Failed to rejected rescheduling Request"),
+                          ),
+                        );
+                      }
+                    }
+
+                    if (homeScreenState != null) {
+                      homeScreenState!.loadData();
+                    }
+
+                    navigatorKeys[BottomNavBarItem.home]!
+                        .currentState!
+                        .popUntil((route) => route.isFirst);
+
+                    // context
+                    //     .read<BottomNavBarCubit>()
+                    //     .updateSelectedItem(BottomNavBarItem.home);
+
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //   builder: (context) => const HomeScreen(),
+                    // ));
+                    // setState(() {
+                    //   isRefreshNeeded = true;
+                    // });
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.green[300],
+                        content: Text("Booking updated successfully!"),
+                      ),
+                    );
+                  } else if (response.message == 'Validation failed') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("${response.data}"),
+                      ),
+                    );
+                  } else if (response.message ==
+                      'The requested time slot is not available.') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("${response.message}"),
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text("Failed to update booking"),
+                      ),
+                    );
+                  }
+
+                  // Navigator.of(dialogContext).pop(); // Close the dialog first
                   // await Future.delayed(
                   //     Duration(milliseconds: 300)); // Add a delay if needed
-
-                  // Navigator.of(context).popUntil((route) =>
-                  //     route.isFirst); // Navigate after the dialog is closed
-                  // Navigator.of(dialogContext).pushReplacement(MaterialPageRoute(
-                  //   builder: (context) => const SyncfusionCalendar(),
-                  // ));
-
-                  // Check if the state is not null and call the function
-                  if (widget.requestedEdit == true) {
-                    var response = await responseToReschedulingRequest(
-                        widget.data!.requestId!, 'Accepted');
-                    if (response.status == 'success') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.grey,
-                          content: Text("Rescheduling Request Accepted"),
-                        ),
-                      );
-                      // if (homeScreenState != null) {
-                      //   homeScreenState!.loadData();
-                      // }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: Colors.grey,
-                          content:
-                              Text("Failed to rejected rescheduling Request"),
-                        ),
-                      );
-                    }
-                  }
-
-                  if (homeScreenState != null) {
-                    homeScreenState!.loadData();
-                  }
-
-                  navigatorKeys[BottomNavBarItem.home]!
-                      .currentState!
-                      .popUntil((route) => route.isFirst);
-
-                  // context
-                  //     .read<BottomNavBarCubit>()
-                  //     .updateSelectedItem(BottomNavBarItem.home);
-
-                  // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  //   builder: (context) => const HomeScreen(),
-                  // ));
-                  // setState(() {
-                  //   isRefreshNeeded = true;
-                  // });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.green[300],
-                      content: Text("Booking updated successfully!"),
-                    ),
-                  );
-                } else if (response.message == 'Validation failed') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text("${response.data}"),
-                    ),
-                  );
-                } else if (response.message ==
-                    'The requested time slot is not available.') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text("${response.message}"),
-                    ),
-                  );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.red,
-                      content: Text("Failed to update booking"),
+                      content: Text(
+                          "Please enter valid data in all the required feilds"),
                     ),
                   );
                 }
-
-                // Navigator.of(dialogContext).pop(); // Close the dialog first
-                // await Future.delayed(
-                //     Duration(milliseconds: 300)); // Add a delay if needed
               },
               child: Text('Yes'),
             ),
@@ -1226,8 +1255,9 @@ class _EditBookingState extends State<EditBooking> {
                         width: screenWidth * 0.9,
                         height: 50,
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
+                            // horizontal: 15.0,
+                            // vertical: 1
+                            ), // Adjust the padding as needed
                         decoration: BoxDecoration(
                           color: Colors.grey[200], // Use a light gray color
                           borderRadius: BorderRadius.circular(
@@ -1240,9 +1270,35 @@ class _EditBookingState extends State<EditBooking> {
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
                           ),
+                          onChanged: (text) {
+                            // Your validation logic here
+                            if (text.isNotEmpty && text.length <= 50) {
+                              setState(() {
+                                isMeetingTitleValid = true;
+                              });
+                            } else {
+                              setState(() {
+                                isMeetingTitleValid = false;
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
+                            labelText: !isMeetingTitleValid
+                                ? 'Not more than 50 letters'
+                                : null,
+                            border: OutlineInputBorder(
+                              // Adjust these values to position the label inside the border
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              // Adjust these values for focused state
+                              borderSide:
+                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            // border: InputBorder
+                            //     .none, // Remove the default TextField border
                           ),
                         ),
                       ),
@@ -1398,8 +1454,9 @@ class _EditBookingState extends State<EditBooking> {
                         width: screenWidth * 0.9,
                         height: 50,
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
+                            // horizontal: 15.0,
+                            // vertical: 1
+                            ), // Adjust the padding as needed
                         decoration: BoxDecoration(
                           color: Colors.grey[200], // Use a light gray color
                           borderRadius: BorderRadius.circular(
@@ -1412,62 +1469,35 @@ class _EditBookingState extends State<EditBooking> {
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
                           ),
+                          onChanged: (text) {
+                            // Your validation logic here
+                            if (text.isNotEmpty && text.length <= 250) {
+                              setState(() {
+                                isMeetingDescriptionValid = true;
+                              });
+                            } else {
+                              setState(() {
+                                isMeetingDescriptionValid = false;
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Requirement Details',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        // Text(
-                        //   '*',
-                        //   style: TextStyle(color: Colors.red),
-                        // )
-                      ],
-                    ),
-
-                    Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1, // Set the thickness of the divider line
-                    ),
-
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _otherDetailsController,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
+                            labelText: !isMeetingDescriptionValid
+                                ? 'Not more than 250 letters'
+                                : null,
+                            border: OutlineInputBorder(
+                              // Adjust these values to position the label inside the border
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              // Adjust these values for focused state
+                              borderSide:
+                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            // border: InputBorder
+                            //     .none, // Remove the default TextField border
                           ),
                         ),
                       ),
@@ -1521,8 +1551,9 @@ class _EditBookingState extends State<EditBooking> {
                         width: screenWidth * 0.9,
                         height: 50,
                         padding: EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
+                            // horizontal: 15.0,
+                            // vertical: 1
+                            ), // Adjust the padding as needed
                         decoration: BoxDecoration(
                           color: Colors.grey[200], // Use a light gray color
                           borderRadius: BorderRadius.circular(
@@ -1535,9 +1566,35 @@ class _EditBookingState extends State<EditBooking> {
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
                           ),
+                          onChanged: (text) {
+                            // Your validation logic here
+                            if (text.isNotEmpty && text.length <= 50) {
+                              setState(() {
+                                isBookingRequestedByValid = true;
+                              });
+                            } else {
+                              setState(() {
+                                isBookingRequestedByValid = false;
+                              });
+                            }
+                          },
                           decoration: InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
+                            labelText: !isBookingRequestedByValid
+                                ? 'Not more than 50 letters'
+                                : null,
+                            border: OutlineInputBorder(
+                              // Adjust these values to position the label inside the border
+                              borderSide: BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              // Adjust these values for focused state
+                              borderSide:
+                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            // border: InputBorder
+                            //     .none, // Remove the default TextField border
                           ),
                         ),
                       ),
@@ -1627,46 +1684,6 @@ class _EditBookingState extends State<EditBooking> {
                     Container(
                       width: screenWidth * 0.5, // Set the desired width
                       child: ElevatedButton(
-                        onPressed: _showMultiSelectRefreshments,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey[200],
-                          foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w600,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        child: const Text('Select Refreshments'),
-                      ),
-                    ),
-
-                    Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1, // Set the thickness of the divider line
-                    ),
-
-                    Wrap(
-                      children: _selectedRefreshments
-                          .map((e) => Chip(
-                                label: Text(e),
-                              ))
-                          .toList(),
-                    ),
-
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Container(
-                      width: screenWidth * 0.5, // Set the desired width
-                      child: ElevatedButton(
                         onPressed: _showMultiSelectAssetRequirements,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
@@ -1682,7 +1699,7 @@ class _EditBookingState extends State<EditBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('Select Assets'),
+                        child: const Text('Select Requirements'),
                       ),
                     ),
 
@@ -1697,6 +1714,60 @@ class _EditBookingState extends State<EditBooking> {
                                 label: Text(e),
                               ))
                           .toList(),
+                    ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          'Requirement Details (if any)',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        // Text(
+                        //   '*',
+                        //   style: TextStyle(color: Colors.red),
+                        // )
+                      ],
+                    ),
+
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+
+                    SizedBox(
+                      child: Container(
+                        width: screenWidth * 0.9,
+                        height: 50,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.0,
+                            vertical: 1), // Adjust the padding as needed
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200], // Use a light gray color
+                          borderRadius: BorderRadius.circular(
+                              10.0), // Adjust the value as needed
+                        ),
+                        child: TextField(
+                          controller: _otherDetailsController,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                          ),
+                          decoration: InputDecoration(
+                            border: InputBorder
+                                .none, // Remove the default TextField border
+                          ),
+                        ),
+                      ),
                     ),
 
                     // ElevatedButton(
@@ -1742,6 +1813,46 @@ class _EditBookingState extends State<EditBooking> {
                     //     ),
                     //   ),
                     // ),
+
+                    SizedBox(
+                      height: 20,
+                    ),
+
+                    Container(
+                      width: screenWidth * 0.5, // Set the desired width
+                      child: ElevatedButton(
+                        onPressed: _showMultiSelectRefreshments,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          foregroundColor: Colors.black,
+                          padding: EdgeInsets.all(10),
+                          textStyle: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text('Select Refreshments'),
+                      ),
+                    ),
+
+                    Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+
+                    Wrap(
+                      children: _selectedRefreshments
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
 
                     SizedBox(
                       height: 20,
@@ -2015,7 +2126,7 @@ class _MultiSelectAssetRequirementsForEditState
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Select Assets'),
+      title: const Text('Select Requirements'),
       content: SingleChildScrollView(
           child: ListBody(
         children: widget.assets

@@ -52,7 +52,7 @@ class _StartScreenState extends State<SplashScreen> {
     var obtainedEmail = sharedPreferences.getString('email');
     var obtainedToken = sharedPreferences.getString('token');
     setState(() {
-      // storing email and generated ttoken of user in finalEmail and
+      // storing email and generated token of user in finalEmail and
       // finalToken respectively
       finalEmail = obtainedEmail;
       finalToken = obtainedToken;

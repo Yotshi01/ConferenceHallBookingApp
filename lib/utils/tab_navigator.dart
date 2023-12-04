@@ -39,7 +39,7 @@ class TabNavigator extends StatelessWidget {
       case BottomNavBarItem.home:
         return HomeScreen(key: homeScreenKey);
       case BottomNavBarItem.booking:
-        return SyncfusionCalendar();
+        return SyncfusionCalendar(key: syncfusionCalendarKey);
       default:
         return Scaffold();
     }

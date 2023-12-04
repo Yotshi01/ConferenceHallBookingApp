@@ -66,6 +66,7 @@ BookingData toBeAddedBookingData = BookingData();
 CurrentUserData toBeEditedProfileData = CurrentUserData();
 ReschedulingRequestData toBeAddedReschedulingRequestData =
     ReschedulingRequestData();
+String? locationChoosed;
 String? conferenceRoomChoosed;
 String? currentUserNotificationFirebaseToken;
 
@@ -78,3 +79,4 @@ final Map<BottomNavBarItem, GlobalKey<NavigatorState>> navigatorKeys = {
 bool isRefreshNeeded = false;
 
 final GlobalKey<HomeScreenState> homeScreenKey = GlobalKey();
+final GlobalKey<SyncfusionCalendarState> syncfusionCalendarKey = GlobalKey();
