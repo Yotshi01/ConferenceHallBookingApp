@@ -28,7 +28,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
       });
     } catch (error) {
       // Handle any errors that occur during the API request
-      print('Error fetching location data: $error');
+      // print('Error fetching location data: $error');
+      throw Exception('Error fetching location data: $error');
       // You can also show an error message here if needed
     }
   }
@@ -48,11 +49,11 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? CircularProgressIndicator() // Show a loading indicator while fetching data
+        ? const CircularProgressIndicator() // Show a loading indicator while fetching data
         : Container(
             width: screenWidth * 0.95,
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 236, 219, 158),
+              color: const Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                   color: Colors.transparent), // Set border color to transparent
@@ -62,9 +63,9 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
               borderRadius: BorderRadius.circular(10.0),
               dropdownColor: Colors.grey[200],
               underline: Container(height: 0),
-              icon: Icon(Icons.arrow_drop_down),
+              icon: const Icon(Icons.arrow_drop_down),
               isExpanded: true,
-              hint: Padding(
+              hint: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
                   'Select Location',
@@ -81,7 +82,7 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                     return DropdownMenuItem(
                       value: location.locationName,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Text(location.locationName ?? ''),
                       ),
                     );
@@ -99,8 +100,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
-                  print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsa');
+                  // print(
+                  //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =
                       getConferenceHallDataAccordingToSelectedLocation(
                           locationChoosed!);
@@ -108,8 +109,8 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
-                  print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsa');
+                  // print(
+                  //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =
                       getConferenceHallDataAccordingToSelectedLocation(
                           locationChoosed!);

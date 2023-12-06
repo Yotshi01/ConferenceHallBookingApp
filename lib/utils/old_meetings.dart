@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class MyOldConferences extends StatefulWidget {
-  MyOldConferences({super.key});
+  const MyOldConferences({super.key});
 
   @override
   State<MyOldConferences> createState() => _MyOldConferencesState();
@@ -16,7 +16,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
     final List<BookingData> finalBookings = isSearched == false
         ? listOfMyOldMeetings
         : listOfFoundBookingsFromMyOldMeetings;
-    print('${listOfMyOldMeetings} dsjnoldoldoldoldoldoldoldoldoldold');
+    // print('${listOfMyOldMeetings} dsjnoldoldoldoldoldoldoldoldoldold');
     return finalBookings.isNotEmpty
         ? SizedBox(
             // decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                       ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
-                  print(bookingData);
+                  // print(bookingData);
                   return Padding(
                       padding: EdgeInsets.fromLTRB(
                           screenWidth * 0.027,
@@ -60,7 +60,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
-                          shadows: [
+                          shadows: const [
                             BoxShadow(
                               color: Color(0x3F000000),
                               blurRadius: 3,
@@ -100,13 +100,13 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                       horizontal: 10,
                                     ),
                                     child: Text(
                                       '${bookingData.bookingMeetingTitle}',
                                       // textAlign: TextAlign.left,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         //color: Colors.black,
                                         color: Color(0xFFB88D05),
                                         fontSize: 16,
@@ -132,12 +132,13 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                       child: Align(
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                              padding: EdgeInsets.symmetric(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
                                                 horizontal: 0,
                                               ),
                                               child: Text(
                                                 '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 13,
                                                   fontFamily: 'Noto Sans',
@@ -150,12 +151,12 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                               Align(
                                   alignment: Alignment.centerLeft,
                                   child: Padding(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                         horizontal: 10,
                                       ),
                                       child: Text(
                                         conferenceHallName,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Color(0xFFB88D05),
                                           fontSize: 12,
                                           fontFamily: 'Noto Sans',
@@ -202,15 +203,15 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                     //Color(0x59FFC304), // Background color
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15),
-                                      side: BorderSide(
+                                      side: const BorderSide(
                                           color: Color(0xFFB88D05), width: 2),
                                     ),
                                     elevation: 1, // Shadow blur radius
                                   ),
-                                  child: Container(
+                                  child: const SizedBox(
                                     width: 60,
                                     height: 10,
-                                    child: const Center(
+                                    child: Center(
                                       child: Text(
                                         "More Details",
                                         style: TextStyle(

@@ -11,15 +11,15 @@ class ConferenceHallDetails {
     if (json['data'] != null) {
       data = <ConferenceHallData>[];
       json['data'].forEach((v) {
-        data!.add(new ConferenceHallData.fromJson(v));
+        data!.add(ConferenceHallData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -92,25 +92,25 @@ class ConferenceHallData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['conference_id'] = this.conferenceId;
-    data['conference_name'] = this.conferenceName;
-    data['conference_location_id'] = this.conferenceLocationId;
-    data['conference_address'] = this.conferenceAddress;
-    data['conference_other'] = this.conferenceOther;
-    data['conference_img'] = this.conferenceImg;
-    data['conference_about_room'] = this.conferenceAboutRoom;
-    data['conference_seating_capacity'] = this.conferenceSeatingCapacity;
-    data['conference_seating_type'] = this.conferenceSeatingType;
-    data['conference_whiteboard'] = this.conferenceWhiteboard;
-    data['conference_audiosystem'] = this.conferenceAudiosystem;
-    data['conference_laptop'] = this.conferenceLaptop;
-    data['conference_mic'] = this.conferenceMic;
-    data['conference_created_at'] = this.conferenceCreatedAt;
-    data['conference_updated_at'] = this.conferenceUpdatedAt;
-    data['conference_created_by_id'] = this.conferenceCreatedById;
-    data['conference_updated_by_Id'] = this.conferenceUpdatedById;
-    data['conference_status'] = this.conferenceStatus;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['conference_id'] = conferenceId;
+    data['conference_name'] = conferenceName;
+    data['conference_location_id'] = conferenceLocationId;
+    data['conference_address'] = conferenceAddress;
+    data['conference_other'] = conferenceOther;
+    data['conference_img'] = conferenceImg;
+    data['conference_about_room'] = conferenceAboutRoom;
+    data['conference_seating_capacity'] = conferenceSeatingCapacity;
+    data['conference_seating_type'] = conferenceSeatingType;
+    data['conference_whiteboard'] = conferenceWhiteboard;
+    data['conference_audiosystem'] = conferenceAudiosystem;
+    data['conference_laptop'] = conferenceLaptop;
+    data['conference_mic'] = conferenceMic;
+    data['conference_created_at'] = conferenceCreatedAt;
+    data['conference_updated_at'] = conferenceUpdatedAt;
+    data['conference_created_by_id'] = conferenceCreatedById;
+    data['conference_updated_by_Id'] = conferenceUpdatedById;
+    data['conference_status'] = conferenceStatus;
     return data;
   }
 }

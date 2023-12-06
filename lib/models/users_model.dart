@@ -11,15 +11,15 @@ class UsersApiResponse {
     if (json['data'] != null) {
       data = <UsersData>[];
       json['data'].forEach((v) {
-        data!.add(new UsersData.fromJson(v));
+        data!.add(UsersData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -86,24 +86,24 @@ class UsersData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['user_img'] = this.userImg;
-    data['email'] = this.email;
-    data['email_verified_at'] = this.emailVerifiedAt;
-    data['remember_token'] = this.rememberToken;
-    data['firebase_token'] = this.firebaseToken;
-    data['user_created_at'] = this.userCreatedAt;
-    data['user_updated_at'] = this.userUpdatedAt;
-    data['user_updated_by_id'] = this.userUpdatedById;
-    data['user_contact_number'] = this.userContactNumber;
-    data['user_department_id'] = this.userDepartmentId;
-    data['user_location_id'] = this.userLocationId;
-    data['user_address'] = this.userAddress;
-    data['userrole'] = this.userrole;
-    data['user_company_id'] = this.userCompanyId;
-    data['user_status'] = this.userStatus;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['name'] = name;
+    data['user_img'] = userImg;
+    data['email'] = email;
+    data['email_verified_at'] = emailVerifiedAt;
+    data['remember_token'] = rememberToken;
+    data['firebase_token'] = firebaseToken;
+    data['user_created_at'] = userCreatedAt;
+    data['user_updated_at'] = userUpdatedAt;
+    data['user_updated_by_id'] = userUpdatedById;
+    data['user_contact_number'] = userContactNumber;
+    data['user_department_id'] = userDepartmentId;
+    data['user_location_id'] = userLocationId;
+    data['user_address'] = userAddress;
+    data['userrole'] = userrole;
+    data['user_company_id'] = userCompanyId;
+    data['user_status'] = userStatus;
     return data;
   }
 }

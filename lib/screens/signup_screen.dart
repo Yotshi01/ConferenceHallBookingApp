@@ -9,10 +9,10 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController _usernameTextController = TextEditingController();
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
-  TextEditingController _confirmPasswordTextController =
+  final TextEditingController _usernameTextController = TextEditingController();
+  final TextEditingController _emailTextController = TextEditingController();
+  final TextEditingController _passwordTextController = TextEditingController();
+  final TextEditingController _confirmPasswordTextController =
       TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: Stack(
         children: [
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
                   image: AssetImage("assets/images/background.png"),
@@ -47,7 +47,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Container(
                   width: 333,
                   height: 396,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     boxShadow: [
                       BoxShadow(
@@ -64,7 +64,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         SizedBox(
                           height: screenHeight * 0.02,
                         ),
-                        Text(
+                        const Text(
                           'Signup',
                           style: TextStyle(
                             color: Color(0xFF726F6B),
@@ -128,12 +128,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             // Add your login logic here
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFFFB500),
+                            backgroundColor: const Color(0xFFFFB500),
                             elevation: 4,
-                            shadowColor: Color(0x3F000000),
-                            minimumSize: Size(172, 41),
+                            shadowColor: const Color(0x3F000000),
+                            minimumSize: const Size(172, 41),
                           ),
-                          child: Text(
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(
                               fontSize: 16,
@@ -167,7 +167,7 @@ class _SignupScreenState extends State<SignupScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           child: const Text(
             " Log In",

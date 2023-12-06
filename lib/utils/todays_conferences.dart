@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class TodaysConferences extends StatefulWidget {
-  TodaysConferences({super.key});
+  const TodaysConferences({super.key});
 
   @override
   State<TodaysConferences> createState() => _TodaysConferencesState();
@@ -14,8 +14,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
     final List<BookingData> finalBookings = (isSearched == false)
         ? listOfTodayMeetings
         : listOfFoundBookingFromTodayMeetings;
-    print('${isSearched} searched searched');
-    print('${finalBookings} final final final it is');
+    // print('${isSearched} searched searched');
+    // print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
             height: screenHeight * 0.4,
@@ -27,8 +27,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                   final bookingData = finalBookings[index];
                   final conferenceHallImageName = getConferenceHallImageName(
                       bookingData.bookingConferenceId!);
-                  print('${bookingData.bookingLocationId} dvdzdvzcvcvz');
-                  print('${bookingData.bookingConferenceId} czsfvdzbzzbx');
+                  // print('${bookingData.bookingLocationId} dvdzdvzcvcvz');
+                  // print('${bookingData.bookingConferenceId} czsfvdzbzzbx');
                   final conferenceHallName = bookingData.bookingConferenceId !=
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
@@ -38,7 +38,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                       ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
-                  print(bookingData);
+                  // print(bookingData);
                   return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
@@ -51,7 +51,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                               : Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
-                          shadows: [
+                          shadows: const [
                             BoxShadow(
                               color: Color(0x3F000000),
                               blurRadius: 3,
@@ -71,13 +71,13 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                     child: Align(
                                         alignment: Alignment.topLeft,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 10,
                                           ),
                                           child: Text(
                                             '${bookingData.bookingMeetingTitle}',
                                             // textAlign: TextAlign.left,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Color(0xFFB88D05),
                                               fontSize: 15,
                                               fontFamily: 'Noto Sans',
@@ -100,7 +100,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                               itemBuilder:
                                                   (BuildContext context) =>
                                                       <PopupMenuEntry<String>>[
-                                                PopupMenuItem<String>(
+                                                const PopupMenuItem<String>(
                                                   value: 'view_details',
                                                   child: ListTile(
                                                     leading: Icon(
@@ -108,7 +108,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                                     title: Text('View Details'),
                                                   ),
                                                 ),
-                                                PopupMenuItem<String>(
+                                                const PopupMenuItem<String>(
                                                   value: 'share',
                                                   child: ListTile(
                                                     leading: Icon(Icons.share),
@@ -154,8 +154,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
-      Conference Hall: ${conferenceHallName}
-      Location: ${locationName}
+      Conference Hall: $conferenceHallName
+      Location: $locationName
       
     ''';
 
@@ -272,9 +272,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  testBaseUrl +
-                                      "/uploads/conferences/" +
-                                      conferenceHallImageName,
+                                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
                                   width: screenWidth * 0.24,
                                   height: screenHeight * 0.15,
                                   loadingBuilder: (BuildContext context,
@@ -300,7 +298,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   },
                                   errorBuilder: (BuildContext context,
                                       Object error, StackTrace? stackTrace) {
-                                    return Text('Error loading image');
+                                    return const Text('Error loading image');
                                   },
                                 ),
                               ),
@@ -422,7 +420,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   Align(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                           horizontal: 0,
                                         ),
                                         child: Row(
@@ -430,7 +428,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                             SizedBox(
                                               width: screenWidth * 0.02,
                                             ),
-                                            Icon(
+                                            const Icon(
                                               Icons
                                                   .av_timer, // Replace with the icon you want
                                               color: Color(0xFF696767),
@@ -440,7 +438,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                             ),
                                             Text(
                                               '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Color(0xFF696767),
                                                 fontSize: 12,
                                                 fontFamily: 'Noto Sans',
@@ -454,10 +452,10 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.meeting_room_outlined,
                                     color: Color(
                                         0xFF696767), // Set the color of the icon
@@ -465,7 +463,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   ),
                                   Text(
                                     conferenceHallName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,
                                       fontFamily: 'Noto Sans',

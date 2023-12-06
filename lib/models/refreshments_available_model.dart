@@ -11,15 +11,15 @@ class RefreshmentsAvailableDetails {
     if (json['data'] != null) {
       data = <RefreshmentsAvailableData>[];
       json['data'].forEach((v) {
-        data!.add(new RefreshmentsAvailableData.fromJson(v));
+        data!.add(RefreshmentsAvailableData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -47,11 +47,11 @@ class RefreshmentsAvailableData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['refreshment_id'] = this.refreshmentId;
-    data['refreshment_name'] = this.refreshmentName;
-    data['refreshment_created_at'] = this.refreshmentCreatedAt;
-    data['refreshment_updated_by'] = this.refreshmentUpdatedBy;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['refreshment_id'] = refreshmentId;
+    data['refreshment_name'] = refreshmentName;
+    data['refreshment_created_at'] = refreshmentCreatedAt;
+    data['refreshment_updated_by'] = refreshmentUpdatedBy;
     return data;
   }
 }

@@ -21,8 +21,9 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
     "2",
     "3",
   ];
-  TextEditingController _meetingTitleController = TextEditingController();
-  TextEditingController _meetingDescriptionController = TextEditingController();
+  final TextEditingController _meetingTitleController = TextEditingController();
+  final TextEditingController _meetingDescriptionController =
+      TextEditingController();
   DateTime? selectedDate;
   DateTime dateTime = DateTime(2022, 12, 24);
 
@@ -33,8 +34,8 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
         borderRadius: BorderRadius.circular(11),
       ),
       scrollable: true,
-      title: Text("Event Booking"),
-      content: Container(
+      title: const Text("Event Booking"),
+      content: SizedBox(
         width: screenWidth * 0.8,
         height: screenHeight * 0.6,
         child: Column(
@@ -51,7 +52,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
                       dateTime = date;
                       selectedDate = date;
                     });
-                    print(date);
+                    // print(date);
                   },
                   child: Text(selectedDate != null
                       ? '${dateTime.year}-${dateTime.month}-${dateTime.day}'
@@ -64,16 +65,16 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
                   onPressed: () async {
                     final selectedTime = await _selectedTime(context);
                     if (selectedTime == null) return;
-                    print(selectedTime);
+                    // print(selectedTime);
                   },
-                  child: Text('Select Date'),
+                  child: const Text('Select Date'),
                 ),
               ],
             ),
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Text(
+            const Text(
               'Select Location for Conference',
               style: TextStyle(
                 color: Colors.black,
@@ -95,9 +96,9 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
               ),
               child: DropdownButton(
                 underline: Container(height: 0),
-                icon: Icon(Icons.arrow_drop_down),
+                icon: const Icon(Icons.arrow_drop_down),
                 isExpanded: true,
-                hint: Padding(
+                hint: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     'Select Location',
@@ -137,9 +138,9 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
               ),
               child: DropdownButton(
                 underline: Container(height: 0),
-                icon: Icon(Icons.arrow_drop_down),
+                icon: const Icon(Icons.arrow_drop_down),
                 isExpanded: true,
-                hint: Padding(
+                hint: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
                   child: Text(
                     'Select Conference Room',
@@ -170,7 +171,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Text(
+            const Text(
               'Meeting Title',
               style: TextStyle(
                 color: Colors.black,
@@ -185,7 +186,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
             ),
             TextField(
               controller: _meetingTitleController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 // labelText:
                 //     'Type a valid reason for postponing the meeting',
                 // labelStyle: TextStyle(
@@ -202,7 +203,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
             SizedBox(
               height: screenHeight * 0.02,
             ),
-            Text(
+            const Text(
               'Meeting Description',
               style: TextStyle(
                 color: Colors.black,
@@ -217,7 +218,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
             ),
             TextField(
               controller: _meetingDescriptionController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 // labelText:
                 //     'Type a valid reason for postponing the meeting',
                 // labelStyle: TextStyle(
@@ -236,7 +237,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
           ],
         ),
       ),
-      actions: [
+      actions: const [
         // ElevatedButton(
         //   onPressed: () {
         //     // _events!.addAll({
@@ -279,7 +280,7 @@ class _BookingAlertDialogState extends State<BookingAlertDialog> {
 
   Future<DateTime?> _selectedDateTime(BuildContext context) => showDatePicker(
         context: context,
-        initialDate: DateTime.now().add(Duration(seconds: 1)),
+        initialDate: DateTime.now().add(const Duration(seconds: 1)),
         firstDate: DateTime.now(),
         lastDate: DateTime(2100),
       );

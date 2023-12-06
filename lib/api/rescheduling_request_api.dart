@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<ReschedulingRequestDetails> addReschedulingRequest(
     ReschedulingRequestData value) async {
-  String url = testUrl + "rescheduling_request";
+  String url = "${testUrl}rescheduling_request";
   Uri urlUri = Uri.parse(url);
 
   var requestBody = {
@@ -25,7 +25,7 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return ReschedulingRequestDetails.fromJson(json.decode(response.body));
@@ -37,15 +37,15 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
 Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
     int currentUserId) async {
   String url =
-      testUrl + "get_reschedule_request_by_current_user_id/${currentUserId}";
-  print('${url} nknjjxczx');
+      "${testUrl}get_reschedule_request_by_current_user_id/$currentUserId";
+  // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,
   //   'password': password,
   // };
   final response = await http.get(urlUri);
-  print("${response.body} nksdkjad");
+  // print("${response.body} nksdkjad");
   // if (response
 
   return ReschedulingRequestResponse.fromJson(json.decode(response.body));
@@ -56,7 +56,7 @@ Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
 
 Future<RequestResponseResponse> responseToReschedulingRequest(
     int id, String status) async {
-  String url = testUrl + "response_to_rescheduling_request";
+  String url = "${testUrl}response_to_rescheduling_request";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "request_id": id.toString(),
@@ -66,7 +66,7 @@ Future<RequestResponseResponse> responseToReschedulingRequest(
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return RequestResponseResponse.fromJson(json.decode(response.body));

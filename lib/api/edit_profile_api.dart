@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<EditProfileData> editProfile(CurrentUserData value) async {
-  String url = testUrl + "edit_profile";
+  String url = "${testUrl}edit_profile";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "user_id": toBeEditedProfileData.id.toString(),
@@ -11,15 +11,15 @@ Future<EditProfileData> editProfile(CurrentUserData value) async {
     "user_contact_number": toBeEditedProfileData.userContactNumber,
   };
 
-  print('000000000000000000000000000000000000000000000000000000000000000000');
-  print(toBeEditedProfileData.id);
-  print(toBeEditedProfileData.name);
-  print(toBeEditedProfileData.userContactNumber);
+  // print('000000000000000000000000000000000000000000000000000000000000000000');
+  // print(toBeEditedProfileData.id);
+  // print(toBeEditedProfileData.name);
+  // print(toBeEditedProfileData.userContactNumber);
 
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return EditProfileData.fromJson(json.decode(response.body));

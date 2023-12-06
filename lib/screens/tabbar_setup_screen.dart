@@ -69,7 +69,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
     // Navigate to the login screen and remove all previous routes
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
     );
   }
 
@@ -110,16 +110,16 @@ class _TabbarSetupState extends State<TabbarSetup> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text('Alert'),
-                content: Text('Do you want to exit'),
+                title: const Text('Alert'),
+                content: const Text('Do you want to exit'),
                 actions: [
                   ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(false),
-                    child: Text('No'),
+                    child: const Text('No'),
                   ),
                   ElevatedButton(
                     onPressed: () => Navigator.of(context).pop(true),
-                    child: Text('Yes'),
+                    child: const Text('Yes'),
                   ),
                 ],
               );

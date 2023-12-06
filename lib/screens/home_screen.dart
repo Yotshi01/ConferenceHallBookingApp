@@ -28,7 +28,8 @@ class HomeScreenState extends State<HomeScreen> {
         }).toList();
       }
     } catch (error) {
-      print('Error fetching booking list data: $error');
+      // print('Error fetching booking list data: $error');
+      throw Exception('Error fetching booking list data: $error');
     }
   }
 
@@ -48,7 +49,8 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print('Error fetching conference hall list data: $error');
+      // print('Error fetching conference hall list data: $error');
+      throw Exception('Error fetching conference hall list data: $error');
     }
   }
 
@@ -68,7 +70,8 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print('Error fetching location list data: $error');
+      // print('Error fetching location list data: $error');
+      throw Exception('Error fetching location list data: $error');
     }
   }
 
@@ -103,7 +106,8 @@ class HomeScreenState extends State<HomeScreen> {
         // listOfOtherMeetings = otherMeetings();
       });
     } catch (error) {
-      print('Error fetching user data: $error');
+      // print('Error fetching user data: $error');
+      throw Exception('Error fetching user data: $error');
     }
   }
 
@@ -122,7 +126,8 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print('Error fetching department list data: $error');
+      // print('Error fetching department list data: $error');
+      throw Exception('Error fetching department list data: $error');
     }
   }
 
@@ -142,7 +147,9 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print(
+      // print(
+      //     'Error fetching asset requirements available data list data: $error');
+      throw Exception(
           'Error fetching asset requirements available data list data: $error');
     }
   }
@@ -163,7 +170,9 @@ class HomeScreenState extends State<HomeScreen> {
         }
       });
     } catch (error) {
-      print('Error fetching refreshments available list data: $error');
+      // print('Error fetching refreshments available list data: $error');
+      throw Exception(
+          'Error fetching refreshments available list data: $error');
     }
   }
 
@@ -180,13 +189,14 @@ class HomeScreenState extends State<HomeScreen> {
         listOfReschedulingRequestsResponse = data.data!.map((item) {
           return ReschedulingRequestResponseData.fromJson(item.toJson());
         }).toList();
-        print('${listOfReschedulingRequestsResponse}ssxmnsc');
+        // print('${listOfReschedulingRequestsResponse}ssxmnsc');
         // listOfReschedulingRequests = [
         //   ReschedulingRequestData.fromJson(data.data!.toJson())
         // ];
       }
     } catch (error) {
-      print('Error fetching rescheduling request list data: $error');
+      // print('Error fetching rescheduling request list data: $error');
+      throw Exception('Error fetching rescheduling request list data: $error');
     }
   }
 
@@ -202,13 +212,14 @@ class HomeScreenState extends State<HomeScreen> {
         listOfUsers = data.data!.map((item) {
           return UsersData.fromJson(item.toJson());
         }).toList();
-        print('${listOfUsers}ssxmnsc');
+        // print('${listOfUsers}ssxmnsc');
         // listOfReschedulingRequests = [
         //   ReschedulingRequestData.fromJson(data.data!.toJson())
         // ];
       }
     } catch (error) {
-      print('Error fetching users list data: $error');
+      // print('Error fetching users list data: $error');
+      throw Exception('Error fetching users list data: $error');
     }
   }
 
@@ -358,10 +369,10 @@ class HomeScreenState extends State<HomeScreen> {
               .contains(enteredKeyword.toLowerCase()))
           .toList();
 
-      print('${searchResultsForOtherMeetings} searhed searched searcheddddddd');
-      print('${searchResultsForMyMeetings} searhed searched searcheddddddd');
-      print(
-          '${searchResultsForMyOldMeetings} searhed searched searcheddddddd ololololo');
+      // print('${searchResultsForOtherMeetings} searhed searched searcheddddddd');
+      // print('${searchResultsForMyMeetings} searhed searched searcheddddddd');
+      // print(
+      //     '${searchResultsForMyOldMeetings} searhed searched searcheddddddd ololololo');
     }
 
     setState(() {
@@ -373,12 +384,12 @@ class HomeScreenState extends State<HomeScreen> {
       listOfFoundBookingsFromMyOldMeetings = searchResultsForMyOldMeetings;
       // enteredKeywordState = enteredKeyword;
     });
-    print(
-        '${listOfFoundBookingsFromAllMeetings} list of found bookings ${enteredKeywordState}');
-    print(
-        '${listOfFoundBookingsFromMyMeetings} list of found bookings ${enteredKeywordState}');
-    print(
-        '${listOfFoundBookingsFromMyOldMeetings} list of found bookings ${enteredKeywordState}');
+    // print(
+    //     '${listOfFoundBookingsFromAllMeetings} list of found bookings ${enteredKeywordState}');
+    // print(
+    //     '${listOfFoundBookingsFromMyMeetings} list of found bookings ${enteredKeywordState}');
+    // print(
+    //     '${listOfFoundBookingsFromMyOldMeetings} list of found bookings ${enteredKeywordState}');
   }
 
   @override
@@ -392,7 +403,7 @@ class HomeScreenState extends State<HomeScreen> {
         child: Scaffold(
             body: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment(0.21, -0.98),
                 end: Alignment(-0.21, 0.98),
@@ -426,10 +437,10 @@ class HomeScreenState extends State<HomeScreen> {
                           TextStyle(color: Colors.grey.withOpacity(0.9)),
                       filled: true,
                       // suffixIcon: Icon(Icons.search),
-                      contentPadding: EdgeInsets.symmetric(vertical: 0),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       fillColor: Colors.white,
-                      border: OutlineInputBorder(
+                      border: const OutlineInputBorder(
                         borderSide: BorderSide(
                           width: 0.50,
                           // strokeAlign: BorderSide.strokeAlignCenter,
@@ -460,7 +471,7 @@ class HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: screenWidth * 0.03,
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Today\'s Meetings',
@@ -475,7 +486,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   indent: 10,
                   endIndent: 10,
                   color: Color(0xFFC2C0C0), // Set the color of the divider line
@@ -506,7 +517,7 @@ class HomeScreenState extends State<HomeScreen> {
                     horizontal: screenWidth * 0.03,
                     // vertical: screenHeight * 0.03
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'My Meetings',
@@ -520,7 +531,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   indent: 10,
                   endIndent: 10,
                   color: Color(0xFFC2C0C0), // Set the color of the divider line
@@ -535,7 +546,7 @@ class HomeScreenState extends State<HomeScreen> {
                   padding: EdgeInsets.symmetric(
                     horizontal: screenWidth * 0.03,
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Other Meetings',
@@ -549,7 +560,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   indent: 10,
                   endIndent: 10,
                   color: Color(0xFFC2C0C0), // Set the color of the divider line
@@ -611,7 +622,7 @@ class HomeScreenState extends State<HomeScreen> {
                     horizontal: screenWidth * 0.03,
                     // vertical: screenHeight * 0.03
                   ),
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       'Old Meetings',
@@ -626,7 +637,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   indent: 10,
                   endIndent: 10,
                   color: Color(0xFFC2C0C0), // Set the color of the divider line

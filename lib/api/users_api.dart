@@ -3,15 +3,15 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<UsersApiResponse> getUsers() async {
-  String url = testUrl + "users";
-  print('${url} nknjjxczx');
+  String url = "${testUrl}users";
+  // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,
   //   'password': password,
   // };
   final response = await http.get(urlUri);
-  print("${response.body} nksdkjad");
+  // print("${response.body} nksdkjad");
   // if (response
 
   return UsersApiResponse.fromJson(json.decode(response.body));

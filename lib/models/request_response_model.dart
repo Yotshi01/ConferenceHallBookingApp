@@ -12,10 +12,10 @@ class RequestResponseResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
-    data['data'] = this.data;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['message'] = message;
+    data['status'] = status;
+    data['data'] = data;
     return data;
   }
 }

@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class OtherConferences extends StatefulWidget {
-  OtherConferences({super.key});
+  const OtherConferences({super.key});
 
   @override
   State<OtherConferences> createState() => _OtherConferencesState();
@@ -14,8 +14,8 @@ class _OtherConferencesState extends State<OtherConferences> {
     final List<BookingData> finalBookings = (isSearched == false)
         ? listOfOtherMeetings
         : listOfFoundBookingsFromOtherMeetings;
-    print('${isSearched} searched searched');
-    print('${finalBookings} final final final it is');
+    // print('${isSearched} searched searched');
+    // print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
             // decoration: BoxDecoration(
@@ -35,17 +35,17 @@ class _OtherConferencesState extends State<OtherConferences> {
                   final bookingData = finalBookings[index];
                   final conferenceHallImageName = getConferenceHallImageName(
                       bookingData.bookingConferenceId!);
-                  print('${conferenceHallImageName} dsfnkdcsc');
+                  // print('${conferenceHallImageName} dsfnkdcsc');
                   final conferenceHallName = bookingData.bookingConferenceId !=
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
                       : 'Unknown Conference Hall';
 
-                  final locationName = bookingData.bookingLocationId != null
-                      ? getLocationName(bookingData.bookingLocationId!)
-                      : 'Unknown Location';
+                  // final locationName = bookingData.bookingLocationId != null
+                  //     ? getLocationName(bookingData.bookingLocationId!)
+                  //     : 'Unknown Location';
 
-                  print("${bookingData} cnkajcajajc");
+                  // print("${bookingData} cnkajcajajc");
                   return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
@@ -56,7 +56,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                           color: Colors.white,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
-                          shadows: [
+                          shadows: const [
                             BoxShadow(
                               color: Color(0x3F000000),
                               blurRadius: 3,
@@ -87,13 +87,13 @@ class _OtherConferencesState extends State<OtherConferences> {
                                     child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 10,
                                           ),
                                           child: Text(
                                             '${bookingData.bookingMeetingTitle}',
                                             // textAlign: TextAlign.left,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Color(0xFFB88D05),
                                               fontSize: 15,
                                               fontFamily: 'Noto Sans',
@@ -138,9 +138,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  testBaseUrl +
-                                      "/uploads/conferences/" +
-                                      conferenceHallImageName,
+                                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
                                   width: screenWidth * 0.24,
                                   height: screenHeight * 0.15,
                                   loadingBuilder: (BuildContext context,
@@ -166,7 +164,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   },
                                   errorBuilder: (BuildContext context,
                                       Object error, StackTrace? stackTrace) {
-                                    return Text('Error loading image');
+                                    return const Text('Error loading image');
                                   },
                                 ),
                               ),
@@ -229,8 +227,8 @@ class _OtherConferencesState extends State<OtherConferences> {
                               //Divider(),
                               Row(
                                 children: [
-                                  SizedBox(width: 8),
-                                  Icon(
+                                  const SizedBox(width: 8),
+                                  const Icon(
                                     Icons
                                         .date_range, // Replace with the icon you want
                                     color: Color(
@@ -240,8 +238,8 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   Align(
                                     alignment: Alignment.centerLeft,
                                     child: Text(
-                                      '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
-                                      style: TextStyle(
+                                      '$convertStringDateIntoDesiredFormat(bookingData.bookingDate!)',
+                                      style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 12,
                                         fontFamily: 'Noto Sans',
@@ -257,8 +255,8 @@ class _OtherConferencesState extends State<OtherConferences> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(width: 8),
-                                  Icon(
+                                  const SizedBox(width: 8),
+                                  const Icon(
                                     Icons
                                         .av_timer, // Replace with the icon you want
                                     color: Color(
@@ -269,7 +267,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                       alignment: Alignment.centerLeft,
                                       child: Text(
                                         '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Color(0xFF696767),
                                           fontSize: 12,
                                           fontFamily: 'Noto Sans',
@@ -280,10 +278,10 @@ class _OtherConferencesState extends State<OtherConferences> {
                               ),
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.meeting_room_outlined,
                                     color: Color(
                                         0xFF696767), // Set the color of the icon
@@ -292,7 +290,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   Expanded(
                                       child: Text(
                                     conferenceHallName,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,
                                       fontFamily: 'Noto Sans',

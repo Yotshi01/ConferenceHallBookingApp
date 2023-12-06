@@ -1,4 +1,4 @@
-import 'package:conference_hall_booking/models/booking_departments_model.dart';
+// import 'package:conference_hall_booking/models/booking_departments_model.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
@@ -89,14 +89,14 @@ class _MultiSelectDepartmentsForEditingState
 }
 
 class _DetailsScreenState extends State<DetailsScreen> {
-  bool _snackChecked = false;
-  bool _biscuitChecked = false;
-  bool _coffeeChecked = false;
-  bool _teaChecked = false;
-  int _snackQuantity = 0;
-  int _biscuitQuantity = 0;
-  int _coffeeQuantity = 0;
-  int _teaQuantity = 0;
+  // bool _snackChecked = false;
+  // bool _biscuitChecked = false;
+  // bool _coffeeChecked = false;
+  // bool _teaChecked = false;
+  // int _snackQuantity = 0;
+  // int _biscuitQuantity = 0;
+  // int _coffeeQuantity = 0;
+  // int _teaQuantity = 0;
   get onPressed => null;
   TextEditingController _meetingTitleController = TextEditingController();
   TextEditingController _meetingDescriptionController = TextEditingController();
@@ -105,11 +105,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
   DateTime? selectedDate;
   DateTime dateTime = DateTime(2022, 12, 24);
   TimeOfDay? selectedStartTime;
-  TimeOfDay printedStartTime = TimeOfDay(hour: 4, minute: 24);
+  TimeOfDay printedStartTime = const TimeOfDay(hour: 4, minute: 24);
   TimeOfDay? selectedEndTime;
-  TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
+  TimeOfDay printedEndTime = const TimeOfDay(hour: 4, minute: 24);
   DateTime? currentBookingDate;
-  BookingData toBeWithdrawnBookingNeededData = new BookingData();
+  BookingData toBeWithdrawnBookingNeededData = BookingData();
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
   late Future<BookingAssetRequirementDetails>
@@ -125,7 +125,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     try {
       final BookingDepartmentsResponse data =
           await bookingDepartmentsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -135,13 +135,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
           listOfBookingDepartmentsByBookingId = data.data!.map((item) {
             return BookingDepartmentsData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
+          // print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
           _selectedDepartments = getListOfBookingDepartmentNames(
               listOfBookingDepartmentsByBookingId);
         }
       });
-    } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+    } catch (e) {
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $e');
     }
   }
 
@@ -149,7 +151,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     try {
       final BookingRefreshmentDetails data =
           await bookingRefreshmentsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -159,13 +161,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
           listOfBookingRefreshmentsByBookingId = data.data!.map((item) {
             return BookingRefreshmentData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          // print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
           _selectedRefreshments = getListOfBookingRefreshmentsNames(
               listOfBookingRefreshmentsByBookingId);
         }
       });
     } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $error');
     }
   }
 
@@ -173,7 +177,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
     try {
       final BookingAssetRequirementDetails data =
           await bookingAssetRequirementsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -183,13 +187,15 @@ class _DetailsScreenState extends State<DetailsScreen> {
           listOfBookingAssetRequirementsByBookingId = data.data!.map((item) {
             return BookingAssetRequirementData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
+          // print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
           _selectedAssets = getListOfBookingAssetRequirementNames(
               listOfBookingAssetRequirementsByBookingId);
         }
       });
     } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $error');
     }
   }
 
@@ -210,13 +216,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
     });
   }
 
-  Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
-        context: context,
-        initialDate: DateTime.now().add(Duration(seconds: 1)),
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now()
-            .add(Duration(days: 30)), // Restrict to one month from today
-      );
+  // Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
+  //       context: context,
+  //       initialDate: DateTime.now().add(Duration(seconds: 1)),
+  //       firstDate: DateTime.now(),
+  //       lastDate: DateTime.now()
+  //           .add(Duration(days: 30)), // Restrict to one month from today
+  //     );
 
   // Future<TimeOfDay?> _selectedTime(BuildContext context) {
   //   final now = DateTime.now();
@@ -226,31 +232,31 @@ class _DetailsScreenState extends State<DetailsScreen> {
   //       initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
   // }
 
-  Future<TimeOfDay?> _selectedTime(BuildContext context) async {
-    final now = DateTime.now();
-    final selectedTime = await showTimePicker(
-      initialEntryMode: TimePickerEntryMode.inputOnly,
-      context: context,
-      initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
-    );
+  // Future<TimeOfDay?> _selectedTime(BuildContext context) async {
+  //   final now = DateTime.now();
+  //   final selectedTime = await showTimePicker(
+  //     initialEntryMode: TimePickerEntryMode.inputOnly,
+  //     context: context,
+  //     initialTime: TimeOfDay(hour: now.hour, minute: now.minute),
+  //   );
 
-    if (selectedTime != null) {
-      // Check if the selected minute is in the allowed list
-      final allowedMinutes = [0, 30];
-      if (!allowedMinutes.contains(selectedTime.minute)) {
-        // Show an error message or select the nearest allowed minute here.
-        // You can adjust the selected time as needed.
-        // For example, round the minute to the nearest allowed minute.
-        final nearestAllowedMinute = allowedMinutes.reduce((a, b) =>
-            (a - selectedTime.minute).abs() < (b - selectedTime.minute).abs()
-                ? a
-                : b);
-        return TimeOfDay(hour: selectedTime.hour, minute: nearestAllowedMinute);
-      }
-    }
+  //   if (selectedTime != null) {
+  //     // Check if the selected minute is in the allowed list
+  //     final allowedMinutes = [0, 30];
+  //     if (!allowedMinutes.contains(selectedTime.minute)) {
+  //       // Show an error message or select the nearest allowed minute here.
+  //       // You can adjust the selected time as needed.
+  //       // For example, round the minute to the nearest allowed minute.
+  //       final nearestAllowedMinute = allowedMinutes.reduce((a, b) =>
+  //           (a - selectedTime.minute).abs() < (b - selectedTime.minute).abs()
+  //               ? a
+  //               : b);
+  //       return TimeOfDay(hour: selectedTime.hour, minute: nearestAllowedMinute);
+  //     }
+  //   }
 
-    return selectedTime;
-  }
+  //   return selectedTime;
+  // }
 
   List<String> _selectedDepartments = [];
   List<String> _selectedRefreshments = [];
@@ -279,12 +285,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
         String reason = ""; // Store the input reason
 
         return AlertDialog(
-          title: Text("Reason for Withdrawing the meeting"),
+          title: const Text("Reason for Withdrawing the meeting"),
           content: TextField(
             onChanged: (text) {
               reason = text;
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: "Enter your reason here",
             ),
             maxLines: null,
@@ -292,7 +298,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
           actions: <Widget>[
             ElevatedButton(
               onPressed: () {
-                print("Reason: $reason");
+                // print("Reason: $reason");
 
                 // You can use the 'reason' variable for further processing
 
@@ -313,7 +319,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                 _confirmWithdrawal(context); // Show the confirmation dialog
               },
-              child: Text("Next"),
+              child: const Text("Next"),
             ),
           ],
         );
@@ -326,23 +332,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Confirm Withdrawal'),
-          content: Text('Are you sure you want to withdraw?'),
+          title: const Text('Confirm Withdrawal'),
+          content: const Text('Are you sure you want to withdraw?'),
           actions: <Widget>[
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () async {
                 Navigator.of(dialogContext).pop();
                 var response =
                     await withdrawBooking(toBeWithdrawnBookingNeededData);
                 if (response.status == 'success') {
-                  print('Saved Changes');
+                  // print('Saved Changes');
 
                   // Navigator.of(context).popUntil((route) => route.isFirst);
                   // navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
 
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       backgroundColor: Colors.green,
                       content: Text("Withdrawn Successfully"),
                     ),
@@ -353,7 +359,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         widget.data!.requestId!, 'Accepted');
                     if (response.status == 'success') {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           backgroundColor: Colors.grey,
                           content: Text("Rescheduling Request Accepted"),
                         ),
@@ -363,7 +369,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       // }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                        const SnackBar(
                           backgroundColor: Colors.grey,
                           content:
                               Text("Failed to rejected rescheduling Request"),
@@ -383,7 +389,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   // Navigator.of(context).pop(); // Close the dialog
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       // backgroundColor: Colors.green,
                       content: Text("Withdraw booking unsuccessful!"),
                     ),
@@ -392,7 +398,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
               },
             ),
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(dialogContext)
                     .pop(); // Close the confirmation dialog
@@ -491,14 +497,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Edit Booking'),
-          content: Text('Are you sure you want to edit this booking?'),
+          title: const Text('Edit Booking'),
+          content: const Text('Are you sure you want to edit this booking?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Close the dialog
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () async {
@@ -531,8 +537,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 if (response.status == 'success' &&
                     deleteBookingDepartmentsResponse.status == 'success' &&
                     bookingDepartmentsResponse.status == 'success') {
-                  await Future.delayed(
-                      Duration(milliseconds: 300)); // Add a delay if needed
+                  await Future.delayed(const Duration(
+                      milliseconds: 300)); // Add a delay if needed
                   navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
                   // Navigator.of(context).popUntil((route) =>
                   //     route.isFirst); // Navigate after the dialog is closed
@@ -548,7 +554,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: Colors.green[300],
-                      content: Text("Booking updated successfully!"),
+                      content: const Text("Booking updated successfully!"),
                     ),
                   );
                 } else if (response.message == 'Validation failed') {
@@ -568,7 +574,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   );
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       backgroundColor: Colors.red,
                       content: Text("Failed to update booking"),
                     ),
@@ -579,7 +585,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 // await Future.delayed(
                 //     Duration(milliseconds: 300)); // Add a delay if needed
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );
@@ -590,9 +596,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   List<String> initialbookingDepartments = [];
   List<String> getListOfBookingDepartmentNames(
       List<BookingDepartmentsData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingDepartment in list) {
-      print('${bookingDepartment.departmentId} njxsxxZXZ');
+      // print('${bookingDepartment.departmentId} njxsxxZXZ');
       initialbookingDepartments
           .add(getDepartmentNameById(bookingDepartment.departmentId!));
     }
@@ -602,9 +608,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   List<String> initialbookingRefreshments = [];
   List<String> getListOfBookingRefreshmentsNames(
       List<BookingRefreshmentData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingRefreshment in list) {
-      print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      // print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
       initialbookingRefreshments
           .add(getRefreshmentNameById(bookingRefreshment.refreshmentId!));
     }
@@ -614,9 +620,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   List<String> initialbookingAssets = [];
   List<String> getListOfBookingAssetRequirementNames(
       List<BookingAssetRequirementData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingAsset in list) {
-      print('${bookingAsset.assetRequirementId} njxsxxZXZ');
+      // print('${bookingAsset.assetRequirementId} njxsxxZXZ');
       initialbookingAssets
           .add(getAssetNameById(bookingAsset.assetRequirementId!));
     }
@@ -667,12 +673,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print('${_selectedDepartments} ddjknncxz');
-    print('${currentBookingDate} chgjvhjbkhj');
-    print('${widget.currentBookingData.bookingStartTime} chgjvhjbkhj');
-    print('${widget.currentBookingData.bookingEndTime} chgjvhjbkhj');
-    print(
-        '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
+    // print('${_selectedDepartments} ddjknncxz');
+    // print('${currentBookingDate} chgjvhjbkhj');
+    // print('${widget.currentBookingData.bookingStartTime} chgjvhjbkhj');
+    // print('${widget.currentBookingData.bookingEndTime} chgjvhjbkhj');
+    // print(
+    //     '${widget.currentBookingData.bookingMeetingDescription} nfcdcdzlkvmz');
     return Scaffold(
         resizeToAvoidBottomInset: false,
         // appBar: AppBar(
@@ -697,7 +703,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   bottom: screenHeight * 0.03,
                 ),
                 width: screenWidth,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment(0.21, -0.98),
                     end: Alignment(-0.21, 0.98),
@@ -742,10 +748,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       height: screenHeight * 0.03,
                     ),
                     Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         width: 352,
                         // height: 641,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           boxShadow: [
                             BoxShadow(
@@ -772,7 +778,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                             right: screenWidth * 0.1),
                                         child: Text(
                                           '${widget.currentBookingData.bookingMeetingTitle}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 25,
                                             fontFamily: 'Noto Sans',
@@ -830,7 +836,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 shape: BoxShape.circle,
                                                 color: Colors.grey[100],
                                               ),
-                                              padding: EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Icon(
                                                 Icons.edit,
                                                 color: Colors.grey[600],
@@ -889,7 +896,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                                 shape: BoxShape.circle,
                                                 color: Colors.grey[100],
                                               ),
-                                              padding: EdgeInsets.all(10.0),
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Icon(
                                                 Icons.delete,
                                                 color: Colors.grey[600],
@@ -925,7 +933,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(height: screenHeight * 0.006),
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons
                                           .calendar_month, // Replace with the icon you want
                                       color: Color(
@@ -938,12 +946,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     Align(
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                               horizontal: 5,
                                             ),
                                             child: Text(
-                                              '${convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)}',
-                                              style: TextStyle(
+                                              '$convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)',
+                                              style: const TextStyle(
                                                 color: Color(0xFF696767),
                                                 fontSize: 12,
                                                 fontFamily: 'Noto Sans',
@@ -953,7 +961,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     SizedBox(
                                       width: screenWidth * 0.05,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons
                                           .av_timer, // Replace with the icon you want
                                       color: Color(
@@ -966,12 +974,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     Align(
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                               horizontal: 5,
                                             ),
                                             child: Text(
                                               '${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(widget.currentBookingData.bookingEndTime!)}',
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Color(0xFF696767),
                                                 fontSize: 12,
                                                 fontFamily: 'Noto Sans',
@@ -992,7 +1000,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 //   ),
                                 // ),
 
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
@@ -1015,10 +1023,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Image.network(
-                                          testBaseUrl +
-                                              "/uploads/conferences/" +
-                                              widget
-                                                  .currentConferenceHallImageName,
+                                          "$testBaseUrl/uploads/conferences/${widget.currentConferenceHallImageName}",
                                           width: screenWidth * 0.24,
                                           height: screenHeight * 0.15,
                                           loadingBuilder: (BuildContext context,
@@ -1047,7 +1052,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           errorBuilder: (BuildContext context,
                                               Object error,
                                               StackTrace? stackTrace) {
-                                            return Text('Error loading image');
+                                            return const Text(
+                                                'Error loading image');
                                           },
                                         ),
                                       ),
@@ -1100,7 +1106,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           '${widget.currentLocationName}, ${widget.currentConferenceRoomName}',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Color(0xFFB88D05),
                                             fontSize: 15,
                                             fontFamily: 'Noto Sans',
@@ -1111,7 +1117,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     ),
                                     IconButton(
                                       alignment: Alignment.centerLeft,
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.info,
                                         color: Color(0xFFB88D05),
                                         // Color.fromARGB(
@@ -1124,7 +1130,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               title: Text(
-                                                '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
+                                                '$getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)',
                                                 style: TextStyle(
                                                   color: Colors.grey[850],
                                                   fontSize: 14,
@@ -1243,14 +1249,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                 Text(
                                   '${widget.currentBookingData.bookingMeetingDescription}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black87,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
@@ -1315,14 +1321,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingRequirementDetails}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
@@ -1345,14 +1351,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingReportedBy}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
@@ -1377,20 +1383,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingDepartments.isNotEmpty)
                                       ? '${initialbookingDepartments.join(', ')}'
                                       : 'No departments selected',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -1412,20 +1418,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingRefreshments.isNotEmpty)
                                       ? '${initialbookingRefreshments.join(', ')}'
                                       : 'No refreshments selected',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 SizedBox(
@@ -1447,20 +1453,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingAssets.isNotEmpty)
                                       ? '${initialbookingAssets.join(', ')}'
                                       : 'No assets selected',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Text(
@@ -1477,20 +1483,20 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingNumberOfAttendees}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                Divider(
+                                const Divider(
                                   color: Color(
                                       0xFFC2C0C0), // Set the color of the divider line
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 Align(
@@ -1510,99 +1516,99 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ))));
   }
 
-  Widget _buildCheckboxRow(String label, bool checked, int quantity) {
-    return Row(
-      children: [
-        Checkbox(
-          value: checked,
-          onChanged: (value) {
-            setState(() {
-              if (label == 'Snack') {
-                _snackChecked = value!;
-              } else if (label == 'Biscuit') {
-                _biscuitChecked = value!;
-              } else if (label == 'Coffee') {
-                _coffeeChecked = value!;
-              } else if (label == 'Tea') {
-                _teaChecked = value!;
-              }
-            });
-          },
-        ),
-        Text(label),
-        if (checked)
-          GestureDetector(
-            onTap: () {
-              _showQuantityDialog(label);
-            },
-            child: Text(' ($quantity)'),
-          ),
-      ],
-    );
-  }
+  // Widget _buildCheckboxRow(String label, bool checked, int quantity) {
+  //   return Row(
+  //     children: [
+  //       Checkbox(
+  //         value: checked,
+  //         onChanged: (value) {
+  //           setState(() {
+  //             if (label == 'Snack') {
+  //               _snackChecked = value!;
+  //             } else if (label == 'Biscuit') {
+  //               _biscuitChecked = value!;
+  //             } else if (label == 'Coffee') {
+  //               _coffeeChecked = value!;
+  //             } else if (label == 'Tea') {
+  //               _teaChecked = value!;
+  //             }
+  //           });
+  //         },
+  //       ),
+  //       Text(label),
+  //       if (checked)
+  //         GestureDetector(
+  //           onTap: () {
+  //             _showQuantityDialog(label);
+  //           },
+  //           child: Text(' ($quantity)'),
+  //         ),
+  //     ],
+  //   );
+  // }
 
-  void _showQuantityDialog(String item) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        int quantity;
-        if (item == 'Snack') {
-          quantity = _snackQuantity;
-        } else if (item == 'Biscuit') {
-          quantity = _biscuitQuantity;
-        } else if (item == 'Coffee') {
-          quantity = _coffeeQuantity;
-        } else if (item == 'Tea') {
-          quantity = _teaQuantity;
-        } else {
-          // Provide a default value for the 'quantity' variable
-          quantity = 0;
-        }
+  // void _showQuantityDialog(String item) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       int quantity;
+  //       if (item == 'Snack') {
+  //         quantity = _snackQuantity;
+  //       } else if (item == 'Biscuit') {
+  //         quantity = _biscuitQuantity;
+  //       } else if (item == 'Coffee') {
+  //         quantity = _coffeeQuantity;
+  //       } else if (item == 'Tea') {
+  //         quantity = _teaQuantity;
+  //       } else {
+  //         // Provide a default value for the 'quantity' variable
+  //         quantity = 0;
+  //       }
 
-        return AlertDialog(
-          title: Text('Select Quantity for $item'),
-          content: Row(
-            children: [
-              IconButton(
-                icon: Icon(Icons.remove),
-                onPressed: () {
-                  setState(() {
-                    quantity = (quantity - 1).clamp(0, 99);
-                  });
-                },
-              ),
-              Text('$quantity'),
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () {
-                  setState(() {
-                    quantity = (quantity + 1).clamp(0, 99);
-                  });
-                },
-              ),
-            ],
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('OK'),
-              onPressed: () {
-                setState(() {
-                  if (item == 'Snack') {
-                    _snackQuantity = quantity;
-                  } else if (item == 'Biscuit') {
-                    _biscuitQuantity = quantity;
-                  } else if (item == 'Coffee') {
-                    _coffeeQuantity = quantity;
-                  } else if (item == 'Tea') {
-                    _teaQuantity = quantity;
-                  }
-                  Navigator.of(context).pop();
-                });
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //       return AlertDialog(
+  //         title: Text('Select Quantity for $item'),
+  //         content: Row(
+  //           children: [
+  //             IconButton(
+  //               icon: Icon(Icons.remove),
+  //               onPressed: () {
+  //                 setState(() {
+  //                   quantity = (quantity - 1).clamp(0, 99);
+  //                 });
+  //               },
+  //             ),
+  //             Text('$quantity'),
+  //             IconButton(
+  //               icon: Icon(Icons.add),
+  //               onPressed: () {
+  //                 setState(() {
+  //                   quantity = (quantity + 1).clamp(0, 99);
+  //                 });
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: Text('OK'),
+  //             onPressed: () {
+  //               setState(() {
+  //                 if (item == 'Snack') {
+  //                   _snackQuantity = quantity;
+  //                 } else if (item == 'Biscuit') {
+  //                   _biscuitQuantity = quantity;
+  //                 } else if (item == 'Coffee') {
+  //                   _coffeeQuantity = quantity;
+  //                 } else if (item == 'Tea') {
+  //                   _teaQuantity = quantity;
+  //                 }
+  //                 Navigator.of(context).pop();
+  //               });
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 }

@@ -11,15 +11,15 @@ class BookingDetails {
     if (json['data'] != null) {
       data = <BookingData>[];
       json['data'].forEach((v) {
-        data!.add(new BookingData.fromJson(v));
+        data!.add(BookingData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -101,29 +101,29 @@ class BookingData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['booking_id'] = this.bookingId;
-    data['booking_date'] = this.bookingDate;
-    data['booking_start_time'] = this.bookingStartTime;
-    data['booking_end_time'] = this.bookingEndTime;
-    data['booking_meeting_title'] = this.bookingMeetingTitle;
-    data['booking_location_id'] = this.bookingLocationId;
-    data['booking_conference_id'] = this.bookingConferenceId;
-    data['booking_meeting_description'] = this.bookingMeetingDescription;
-    data['booking_requirement_details'] = this.bookingRequirementDetails;
-    data['booking_status'] = this.bookingStatus;
-    data['booking_withdraw_by_id'] = this.bookingWithdrawById;
-    data['booking_withdraw_created_at'] = this.bookingWithdrawCreatedAt;
-    data['booking_withdraw_reason'] = this.bookingWithdrawReason;
-    data['booking_feedback'] = this.bookingFeedback;
-    data['booking_feedback_created_at'] = this.bookingFeedbackCreatedAt;
-    data['user_id'] = this.userId;
-    data['booking_created_at'] = this.bookingCreatedAt;
-    data['booking_updated_at'] = this.bookingUpdatedAt;
-    data['booking_created_by_id'] = this.bookingCreatedById;
-    data['booking_updated_by_id'] = this.bookingUpdatedById;
-    data['booking_reported_by'] = this.bookingReportedBy;
-    data['booking_number_of_attendees'] = this.bookingNumberOfAttendees;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['booking_id'] = bookingId;
+    data['booking_date'] = bookingDate;
+    data['booking_start_time'] = bookingStartTime;
+    data['booking_end_time'] = bookingEndTime;
+    data['booking_meeting_title'] = bookingMeetingTitle;
+    data['booking_location_id'] = bookingLocationId;
+    data['booking_conference_id'] = bookingConferenceId;
+    data['booking_meeting_description'] = bookingMeetingDescription;
+    data['booking_requirement_details'] = bookingRequirementDetails;
+    data['booking_status'] = bookingStatus;
+    data['booking_withdraw_by_id'] = bookingWithdrawById;
+    data['booking_withdraw_created_at'] = bookingWithdrawCreatedAt;
+    data['booking_withdraw_reason'] = bookingWithdrawReason;
+    data['booking_feedback'] = bookingFeedback;
+    data['booking_feedback_created_at'] = bookingFeedbackCreatedAt;
+    data['user_id'] = userId;
+    data['booking_created_at'] = bookingCreatedAt;
+    data['booking_updated_at'] = bookingUpdatedAt;
+    data['booking_created_by_id'] = bookingCreatedById;
+    data['booking_updated_by_id'] = bookingUpdatedById;
+    data['booking_reported_by'] = bookingReportedBy;
+    data['booking_number_of_attendees'] = bookingNumberOfAttendees;
     return data;
   }
 }

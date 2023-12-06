@@ -11,15 +11,15 @@ class DepartmentDetails {
     if (json['data'] != null) {
       data = <DepartmentData>[];
       json['data'].forEach((v) {
-        data!.add(new DepartmentData.fromJson(v));
+        data!.add(DepartmentData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -62,16 +62,16 @@ class DepartmentData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['department_id'] = this.departmentId;
-    data['department_name'] = this.departmentName;
-    data['department_code'] = this.departmentCode;
-    data['department_created_by_id'] = this.departmentCreatedById;
-    data['department_created_at'] = this.departmentCreatedAt;
-    data['department_updated_by_id'] = this.departmentUpdatedById;
-    data['department_updated_at'] = this.departmentUpdatedAt;
-    data['department_status'] = this.departmentStatus;
-    data['department_location_id'] = this.departmentLocationId;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['department_id'] = departmentId;
+    data['department_name'] = departmentName;
+    data['department_code'] = departmentCode;
+    data['department_created_by_id'] = departmentCreatedById;
+    data['department_created_at'] = departmentCreatedAt;
+    data['department_updated_by_id'] = departmentUpdatedById;
+    data['department_updated_at'] = departmentUpdatedAt;
+    data['department_status'] = departmentStatus;
+    data['department_location_id'] = departmentLocationId;
     return data;
   }
 }

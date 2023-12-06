@@ -34,14 +34,14 @@ class TabNavigator extends StatelessWidget {
   Widget _getScreen(BuildContext context, BottomNavBarItem item) {
     switch (item) {
       case BottomNavBarItem.profile:
-        return ProfileScreen();
+        return const ProfileScreen();
       // return Container();
       case BottomNavBarItem.home:
         return HomeScreen(key: homeScreenKey);
       case BottomNavBarItem.booking:
         return SyncfusionCalendar(key: syncfusionCalendarKey);
       default:
-        return Scaffold();
+        return const Scaffold();
     }
   }
 }

@@ -31,7 +31,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
       });
     } catch (error) {
       // Handle any errors that occur during the API request
-      print('Error fetching conference hall data: $error');
+      // print('Error fetching conference hall data: $error');
       // You can also show an error message here if needed
     }
   }
@@ -53,12 +53,12 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
   @override
   Widget build(BuildContext context) {
     return isLoading
-        ? CircularProgressIndicator() // Show a loading indicator while fetching data
+        ? const CircularProgressIndicator() // Show a loading indicator while fetching data
         : Container(
             width: screenWidth * 0.83,
             decoration: BoxDecoration(
               //color: Colors.blue[100],
-              color: Color.fromARGB(255, 236, 219, 158),
+              color: const Color.fromARGB(255, 236, 219, 158),
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
                   color: Colors.transparent), // Set border color to transparent
@@ -68,9 +68,9 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
               borderRadius: BorderRadius.circular(10.0),
               dropdownColor: Colors.grey[200],
               underline: Container(height: 0),
-              icon: Icon(Icons.arrow_drop_down),
+              icon: const Icon(Icons.arrow_drop_down),
               isExpanded: true,
-              hint: Padding(
+              hint: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 child: Text(
                   'Select Conference Room',
@@ -88,7 +88,7 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                       // hint: Text("Select Location"),
                       value: conferenceHalls.conferenceName,
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Text(conferenceHalls.conferenceName ?? ''),
                       ),
                     );
@@ -102,19 +102,19 @@ class _ConferenceHallDropdownState extends State<ConferenceHallDropdown> {
                   toBeAddedBookingData.bookingConferenceId =
                       getConferenceHallId(conferenceRoomChoosed!);
                   widget.callBackFunction(conferenceRoomChoosed);
-                  print(
-                      '${widget.locationName}, ${conferenceRoomChoosed} cjadasdakmx');
+                  // print(
+                  //     '${widget.locationName}, $conferenceRoomChoosed cjadasdakmx');
 
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocationAndConferenceHall(
                           widget.locationName, conferenceRoomChoosed!);
-                  print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsafefaefaf');
+                  // print(
+                  //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsafefaefaf');
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
                       getBookingDataAccordingToSelectedLocationAndConferenceHall(
                           widget.locationName, conferenceRoomChoosed!);
-                  print(
-                      '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsafefaefaf');
+                  // print(
+                  //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsafefaefaf');
                 });
               },
               value: conferenceRoomChoosed,

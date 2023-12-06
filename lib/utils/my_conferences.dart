@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class MyConferences extends StatefulWidget {
-  MyConferences({super.key});
+  const MyConferences({super.key});
 
   @override
   State<MyConferences> createState() => _MyConferencesState();
@@ -16,7 +16,7 @@ class _MyConferencesState extends State<MyConferences> {
     final List<BookingData> finalBookings = isSearched == false
         ? listOfMyMeetings
         : listOfFoundBookingsFromMyMeetings;
-    print('${listOfMyMeetings} 00000000000');
+    // print('${listOfMyMeetings} 00000000000');
     return finalBookings.isNotEmpty
         ? SizedBox(
             // decoration: BoxDecoration(
@@ -45,7 +45,7 @@ class _MyConferencesState extends State<MyConferences> {
                       ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
-                  print(bookingData);
+                  // print(bookingData);
                   return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
@@ -56,7 +56,7 @@ class _MyConferencesState extends State<MyConferences> {
                           color: Colors.amber[50],
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15)),
-                          shadows: [
+                          shadows: const [
                             BoxShadow(
                               color: Color(0x3F000000),
                               blurRadius: 3,
@@ -188,13 +188,13 @@ class _MyConferencesState extends State<MyConferences> {
                                     child: Align(
                                         alignment: Alignment.centerLeft,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 10,
                                           ),
                                           child: Text(
                                             '${bookingData.bookingMeetingTitle}',
                                             // textAlign: TextAlign.left,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Color(0xFFB88D05),
                                               fontSize: 15,
                                               fontFamily: 'Noto Sans',
@@ -210,14 +210,14 @@ class _MyConferencesState extends State<MyConferences> {
                                   PopupMenuButton<String>(
                                     itemBuilder: (BuildContext context) =>
                                         <PopupMenuEntry<String>>[
-                                      PopupMenuItem<String>(
+                                      const PopupMenuItem<String>(
                                         value: 'view_details',
                                         child: ListTile(
                                           leading: Icon(Icons.info_outline),
                                           title: Text('View Details'),
                                         ),
                                       ),
-                                      PopupMenuItem<String>(
+                                      const PopupMenuItem<String>(
                                         value: 'share',
                                         child: ListTile(
                                           leading: Icon(Icons.share),
@@ -261,8 +261,8 @@ class _MyConferencesState extends State<MyConferences> {
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
-      Conference Hall: ${conferenceHallName}
-      Location: ${locationName}
+      Conference Hall: $conferenceHallName
+      Location: $locationName
       
     ''';
 
@@ -304,9 +304,7 @@ class _MyConferencesState extends State<MyConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  testBaseUrl +
-                                      "/uploads/conferences/" +
-                                      conferenceHallImageName,
+                                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
                                   width: screenWidth * 0.18,
                                   height: screenHeight * 0.1,
                                   loadingBuilder: (BuildContext context,
@@ -332,7 +330,7 @@ class _MyConferencesState extends State<MyConferences> {
                                   },
                                   errorBuilder: (BuildContext context,
                                       Object error, StackTrace? stackTrace) {
-                                    return Text('Error loading image');
+                                    return const Text('Error loading image');
                                   },
                                 ),
                               ),
@@ -345,14 +343,14 @@ class _MyConferencesState extends State<MyConferences> {
                                   Align(
                                       alignment: Alignment.centerLeft,
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                           horizontal: 0,
                                         ),
                                         child: Column(
                                           children: [
                                             Row(children: [
-                                              SizedBox(width: 8),
-                                              Icon(
+                                              const SizedBox(width: 8),
+                                              const Icon(
                                                 Icons
                                                     .date_range, // Replace with the icon you want
                                                 color: Color(
@@ -363,8 +361,8 @@ class _MyConferencesState extends State<MyConferences> {
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
-                                                  style: TextStyle(
+                                                  '$convertStringDateIntoDesiredFormat(bookingData.bookingDate!)',
+                                                  style: const TextStyle(
                                                     color: Color(0xFF696767),
                                                     fontSize: 12,
                                                     fontFamily: 'Noto Sans',
@@ -389,8 +387,8 @@ class _MyConferencesState extends State<MyConferences> {
                                             // ),
                                             Row(
                                               children: [
-                                                SizedBox(width: 8),
-                                                Icon(
+                                                const SizedBox(width: 8),
+                                                const Icon(
                                                   Icons
                                                       .av_timer, // Replace with the icon you want
                                                   color: Color(
@@ -403,7 +401,7 @@ class _MyConferencesState extends State<MyConferences> {
                                                         Alignment.centerLeft,
                                                     child: Text(
                                                       '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                         color:
                                                             Color(0xFF696767),
                                                         fontSize: 12,
@@ -422,10 +420,10 @@ class _MyConferencesState extends State<MyConferences> {
 
                               Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 8,
                                   ),
-                                  Icon(
+                                  const Icon(
                                     Icons.meeting_room_outlined,
                                     color: Color(
                                         0xFF696767), // Set the color of the icon
@@ -434,7 +432,7 @@ class _MyConferencesState extends State<MyConferences> {
                                   Expanded(
                                     child: Text(
                                       conferenceHallName,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 12.1,
                                         fontFamily: 'Noto Sans',

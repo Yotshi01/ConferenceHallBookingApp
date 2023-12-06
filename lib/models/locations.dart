@@ -11,15 +11,15 @@ class LocationDetails {
     if (json['data'] != null) {
       data = <LocationData>[];
       json['data'].forEach((v) {
-        data!.add(new LocationData.fromJson(v));
+        data!.add(LocationData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -74,20 +74,20 @@ class LocationData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['location_id'] = this.locationId;
-    data['location_name'] = this.locationName;
-    data['location_short_name'] = this.locationShortName;
-    data['location_country_id'] = this.locationCountryId;
-    data['location_state_id'] = this.locationStateId;
-    data['location_district_id'] = this.locationDistrictId;
-    data['location_city_id'] = this.locationCityId;
-    data['location_address'] = this.locationAddress;
-    data['location_created_at'] = this.locationCreatedAt;
-    data['location_updated_at'] = this.locationUpdatedAt;
-    data['location_created_by_id'] = this.locationCreatedById;
-    data['location_updated_by_id'] = this.locationUpdatedById;
-    data['location_status'] = this.locationStatus;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['location_id'] = locationId;
+    data['location_name'] = locationName;
+    data['location_short_name'] = locationShortName;
+    data['location_country_id'] = locationCountryId;
+    data['location_state_id'] = locationStateId;
+    data['location_district_id'] = locationDistrictId;
+    data['location_city_id'] = locationCityId;
+    data['location_address'] = locationAddress;
+    data['location_created_at'] = locationCreatedAt;
+    data['location_updated_at'] = locationUpdatedAt;
+    data['location_created_by_id'] = locationCreatedById;
+    data['location_updated_by_id'] = locationUpdatedById;
+    data['location_status'] = locationStatus;
     return data;
   }
 }

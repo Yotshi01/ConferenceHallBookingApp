@@ -11,15 +11,15 @@ class BlackoutDaysDetails {
     if (json['data'] != null) {
       data = <BlackoutDaysData>[];
       json['data'].forEach((v) {
-        data!.add(new BlackoutDaysData.fromJson(v));
+        data!.add(BlackoutDaysData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -62,16 +62,16 @@ class BlackoutDaysData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['blackout_date_id'] = this.blackoutDateId;
-    data['blackout_date_title'] = this.blackoutDateTitle;
-    data['blackout_date_date'] = this.blackoutDateDate;
-    data['blackout_date_location_id'] = this.blackoutDateLocationId;
-    data['blackout_date_created_at'] = this.blackoutDateCreatedAt;
-    data['blackout_date_updated_at'] = this.blackoutDateUpdatedAt;
-    data['blackout_date_created_by_id'] = this.blackoutDateCreatedById;
-    data['blackout_date_updated_by_id'] = this.blackoutDateUpdatedById;
-    data['blackout_date_status'] = this.blackoutDateStatus;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['blackout_date_id'] = blackoutDateId;
+    data['blackout_date_title'] = blackoutDateTitle;
+    data['blackout_date_date'] = blackoutDateDate;
+    data['blackout_date_location_id'] = blackoutDateLocationId;
+    data['blackout_date_created_at'] = blackoutDateCreatedAt;
+    data['blackout_date_updated_at'] = blackoutDateUpdatedAt;
+    data['blackout_date_created_by_id'] = blackoutDateCreatedById;
+    data['blackout_date_updated_by_id'] = blackoutDateUpdatedById;
+    data['blackout_date_status'] = blackoutDateStatus;
     return data;
   }
 }

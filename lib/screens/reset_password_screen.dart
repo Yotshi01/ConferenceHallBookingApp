@@ -9,7 +9,7 @@ class ResetPasswordScreen extends StatefulWidget {
 }
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  TextEditingController _emailVerificationTextController =
+  final TextEditingController _emailVerificationTextController =
       TextEditingController();
   bool messageSentToEmail = false;
   late ForgotPasswordResponse response;
@@ -21,7 +21,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       body: Stack(
         children: [
           Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 image: DecorationImage(
                   image: AssetImage("assets/images/background.png"),
@@ -49,7 +49,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   Container(
                       width: screenWidth * 0.85,
                       height: screenHeight * 0.4,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         boxShadow: [
                           BoxShadow(
@@ -67,7 +67,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     SizedBox(
                                       height: screenHeight * 0.03,
                                     ),
-                                    Text(
+                                    const Text(
                                       'Forgot Password',
                                       style: TextStyle(
                                         color: Color(0xFF726F6B),
@@ -116,7 +116,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                             });
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
-                                              SnackBar(
+                                              const SnackBar(
                                                 backgroundColor: Colors.green,
                                                 content: Text(
                                                     "Mail sent successfully!"),
@@ -134,10 +134,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                           }
                                         },
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: Color(0xFFFFB500),
+                                          backgroundColor:
+                                              const Color(0xFFFFB500),
                                           elevation: 4,
-                                          shadowColor: Color(0x3F000000),
-                                          minimumSize: Size(172, 41),
+                                          shadowColor: const Color(0x3F000000),
+                                          minimumSize: const Size(172, 41),
                                         ),
                                         child: const Text(
                                           'Send',
@@ -148,7 +149,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                         ),
                                       )
                                     else
-                                      CircularProgressIndicator(),
+                                      const CircularProgressIndicator(),
                                     SizedBox(
                                       height: screenHeight * 0.03,
                                     ),
@@ -174,7 +175,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     Text(
                                       '${response.message}',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF726F6B),
                                         fontSize: 16,
                                         fontFamily: 'Noto Sans',
@@ -183,14 +184,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     ),
                                     SizedBox(height: screenHeight * 0.1),
                                     Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 30),
                                         child: Align(
                                             alignment: Alignment.centerRight,
                                             child: Column(
                                               // mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
-                                                Text('Did not recieve mail?'),
+                                                const Text(
+                                                    'Did not recieve mail?'),
                                                 ElevatedButton(
                                                   onPressed: () async {
                                                     setState(() {
@@ -201,10 +203,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                                   style:
                                                       ElevatedButton.styleFrom(
                                                     backgroundColor:
-                                                        Color(0xFFFFB500),
+                                                        const Color(0xFFFFB500),
                                                     elevation: 4,
                                                     shadowColor:
-                                                        Color(0x3F000000),
+                                                        const Color(0x3F000000),
                                                     minimumSize: Size(
                                                         screenWidth * 0.2,
                                                         screenHeight * 0.05),
@@ -239,7 +241,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           },
           child: const Text(
             " Log In",

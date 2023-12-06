@@ -15,10 +15,10 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
       labelText: text,
       labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
       filled: true,
-      contentPadding: EdgeInsets.symmetric(vertical: 0),
+      contentPadding: const EdgeInsets.symmetric(vertical: 0),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: Colors.white.withOpacity(0.3),
-      border: UnderlineInputBorder(
+      border: const UnderlineInputBorder(
         borderSide: BorderSide(
           width: 0.50,
           strokeAlign: BorderSide.strokeAlignCenter,
@@ -40,7 +40,7 @@ ElevatedButton bookNow(BuildContext context) {
       // Add your book now functionality here
       // Navigator.push(
       //     context, MaterialPageRoute(builder: (context) => BookNow()));
-      print("Book Now Button clicked");
+      // print("Book Now Button clicked");
 
       try {
         // Navigator.push(
@@ -49,10 +49,13 @@ ElevatedButton bookNow(BuildContext context) {
         //         builder: (context) =>
         //             SyncfusionCalendar(bookingDetails: response.data!)));
 
-        Navigator.push(currentContext,
-            MaterialPageRoute(builder: (context) => SyncfusionCalendar()));
+        Navigator.push(
+            currentContext,
+            MaterialPageRoute(
+                builder: (context) => const SyncfusionCalendar()));
       } catch (e) {
-        print("Error: $e");
+        // print("Error: $e");
+        throw Exception("Error: $e");
       }
     },
     style: ElevatedButton.styleFrom(
@@ -62,7 +65,7 @@ ElevatedButton bookNow(BuildContext context) {
     child: Container(
       width: screenWidth * 0.5,
       height: screenHeight * 0.06,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.amber,
         boxShadow: [
           BoxShadow(
@@ -73,7 +76,7 @@ ElevatedButton bookNow(BuildContext context) {
           ),
         ],
       ),
-      child: Center(
+      child: const Center(
         child: Text(
           "Book Now",
           style: TextStyle(
@@ -96,7 +99,7 @@ AppBar reusableAppBar(
     title: Text(
       pageName,
       textAlign: TextAlign.center,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.black,
         fontSize: 16,
         fontFamily: 'Roboto',
@@ -132,7 +135,7 @@ AppBar reusableAppBar(
       Stack(
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.notifications,
               color: Colors.black,
             ),
@@ -140,7 +143,7 @@ AppBar reusableAppBar(
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => NotificationsScreen()));
+                      builder: (context) => const NotificationsScreen()));
               // showDialog(
               //   context: context,
               //   builder: (BuildContext context) {
@@ -168,7 +171,7 @@ AppBar reusableAppBar(
                   child: Container(
                     width: 10,
                     height: 10,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.red,
                     ),
@@ -180,35 +183,35 @@ AppBar reusableAppBar(
   );
 }
 
-void _showLogoutConfirmationDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Logout'),
-        content: Text('Are you sure you want to logout?'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
-            },
-            child: Text('No'),
-          ),
-          TextButton(
-            onPressed: () async {
-              final SharedPreferences sharedPreferences =
-                  await SharedPreferences.getInstance();
-              sharedPreferences.remove('email');
-              sharedPreferences.remove('token');
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-            child: Text('Yes'),
-          ),
-        ],
-      );
-    },
-  );
-}
+// void _showLogoutConfirmationDialog(BuildContext context) {
+//   showDialog(
+//     context: context,
+//     builder: (BuildContext context) {
+//       return AlertDialog(
+//         title: Text('Logout'),
+//         content: Text('Are you sure you want to logout?'),
+//         actions: <Widget>[
+//           TextButton(
+//             onPressed: () {
+//               Navigator.of(context).pop(); // Close the dialog
+//             },
+//             child: Text('No'),
+//           ),
+//           TextButton(
+//             onPressed: () async {
+//               final SharedPreferences sharedPreferences =
+//                   await SharedPreferences.getInstance();
+//               sharedPreferences.remove('email');
+//               sharedPreferences.remove('token');
+//               Navigator.pushReplacement(
+//                 context,
+//                 MaterialPageRoute(builder: (context) => LoginScreen()),
+//               );
+//             },
+//             child: Text('Yes'),
+//           ),
+//         ],
+//       );
+//     },
+//   );
+// }

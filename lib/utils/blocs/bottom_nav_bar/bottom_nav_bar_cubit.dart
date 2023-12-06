@@ -6,7 +6,7 @@ part 'bottom_nav_bar_state.dart';
 
 class BottomNavBarCubit extends Cubit<BottomNavBarState> {
   BottomNavBarCubit()
-      : super(BottomNavBarState(selectedItem: BottomNavBarItem.home));
+      : super(const BottomNavBarState(selectedItem: BottomNavBarItem.home));
 
   void updateSelectedItem(BottomNavBarItem item) {
     if (item != state.selectedItem) {

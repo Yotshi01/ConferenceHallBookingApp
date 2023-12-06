@@ -11,15 +11,15 @@ class BookingDepartmentsResponse {
     if (json['data'] != null) {
       data = <BookingDepartmentsData>[];
       json['data'].forEach((v) {
-        data!.add(new BookingDepartmentsData.fromJson(v));
+        data!.add(BookingDepartmentsData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['message'] = message;
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -44,11 +44,11 @@ class BookingDepartmentsData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['booking_id'] = this.bookingId;
-    data['department_id'] = this.departmentId;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['booking_id'] = bookingId;
+    data['department_id'] = departmentId;
+    data['created_at'] = createdAt;
     return data;
   }
 }

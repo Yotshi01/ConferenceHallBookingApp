@@ -9,14 +9,14 @@ class ReschedulingRequestDetails {
     message = json['message'];
     status = json['status'];
     data = json['data'] != null
-        ? new ReschedulingRequestData.fromJson(json['data'])
+        ? ReschedulingRequestData.fromJson(json['data'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['message'] = message;
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
@@ -53,14 +53,14 @@ class ReschedulingRequestData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['request_booking_id'] = this.requestBookingId;
-    data['request_booking_user_id'] = this.requestBookingUserId;
-    data['request_requester_id'] = this.requestRequesterId;
-    data['request_reason'] = this.requestReason;
-    data['request_status'] = this.requestStatus;
-    data['request_id'] = this.requestId;
-    data['booking_request_created_at'] = this.bookingRequestCreatedAt;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['request_booking_id'] = requestBookingId;
+    data['request_booking_user_id'] = requestBookingUserId;
+    data['request_requester_id'] = requestRequesterId;
+    data['request_reason'] = requestReason;
+    data['request_status'] = requestStatus;
+    data['request_id'] = requestId;
+    data['booking_request_created_at'] = bookingRequestCreatedAt;
     return data;
   }
 }

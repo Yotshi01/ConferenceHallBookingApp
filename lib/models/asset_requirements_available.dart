@@ -11,15 +11,15 @@ class AssetRequirementsAvailableDetails {
     if (json['data'] != null) {
       data = <AssetRequirementsAvailableData>[];
       json['data'].forEach((v) {
-        data!.add(new AssetRequirementsAvailableData.fromJson(v));
+        data!.add(AssetRequirementsAvailableData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -50,12 +50,12 @@ class AssetRequirementsAvailableData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['asset_requirement_id'] = this.assetRequirementId;
-    data['asset_requirement_name'] = this.assetRequirementName;
-    data['asset_requirement_status'] = this.assetRequirementStatus;
-    data['asset_requirement_created_at'] = this.assetRequirementCreatedAt;
-    data['asset_requirement_created_by_id'] = this.assetRequirementCreatedById;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['asset_requirement_id'] = assetRequirementId;
+    data['asset_requirement_name'] = assetRequirementName;
+    data['asset_requirement_status'] = assetRequirementStatus;
+    data['asset_requirement_created_at'] = assetRequirementCreatedAt;
+    data['asset_requirement_created_by_id'] = assetRequirementCreatedById;
     return data;
   }
 }

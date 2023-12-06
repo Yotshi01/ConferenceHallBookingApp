@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               decoration: InputDecoration(
                                 labelText: 'Username',
                                 suffixIcon: IconButton(
-                                  icon: Icon(
+                                  icon: const Icon(
                                     Icons.person,
                                     color: Colors.grey,
                                   ),
@@ -152,18 +152,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
                       ElevatedButton(
                         onPressed: () async {
-                          print("Login Button clicked");
+                          // print("Login Button clicked");
                           try {
-                            print(
-                                '${_emailTextController.text} ${_passwordTextController.text} lxcnvcvklcxv');
+                            // print(
+                            //     '${_emailTextController.text} ${_passwordTextController.text} lxcnvcvklcxv');
                             final response = await userLogin(
                               _emailTextController.text,
                               _passwordTextController.text,
                             );
 
-                            print('dcnkdcacax');
+                            // print('dcnkdcacax');
                             if (response.success == false) {
-                              print("Login Error: An error occurred.");
+                              // print("Login Error: An error occurred.");
                               Fluttertoast.showToast(
                                   msg:
                                       'Please provide correct login credentials!',
@@ -181,24 +181,25 @@ class _LoginScreenState extends State<LoginScreen> {
                               sharedPreferences.setString(
                                   'token', response.data!.token!);
 
-                              print('sdcacasnksxmxxm Xz');
+                              // print('sdcacasnksxmxxm Xz');
 
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => TabbarSetup()));
+                                      builder: (context) => LoaderScreen()));
                             }
                           } catch (e) {
-                            print("Error: $e");
+                            // print("Error: $e");
+                            throw Exception("Error: $e");
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFFFB500),
+                          backgroundColor: const Color(0xFFFFB500),
                           elevation: 4,
-                          shadowColor: Color(0x3F000000),
-                          minimumSize: Size(172, 41),
+                          shadowColor: const Color(0x3F000000),
+                          minimumSize: const Size(172, 41),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Login',
                           style: TextStyle(
                             fontSize: 16,
@@ -250,8 +251,10 @@ class _LoginScreenState extends State<LoginScreen> {
           style: TextStyle(color: Colors.black),
           textAlign: TextAlign.right,
         ),
-        onPressed: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ResetPasswordScreen())),
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const ResetPasswordScreen())),
       ),
     );
   }

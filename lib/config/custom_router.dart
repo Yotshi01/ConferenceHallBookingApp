@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/exported_packages_for_easy_import
 
 class CustomRouter {
   static Route onGenerateRoute(RouteSettings settings) {
-    print('Route: ${settings.name}');
+    // print('Route: ${settings.name}');
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(

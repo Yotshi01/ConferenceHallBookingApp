@@ -11,15 +11,15 @@ class BookingAssetRequirementDetails {
     if (json['data'] != null) {
       data = <BookingAssetRequirementData>[];
       json['data'].forEach((v) {
-        data!.add(new BookingAssetRequirementData.fromJson(v));
+        data!.add(BookingAssetRequirementData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['message'] = message;
+    data['status'] = status;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -44,11 +44,11 @@ class BookingAssetRequirementData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['booking_id'] = this.bookingId;
-    data['asset_requirement_id'] = this.assetRequirementId;
-    data['created_at'] = this.createdAt;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['id'] = id;
+    data['booking_id'] = bookingId;
+    data['asset_requirement_id'] = assetRequirementId;
+    data['created_at'] = createdAt;
     return data;
   }
 }

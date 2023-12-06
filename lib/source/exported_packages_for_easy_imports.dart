@@ -75,6 +75,7 @@ export 'package:conference_hall_booking/screens/tabbar_setup_screen.dart';
 export 'package:conference_hall_booking/navigation_drawer.dart';
 export 'package:conference_hall_booking/screens/syncfusion_calendar_for_edit.dart';
 export 'package:conference_hall_booking/screens/editBooking.dart';
+export 'package:conference_hall_booking/screens/loader_screen.dart';
 
 export 'package:conference_hall_booking/utils/booking_alert_dialog.dart';
 export 'package:conference_hall_booking/utils/conference_hall_dropdown.dart';

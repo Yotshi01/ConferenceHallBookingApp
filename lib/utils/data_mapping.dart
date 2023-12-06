@@ -36,9 +36,9 @@ String getConferenceHallImageName(int conferenceHallId) {
 
 int getConferenceHallId(String conferenceHallName) {
   // Find the conference hall data with the matching conferenceName
-  print('${listOfConferenceHall} dmldqkdqdqmdw');
+  // print('${listOfConferenceHall} dmldqkdqdqmdw');
   for (final conferenceHall in listOfConferenceHall) {
-    print(conferenceHall.conferenceName);
+    // print(conferenceHall.conferenceName);
     if (conferenceHall.conferenceName == conferenceHallName) {
       return conferenceHall.conferenceId!;
     }
@@ -58,9 +58,9 @@ ConferenceHallData getConferenceHallDataByName(String name) {
 
 String getLocationName(int locationId) {
   // Find the conference hall data with the matching conferenceName
-  print('${listOfLocations} dmldqkdqdqmdw');
+  // print('${listOfLocations} dmldqkdqdqmdw');
   for (final location in listOfLocations) {
-    print(location.locationName);
+    // print(location.locationName);
     if (location.locationId == locationId) {
       return location.locationName!;
     }
@@ -70,9 +70,9 @@ String getLocationName(int locationId) {
 
 int getLocationId(String locationName) {
   // Find the conference hall data with the matching conferenceName
-  print('${listOfLocations} dmldqkdqdqmdw');
+  // print('${listOfLocations} dmldqkdqdqmdw');
   for (final location in listOfLocations) {
-    print(location.locationName);
+    // print(location.locationName);
     if (location.locationName == locationName) {
       return location.locationId!;
     }
@@ -108,7 +108,8 @@ List<BookingData> myMeetings() {
     myBookings.sort((a, b) => DateTime.parse(a.bookingDate!)
         .compareTo(DateTime.parse(b.bookingDate!)));
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
 
   return myBookings;
@@ -127,7 +128,7 @@ List<BookingData> otherMeetings() {
       if (bookingDateStr != null) {
         DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
 
-        print('${currentUserData!.id} ${booking.userId}');
+        // print('${currentUserData!.id} ${booking.userId}');
         if ((currentUserData!.id != booking.userId &&
                 bookingDate!.isAfter(now)) ||
             ((currentUserData!.id != booking.userId) &&
@@ -136,19 +137,21 @@ List<BookingData> otherMeetings() {
                     bookingDate.year == now.year))) {
           // Use currentUserData without ! here
           otherBookings.add(booking);
-          print(otherBookings);
+          // print(otherBookings);
         }
       } else {
-        print('Booking date is null');
+        // print('Booking date is null');
+        throw Exception('Booking date is null');
       }
     }
-    print('${otherBookings} 1111111111111111 ${currentUserData!.id}');
+    // print('${otherBookings} 1111111111111111 ${currentUserData!.id}');
 
     // Sort otherBookings based on bookingDate in ascending order
     otherBookings.sort((a, b) => DateTime.parse(a.bookingDate!)
         .compareTo(DateTime.parse(b.bookingDate!)));
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
   return otherBookings;
 }
@@ -162,13 +165,13 @@ List<BookingData> myOldMeetings() {
 
     for (var booking in listOfBookings) {
       String? bookingDateStr = booking.bookingDate;
-      print('${bookingDateStr} dclkacam');
+      // print('${bookingDateStr} dclkacam');
 
       // Check if bookingDateStr is not null
       if (bookingDateStr != null) {
         DateTime? bookingDate = DateTime.tryParse(bookingDateStr);
 
-        print('${bookingDate} ${bookingDate!.isBefore(now)}cnjzxcklkczx');
+        // print('${bookingDate} ${bookingDate!.isBefore(now)}cnjzxcklkczx');
 
         // Check if bookingDate is not null and if the booking is in the past
         if (bookingDate != null &&
@@ -176,22 +179,27 @@ List<BookingData> myOldMeetings() {
             bookingDate.day < now.day &&
             currentUserData!.id == booking.userId) {
           myOldBookings.add(booking);
-          print('Added a booking to myOldBookings');
-        } else {
-          print(
-              'Booking is not in the past or invalid date format: $bookingDateStr');
+          // print('Added a booking to myOldBookings');
         }
+        // else {
+        //   // print(
+        //   //     'Booking is not in the past or invalid date format: $bookingDateStr');
+        //   throw Exception(
+        //       'Booking is not in the past or invalid date format: $bookingDateStr');
+        // }
       } else {
-        print('Booking date is null');
+        // print('Booking date is null');
+        throw Exception('Booking date is null');
       }
     }
 
-    print('Old Bookings: $myOldBookings');
+    // print('Old Bookings: $myOldBookings');
     // Sort myOldBookings based on bookingDate in descending order
     myOldBookings.sort((a, b) => DateTime.parse(b.bookingDate!)
         .compareTo(DateTime.parse(a.bookingDate!)));
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
 
   return myOldBookings;
@@ -213,34 +221,39 @@ List<BookingData> todayMeetings() {
 
         if (bookingDate != null && bookingDate.isAtSameMomentAs(today)) {
           todayBookings.add(booking);
-          print('Added a booking to todayBookings');
-        } else {
-          print('Booking is not today or invalid date format: $bookingDateStr');
+          // print('Added a booking to todayBookings');
         }
+        // else {
+        //   // print('Booking is not today or invalid date format: $bookingDateStr');
+        //   throw Exception(
+        //       'Booking is not today or invalid date format: $bookingDateStr');
+        // }
       } else {
-        print('Booking date is null');
+        // print('Booking date is null');
+        throw Exception('Booking date is null');
       }
     }
 
-    print('Today Bookings: $todayBookings');
+    // print('Today Bookings: $todayBookings');
     // Sort todayBookings based on userId, placing current user's bookings first
     todayBookings.sort((a, b) {
-      print(
-          '${a.bookingId},,,,,,,${b.bookingId} ${a.userId} || ${b.userId} 1check');
+      // print(
+      //     '${a.bookingId},,,,,,,${b.bookingId} ${a.userId} || ${b.userId} 1check');
       if (a.userId == currentUserData!.id && b.userId != currentUserData!.id) {
-        print('${a.userId} || ${b.userId} 2check');
+        // print('${a.userId} || ${b.userId} 2check');
         return -1; // a comes first
       } else if (b.userId == currentUserData!.id &&
           a.userId != currentUserData!.id) {
-        print('${a.userId} || ${b.userId} 3check');
+        // print('${a.userId} || ${b.userId} 3check');
         return 1; // b comes first
       } else {
-        print('${a.userId} || ${b.userId} 4check');
+        // print('${a.userId} || ${b.userId} 4check');
         return 0; // order remains unchanged
       }
     });
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
 
   return todayBookings;
@@ -263,12 +276,13 @@ List<BookingData> getBookingDataAccordingToSelectedLocation(
     for (var booking in listOfBookings) {
       if (booking.bookingLocationId == locationId) {
         filteredBookings.add(booking);
-        print('${filteredBookings} dnjdasda');
-        print('${booking.bookingLocationId}  hellolololololololololololo');
+        // print('${filteredBookings} dnjdasda');
+        // print('${booking.bookingLocationId}  hellolololololololololololo');
       }
     }
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
   return filteredBookings;
 }
@@ -279,20 +293,21 @@ List<BookingData> getBookingDataAccordingToSelectedLocationAndConferenceHall(
   if (currentUserData != null) {
     int locationId = getLocationId(locationChoosed);
     int conferenceHallId = getConferenceHallId(conferenceHallChoosed);
-    print('${locationId}, ${conferenceHallId} aadjnkasldasx');
+    // print('${locationId}, ${conferenceHallId} aadjnkasldasx');
     for (var booking in listOfBookings) {
       if (booking.bookingLocationId == locationId &&
           booking.bookingConferenceId == conferenceHallId) {
         filteredBookings.add(booking);
-        print('${filteredBookings} dasdzxc');
-        print(
-            '${booking.bookingLocationId}  ${booking.bookingConferenceId} hellolololololololololololo');
-        print(
-            '${booking.bookingId} || ${booking.bookingLocationId} || ${booking.bookingConferenceId} || ${locationId} || ${conferenceHallId} dczckjzcjzckjx');
+        // print('${filteredBookings} dasdzxc');
+        // print(
+        //     '${booking.bookingLocationId}  ${booking.bookingConferenceId} hellolololololololololololo');
+        // print(
+        //     '${booking.bookingId} || ${booking.bookingLocationId} || ${booking.bookingConferenceId} || ${locationId} || ${conferenceHallId} dczckjzcjzckjx');
       }
     }
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
   return filteredBookings;
 }
@@ -302,18 +317,19 @@ List<ConferenceHallData> getConferenceHallDataAccordingToSelectedLocation(
   List<ConferenceHallData> conferenceHalls = [];
   if (currentUserData != null) {
     int locationId = getLocationId(locationChoosed);
-    print('${locationChoosed} ddcacc');
-    print('${locationId} ddcacc');
+    // print('${locationChoosed} ddcacc');
+    // print('${locationId} ddcacc');
     for (var conferenceHall in listOfConferenceHall) {
-      print('${conferenceHall.conferenceLocationId} ${locationId} vdvdzvvdvzv');
+      // print('${conferenceHall.conferenceLocationId} ${locationId} vdvdzvvdvzv');
       if (conferenceHall.conferenceLocationId == locationId) {
         conferenceHalls.add(conferenceHall);
       }
     }
   } else {
-    print('currentUserData is empty');
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
   }
-  print('${conferenceHalls} adfafcasdad');
+  // print('${conferenceHalls} adfafcasdad');
   return conferenceHalls;
 }
 

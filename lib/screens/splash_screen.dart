@@ -8,7 +8,7 @@ class SplashScreen extends StatefulWidget {
   static Route route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeName),
-      builder: (_) => SplashScreen(),
+      builder: (_) => const SplashScreen(),
     );
   }
 
@@ -33,10 +33,7 @@ class _StartScreenState extends State<SplashScreen> {
                       // selected tab)
                       finalEmail == null
                           ? const LoginScreen()
-                          : BlocProvider<BottomNavBarCubit>(
-                              create: (_) => BottomNavBarCubit(),
-                              child: TabbarSetup(),
-                            ))));
+                          : const LoaderScreen())));
     });
     super.initState();
   }

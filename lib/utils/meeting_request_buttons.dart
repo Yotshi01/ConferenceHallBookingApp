@@ -1,4 +1,3 @@
-import 'package:conference_hall_booking/api/rescheduling_request_api.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 
@@ -14,6 +13,7 @@ class MeetingUpdateButtons extends StatefulWidget {
 }
 
 class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
+  bool isReasonTextValid = false;
   @override
   Widget build(BuildContext context) {
     return (currentUserData!.id == widget.bookingUserId)
@@ -24,14 +24,14 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
             },
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(
-                  Size(40, 40)), // Set your desired size
+                  const Size(40, 40)), // Set your desired size
               padding: MaterialStateProperty.all(
                   EdgeInsets.zero), // Remove default padding
               //backgroundColor: MaterialStateProperty.all(Colors.blue), // Change background color if needed
               // Other style properties you might want to adjust
             ),
             // ),
-            child: Icon(Icons.outgoing_mail),
+            child: const Icon(Icons.outgoing_mail),
             // child: Container(
             //   width: screenWidth * 0.27,
             //   height: screenHeight * 0.03,
@@ -67,20 +67,41 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
         String reason = ""; // Store the input reason
 
         return AlertDialog(
-          title: Text("Send rescheduling request"),
+          title: const Text("Send rescheduling request"),
           content: TextField(
             onChanged: (text) {
               reason = text;
+              if (text.isNotEmpty && text.length <= 250) {
+                setState(() {
+                  isReasonTextValid = true;
+                });
+              } else {
+                setState(() {
+                  isReasonTextValid = false;
+                });
+              }
             },
             decoration: InputDecoration(
               hintText: "Enter your reason here",
+              labelText:
+                  !isReasonTextValid ? 'Not more than 250 letters' : null,
+              border: OutlineInputBorder(
+                // Adjust these values to position the label inside the border
+                borderSide: const BorderSide(width: 2.0),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                // Adjust these values for focused state
+                borderSide: const BorderSide(width: 2.0, color: Colors.amber),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
             ),
             maxLines: null,
           ),
           actions: <Widget>[
             ElevatedButton(
               onPressed: () async {
-                print("Reason: $reason");
+                // print("Reason: $reason");
 
                 // You can use the 'reason' variable for further processing
                 toBeAddedReschedulingRequestData.requestRequesterId =
@@ -106,31 +127,34 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                 //     content: Text("Failed to make a request!"),
                 //   ));
                 // }
-                var response = await addReschedulingRequest(
-                    toBeAddedReschedulingRequestData);
-                if (response.status == 'success') {
-                  print('Saved Changes');
-                  final snackBar = SnackBar(
-                    content: Text('Request Successfully'),
-                    backgroundColor: Colors.green,
-                    duration:
-                        Duration(seconds: 3), // Adjust the duration as needed
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                } else {
-                  final snackBar = SnackBar(
-                    content: Text('Failed to make a request'),
-                    backgroundColor: Colors.red,
-                    duration:
-                        Duration(seconds: 3), // Adjust the duration as needed
-                  );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
 
                 // print("Reason: $reason");
-                Navigator.of(context).pop();
+
+                if (isReasonTextValid == true) {
+                  Navigator.of(context).pop();
+                  var response = await addReschedulingRequest(
+                      toBeAddedReschedulingRequestData);
+                  if (response.status == 'success') {
+                    // print('Saved Changes');
+                    const snackBar = SnackBar(
+                      content: Text('Request Successfully'),
+                      backgroundColor: Colors.green,
+                      duration:
+                          Duration(seconds: 3), // Adjust the duration as needed
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else {
+                    const snackBar = SnackBar(
+                      content: Text('Failed to make a request'),
+                      backgroundColor: Colors.red,
+                      duration:
+                          Duration(seconds: 3), // Adjust the duration as needed
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                }
               },
-              child: Text("Send"),
+              child: const Text("Send"),
             ),
           ],
         );

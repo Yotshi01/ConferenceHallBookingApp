@@ -11,15 +11,15 @@ class HolidayDetails {
     if (json['data'] != null) {
       data = <HolidayData>[];
       json['data'].forEach((v) {
-        data!.add(new HolidayData.fromJson(v));
+        data!.add(HolidayData.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['status'] = status;
+    data['message'] = message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -80,22 +80,22 @@ class HolidayData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['holiday_year'] = this.holidayYear;
-    data['holiday_date'] = this.holidayDate;
-    data['holiday_day'] = this.holidayDay;
-    data['holiday_name'] = this.holidayName;
-    data['holiday_id'] = this.holidayId;
-    data['holiday_status'] = this.holidayStatus;
-    data['holiday_raipur_office'] = this.holidayRaipurOffice;
-    data['holiday_durg_plant'] = this.holidayDurgPlant;
-    data['holiday_states_except'] = this.holidayStatesExcept;
-    data['holiday_only_for'] = this.holidayOnlyFor;
-    data['holiday_hyderabad_plant'] = this.holidayHyderabadPlant;
-    data['holiday_created_at'] = this.holidayCreatedAt;
-    data['holiday_updated_at'] = this.holidayUpdatedAt;
-    data['holiday_created_by_id'] = this.holidayCreatedById;
-    data['holiday_updated_by_id'] = this.holidayUpdatedById;
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['holiday_year'] = holidayYear;
+    data['holiday_date'] = holidayDate;
+    data['holiday_day'] = holidayDay;
+    data['holiday_name'] = holidayName;
+    data['holiday_id'] = holidayId;
+    data['holiday_status'] = holidayStatus;
+    data['holiday_raipur_office'] = holidayRaipurOffice;
+    data['holiday_durg_plant'] = holidayDurgPlant;
+    data['holiday_states_except'] = holidayStatesExcept;
+    data['holiday_only_for'] = holidayOnlyFor;
+    data['holiday_hyderabad_plant'] = holidayHyderabadPlant;
+    data['holiday_created_at'] = holidayCreatedAt;
+    data['holiday_updated_at'] = holidayUpdatedAt;
+    data['holiday_created_by_id'] = holidayCreatedById;
+    data['holiday_updated_by_id'] = holidayUpdatedById;
     return data;
   }
 }

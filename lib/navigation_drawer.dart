@@ -1,10 +1,10 @@
-import 'package:conference_hall_booking/screens/home_screen.dart';
-import 'package:conference_hall_booking/screens/login_screen.dart';
-import 'package:conference_hall_booking/screens/profile_screen.dart';
+// import 'package:conference_hall_booking/screens/home_screen.dart';
+// import 'package:conference_hall_booking/screens/login_screen.dart';
+// import 'package:conference_hall_booking/screens/profile_screen.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/src/material/colors.dart';
+// import 'package:flutter/src/material/colors.dart';
 // import 'package:get/get.dart';
 //import 'source/constants.dart';
 
@@ -27,7 +27,7 @@ class NavigationDrawerFile extends StatelessWidget {
       );
 
   Widget buildHeader(BuildContext context) => Material(
-        color: Color.fromARGB(255, 241, 231, 195),
+        color: const Color.fromARGB(255, 241, 231, 195),
         // elevation: 2,
         //color: Colors.black54,
         child: InkWell(
@@ -41,7 +41,7 @@ class NavigationDrawerFile extends StatelessWidget {
                 top: 20 + MediaQuery.of(context).padding.top,
                 bottom: 20,
                 left: 17),
-            child: Column(
+            child: const Column(
               // Wrap with Row
 
               mainAxisAlignment: MainAxisAlignment.start,
@@ -57,7 +57,7 @@ class NavigationDrawerFile extends StatelessWidget {
                     //Icon(CupertinoIcons.person_alt_circle,size: 35),
                     Icon(Icons.account_circle_rounded,
                         size: 120, color: Colors.white54),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10),
                     // Column(
                     //   crossAxisAlignment: CrossAxisAlignment.start,
                     //   children: [
@@ -112,8 +112,8 @@ class NavigationDrawerFile extends StatelessWidget {
           //const Divider(),
 
           ListTile(
-              tileColor: Color.fromARGB(255, 241, 231, 195),
-              leading: Icon(Icons.logout,
+              tileColor: const Color.fromARGB(255, 241, 231, 195),
+              leading: const Icon(Icons.logout,
                   color: Color(0xFFB88D05)), //color: Color(0xFFB88D05)
               title: const Text(
                 'Log out',
@@ -133,14 +133,14 @@ class NavigationDrawerFile extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout?'),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () async {
@@ -159,7 +159,7 @@ class NavigationDrawerFile extends StatelessWidget {
                 // Call the logout callback
                 onLogoutPressed?.call();
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );

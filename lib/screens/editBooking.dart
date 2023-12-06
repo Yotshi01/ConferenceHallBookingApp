@@ -1,6 +1,6 @@
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 class EditBooking extends StatefulWidget {
   final DateTime selectedStartTime;
@@ -34,9 +34,9 @@ class _EditBookingState extends State<EditBooking> {
   DateTime? selectedDate;
   DateTime dateTime = DateTime(2022, 12, 24);
   TimeOfDay? selectedStartTime;
-  TimeOfDay printedStartTime = TimeOfDay(hour: 4, minute: 24);
+  TimeOfDay printedStartTime = const TimeOfDay(hour: 4, minute: 24);
   TimeOfDay? selectedEndTime;
-  TimeOfDay printedEndTime = TimeOfDay(hour: 4, minute: 24);
+  TimeOfDay printedEndTime = const TimeOfDay(hour: 4, minute: 24);
 
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
@@ -59,9 +59,9 @@ class _EditBookingState extends State<EditBooking> {
   int? selectedAttendees;
 
   Widget attendeeItems(BuildContext context) {
-    List<DropdownMenuItem<int?>> _getAttendeeItems() {
+    List<DropdownMenuItem<int?>> getAttendeeItems() {
       List<DropdownMenuItem<int?>> items = [];
-      items.add(DropdownMenuItem(
+      items.add(const DropdownMenuItem(
         value: null, // Set the initial value to null
         child: Text('Select'),
       ));
@@ -81,7 +81,7 @@ class _EditBookingState extends State<EditBooking> {
           selectedAttendees = value!;
         });
       },
-      items: _getAttendeeItems(),
+      items: getAttendeeItems(),
     );
   }
 
@@ -96,7 +96,7 @@ class _EditBookingState extends State<EditBooking> {
     try {
       final BookingDepartmentsResponse data =
           await bookingDepartmentsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -106,22 +106,24 @@ class _EditBookingState extends State<EditBooking> {
           listOfBookingDepartmentsByBookingId = data.data!.map((item) {
             return BookingDepartmentsData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
+          // print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
           _selectedDepartments = getListOfBookingDepartmentNames(
               listOfBookingDepartmentsByBookingId);
         }
       });
     } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $error');
     }
   }
 
   List<String> initialbookingDepartments = [];
   List<String> getListOfBookingDepartmentNames(
       List<BookingDepartmentsData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingDepartment in list) {
-      print('${bookingDepartment.departmentId} njxsxxZXZ');
+      // print('${bookingDepartment.departmentId} njxsxxZXZ');
       initialbookingDepartments
           .add(getDepartmentNameById(bookingDepartment.departmentId!));
     }
@@ -132,7 +134,7 @@ class _EditBookingState extends State<EditBooking> {
     try {
       final BookingRefreshmentDetails data =
           await bookingRefreshmentsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -142,22 +144,24 @@ class _EditBookingState extends State<EditBooking> {
           listOfBookingRefreshmentsByBookingId = data.data!.map((item) {
             return BookingRefreshmentData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          // print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
           _selectedRefreshments = getListOfBookingRefreshmentsNames(
               listOfBookingRefreshmentsByBookingId);
         }
       });
     } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $error');
     }
   }
 
   List<String> initialbookingRefreshments = [];
   List<String> getListOfBookingRefreshmentsNames(
       List<BookingRefreshmentData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingRefreshment in list) {
-      print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      // print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
       initialbookingRefreshments
           .add(getRefreshmentNameById(bookingRefreshment.refreshmentId!));
     }
@@ -168,7 +172,7 @@ class _EditBookingState extends State<EditBooking> {
     try {
       final BookingAssetRequirementDetails data =
           await bookingAssetRequirementsByBookingIdResponse;
-      print('${data} casjkas');
+      // print('${data} casjkas');
       setState(() {
         if (data.data != null) {
           // accessing the 'data' of the api response and storing the value in global
@@ -178,22 +182,24 @@ class _EditBookingState extends State<EditBooking> {
           listOfBookingAssetRequirementsByBookingId = data.data!.map((item) {
             return BookingAssetRequirementData.fromJson(item.toJson());
           }).toList();
-          print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
+          // print('${listOfBookingAssetRequirementsByBookingId} adbjnkxzx');
           _selectedAssets = getListOfBookingAssetRequirementNames(
               listOfBookingAssetRequirementsByBookingId);
         }
       });
     } catch (error) {
-      print('Error fetching booking departments by booking id data: $error');
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking departments by booking id data: $error');
     }
   }
 
   List<String> initialbookingAssets = [];
   List<String> getListOfBookingAssetRequirementNames(
       List<BookingAssetRequirementData> list) {
-    print("${list} dhkdjkdasdas");
+    // print("${list} dhkdjkdasdas");
     for (var bookingAsset in list) {
-      print('${bookingAsset.assetRequirementId} njxsxxZXZ');
+      // print('${bookingAsset.assetRequirementId} njxsxxZXZ');
       initialbookingAssets
           .add(getAssetNameById(bookingAsset.assetRequirementId!));
     }
@@ -256,20 +262,20 @@ class _EditBookingState extends State<EditBooking> {
     _selectedAssets = [];
   }
 
-  Future<TimeOfDay?> _selectedTime(BuildContext context) {
-    final now = DateTime.now();
-    return showTimePicker(
-        initialEntryMode: TimePickerEntryMode.inputOnly,
-        context: context,
-        initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
-  }
+  // Future<TimeOfDay?> _selectedTime(BuildContext context) {
+  //   final now = DateTime.now();
+  //   return showTimePicker(
+  //       initialEntryMode: TimePickerEntryMode.inputOnly,
+  //       context: context,
+  //       initialTime: TimeOfDay(hour: now.hour, minute: now.minute));
+  // }
 
-  Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
-        context: context,
-        initialDate: DateTime.now().add(Duration(seconds: 1)),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-      );
+  // Future<DateTime?> _selectedDate(BuildContext context) => showDatePicker(
+  //       context: context,
+  //       initialDate: DateTime.now().add(Duration(seconds: 1)),
+  //       firstDate: DateTime.now(),
+  //       lastDate: DateTime(2100),
+  //     );
 
   void _showMultiSelectDepartments() async {
     List<String> departments = getDepartmentNames();
@@ -329,21 +335,21 @@ class _EditBookingState extends State<EditBooking> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Discard'),
-          content: Text(
+          title: const Text('Discard'),
+          content: const Text(
               'Are you sure you want to discard currently edited booking details?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Close the dialog
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () async {
                 Navigator.of(dialogContext).pop(); // Close the dialog first
                 await Future.delayed(
-                    Duration(milliseconds: 300)); // Add a delay if needed
+                    const Duration(milliseconds: 300)); // Add a delay if needed
                 // Navigator.of(context)
                 //     .pop(); // Navigate after the dialog is closed
                 navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
@@ -353,7 +359,7 @@ class _EditBookingState extends State<EditBooking> {
                 //   print('Error: $e');
                 // }
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );
@@ -366,14 +372,14 @@ class _EditBookingState extends State<EditBooking> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text('Edit Booking'),
-          content: Text('Are you sure you want to edit this booking?'),
+          title: const Text('Edit Booking'),
+          content: const Text('Are you sure you want to edit this booking?'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Close the dialog
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () async {
@@ -466,7 +472,7 @@ class _EditBookingState extends State<EditBooking> {
                           widget.data!.requestId!, 'Accepted');
                       if (response.status == 'success') {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             backgroundColor: Colors.grey,
                             content: Text("Rescheduling Request Accepted"),
                           ),
@@ -476,7 +482,7 @@ class _EditBookingState extends State<EditBooking> {
                         // }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             backgroundColor: Colors.grey,
                             content:
                                 Text("Failed to rejected rescheduling Request"),
@@ -527,7 +533,7 @@ class _EditBookingState extends State<EditBooking> {
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         backgroundColor: Colors.red,
                         content: Text("Failed to update booking"),
                       ),
@@ -539,7 +545,7 @@ class _EditBookingState extends State<EditBooking> {
                   //     Duration(milliseconds: 300)); // Add a delay if needed
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       backgroundColor: Colors.red,
                       content: Text(
                           "Please enter valid data in all the required feilds"),
@@ -547,7 +553,7 @@ class _EditBookingState extends State<EditBooking> {
                   );
                 }
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );
@@ -557,13 +563,13 @@ class _EditBookingState extends State<EditBooking> {
 
   @override
   Widget build(BuildContext context) {
-    print('${selectedLocation} sddddscddcdscsdcdscs');
+    // print('${selectedLocation} sddddscddcdscsdcdscs');
     final conferenceHallImageName = getConferenceHallImageName(
         getConferenceHallId(widget.selectedConferenceHall));
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             // width: 352,
             // height: 641,
             decoration: const BoxDecoration(
@@ -599,13 +605,13 @@ class _EditBookingState extends State<EditBooking> {
                         },
                         style: ElevatedButton.styleFrom(
                           shape:
-                              CircleBorder(), // Use CircleBorder to make the button circular
+                              const CircleBorder(), // Use CircleBorder to make the button circular
                           backgroundColor: Colors.grey[
                               300], // Change the button color to your preference
-                          padding: EdgeInsets.all(
+                          padding: const EdgeInsets.all(
                               16.0), // Adjust the padding as needed
                         ),
-                        child: Icon(
+                        child: const Icon(
                           Icons
                               .arrow_back, // You can use your preferred edit icon here
                           color: Colors
@@ -625,7 +631,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           // Align(
@@ -639,9 +645,7 @@ class _EditBookingState extends State<EditBooking> {
                           Align(
                             alignment: Alignment.center,
                             child: Image.network(
-                              testBaseUrl +
-                                  "/uploads/conferences/" +
-                                  conferenceHallImageName,
+                              "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
                               width: screenWidth * 0.24,
                               height: screenHeight * 0.15,
                               loadingBuilder: (BuildContext context,
@@ -667,7 +671,7 @@ class _EditBookingState extends State<EditBooking> {
                               },
                               errorBuilder: (BuildContext context, Object error,
                                   StackTrace? stackTrace) {
-                                return Text('Error loading image');
+                                return const Text('Error loading image');
                               },
                             ),
                           ),
@@ -676,12 +680,12 @@ class _EditBookingState extends State<EditBooking> {
                     ),
                     // Text('Start Time: ${widget.selectedStartTime}'),
                     // Text('End Time: ${widget.selectedEndTime}'),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Text(
                             'Date',
@@ -693,7 +697,7 @@ class _EditBookingState extends State<EditBooking> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                             width: 30,
                             child: Align(
                               alignment: Alignment.center,
@@ -708,7 +712,7 @@ class _EditBookingState extends State<EditBooking> {
                             )),
                         Text(
                           '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -816,7 +820,7 @@ class _EditBookingState extends State<EditBooking> {
                     //   ),
                     // ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     // Padding(
@@ -834,7 +838,7 @@ class _EditBookingState extends State<EditBooking> {
 
                     Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Text(
                             'Time',
@@ -846,7 +850,7 @@ class _EditBookingState extends State<EditBooking> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                             width: 30,
                             child: Align(
                               alignment: Alignment.center,
@@ -864,14 +868,14 @@ class _EditBookingState extends State<EditBooking> {
                           children: [
                             Text(
                               //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
-                              '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
-                              style: TextStyle(
+                              '$convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)',
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'Noto Sans',
                               ),
                             ),
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.symmetric(
                                 horizontal: 15,
                               ),
@@ -887,8 +891,8 @@ class _EditBookingState extends State<EditBooking> {
                             ),
                             Text(
                               // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
-                              '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
-                              style: TextStyle(
+                              '$convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)',
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
                                 fontFamily: 'Noto Sans',
@@ -1125,13 +1129,13 @@ class _EditBookingState extends State<EditBooking> {
                     //   ],
                     // ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
                     Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Text(
                             'Location',
@@ -1143,7 +1147,7 @@ class _EditBookingState extends State<EditBooking> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                             width: 30,
                             child: Align(
                               alignment: Alignment.center,
@@ -1158,8 +1162,8 @@ class _EditBookingState extends State<EditBooking> {
                             )),
                         Expanded(
                           child: Text(
-                            '${widget.selectedLocation}',
-                            style: TextStyle(
+                            '$widget.selectedLocation',
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontFamily: 'Noto Sans',
@@ -1169,13 +1173,13 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
                     Row(
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(left: 15.0),
                           child: Text(
                             'Conference Room Name',
@@ -1187,7 +1191,7 @@ class _EditBookingState extends State<EditBooking> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                             width: 30,
                             child: Align(
                               alignment: Alignment.center,
@@ -1202,8 +1206,8 @@ class _EditBookingState extends State<EditBooking> {
                             )),
                         Expanded(
                           child: Text(
-                            '${widget.selectedConferenceHall}',
-                            style: TextStyle(
+                            '$widget.selectedConferenceHall',
+                            style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
                               fontFamily: 'Noto Sans',
@@ -1213,10 +1217,10 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Meeting Title',
@@ -1245,7 +1249,7 @@ class _EditBookingState extends State<EditBooking> {
                     //     ),
                     //   ),
                     // ),
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1254,7 +1258,7 @@ class _EditBookingState extends State<EditBooking> {
                       child: Container(
                         width: screenWidth * 0.9,
                         height: 50,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             // horizontal: 15.0,
                             // vertical: 1
                             ), // Adjust the padding as needed
@@ -1265,7 +1269,7 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                         child: TextField(
                           controller: _meetingTitleController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1288,13 +1292,13 @@ class _EditBookingState extends State<EditBooking> {
                                 : null,
                             border: OutlineInputBorder(
                               // Adjust these values to position the label inside the border
-                              borderSide: BorderSide(width: 2.0),
+                              borderSide: const BorderSide(width: 2.0),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               // Adjust these values for focused state
-                              borderSide:
-                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.amber),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             // border: InputBorder
@@ -1419,14 +1423,14 @@ class _EditBookingState extends State<EditBooking> {
                     //   ),
                     // ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Meeting Description',
@@ -1444,7 +1448,7 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1453,7 +1457,7 @@ class _EditBookingState extends State<EditBooking> {
                       child: Container(
                         width: screenWidth * 0.9,
                         height: 50,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             // horizontal: 15.0,
                             // vertical: 1
                             ), // Adjust the padding as needed
@@ -1464,7 +1468,7 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                         child: TextField(
                           controller: _meetingDescriptionController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1487,13 +1491,13 @@ class _EditBookingState extends State<EditBooking> {
                                 : null,
                             border: OutlineInputBorder(
                               // Adjust these values to position the label inside the border
-                              borderSide: BorderSide(width: 2.0),
+                              borderSide: const BorderSide(width: 2.0),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               // Adjust these values for focused state
-                              borderSide:
-                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.amber),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             // border: InputBorder
@@ -1503,15 +1507,15 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Meeting Reported By',
@@ -1541,7 +1545,7 @@ class _EditBookingState extends State<EditBooking> {
                     //   ),
                     // ),
                     ,
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1550,7 +1554,7 @@ class _EditBookingState extends State<EditBooking> {
                       child: Container(
                         width: screenWidth * 0.9,
                         height: 50,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             // horizontal: 15.0,
                             // vertical: 1
                             ), // Adjust the padding as needed
@@ -1561,7 +1565,7 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                         child: TextField(
                           controller: _meetingReportedByController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1584,13 +1588,13 @@ class _EditBookingState extends State<EditBooking> {
                                 : null,
                             border: OutlineInputBorder(
                               // Adjust these values to position the label inside the border
-                              borderSide: BorderSide(width: 2.0),
+                              borderSide: const BorderSide(width: 2.0),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             focusedBorder: OutlineInputBorder(
                               // Adjust these values for focused state
-                              borderSide:
-                                  BorderSide(width: 2.0, color: Colors.amber),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.amber),
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             // border: InputBorder
@@ -1602,7 +1606,7 @@ class _EditBookingState extends State<EditBooking> {
 
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Number of Attendees',
                           style: TextStyle(
                             color: Colors.black,
@@ -1611,7 +1615,7 @@ class _EditBookingState extends State<EditBooking> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
+                        const Text(
                           '*',
                           style: TextStyle(color: Colors.red),
                         ),
@@ -1619,19 +1623,19 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Container(
+                    SizedBox(
                       width: screenWidth * 0.5, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectDepartments,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(
+                          padding: const EdgeInsets.all(10),
+                          textStyle: const TextStyle(
                             color: Colors.black87,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1664,7 +1668,7 @@ class _EditBookingState extends State<EditBooking> {
                     //   thickness: 1,
                     // ),
 
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1677,19 +1681,19 @@ class _EditBookingState extends State<EditBooking> {
                           .toList(),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Container(
+                    SizedBox(
                       width: screenWidth * 0.5, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectAssetRequirements,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(
+                          padding: const EdgeInsets.all(10),
+                          textStyle: const TextStyle(
                             color: Colors.black87,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1703,7 +1707,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                     ),
 
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1716,10 +1720,10 @@ class _EditBookingState extends State<EditBooking> {
                           .toList(),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Row(
+                    const Row(
                       children: [
                         Text(
                           'Requirement Details (if any)',
@@ -1737,7 +1741,7 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1747,7 +1751,7 @@ class _EditBookingState extends State<EditBooking> {
                       child: Container(
                         width: screenWidth * 0.9,
                         height: 50,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 15.0,
                             vertical: 1), // Adjust the padding as needed
                         decoration: BoxDecoration(
@@ -1757,12 +1761,12 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                         child: TextField(
                           controller: _otherDetailsController,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
                           ),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder
                                 .none, // Remove the default TextField border
                           ),
@@ -1814,19 +1818,19 @@ class _EditBookingState extends State<EditBooking> {
                     //   ),
                     // ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
-                    Container(
+                    SizedBox(
                       width: screenWidth * 0.5, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
                           foregroundColor: Colors.black,
-                          padding: EdgeInsets.all(10),
-                          textStyle: TextStyle(
+                          padding: const EdgeInsets.all(10),
+                          textStyle: const TextStyle(
                             color: Colors.black87,
                             fontSize: 14,
                             fontFamily: 'Noto Sans',
@@ -1840,7 +1844,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                     ),
 
-                    Divider(
+                    const Divider(
                       color: Color(
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
@@ -1854,7 +1858,7 @@ class _EditBookingState extends State<EditBooking> {
                           .toList(),
                     ),
 
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
 
@@ -1882,13 +1886,13 @@ class _EditBookingState extends State<EditBooking> {
                           },
                           style: ElevatedButton.styleFrom(
                             shape:
-                                CircleBorder(), // Use CircleBorder to make the button circular
+                                const CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
                                 .grey, // Change the button color to your preference
-                            padding: EdgeInsets.all(
+                            padding: const EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons
                                 .cancel, // You can use your preferred edit icon here
                             color: Colors
@@ -1901,13 +1905,13 @@ class _EditBookingState extends State<EditBooking> {
                           },
                           style: ElevatedButton.styleFrom(
                             shape:
-                                CircleBorder(), // Use CircleBorder to make the button circular
+                                const CircleBorder(), // Use CircleBorder to make the button circular
                             backgroundColor: Colors
                                 .grey, // Change the button color to your preference
-                            padding: EdgeInsets.all(
+                            padding: const EdgeInsets.all(
                                 16.0), // Adjust the padding as needed
                           ),
-                          child: Icon(
+                          child: const Icon(
                             Icons
                                 .check_circle, // You can use your preferred edit icon here
                             color: Colors
@@ -1916,7 +1920,7 @@ class _EditBookingState extends State<EditBooking> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                   ],

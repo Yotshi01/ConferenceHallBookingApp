@@ -2,7 +2,7 @@ import 'package:conference_hall_booking/source/exported_packages_for_easy_import
 import 'package:conference_hall_booking/source/constants.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  NotificationsScreen({super.key});
+  const NotificationsScreen({super.key});
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
@@ -34,7 +34,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         //   ),
         // ),
         centerTitle: true,
-        title: Text(
+        title: const Text(
           'Notification',
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -85,7 +85,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 SizedBox(
                   height: screenHeight * 0.002,
                 ),
-                NotificationsBuilder(),
+                const NotificationsBuilder(),
                 SizedBox(
                   height: screenHeight * 0.01,
                 ),

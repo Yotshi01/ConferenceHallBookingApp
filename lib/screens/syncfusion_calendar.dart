@@ -17,7 +17,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       []; // Initialize an empty list of Appointments
   List<DateTime> specifiedDates = [];
   List<DateTime> specifiedBlackoutDates = [];
-  BookingAlertDialog alertDialog = BookingAlertDialog();
+  BookingAlertDialog alertDialog = const BookingAlertDialog();
 
   DateTime? selectedStartTime;
   DateTime? selectedEndTime;
@@ -77,11 +77,12 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
           listOfHolidays = data.data!.map((item) {
             return HolidayData.fromJson(item.toJson());
           }).toList();
-          print(listOfHolidays);
+          // print(listOfHolidays);
         }
       });
     } catch (error) {
-      print('Error fetching holiday list data: $error');
+      // print('Error fetching holiday list data: $error');
+      throw Exception('Error fetching holiday list data: $error');
     }
   }
 
@@ -98,7 +99,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
         }
       });
     } catch (error) {
-      print('Error fetching blackout days list data: $error');
+      // print('Error fetching blackout days list data: $error');
+      throw Exception('Error fetching blackout days list data: $error');
     }
   }
 
@@ -224,15 +226,15 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
   Future<void> _loadAppointments() async {
     bookedTimeSlots = [];
-    print('vjhghhhhj');
+    // print('vjhghhhhj');
     // List<BookingData> bookingDataList = [];
     // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking;
 
-    print(
-        '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} djkadnjzxc');
+    // print(
+    //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} djkadnjzxc');
     if (listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking
         .isNotEmpty) {
-      print('ddfsfsd');
+      // print('ddfsfsd');
 
       // Generate a random color for each appointment
       // final Random random = Random();
@@ -247,7 +249,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       // );
 
       // Use a single color for all appointments (amber)
-      final Color appointmentColor = Colors.amber;
+      const Color appointmentColor = Colors.amber;
 
       setState(() {
         _appointments =
@@ -260,20 +262,20 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
           // Create a TimeRegion to represent the booked time slot
           final timeRegion = TimeRegion(
-              startTime: DateTime.parse(
-                  data.bookingDate! + ' ' + data.bookingStartTime!),
-              endTime: DateTime.parse(
-                  data.bookingDate! + ' ' + data.bookingEndTime!),
+              startTime:
+                  DateTime.parse('$data.bookingDate! $data.bookingStartTime!'),
+              endTime:
+                  DateTime.parse('$data.bookingDate! $data.bookingEndTime!'),
               // color: color, // Use the same color as the appointment
               color: Colors.amber[800]);
 
           bookedTimeSlots.add(timeRegion); // Add the TimeRegion to the list
 
           return Appointment(
-              startTime: DateTime.parse(
-                  data.bookingDate! + ' ' + data.bookingStartTime!),
-              endTime: DateTime.parse(
-                  data.bookingDate! + ' ' + data.bookingEndTime!),
+              startTime:
+                  DateTime.parse('$data.bookingDate! $data.bookingStartTime!'),
+              endTime:
+                  DateTime.parse('$data.bookingDate! $data.bookingEndTime!'),
               subject: data.bookingMeetingTitle!,
               // color: color, // Use the random color
               color: appointmentColor);
@@ -298,14 +300,14 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       DateTime? nonWorkingDay =
           DateTime.tryParse(nonWorkingDayDetails.holidayDate!);
       specifiedDates.add(nonWorkingDay!);
-      print('${nonWorkingDay} ${nonWorkingDayDetails.holidayDate!}');
+      // print('${nonWorkingDay} ${nonWorkingDayDetails.holidayDate!}');
     }
 
     for (final blackoutDaysDetails in listOfBlackoutDays) {
       DateTime? blackoutDay =
           DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
       specifiedBlackoutDates.add(blackoutDay!);
-      print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
+      // print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
     }
 
     // final List<DateTime> specifiedDates = [
@@ -337,7 +339,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
         startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
         endTime: DateTime(date.year, date.month, date.day, 23, 59, 59),
         enablePointerInteraction: true, // Disables interaction with these dates
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           color: Colors.red, // Customize the text color for disabled dates
           decoration: TextDecoration
               .lineThrough, // Add a line through the text for a strikeout effect
@@ -353,7 +355,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
         endTime: DateTime(date.year, date.month, date.day, 23, 59, 59),
         enablePointerInteraction:
             false, // Disables interaction with these dates
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
           color: Colors.red, // Customize the text color for disabled dates
           decoration: TextDecoration
               .lineThrough, // Add a line through the text for a strikeout effect
@@ -382,7 +384,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               endTime: endTime,
               enablePointerInteraction:
                   true, // Disables interaction with these dates
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                 color:
                     Colors.red, // Customize the text color for disabled dates
                 decoration: TextDecoration
@@ -402,8 +404,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     if (selectedStartTime != null) {
       regions.add(TimeRegion(
         startTime: selectedStartTime!,
-        endTime: selectedStartTime!
-            .add(Duration(minutes: 30)), // Adjust duration for the cell size
+        endTime: selectedStartTime!.add(
+            const Duration(minutes: 30)), // Adjust duration for the cell size
         color: Colors.blue[600], // Customize the start time cell color
       ));
     }
@@ -412,7 +414,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     if (selectedEndTime != null) {
       regions.add(TimeRegion(
         startTime: selectedEndTime!.subtract(
-            Duration(minutes: 30)), // Adjust duration for the cell size
+            const Duration(minutes: 30)), // Adjust duration for the cell size
         endTime: selectedEndTime!,
         color: Colors.blue[600], // Customize the end time cell color
       ));
@@ -421,8 +423,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     // Add a region for the selected time slot
     if (selectedStartTime != null && selectedEndTime != null) {
       regions.add(TimeRegion(
-        startTime: selectedStartTime!.add(Duration(minutes: 30)),
-        endTime: selectedEndTime!.subtract(Duration(minutes: 30)),
+        startTime: selectedStartTime!.add(const Duration(minutes: 30)),
+        endTime: selectedEndTime!.subtract(const Duration(minutes: 30)),
         color: Colors.blue.withOpacity(0.5), // Customize the color
       ));
     }
@@ -430,7 +432,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     // Add the booked time slots
     regions.addAll(bookedTimeSlots);
 
-    print(regions);
+    // print(regions);
     return regions;
   }
 
@@ -471,7 +473,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       } else if (selectedEndTime == null) {
         // Calculate the end time of the tapped box (1 hour later)
         DateTime calculatedEndTime =
-            calendarTapDetails.date!.add(Duration(minutes: 30));
+            calendarTapDetails.date!.add(const Duration(minutes: 30));
 
         // Check if selected end time is after the start time
         if (calendarTapDetails.date!.isAfter(selectedStartTime!) &&
@@ -485,7 +487,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
           if (isConflicting == true) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Time Slot Unavailable'),
               ),
             );
@@ -515,7 +517,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 calculatedEndTime.month == selectedStartTime!.month &&
                 calculatedEndTime.day > selectedStartTime!.day)) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content:
                   Text('Start Time and End time should be on the same day'),
             ),
@@ -532,13 +534,14 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 calculatedEndTime.month == selectedStartTime!.month &&
                 calculatedEndTime.day == selectedStartTime!.day)) {
           setState(() {
-            selectedEndTime = selectedStartTime!.add(Duration(minutes: 30));
+            selectedEndTime =
+                selectedStartTime!.add(const Duration(minutes: 30));
             selectedStartTime = calendarTapDetails.date;
             isConflicting = _isTimeRangeConflicting();
           });
           if (isConflicting == true) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('Time Slot Unavailable'),
               ),
             );
@@ -570,7 +573,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
             showAddBookingButton = false;
           });
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content:
                   Text('Start Time and End time should be on the same day'),
             ),
@@ -605,10 +608,10 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
   @override
   Widget build(BuildContext context) {
     _loadAppointments();
-    print(
-        '${selectedLocation} this is the start of the process of filtering using location');
-    print(
-        '${selectedConferenceHall} this is the start of the process of filtering using conference hall');
+    // print(
+    //     '${selectedLocation} this is the start of the process of filtering using location');
+    // print(
+    //     '${selectedConferenceHall} this is the start of the process of filtering using conference hall');
     return RefreshIndicator(
         onRefresh: refreshScreen,
         child: Scaffold(
@@ -640,7 +643,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                           locationName: selectedLocation ?? ''),
                     if (selectedLocation != null)
                       IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.info,
                           color: Color.fromARGB(255, 236, 219, 158),
                           size: 35,
@@ -698,12 +701,12 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   view: CalendarView.week,
                   dataSource: _getCalendarDataSource(),
                   minDate: DateTime.now(),
-                  maxDate: DateTime.now().add(Duration(days: 30)),
-                  timeSlotViewSettings: TimeSlotViewSettings(
+                  maxDate: DateTime.now().add(const Duration(days: 30)),
+                  timeSlotViewSettings: const TimeSlotViewSettings(
                     startHour: 8,
                     endHour: 22,
-                    timeInterval: const Duration(minutes: 30),
-                    minimumAppointmentDuration: const Duration(minutes: 30),
+                    timeInterval: Duration(minutes: 30),
+                    minimumAppointmentDuration: Duration(minutes: 30),
                     timeFormat: 'h:mm a',
                   ),
 
@@ -723,23 +726,23 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Row(
                 children: [
                   Row(
                     children: [
-                      SizedBox(width: 10),
+                      const SizedBox(width: 10),
                       Container(
                         width: 15,
                         height: 15,
                         color: Colors.green,
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width:
                               5), // Adjust the spacing between the square and the text
-                      Text(
+                      const Text(
                         'Holiday',
                         style: TextStyle(
                           fontSize: 15,
@@ -750,16 +753,16 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   ),
                   Row(
                     children: [
-                      SizedBox(width: 13),
+                      const SizedBox(width: 13),
                       Container(
                         width: 15,
                         height: 15,
                         color: Colors.blueGrey,
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width:
                               5), // Adjust the spacing between the square and the text
-                      Text(
+                      const Text(
                         'Sunday',
                         style: TextStyle(
                           fontSize: 15,
@@ -775,10 +778,10 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                         height: 15,
                         color: Colors.grey[300],
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width:
                               5), // Adjust the spacing between the square and the text
-                      Text(
+                      const Text(
                         'Past',
                         style: TextStyle(
                           fontSize: 15,
@@ -789,16 +792,16 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   ),
                   Row(
                     children: [
-                      SizedBox(width: 13),
+                      const SizedBox(width: 13),
                       Container(
                         width: 15,
                         height: 15,
                         color: Colors.black,
                       ),
-                      SizedBox(
+                      const SizedBox(
                           width:
                               5), // Adjust the spacing between the square and the text
-                      Text(
+                      const Text(
                         'Blackout Day',
                         style: TextStyle(
                           fontSize: 15,
@@ -810,7 +813,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   // SizedBox(width: 13),
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
 
@@ -820,17 +823,17 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               if (showAddBookingButton == true &&
                   selectedLocation != null &&
                   selectedConferenceHall != null)
-                Container(
+                SizedBox(
                   width: screenWidth * 0.95,
                   height: screenHeight * 0.07,
                   //color: Colors.blue[50],
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(
+                      const SizedBox(
                         width: 7,
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Text(
                           'Continue booking by tapping in add button',
                           style: TextStyle(
@@ -839,7 +842,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 12,
                       ),
                       Align(
@@ -849,7 +852,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
                           //backgroundColor: Color.fromARGB(255, 241, 231, 195),
                           mini: true,
-                          child: Icon(
+                          child: const Icon(
                             Icons.add,
                             color: Colors.white,
                           ),
@@ -871,9 +874,9 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                               final Duration duration = (selectedEndTime!
                                       .difference(selectedStartTime!))
                                   .abs();
-                              if (duration < Duration(minutes: 60)) {
+                              if (duration < const Duration(minutes: 60)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                         'The selected duration should be atleast 60 minutes'),
                                   ),
@@ -881,7 +884,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                               } else if (selectedStartTime!
                                   .isAfter(selectedEndTime!)) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                         'Start Time should be before End Time'),
                                   ),
@@ -894,14 +897,14 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                                           selectedEndTime!.day) ==
                                   false) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                         'Start Time and end time should be on the same day'),
                                   ),
                                 );
                               } else if (isConflicting == true) {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  const SnackBar(
                                     content: Text(
                                         'Slot not available. Please book in unbooked time range'),
                                   ),
@@ -946,7 +949,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
                                 if (selectedLocation != null &&
                                     selectedConferenceHall != null) {
-                                  print('${selectedStartTime} sjxsaxkxx');
+                                  // print('${selectedStartTime} sjxsaxkxx');
 
                                   await navigatorKeys[BottomNavBarItem.booking]!
                                       .currentState!
@@ -986,7 +989,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                                   //             )));
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text(
                                           'Please select both location and conference hall to add booking'),
                                     ),
@@ -999,7 +1002,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                               }
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content: Text(
                                       'Please select your time slot to add a booking'),
                                 ),
@@ -1025,7 +1028,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          content: Container(
+          content: SizedBox(
             //padding: EdgeInsets.all(16), // Add padding to the Container
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1033,7 +1036,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               children: [
                 Row(
                   children: [
-                    Text('Event Details',
+                    const Text('Event Details',
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.amber,
@@ -1045,7 +1048,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                     Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.close,
                           color: Colors.red,
                           size: 25.0,
@@ -1065,7 +1068,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 Text(
                   'Title: ${appointment.subject}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     color: Colors.black54,
                     //color: Color.fromARGB(255, 202, 180, 101),
@@ -1093,12 +1096,12 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                     Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             horizontal: 0,
                           ),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons
                                     .av_timer, // Replace with the icon you want
                                 color: Colors.grey,
@@ -1106,8 +1109,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                                 size: 20, // Set the size of the icon
                               ),
                               Text(
-                                '${formattedStartTime} to ${formattedEndTime}',
-                                style: TextStyle(
+                                '$formattedStartTime to $formattedEndTime',
+                                style: const TextStyle(
                                   color: Colors.black54,
                                   //color: Color.fromARGB(255, 202, 180, 101),
                                   fontSize: 14,
@@ -1144,7 +1147,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
         return AlertDialog(
           title: Text(
             selectedConferenceHall!,
-            style: TextStyle(color: Colors.brown),
+            style: const TextStyle(color: Colors.brown),
           ),
           backgroundColor: Colors.amber[50],
           content: Column(
@@ -1163,9 +1166,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               Align(
                 alignment: Alignment.center,
                 child: Image.network(
-                  testBaseUrl +
-                      "/uploads/conferences/" +
-                      conferenceHallImageName,
+                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
                   width: screenWidth * 0.24,
                   height: screenHeight * 0.15,
                   loadingBuilder: (BuildContext context, Widget child,
@@ -1185,13 +1186,13 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   },
                   errorBuilder: (BuildContext context, Object error,
                       StackTrace? stackTrace) {
-                    return Text('Error loading image');
+                    return const Text('Error loading image');
                   },
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               //Text("${currentSelectedConferenceHall.conferenceName}"),
-              Text(
+              const Text(
                 "About Room",
                 style: TextStyle(
                   fontSize: 16.5,
@@ -1200,11 +1201,11 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 7,
               ),
-              Divider(),
-              SizedBox(
+              const Divider(),
+              const SizedBox(
                 height: 7,
               ),
               Text(
@@ -1217,8 +1218,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 //textAlign: TextAlign.left,
               ),
-              SizedBox(height: 14),
-              Text(
+              const SizedBox(height: 14),
+              const Text(
                 "Other details",
                 style: TextStyle(
                   fontSize: 16.5,
@@ -1227,7 +1228,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              Divider(),
+              const Divider(),
               Text(
                 "Seating Capacity: ${currentSelectedConferenceHall.conferenceSeatingCapacity}",
                 style: TextStyle(
@@ -1238,7 +1239,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "Audio System: ${currentSelectedConferenceHall.conferenceAudiosystem}",
                 style: TextStyle(
@@ -1249,7 +1250,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Text(
@@ -1262,7 +1263,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "Mic Availability: ${currentSelectedConferenceHall.conferenceMic}",
                 style: TextStyle(
@@ -1273,7 +1274,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "Others: ${currentSelectedConferenceHall.conferenceOther}",
                 style: TextStyle(
@@ -1284,7 +1285,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                 ),
                 textAlign: TextAlign.left,
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Text(
                 "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
                 style: TextStyle(
@@ -1301,7 +1302,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('Close'),
+              child: const Text('Close'),
             ),
           ],
         );

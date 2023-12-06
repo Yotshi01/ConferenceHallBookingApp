@@ -1,5 +1,3 @@
-import 'package:conference_hall_booking/models/booking_departments_model.dart';
-import 'package:conference_hall_booking/models/withdraw_booking_model.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
@@ -23,25 +21,25 @@ import 'package:http/http.dart' as http;
 
 Future<BookingDetails> getBookingDetails() async {
   try {
-    String url = testUrl + "booking_details";
+    String url = "${testUrl}booking_details";
     Uri urlUri = Uri.parse(url);
     final response = await http.get(urlUri);
 
     if (response.statusCode == 200) {
       return BookingDetails.fromJson(json.decode(response.body));
     } else {
-      print('Error: ${response.statusCode}');
-      print('Body: ${response.body}');
+      // print('Error: ${response.statusCode}');
+      // print('Body: ${response.body}');
       throw Exception('Failed to load data');
     }
   } catch (e) {
-    print('Exception: $e');
+    // print('Exception: $e');
     throw Exception('Failed to load data');
   }
 }
 
 Future<BookingDetails> addBookingDetails(BookingDetails bookingDetails) async {
-  String url = testUrl + "booking_details"; // Replace with your server URL
+  String url = "${testUrl}booking_details"; // Replace with your server URL
   Uri urlUri = Uri.parse(url);
 
   final response = await http.post(
@@ -60,7 +58,7 @@ Future<BookingDetails> addBookingDetails(BookingDetails bookingDetails) async {
 }
 
 Future<UpdateBooking> updateBooking(BookingData value) async {
-  String url = testUrl + "update_booking";
+  String url = "${testUrl}update_booking";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": toBeUpdatedBookingData.bookingId.toString(),
@@ -84,15 +82,15 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return UpdateBooking.fromJson(json.decode(response.body));
   } else if (response.statusCode == 442) {
-    print('Validation error');
+    // print('Validation error');
     return UpdateBooking.fromJson(json.decode(response.body));
   } else if (response.statusCode == 422) {
-    print('No slot available error');
+    // print('No slot available error');
     return UpdateBooking.fromJson(json.decode(response.body));
   } else {
     throw Exception('Failed to update booking details');
@@ -101,15 +99,15 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
 
 Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
     int bookingId) async {
-  String url = testUrl + "get_booking_departments/${bookingId}";
-  print('${url} nknjjxczx');
+  String url = "${testUrl}get_booking_departments/$bookingId";
+  // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,
   //   'password': password,
   // };
   final response = await http.get(urlUri);
-  print("${response.body} nksdkjad");
+  // print("${response.body} nksdkjad");
   // if (response
 
   return BookingDepartmentsResponse.fromJson(json.decode(response.body));
@@ -120,15 +118,15 @@ Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
 
 Future<BookingRefreshmentDetails> getBookingRefreshmentsByBookingId(
     int bookingId) async {
-  String url = testUrl + "get_booking_refreshments/${bookingId}";
-  print('${url} nknjjxczx');
+  String url = "${testUrl}get_booking_refreshments/$bookingId";
+  // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,
   //   'password': password,
   // };
   final response = await http.get(urlUri);
-  print("${response.body} nksdkjad");
+  // print("${response.body} nksdkjad");
   // if (response
 
   return BookingRefreshmentDetails.fromJson(json.decode(response.body));
@@ -139,15 +137,15 @@ Future<BookingRefreshmentDetails> getBookingRefreshmentsByBookingId(
 
 Future<BookingAssetRequirementDetails> getBookingAssetRequirementsByBookingId(
     int bookingId) async {
-  String url = testUrl + "get_booking_asset_requirements/${bookingId}";
-  print('${url} nknjjxczx');
+  String url = "${testUrl}get_booking_asset_requirements/$bookingId";
+  // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,
   //   'password': password,
   // };
   final response = await http.get(urlUri);
-  print("${response.body} nksdkjad");
+  // print("${response.body} nksdkjad");
   // if (response
 
   return BookingAssetRequirementDetails.fromJson(json.decode(response.body));
@@ -157,7 +155,7 @@ Future<BookingAssetRequirementDetails> getBookingAssetRequirementsByBookingId(
 }
 
 Future<AddBookingData> addBooking(BookingData value) async {
-  String url = testUrl + "add_booking";
+  String url = "${testUrl}add_booking";
   Uri urlUri = Uri.parse(url);
   // var requestBody = {
   //   "booking_date": toBeAddedBookingData.bookingDate,
@@ -197,7 +195,7 @@ Future<AddBookingData> addBooking(BookingData value) async {
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return AddBookingData.fromJson(json.decode(response.body));
@@ -208,7 +206,7 @@ Future<AddBookingData> addBooking(BookingData value) async {
 
 Future<BookingDepartmentsResponse> addBookingDepartments(
     List<String> departmentsToBeAdded, int bookingId) async {
-  String url = testUrl + "add_booking_departments";
+  String url = "${testUrl}add_booking_departments";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects
@@ -218,8 +216,8 @@ Future<BookingDepartmentsResponse> addBookingDepartments(
   for (String departmentName in departmentsToBeAdded) {
     var returnValue = getDepartmentIdByName(departmentName);
     if (returnValue == 0) {
-      print(
-          "please check department name as it doesnot exists in the database");
+      // print(
+      //     "please check department name as it doesnot exists in the database");
     } else {
       var requestBody = {
         "booking_id": bookingId.toString(),
@@ -234,7 +232,7 @@ Future<BookingDepartmentsResponse> addBookingDepartments(
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: jsonEncode(requestBodyList));
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return BookingDepartmentsResponse.fromJson(json.decode(response.body));
@@ -244,7 +242,7 @@ Future<BookingDepartmentsResponse> addBookingDepartments(
 }
 
 Future<WithdrawBooking> withdrawBooking(BookingData value) async {
-  String url = testUrl + "withdraw_booking";
+  String url = "${testUrl}withdraw_booking";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": value.bookingId.toString(),
@@ -257,7 +255,7 @@ Future<WithdrawBooking> withdrawBooking(BookingData value) async {
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: requestBody);
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return WithdrawBooking.fromJson(json.decode(response.body));
@@ -268,14 +266,14 @@ Future<WithdrawBooking> withdrawBooking(BookingData value) async {
 
 Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
     int bookingId) async {
-  String url = testUrl + "delete_booking_departments/${bookingId}";
+  String url = "${testUrl}delete_booking_departments/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
     urlUri,
     // headers: {"Content-Type": "application/json"},
   );
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return DeleteBookingDepartmentDetails.fromJson(json.decode(response.body));
@@ -286,14 +284,14 @@ Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
 
 Future<DeleteBookingRefreshmentDetails> deleteBookingRefreshmentsByBookingId(
     int bookingId) async {
-  String url = testUrl + "delete_booking_refreshments/${bookingId}";
+  String url = "${testUrl}delete_booking_refreshments/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
     urlUri,
     // headers: {"Content-Type": "application/json"},
   );
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return DeleteBookingRefreshmentDetails.fromJson(json.decode(response.body));
@@ -304,14 +302,14 @@ Future<DeleteBookingRefreshmentDetails> deleteBookingRefreshmentsByBookingId(
 
 Future<DeleteBookingAssetRequirementDetails>
     deleteBookingAssetRequirementsByBookingId(int bookingId) async {
-  String url = testUrl + "delete_booking_asset_requirements/${bookingId}";
+  String url = "${testUrl}delete_booking_asset_requirements/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
     urlUri,
     // headers: {"Content-Type": "application/json"},
   );
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return DeleteBookingAssetRequirementDetails.fromJson(
@@ -323,7 +321,7 @@ Future<DeleteBookingAssetRequirementDetails>
 
 Future<BookingRefreshmentDetails> addBookingRefreshments(
     List<String> refreshmentsToBeAdded, int bookingId) async {
-  String url = testUrl + "add_booking_refreshments";
+  String url = "${testUrl}add_booking_refreshments";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects
@@ -333,8 +331,8 @@ Future<BookingRefreshmentDetails> addBookingRefreshments(
   for (String refreshmentName in refreshmentsToBeAdded) {
     var returnValue = getRefreshmentIdByName(refreshmentName);
     if (returnValue == 0) {
-      print(
-          "please check refreshment name as it doesnot exists in the database");
+      // print(
+      //     "please check refreshment name as it doesnot exists in the database");
     } else {
       var requestBody = {
         "booking_id": bookingId.toString(),
@@ -349,7 +347,7 @@ Future<BookingRefreshmentDetails> addBookingRefreshments(
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: jsonEncode(requestBodyList));
-  print(response.body);
+  // print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return BookingRefreshmentDetails.fromJson(json.decode(response.body));
@@ -360,7 +358,7 @@ Future<BookingRefreshmentDetails> addBookingRefreshments(
 
 Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
     List<String> assetRequirementsToBeAdded, int bookingId) async {
-  String url = testUrl + "add_booking_asset_requirements";
+  String url = "${testUrl}add_booking_asset_requirements";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects
@@ -370,8 +368,8 @@ Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
   for (String assetName in assetRequirementsToBeAdded) {
     var returnValue = getAssetIdByName(assetName);
     if (returnValue == 0) {
-      print(
-          "please check asset requirement name as it doesnot exists in the database");
+      // print(
+      //     "please check asset requirement name as it doesnot exists in the database");
     } else {
       var requestBody = {
         "booking_id": bookingId.toString(),
@@ -386,7 +384,7 @@ Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
   var response = await http.post(urlUri,
       // headers: {"Content-Type": "application/json"},
       body: jsonEncode(requestBodyList));
-  print(response.body);
+  //print(response.body);
   if (response.statusCode == 200) {
     // Assuming the server returns the updated booking details in the response
     return BookingAssetRequirementDetails.fromJson(json.decode(response.body));

@@ -13,15 +13,15 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
   final String userName = 'John Doe'; // Replace with user's name
   final String notificationTimeAgo =
       '5 min ago'; // Replace with notification timestamp
-  final List<Map<String, dynamic>> _notifications = [
-    {"id": 7, "type": "postpone_request", "notification": "notification7"},
-    {"id": 1, "type": "normal", "notification": "notification1"},
-    {"id": 2, "type": "normal", "notification": "notification2"},
-    {"id": 3, "type": "normal", "notification": "notification3"},
-    {"id": 4, "type": "normal", "notification": "notification4"},
-    {"id": 5, "type": "normal", "notification": "notification5"},
-    {"id": 6, "type": "normal", "notification": "notification6"},
-  ];
+  // final List<Map<String, dynamic>> _notifications = [
+  //   {"id": 7, "type": "postpone_request", "notification": "notification7"},
+  //   {"id": 1, "type": "normal", "notification": "notification1"},
+  //   {"id": 2, "type": "normal", "notification": "notification2"},
+  //   {"id": 3, "type": "normal", "notification": "notification3"},
+  //   {"id": 4, "type": "normal", "notification": "notification4"},
+  //   {"id": 5, "type": "normal", "notification": "notification5"},
+  //   {"id": 6, "type": "normal", "notification": "notification6"},
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
   Widget _buildPostponeRequestNotification(
       ReschedulingRequestResponseData data) {
     String requesterName = getUserNameById(data.requestRequesterId!);
-    String bookingUserName = getUserNameById(data.requestBookingUserId!);
+    // String bookingUserName = getUserNameById(data.requestBookingUserId!);
     BookingData onBooking = getBookingByBookingId(data.requestBookingId!);
     String locationName = getLocationName(onBooking.bookingLocationId!);
     String conferenceHallName =
@@ -71,7 +71,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
               elevation: 4.0,
               child: ExpansionTile(
                 title: ListTile(
-                  contentPadding: EdgeInsets.all(8.0),
+                  contentPadding: const EdgeInsets.all(8.0),
                   leading: CircleAvatar(
                     backgroundColor: Colors.orange[200],
                     radius: 30,
@@ -79,7 +79,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                       requesterName.isNotEmpty
                           ? requesterName[0].toUpperCase()
                           : '',
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 25,
                           color: Colors.white,
                           fontWeight: FontWeight.w700),
@@ -87,7 +87,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                   ),
                   title: Text(
                     "${requesterName.isEmpty ? '' : requesterName[0].toUpperCase()}${requesterName.substring(1)} has requested a reschedule",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 18.0,
                       color: Colors.orangeAccent,
@@ -112,22 +112,22 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                         //     fontSize: 16.0,
                         //   ),
                         // ),
-                        Divider(
+                        const Divider(
                           color: Colors.grey,
                           thickness: 1,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.event_available,
                               color: Colors.blue,
                               size: 30,
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Text(
                               'Meeting: ${onBooking.bookingMeetingTitle}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -171,24 +171,24 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                             Align(
                                 alignment: Alignment.centerLeft,
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.symmetric(
                                     horizontal: 0,
                                   ),
                                   child: Row(
                                     children: [
                                       Row(children: [
                                         //SizedBox(width: 8),
-                                        Icon(
+                                        const Icon(
                                           Icons.access_time,
                                           color: Colors.orange,
                                           size: 30,
                                         ),
-                                        SizedBox(width: 10),
+                                        const SizedBox(width: 10),
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Text(
                                             '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               color: Color(0xFF696767),
                                               fontSize: 16,
                                               fontFamily: 'Noto Sans',
@@ -226,7 +226,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                               alignment: Alignment.centerLeft,
                                               child: Text(
                                                 '${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 16,
                                                   fontFamily: 'Noto Sans',
@@ -242,7 +242,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                         ),
                         Row(
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.pin_drop,
                               color: Colors.orange,
 
@@ -250,13 +250,13 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                               // color: Color(0xFF696767),
                               size: 30,
                             ),
-                            SizedBox(width: 5),
+                            const SizedBox(width: 5),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  ' ${locationName}, ',
-                                  style: TextStyle(
+                                  ' $locationName, ',
+                                  style: const TextStyle(
                                     color: Color(0xFF696767),
                                     fontSize: 16,
                                     fontFamily: 'Noto Sans',
@@ -265,7 +265,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                 ),
                                 Text(
                                   '${conferenceHallName}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color(0xFF696767),
                                     fontSize: 16,
                                     fontFamily: 'Noto Sans',
@@ -276,7 +276,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                             ),
                           ],
                         ),
-                        SizedBox(height: 20.0),
+                        const SizedBox(height: 20.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -308,7 +308,13 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                               data: data)),
                                     );
                               },
-                              child: Text(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
+                              child: const Text(
                                 'Reschedule',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -316,12 +322,6 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   fontFamily: 'Noto Sans',
                                   fontWeight: FontWeight.w500,
                                 ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orangeAccent,
-                                foregroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
                               ),
                             ),
                             ElevatedButton(
@@ -332,7 +332,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                         data.requestId!, 'Rejected');
                                 if (response.status == 'success') {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       backgroundColor: Colors.grey,
                                       content:
                                           Text("Rescheduling Request Rejected"),
@@ -343,7 +343,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   }
                                 } else {
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       backgroundColor: Colors.grey,
                                       content: Text(
                                           "Failed to rejected rescheduling Request"),
@@ -351,7 +351,13 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   );
                                 }
                               },
-                              child: Text(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 10),
+                              ),
+                              child: const Text(
                                 'Reject',
                                 style: TextStyle(
                                   color: Colors.white,
@@ -359,12 +365,6 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   fontFamily: 'Noto Sans',
                                   fontWeight: FontWeight.w500,
                                 ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.orangeAccent,
-                                foregroundColor: Colors.white,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 10),
                               ),
                             ),
                           ],
@@ -385,9 +385,10 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                       leading: CircleAvatar(
                         backgroundColor: Colors.orange[200],
                         radius: 30,
-                        child: Icon(Icons.outgoing_mail, color: Colors.white),
+                        child: const Icon(Icons.outgoing_mail,
+                            color: Colors.white),
                       ),
-                      title: Text(
+                      title: const Text(
                         'Meeting Reschedule Request',
                         style: TextStyle(
                             color: Colors.orange,
@@ -402,7 +403,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
+                            const Row(
                               children: [
                                 //     Icon(
                                 //       Icons.event_note,
@@ -423,15 +424,15 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                             //SizedBox(height: 10),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.event_note,
                                   color: Colors.blue,
                                   size: 35,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
                                   '${onBooking.bookingMeetingTitle}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.w700,
@@ -441,25 +442,25 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                               ],
                             ),
 
-                            Divider(
+                            const Divider(
                               color: Color(0xFFC2C0C0),
                               thickness: 1.5,
                               height: 30,
                             ),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.pin_drop,
                                   color: Colors.orangeAccent,
                                   size: 30,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       '$conferenceHallName, ',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 16,
                                         fontFamily: 'Noto Sans',
@@ -468,7 +469,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                     ),
                                     Text(
                                       '$locationName',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 16,
                                         fontFamily: 'Noto Sans',
@@ -482,12 +483,12 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                             //SizedBox(height: 20),
                             Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   Icons.schedule,
                                   color: Colors.orangeAccent,
                                   size: 30,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -501,7 +502,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                     // ),
                                     Text(
                                       '${convertStringDateIntoDesiredFormat(onBooking.bookingDate!)}, ${convertStringTimeIntoDesiredFormat(onBooking.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(onBooking.bookingEndTime!)}',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 16,
                                         fontFamily: 'Noto Sans',
@@ -551,15 +552,15 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                               children: [
                                 Text(
                                   '${data.requestStatus}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Noto Sans',
                                     fontWeight: FontWeight.bold,
                                     color: Colors.redAccent,
                                   ),
                                 ),
-                                SizedBox(width: 10),
-                                Icon(
+                                const SizedBox(width: 10),
+                                const Icon(
                                   Icons.error,
                                   color: Colors.redAccent,
                                   size: 35,
@@ -719,147 +720,147 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
     );
   }
 
-  Widget _buildNormalNotification(Map<String, dynamic> data) {
-    // Customize the appearance for type1 notifications
-    return Padding(
-      padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
-          screenWidth * 0.027, screenHeight * 0.01),
-      child: Container(
-        width: 364,
-        height: 109,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x3F000000),
-              blurRadius: 4,
-              offset: Offset(0, 4),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        padding: EdgeInsets.all(7.0),
-        child: Column(
-          //mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              //mainAxisAlignment: MainAxisAlignment.start,
-              //crossAxisAlignment: CrossAxisAlignment.center,
+  // Widget _buildNormalNotification(Map<String, dynamic> data) {
+  //   // Customize the appearance for type1 notifications
+  //   return Padding(
+  //     padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
+  //         screenWidth * 0.027, screenHeight * 0.01),
+  //     child: Container(
+  //       width: 364,
+  //       height: 109,
+  //       decoration: BoxDecoration(
+  //         color: Colors.white,
+  //         boxShadow: [
+  //           BoxShadow(
+  //             color: Color(0x3F000000),
+  //             blurRadius: 4,
+  //             offset: Offset(0, 4),
+  //             spreadRadius: 0,
+  //           )
+  //         ],
+  //       ),
+  //       padding: EdgeInsets.all(7.0),
+  //       child: Column(
+  //         //mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           Row(
+  //             //mainAxisAlignment: MainAxisAlignment.start,
+  //             //crossAxisAlignment: CrossAxisAlignment.center,
 
-              children: [
-                Text(
-                  '24 Aug 2023 01:00 PM',
-                  //textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF848080),
-                    fontSize: 10,
-                    fontFamily: 'Noto Sans',
-                    fontWeight: FontWeight.w400,
-                    height: 0,
-                  ),
-                ),
-                //SizedBox(
-                //  width: 16.0, // Adjust the width as needed
-                //),
-                SizedBox(
-                  width: screenWidth * 0.34,
-                ),
-                Icon(
-                  Icons.mail, // Replace with the icon you want
-                  color: Color(0xFF696767),
-                  // Set the color of the icon
-                  size: 16, // Set the size of the icon
-                ),
-              ],
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Management CDM',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14,
-                  fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                ),
-              ),
-            ),
-            Divider(
-              indent: 10,
-              endIndent: 10,
-              color: Color(0xFFC2C0C0),
-              // Set the color of the divider line
-              thickness: 1, // Set the thickness of the divider line
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Conference  Room Floor - 02',
-                textAlign: TextAlign.left,
-                style: TextStyle(
-                  color: Color(0xFFB88D05),
-                  fontSize: 12,
-                  fontFamily: 'Noto Sans',
-                  fontWeight: FontWeight.w600,
-                  height: 0,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.005,
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.pin_drop,
-                    color: Color(0xFFB88D05),
-                    // Set the color of the icon
-                    size: 28,
-                  ),
-                  SizedBox(
-                    width: screenWidth * 0.04,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          '26 Aug 2023, Sat - 01:00 PM to 02:00 PM',
-                          style: TextStyle(
-                            color: Color(0xFF696767),
-                            fontSize: 11,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                      const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          'Corporate Center Raipur ',
-                          style: TextStyle(
-                            color: Color(0xFF696767),
-                            fontSize: 11,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w500,
-                            height: 0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
+  //             children: [
+  //               Text(
+  //                 '24 Aug 2023 01:00 PM',
+  //                 //textAlign: TextAlign.center,
+  //                 style: TextStyle(
+  //                   color: Color(0xFF848080),
+  //                   fontSize: 10,
+  //                   fontFamily: 'Noto Sans',
+  //                   fontWeight: FontWeight.w400,
+  //                   height: 0,
+  //                 ),
+  //               ),
+  //               //SizedBox(
+  //               //  width: 16.0, // Adjust the width as needed
+  //               //),
+  //               SizedBox(
+  //                 width: screenWidth * 0.34,
+  //               ),
+  //               Icon(
+  //                 Icons.mail, // Replace with the icon you want
+  //                 color: Color(0xFF696767),
+  //                 // Set the color of the icon
+  //                 size: 16, // Set the size of the icon
+  //               ),
+  //             ],
+  //           ),
+  //           Align(
+  //             alignment: Alignment.centerLeft,
+  //             child: Text(
+  //               'Management CDM',
+  //               textAlign: TextAlign.left,
+  //               style: TextStyle(
+  //                 color: Colors.black,
+  //                 fontSize: 14,
+  //                 fontFamily: 'Noto Sans',
+  //                 fontWeight: FontWeight.w700,
+  //                 height: 0,
+  //               ),
+  //             ),
+  //           ),
+  //           Divider(
+  //             indent: 10,
+  //             endIndent: 10,
+  //             color: Color(0xFFC2C0C0),
+  //             // Set the color of the divider line
+  //             thickness: 1, // Set the thickness of the divider line
+  //           ),
+  //           Align(
+  //             alignment: Alignment.centerLeft,
+  //             child: Text(
+  //               'Conference  Room Floor - 02',
+  //               textAlign: TextAlign.left,
+  //               style: TextStyle(
+  //                 color: Color(0xFFB88D05),
+  //                 fontSize: 12,
+  //                 fontFamily: 'Noto Sans',
+  //                 fontWeight: FontWeight.w600,
+  //                 height: 0,
+  //               ),
+  //             ),
+  //           ),
+  //           SizedBox(
+  //             height: screenHeight * 0.005,
+  //           ),
+  //           Align(
+  //             alignment: Alignment.bottomLeft,
+  //             child: Row(
+  //               children: [
+  //                 Icon(
+  //                   Icons.pin_drop,
+  //                   color: Color(0xFFB88D05),
+  //                   // Set the color of the icon
+  //                   size: 28,
+  //                 ),
+  //                 SizedBox(
+  //                   width: screenWidth * 0.04,
+  //                 ),
+  //                 Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   children: [
+  //                     Align(
+  //                       alignment: Alignment.centerRight,
+  //                       child: Text(
+  //                         '26 Aug 2023, Sat - 01:00 PM to 02:00 PM',
+  //                         style: TextStyle(
+  //                           color: Color(0xFF696767),
+  //                           fontSize: 11,
+  //                           fontFamily: 'Noto Sans',
+  //                           fontWeight: FontWeight.w500,
+  //                           height: 0,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     const Align(
+  //                       alignment: Alignment.centerRight,
+  //                       child: Text(
+  //                         'Corporate Center Raipur ',
+  //                         style: TextStyle(
+  //                           color: Color(0xFF696767),
+  //                           fontSize: 11,
+  //                           fontFamily: 'Noto Sans',
+  //                           fontWeight: FontWeight.w500,
+  //                           height: 0,
+  //                         ),
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 )
+  //               ],
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 }
