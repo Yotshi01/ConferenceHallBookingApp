@@ -12,7 +12,7 @@ Future<CurrentUserData> getCurrentUserData(String token) async {
   final response = await http.get(
     urlUri,
     headers: {
-      'Authorization': 'Bearer $token',
+      'Authorization': 'Bearer ${token}',
     },
   );
   // print('${response.body} sjalscxsx');

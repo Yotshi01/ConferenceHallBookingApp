@@ -274,10 +274,10 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
 
           // Create a TimeRegion to represent the booked time slot
           final timeRegion = TimeRegion(
-              startTime:
-                  DateTime.parse('$data.bookingDate! $data.bookingStartTime!'),
-              endTime:
-                  DateTime.parse('$data.bookingDate! $data.bookingEndTime!'),
+              startTime: DateTime.parse(
+                  '${data.bookingDate!} ${data.bookingStartTime!}'),
+              endTime: DateTime.parse(
+                  '${data.bookingDate!} ${data.bookingEndTime!}'),
               // color: color, // Use the same color as the appointment
               color: Colors.amber[800]);
 
@@ -286,10 +286,10 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
           }
 
           return Appointment(
-              startTime:
-                  DateTime.parse('$data.bookingDate! $data.bookingStartTime!'),
-              endTime:
-                  DateTime.parse('$data.bookingDate! $data.bookingEndTime!'),
+              startTime: DateTime.parse(
+                  '${data.bookingDate!} ${data.bookingStartTime!}'),
+              endTime: DateTime.parse(
+                  '${data.bookingDate!} ${data.bookingEndTime!}'),
               subject: data.bookingMeetingTitle!,
               id: data.bookingId,
               // color: color, // Use the random color
@@ -1215,7 +1215,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                                 size: 20, // Set the size of the icon
                               ),
                               Text(
-                                '$formattedStartTime to $formattedEndTime',
+                                '${formattedStartTime} to ${formattedEndTime}',
                                 style: const TextStyle(
                                   color: Colors.black54,
                                   //color: Color.fromARGB(255, 202, 180, 101),
@@ -1272,7 +1272,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
               Align(
                 alignment: Alignment.center,
                 child: Image.network(
-                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
+                  "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
                   width: screenWidth * 0.24,
                   height: screenHeight * 0.15,
                   loadingBuilder: (BuildContext context, Widget child,

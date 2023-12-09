@@ -950,7 +950,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                               horizontal: 5,
                                             ),
                                             child: Text(
-                                              '$convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)',
+                                              '${convertStringDateIntoDesiredFormat(widget.currentBookingData.bookingDate!)}',
                                               style: const TextStyle(
                                                 color: Color(0xFF696767),
                                                 fontSize: 12,
@@ -1023,7 +1023,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Image.network(
-                                          "$testBaseUrl/uploads/conferences/${widget.currentConferenceHallImageName}",
+                                          "${testBaseUrl}/uploads/conferences/${widget.currentConferenceHallImageName}",
                                           width: screenWidth * 0.24,
                                           height: screenHeight * 0.15,
                                           loadingBuilder: (BuildContext context,
@@ -1130,7 +1130,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           builder: (BuildContext context) {
                                             return AlertDialog(
                                               title: Text(
-                                                '$getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)',
+                                                '${getConferenceHallDescription(widget.currentBookingData.bookingConferenceId!)}',
                                                 style: TextStyle(
                                                   color: Colors.grey[850],
                                                   fontSize: 14,

@@ -443,3 +443,21 @@ BookingData getBookingByBookingId(int id) {
   }
   return foundBooking;
 }
+
+String getLocationShortNameByLocationId(int id) {
+  for (var location in listOfLocations) {
+    if (location.locationId == id) {
+      return location.locationShortName!;
+    }
+  }
+  return '';
+}
+
+String getConferenceHallShortNameByConferenceHallId(int id) {
+  for (var conferenceHall in listOfConferenceHall) {
+    if (conferenceHall.conferenceId == id) {
+      return conferenceHall.conferenceShortName!;
+    }
+  }
+  return '';
+}

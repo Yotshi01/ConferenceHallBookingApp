@@ -10,7 +10,7 @@ String convertStringDateIntoDesiredFormat(String dateString) {
 String convertStringTimeIntoDesiredFormat(String timeString) {
   // merging time with a random date so that the provided timeString
   // can be used in DateTime.parse() for conversion
-  DateTime timeDateTime = DateTime.parse('1970-01-01 $timeString');
+  DateTime timeDateTime = DateTime.parse('1970-01-01 ${timeString}');
   String formattedTime = DateFormat('h:mm a', 'en_US').format(timeDateTime);
   return formattedTime;
 }
@@ -34,20 +34,20 @@ String convertTimeOfDayTimeIntoDesiredFormat(TimeOfDay timeTimeOfDay) {
 }
 
 int hourPartOfStringTime(String timeString) {
-  DateTime timeDateTime = DateTime.parse('1970-01-01 $timeString');
+  DateTime timeDateTime = DateTime.parse('1970-01-01 ${timeString}');
   int hour = timeDateTime.hour;
   return hour;
 }
 
 int minutePartOfStringTime(String timeString) {
-  DateTime timeDateTime = DateTime.parse('1970-01-01 $timeString');
+  DateTime timeDateTime = DateTime.parse('1970-01-01 ${timeString}');
   int minute = timeDateTime.minute;
   return minute;
 }
 
 DateTime combineStringDateAndTimeIntoDateTimeFormat(
     String dateString, String timeString) {
-  DateTime timeDateTime = DateTime.parse('$dateString $timeString');
+  DateTime timeDateTime = DateTime.parse('$dateString ${timeString}');
 
   return timeDateTime;
 }

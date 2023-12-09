@@ -154,8 +154,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
-      Conference Hall: $conferenceHallName
-      Location: $locationName
+      Conference Hall: ${conferenceHallName}
+      Location: ${locationName}
       
     ''';
 
@@ -272,7 +272,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
+                                  "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
                                   width: screenWidth * 0.24,
                                   height: screenHeight * 0.15,
                                   loadingBuilder: (BuildContext context,
@@ -463,6 +463,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   ),
                                   Text(
                                     conferenceHallName,
+                                    // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
                                     style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,

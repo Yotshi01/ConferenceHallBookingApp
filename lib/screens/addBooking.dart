@@ -455,7 +455,7 @@ class _AddBookingState extends State<AddBooking> {
                 Align(
                   alignment: Alignment.center,
                   child: Image.network(
-                    "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
+                    "$testBaseUrl/uploads/conferences/${conferenceHallImageName}",
                     width: screenWidth * 0.27,
                     height: screenHeight * 0.09,
                     loadingBuilder: (BuildContext context, Widget child,
@@ -732,7 +732,7 @@ class _AddBookingState extends State<AddBooking> {
                               children: [
                                 Text(
                                   //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
-                                  '$convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)',
+                                  '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -755,7 +755,7 @@ class _AddBookingState extends State<AddBooking> {
                                 ),
                                 Text(
                                   // '${widget.selectedEndTime.hour.toString().padLeft(2, '0')}:${widget.selectedEndTime.minute.toString().padLeft(2, '0')}',
-                                  '$convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)',
+                                  '${convertDateTimeTimeIntoDesiredFormat(widget.selectedEndTime)}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,

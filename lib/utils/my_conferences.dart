@@ -261,8 +261,8 @@ class _MyConferencesState extends State<MyConferences> {
       Meeting Title: ${bookingData.bookingMeetingTitle}
       Date: ${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}
       Time: ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}
-      Conference Hall: $conferenceHallName
-      Location: $locationName
+      Conference Hall: ${conferenceHallName}
+      Location: ${locationName}
       
     ''';
 
@@ -304,7 +304,7 @@ class _MyConferencesState extends State<MyConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  "$testBaseUrl/uploads/conferences/$conferenceHallImageName",
+                                  "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
                                   width: screenWidth * 0.18,
                                   height: screenHeight * 0.1,
                                   loadingBuilder: (BuildContext context,
@@ -361,7 +361,7 @@ class _MyConferencesState extends State<MyConferences> {
                                               Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  '$convertStringDateIntoDesiredFormat(bookingData.bookingDate!)',
+                                                  '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
                                                   style: const TextStyle(
                                                     color: Color(0xFF696767),
                                                     fontSize: 12,

@@ -255,7 +255,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  ' $locationName, ',
+                                  ' ${locationName}, ',
                                   style: const TextStyle(
                                     color: Color(0xFF696767),
                                     fontSize: 16,
@@ -459,7 +459,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      '$conferenceHallName, ',
+                                      '${conferenceHallName}, ',
                                       style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 16,
@@ -468,7 +468,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                       ),
                                     ),
                                     Text(
-                                      '$locationName',
+                                      '${locationName}',
                                       style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 16,

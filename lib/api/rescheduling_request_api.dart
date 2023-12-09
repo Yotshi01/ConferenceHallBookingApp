@@ -37,7 +37,7 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
 Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
     int currentUserId) async {
   String url =
-      "${testUrl}get_reschedule_request_by_current_user_id/$currentUserId";
+      "${testUrl}get_reschedule_request_by_current_user_id/${currentUserId}";
   // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
