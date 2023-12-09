@@ -137,7 +137,7 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                   if (response.status == 'success') {
                     // print('Saved Changes');
                     const snackBar = SnackBar(
-                      content: Text('Request Successfully'),
+                      content: Text('Requested Successfully'),
                       backgroundColor: Colors.green,
                       duration:
                           Duration(seconds: 3), // Adjust the duration as needed
