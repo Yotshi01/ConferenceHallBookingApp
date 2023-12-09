@@ -144,14 +144,23 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   } else {
-                    const snackBar = SnackBar(
-                      content: Text('Failed to make a request'),
-                      backgroundColor: Colors.red,
-                      duration:
-                          Duration(seconds: 3), // Adjust the duration as needed
+                    Navigator.of(context).pop();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.grey,
+                        content: Text("Failed to send request!"),
+                      ),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }
+                } else {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Colors.grey,
+                      content: Text(
+                          "Please enter some text not exceeding 250 letters!"),
+                    ),
+                  );
                 }
               },
               child: const Text("Send"),
