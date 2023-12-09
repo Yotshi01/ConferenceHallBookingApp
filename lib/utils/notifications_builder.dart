@@ -120,6 +120,23 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             const Icon(
+                              Icons.library_books,
+                              color: Colors.yellow,
+                              size: 30,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              'Reason: ${data.requestReason}',
+                              style: const TextStyle(
+                                  fontSize: 18, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Icon(
                               Icons.event_available,
                               color: Colors.blue,
                               size: 30,
@@ -446,6 +463,39 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                               color: Color(0xFFC2C0C0),
                               thickness: 1.5,
                               height: 30,
+                            ),
+                            Row(
+                              children: [
+                                const Icon(
+                                  Icons.library_books,
+                                  color: Colors.orangeAccent,
+                                  size: 30,
+                                ),
+                                const SizedBox(width: 10),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      'Reason sent: ',
+                                      style: TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    Text(
+                                      '${data.requestReason}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 16,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                             Row(
                               children: [

@@ -52,7 +52,9 @@ class _EditBookingState extends State<EditBooking> {
 
   bool isMeetingTitleValid = true,
       isBookingRequestedByValid = true,
-      isMeetingDescriptionValid = true;
+      isMeetingDescriptionValid = true,
+      isBookingRequirementDetailsByValid = true,
+      showLoadingInPlaceOfSubmitButton = false;
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
@@ -409,11 +411,13 @@ class _EditBookingState extends State<EditBooking> {
                       DateTime.now().toString();
                   toBeUpdatedBookingData.bookingNumberOfAttendees =
                       selectedAttendees;
+                  showLoadingInPlaceOfSubmitButton = true;
                 });
 
                 if (isMeetingTitleValid &&
                     isBookingRequestedByValid &&
                     isMeetingDescriptionValid &&
+                    isBookingRequirementDetailsByValid &&
                     selectedAttendees != null) {
                   var response = await updateBooking(toBeUpdatedBookingData);
 
@@ -516,6 +520,9 @@ class _EditBookingState extends State<EditBooking> {
                         content: Text("Booking updated successfully!"),
                       ),
                     );
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                   } else if (response.message == 'Validation failed') {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -523,6 +530,9 @@ class _EditBookingState extends State<EditBooking> {
                         content: Text("${response.data}"),
                       ),
                     );
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                   } else if (response.message ==
                       'The requested time slot is not available.') {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -531,6 +541,9 @@ class _EditBookingState extends State<EditBooking> {
                         content: Text("${response.message}"),
                       ),
                     );
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -538,6 +551,9 @@ class _EditBookingState extends State<EditBooking> {
                         content: Text("Failed to update booking"),
                       ),
                     );
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                   }
 
                   // Navigator.of(dialogContext).pop(); // Close the dialog first
@@ -551,6 +567,9 @@ class _EditBookingState extends State<EditBooking> {
                           "Please enter valid data in all the required feilds"),
                     ),
                   );
+                  setState(() {
+                    showLoadingInPlaceOfSubmitButton = false;
+                  });
                 }
               },
               child: const Text('Yes'),
@@ -1254,58 +1273,47 @@ class _EditBookingState extends State<EditBooking> {
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
                     ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingTitleController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 50) {
-                              setState(() {
-                                isMeetingTitleValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isMeetingTitleValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isMeetingTitleValid
-                                ? 'Not more than 50 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
-                        ),
+                    TextField(
+                      controller: _meetingTitleController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
                       ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 50) {
+                          setState(() {
+                            isMeetingTitleValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isMeetingTitleValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter your meeting title here",
+                        labelText: !isMeetingTitleValid
+                            ? 'Not more than 50 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
                     ),
                     // SizedBox(
                     //   height: 20,
@@ -1453,58 +1461,47 @@ class _EditBookingState extends State<EditBooking> {
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
                     ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingDescriptionController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 250) {
-                              setState(() {
-                                isMeetingDescriptionValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isMeetingDescriptionValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isMeetingDescriptionValid
-                                ? 'Not more than 250 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
-                        ),
+                    TextField(
+                      controller: _meetingDescriptionController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
                       ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 250) {
+                          setState(() {
+                            isMeetingDescriptionValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isMeetingDescriptionValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter description here",
+                        labelText: !isMeetingDescriptionValid
+                            ? 'Not more than 250 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
                     ),
 
                     const SizedBox(
@@ -1518,7 +1515,7 @@ class _EditBookingState extends State<EditBooking> {
                     const Row(
                       children: [
                         Text(
-                          'Meeting Reported By',
+                          'Booking Requested By',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -1550,58 +1547,47 @@ class _EditBookingState extends State<EditBooking> {
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
                     ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingReportedByController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 50) {
-                              setState(() {
-                                isBookingRequestedByValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isBookingRequestedByValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isBookingRequestedByValid
-                                ? 'Not more than 50 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
-                        ),
+                    TextField(
+                      controller: _meetingReportedByController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
                       ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 50) {
+                          setState(() {
+                            isBookingRequestedByValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isBookingRequestedByValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter name here",
+                        labelText: !isBookingRequestedByValid
+                            ? 'Not more than 50 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
                     ),
 
                     Row(
@@ -1747,31 +1733,47 @@ class _EditBookingState extends State<EditBooking> {
                       thickness: 1, // Set the thickness of the divider line
                     ),
 
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _otherDetailsController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          decoration: const InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
-                          ),
-                        ),
+                    TextField(
+                      controller: _otherDetailsController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
                       ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.length <= 250) {
+                          setState(() {
+                            isBookingRequirementDetailsByValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isBookingRequirementDetailsByValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter details here",
+                        labelText: !isBookingRequirementDetailsByValid
+                            ? 'Not more than 250 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
                     ),
 
                     // ElevatedButton(
@@ -1899,25 +1901,28 @@ class _EditBookingState extends State<EditBooking> {
                                 .white, // Change the icon color to your preference
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _showEditBookingConfirmationDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape:
-                                const CircleBorder(), // Use CircleBorder to make the button circular
-                            backgroundColor: Colors
-                                .grey, // Change the button color to your preference
-                            padding: const EdgeInsets.all(
-                                16.0), // Adjust the padding as needed
-                          ),
-                          child: const Icon(
-                            Icons
-                                .check_circle, // You can use your preferred edit icon here
-                            color: Colors
-                                .white, // Change the icon color to your preference
-                          ),
-                        ),
+                        if (showLoadingInPlaceOfSubmitButton == false)
+                          ElevatedButton(
+                            onPressed: () {
+                              _showEditBookingConfirmationDialog(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  const CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors
+                                  .grey, // Change the button color to your preference
+                              padding: const EdgeInsets.all(
+                                  16.0), // Adjust the padding as needed
+                            ),
+                            child: const Icon(
+                              Icons
+                                  .check_circle, // You can use your preferred edit icon here
+                              color: Colors
+                                  .white, // Change the icon color to your preference
+                            ),
+                          )
+                        else
+                          const CircularProgressIndicator(),
                       ],
                     ),
                     const SizedBox(

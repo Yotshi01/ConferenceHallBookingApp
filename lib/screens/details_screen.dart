@@ -1454,7 +1454,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   height: screenHeight * 0.006,
                                 ),
                                 Text(
-                                  '${widget.currentBookingData.bookingRequirementDetails}',
+                                  (widget.currentBookingData
+                                              .bookingRequirementDetails !=
+                                          null)
+                                      ? '${widget.currentBookingData.bookingRequirementDetails}'
+                                      : 'No additional requirements given',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,

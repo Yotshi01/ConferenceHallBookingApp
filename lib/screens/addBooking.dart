@@ -36,7 +36,9 @@ class _AddBookingState extends State<AddBooking> {
 
   bool isMeetingTitleValid = false,
       isBookingRequestedByValid = false,
-      isMeetingDescriptionValid = false;
+      isMeetingDescriptionValid = false,
+      isBookingRequirementDetailsByValid = true,
+      showLoadingInPlaceOfSubmitButton = false;
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
@@ -288,7 +290,7 @@ class _AddBookingState extends State<AddBooking> {
                       _meetingReportedByController.text;
                   toBeAddedBookingData.bookingNumberOfAttendees =
                       selectedAttendees;
-
+                  showLoadingInPlaceOfSubmitButton = true;
                   // print(
                   //     "${toBeAddedBookingData.bookingMeetingTitle} || ${toBeAddedBookingData.bookingMeetingDescription} || ${toBeAddedBookingData.bookingRequirementDetails} || ${toBeAddedBookingData.bookingCreatedAt} || ${toBeAddedBookingData.bookingStatus} || ${toBeAddedBookingData.userId} || ${toBeAddedBookingData.bookingDate} || ${toBeAddedBookingData.bookingStartTime} || ${toBeAddedBookingData.bookingEndTime} || ${toBeAddedBookingData.bookingReportedBy}");
                 });
@@ -296,6 +298,7 @@ class _AddBookingState extends State<AddBooking> {
                 if (isMeetingTitleValid &&
                     isBookingRequestedByValid &&
                     isMeetingDescriptionValid &&
+                    isBookingRequirementDetailsByValid &&
                     selectedAttendees != null) {
                   var response = await addBooking(toBeAddedBookingData);
 
@@ -362,7 +365,14 @@ class _AddBookingState extends State<AddBooking> {
                     navigatorKeys[BottomNavBarItem.booking]!
                         .currentState!
                         .popUntil((route) => route.isFirst);
+
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                   } else {
+                    setState(() {
+                      showLoadingInPlaceOfSubmitButton = false;
+                    });
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         backgroundColor: Colors.red,
@@ -379,6 +389,9 @@ class _AddBookingState extends State<AddBooking> {
                           "PLease fill valid data in all the required fields"),
                     ),
                   );
+                  setState(() {
+                    showLoadingInPlaceOfSubmitButton = false;
+                  });
                 }
                 // Navigator.pushReplacement(
                 //     context,
@@ -1131,58 +1144,47 @@ class _AddBookingState extends State<AddBooking> {
                           0xFFC2C0C0), // Set the color of the divider line
                       thickness: 1, // Set the thickness of the divider line
                     ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
+                    TextField(
+                      controller: _meetingTitleController,
+                      // style: const TextStyle(
+                      //   color: Colors.black,
+                      //   fontSize: 14,
+                      //   fontFamily: 'Noto Sans',
+                      // ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 50) {
+                          setState(() {
+                            isMeetingTitleValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isMeetingTitleValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter your meeting title here",
+                        labelText: !isMeetingTitleValid
+                            ? 'Not more than 50 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
-                        child: TextField(
-                          controller: _meetingTitleController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 50) {
-                              setState(() {
-                                isMeetingTitleValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isMeetingTitleValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isMeetingTitleValid
-                                ? 'Not more than 50 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
                         ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
                       ),
+                      maxLines: null,
                     ),
                     const SizedBox(
                       height: 20,
@@ -1302,6 +1304,181 @@ class _AddBookingState extends State<AddBooking> {
                     //     ),
                     //   ),
                     // ),
+
+                    const Row(
+                      children: [
+                        Text(
+                          'Meeting Description',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
+                    ),
+
+                    const Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+
+                    TextField(
+                      controller: _meetingDescriptionController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
+                      ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 250) {
+                          setState(() {
+                            isMeetingDescriptionValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isMeetingDescriptionValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter your description here",
+                        labelText: !isMeetingDescriptionValid
+                            ? 'Not more than 250 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    const Row(
+                      children: [
+                        Text(
+                          'Booking Requested By',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ],
+                    )
+                    // Padding(
+                    //   padding: EdgeInsets.only(left: 15.0),
+                    //   child: Text(
+                    //     'Meeting Reported By',
+                    //     style: TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 14,
+                    //       fontFamily: 'Noto Sans',
+                    //       fontWeight: FontWeight.w700,
+                    //     ),
+                    //   ),
+                    // ),
+                    ,
+                    const Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    TextField(
+                      controller: _meetingReportedByController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
+                      ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.isNotEmpty && text.length <= 50) {
+                          setState(() {
+                            isBookingRequestedByValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isBookingRequestedByValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter name here",
+                        labelText: !isBookingRequestedByValid
+                            ? 'Not more than 50 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
+                    ),
+
+                    Row(
+                      children: [
+                        const Text(
+                          'Number of Attendees',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const Text(
+                          '*',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        SizedBox(
+                          width: screenWidth * 0.1,
+                        ),
+                        attendeeItems(context),
+                      ],
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
                     SizedBox(
                       width: screenWidth * 0.5, // Set the desired width
                       child: ElevatedButton(
@@ -1350,201 +1527,6 @@ class _AddBookingState extends State<AddBooking> {
                                 label: Text(e),
                               ))
                           .toList(),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    const Row(
-                      children: [
-                        Text(
-                          'Booking Requested By',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          '*',
-                          style: TextStyle(color: Colors.red),
-                        )
-                      ],
-                    )
-                    // Padding(
-                    //   padding: EdgeInsets.only(left: 15.0),
-                    //   child: Text(
-                    //     'Meeting Reported By',
-                    //     style: TextStyle(
-                    //       color: Colors.black,
-                    //       fontSize: 14,
-                    //       fontFamily: 'Noto Sans',
-                    //       fontWeight: FontWeight.w700,
-                    //     ),
-                    //   ),
-                    // ),
-                    ,
-                    const Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1, // Set the thickness of the divider line
-                    ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingReportedByController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 50) {
-                              setState(() {
-                                isBookingRequestedByValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isBookingRequestedByValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isBookingRequestedByValid
-                                ? 'Not more than 50 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(
-                      height: 20,
-                    ),
-
-                    const Row(
-                      children: [
-                        Text(
-                          'Meeting Description',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        Text(
-                          '*',
-                          style: TextStyle(color: Colors.red),
-                        )
-                      ],
-                    ),
-
-                    const Divider(
-                      color: Color(
-                          0xFFC2C0C0), // Set the color of the divider line
-                      thickness: 1, // Set the thickness of the divider line
-                    ),
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            // horizontal: 15.0,
-                            // vertical: 1
-                            ), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _meetingDescriptionController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          onChanged: (text) {
-                            // Your validation logic here
-                            if (text.isNotEmpty && text.length <= 250) {
-                              setState(() {
-                                isMeetingDescriptionValid = true;
-                              });
-                            } else {
-                              setState(() {
-                                isMeetingDescriptionValid = false;
-                              });
-                            }
-                          },
-                          decoration: InputDecoration(
-                            labelText: !isMeetingDescriptionValid
-                                ? 'Not more than 250 letters'
-                                : null,
-                            border: OutlineInputBorder(
-                              // Adjust these values to position the label inside the border
-                              borderSide: const BorderSide(width: 2.0),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              // Adjust these values for focused state
-                              borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.amber),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
-                            // border: InputBorder
-                            //     .none, // Remove the default TextField border
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    Row(
-                      children: [
-                        const Text(
-                          'Number of Attendees',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const Text(
-                          '*',
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        SizedBox(
-                          width: screenWidth * 0.1,
-                        ),
-                        attendeeItems(context),
-                      ],
                     ),
 
                     const SizedBox(
@@ -1625,31 +1607,47 @@ class _AddBookingState extends State<AddBooking> {
                       thickness: 1, // Set the thickness of the divider line
                     ),
 
-                    SizedBox(
-                      child: Container(
-                        width: screenWidth * 0.9,
-                        height: 50,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 15.0,
-                            vertical: 1), // Adjust the padding as needed
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200], // Use a light gray color
-                          borderRadius: BorderRadius.circular(
-                              10.0), // Adjust the value as needed
-                        ),
-                        child: TextField(
-                          controller: _otherDetailsController,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontFamily: 'Noto Sans',
-                          ),
-                          decoration: const InputDecoration(
-                            border: InputBorder
-                                .none, // Remove the default TextField border
-                          ),
-                        ),
+                    TextField(
+                      controller: _otherDetailsController,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontFamily: 'Noto Sans',
                       ),
+                      onChanged: (text) {
+                        // Your validation logic here
+                        if (text.length <= 250) {
+                          setState(() {
+                            isBookingRequirementDetailsByValid = true;
+                          });
+                        } else {
+                          setState(() {
+                            isBookingRequirementDetailsByValid = false;
+                          });
+                        }
+                      },
+                      decoration: InputDecoration(
+                        filled: true, // Set to true to enable background color
+                        fillColor: Colors.grey[200],
+                        hintText: "Enter details here",
+                        labelText: !isBookingRequirementDetailsByValid
+                            ? 'Not more than 250 letters'
+                            : null,
+                        border: OutlineInputBorder(
+                          // Adjust these values to position the label inside the border
+                          borderSide: const BorderSide(width: 2.0),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          // Adjust these values for focused state
+                          borderSide:
+                              const BorderSide(width: 2.0, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        // border: InputBorder
+                        //     .none, // Remove the default TextField border
+                      ),
+                      maxLines: null,
                     ),
 
                     const SizedBox(
@@ -1855,25 +1853,28 @@ class _AddBookingState extends State<AddBooking> {
                                 .white, // Change the icon color to your preference
                           ),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _showAddNewBookingConfirmationDialog(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape:
-                                const CircleBorder(), // Use CircleBorder to make the button circular
-                            backgroundColor: Colors
-                                .grey, // Change the button color to your preference
-                            padding: const EdgeInsets.all(
-                                16.0), // Adjust the padding as needed
-                          ),
-                          child: const Icon(
-                            Icons
-                                .check_circle, // You can use your preferred edit icon here
-                            color: Colors
-                                .white, // Change the icon color to your preference
-                          ),
-                        ),
+                        if (showLoadingInPlaceOfSubmitButton == false)
+                          ElevatedButton(
+                            onPressed: () {
+                              _showAddNewBookingConfirmationDialog(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  const CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors
+                                  .grey, // Change the button color to your preference
+                              padding: const EdgeInsets.all(
+                                  16.0), // Adjust the padding as needed
+                            ),
+                            child: const Icon(
+                              Icons
+                                  .check_circle, // You can use your preferred edit icon here
+                              color: Colors
+                                  .white, // Change the icon color to your preference
+                            ),
+                          )
+                        else
+                          const CircularProgressIndicator(),
                       ],
                     ),
                     const SizedBox(
