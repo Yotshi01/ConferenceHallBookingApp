@@ -1304,36 +1304,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 // ),
 
                                 // Set the thickness of the divider
-                                SizedBox(
-                                  height: screenHeight * 0.01,
-                                ),
-                                Text(
-                                  'Additional Requirements',
-                                  style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
-                                    fontFamily: 'Noto Sans',
-                                    //fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: screenHeight * 0.006,
-                                ),
-                                Text(
-                                  '${widget.currentBookingData.bookingRequirementDetails}',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
-                                    fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const Divider(
-                                  color: Color(
-                                      0xFFC2C0C0), // Set the color of the divider line
-                                  thickness:
-                                      1, // Set the thickness of the divider line
-                                ),
+
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
@@ -1446,6 +1417,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
+
                                 SizedBox(
                                   height: screenHeight * 0.006,
                                 ),
@@ -1453,6 +1425,36 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingAssets.isNotEmpty)
                                       ? '${initialbookingAssets.join(', ')}'
                                       : 'No assets selected',
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+                                Text(
+                                  'Additional Requirements',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  '${widget.currentBookingData.bookingRequirementDetails}',
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
