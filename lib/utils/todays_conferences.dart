@@ -38,6 +38,10 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                       ? getLocationName(bookingData.bookingLocationId!)
                       : 'Unknown Location';
 
+                  final bookingBookedByUserName = bookingData.userId != null
+                      ? getUserNameById(bookingData.userId!)
+                      : 'Unknown User';
+
                   // print(bookingData);
                   return Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -62,6 +66,8 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                         ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisSize:
+                                MainAxisSize.min, // Set mainAxisSize to min
                             children: [
                               Row(
                                 // crossAxisAlignment: CrossAxisAlignment.end,
@@ -473,6 +479,30 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   ),
                                 ],
                               ),
+                              if (bookingData.userId != currentUserData!.id)
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    const Icon(
+                                      Icons.person,
+                                      color: Color(
+                                          0xFF696767), // Set the color of the icon
+                                      size: 20,
+                                    ),
+                                    Expanded(
+                                        child: Text(
+                                      'Requested By: $bookingBookedByUserName',
+                                      style: const TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ))
+                                  ],
+                                ),
                             ]),
                       ));
                 }))

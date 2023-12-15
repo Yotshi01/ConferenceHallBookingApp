@@ -461,3 +461,13 @@ String getConferenceHallShortNameByConferenceHallId(int id) {
   }
   return '';
 }
+
+List<BlackoutDaysData> getBlackoutDayDataAccordingToLocationId(int id) {
+  List<BlackoutDaysData> data = [];
+  for (var blackOutDayData in listOfBlackoutDays) {
+    if (blackOutDayData.blackoutDateLocationId == id) {
+      data.add(blackOutDayData);
+    }
+  }
+  return data;
+}

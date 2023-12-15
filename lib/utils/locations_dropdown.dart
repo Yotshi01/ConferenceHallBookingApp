@@ -100,6 +100,9 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
+                  listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking =
+                      getBlackoutDayDataAccordingToLocationId(
+                          getLocationId(locationChoosed!));
                   // print(
                   //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =

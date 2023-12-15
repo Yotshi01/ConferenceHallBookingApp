@@ -1470,7 +1470,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 250) {
+                        if (text.isNotEmpty && text.length <= 500) {
                           setState(() {
                             isMeetingDescriptionValid = true;
                           });
@@ -1485,7 +1485,7 @@ class _EditBookingState extends State<EditBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter description here",
                         labelText: !isMeetingDescriptionValid
-                            ? 'Not more than 250 letters'
+                            ? 'Not more than 500 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border
@@ -1556,7 +1556,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 50) {
+                        if (text.length <= 100) {
                           setState(() {
                             isBookingRequestedByValid = true;
                           });
@@ -1571,7 +1571,7 @@ class _EditBookingState extends State<EditBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter name here",
                         labelText: !isBookingRequestedByValid
-                            ? 'Not more than 50 letters'
+                            ? 'Not more than 100 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border

@@ -121,6 +121,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
 
+  bool isWithdrawBookingReasonValid = false;
+
   Future<void> _fetchBookingDepartmentsByBookingIdDetails() async {
     try {
       final BookingDepartmentsResponse data =
@@ -289,9 +291,34 @@ class _DetailsScreenState extends State<DetailsScreen> {
           content: TextField(
             onChanged: (text) {
               reason = text;
+              if (text.isNotEmpty && text.length <= 200) {
+                setState(() {
+                  isWithdrawBookingReasonValid = true;
+                });
+              } else {
+                setState(() {
+                  isWithdrawBookingReasonValid = false;
+                });
+              }
             },
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: "Enter your reason here",
+              filled: true, // Set to true to enable background color
+              fillColor: Colors.grey[200],
+
+              labelText: !isWithdrawBookingReasonValid
+                  ? 'Not more than 200 letters'
+                  : null,
+              border: OutlineInputBorder(
+                // Adjust these values to position the label inside the border
+                borderSide: const BorderSide(width: 2.0),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              focusedBorder: OutlineInputBorder(
+                // Adjust these values for focused state
+                borderSide: const BorderSide(width: 2.0, color: Colors.amber),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
             ),
             maxLines: null,
           ),
@@ -339,59 +366,69 @@ class _DetailsScreenState extends State<DetailsScreen> {
               child: const Text('Yes'),
               onPressed: () async {
                 Navigator.of(dialogContext).pop();
-                var response =
-                    await withdrawBooking(toBeWithdrawnBookingNeededData);
-                if (response.status == 'success') {
-                  // print('Saved Changes');
+                if (isWithdrawBookingReasonValid == true) {
+                  var response =
+                      await withdrawBooking(toBeWithdrawnBookingNeededData);
+                  if (response.status == 'success') {
+                    // print('Saved Changes');
 
-                  // Navigator.of(context).popUntil((route) => route.isFirst);
-                  // navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
+                    // Navigator.of(context).popUntil((route) => route.isFirst);
+                    // navigatorKeys[BottomNavBarItem.home]!.currentState!.pop();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.green,
-                      content: Text("Withdrawn Successfully"),
-                    ),
-                  );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text("Withdrawn Successfully"),
+                      ),
+                    );
 
-                  if (widget.requestedEdit == true) {
-                    var response = await responseToReschedulingRequest(
-                        widget.data!.requestId!, 'Accepted');
-                    if (response.status == 'success') {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.grey,
-                          content: Text("Rescheduling Request Accepted"),
-                        ),
-                      );
-                      // if (homeScreenState != null) {
-                      //   homeScreenState!.loadData();
-                      // }
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          backgroundColor: Colors.grey,
-                          content:
-                              Text("Failed to rejected rescheduling Request"),
-                        ),
-                      );
+                    if (widget.requestedEdit == true) {
+                      var response = await responseToReschedulingRequest(
+                          widget.data!.requestId!, 'Accepted');
+                      if (response.status == 'success') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.grey,
+                            content: Text("Rescheduling Request Accepted"),
+                          ),
+                        );
+                        // if (homeScreenState != null) {
+                        //   homeScreenState!.loadData();
+                        // }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.grey,
+                            content:
+                                Text("Failed to rejected rescheduling Request"),
+                          ),
+                        );
+                      }
                     }
+
+                    if (homeScreenState != null) {
+                      homeScreenState!.loadData();
+                    }
+
+                    navigatorKeys[BottomNavBarItem.home]!
+                        .currentState!
+                        .popUntil((route) => route.isFirst);
+
+                    // Navigator.of(context).pop(); // Close the dialog
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        // backgroundColor: Colors.green,
+                        content: Text("Withdraw booking unsuccessful!"),
+                      ),
+                    );
                   }
-
-                  if (homeScreenState != null) {
-                    homeScreenState!.loadData();
-                  }
-
-                  navigatorKeys[BottomNavBarItem.home]!
-                      .currentState!
-                      .popUntil((route) => route.isFirst);
-
-                  // Navigator.of(context).pop(); // Close the dialog
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       // backgroundColor: Colors.green,
-                      content: Text("Withdraw booking unsuccessful!"),
+                      content: Text(
+                          "Please enter some valid reason for withdrawing the booking!"),
                     ),
                   );
                 }
@@ -712,38 +749,38 @@ class _DetailsScreenState extends State<DetailsScreen> {
                 ),
                 child: Column(
                   children: [
-                    // SizedBox(
-                    //   height: screenHeight * 0.03,
-                    // ),
-                    // Align(
-                    //     alignment: Alignment.centerLeft,
-                    //     child: Padding(
-                    //       padding: EdgeInsets.symmetric(
-                    //         horizontal: screenWidth * 0.1,
-                    //       ),
-                    //       child: ElevatedButton(
-                    //         onPressed: () {
-                    //           // Navigator.of(context).pop();
-                    //           navigatorKeys[BottomNavBarItem.home]!
-                    //               .currentState!
-                    //               .pop();
-                    //         },
-                    //         style: ElevatedButton.styleFrom(
-                    //           shape:
-                    //               CircleBorder(), // Use CircleBorder to make the button circular
-                    //           backgroundColor: Colors.grey[
-                    //               300], // Change the button color to your preference
-                    //           padding: EdgeInsets.all(
-                    //               16.0), // Adjust the padding as needed
-                    //         ),
-                    //         child: Icon(
-                    //           Icons
-                    //               .arrow_back, // You can use your preferred edit icon here
-                    //           color: Colors
-                    //               .black, // Change the icon color to your preference
-                    //         ),
-                    //       ),
-                    //     )),
+                    SizedBox(
+                      height: screenHeight * 0.03,
+                    ),
+                    Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: screenWidth * 0.1,
+                          ),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              // Navigator.of(context).pop();
+                              navigatorKeys[BottomNavBarItem.home]!
+                                  .currentState!
+                                  .pop();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape:
+                                  CircleBorder(), // Use CircleBorder to make the button circular
+                              backgroundColor: Colors.grey[
+                                  300], // Change the button color to your preference
+                              padding: EdgeInsets.all(
+                                  13.0), // Adjust the padding as needed
+                            ),
+                            child: Icon(
+                              Icons
+                                  .arrow_back, // You can use your preferred edit icon here
+                              color: Colors
+                                  .black, // Change the icon color to your preference
+                            ),
+                          ),
+                        )),
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),

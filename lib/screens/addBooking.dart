@@ -386,7 +386,7 @@ class _AddBookingState extends State<AddBooking> {
                     const SnackBar(
                       backgroundColor: Colors.red,
                       content: Text(
-                          "PLease fill valid data in all the required fields"),
+                          "Please fill valid data in all the required fields"),
                     ),
                   );
                   setState(() {
@@ -1338,7 +1338,7 @@ class _AddBookingState extends State<AddBooking> {
                       ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 250) {
+                        if (text.isNotEmpty && text.length <= 500) {
                           setState(() {
                             isMeetingDescriptionValid = true;
                           });
@@ -1353,7 +1353,7 @@ class _AddBookingState extends State<AddBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter your description here",
                         labelText: !isMeetingDescriptionValid
-                            ? 'Not more than 250 letters'
+                            ? 'Not more than 500 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border
@@ -1420,7 +1420,7 @@ class _AddBookingState extends State<AddBooking> {
                       ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 50) {
+                        if (text.length <= 100) {
                           setState(() {
                             isBookingRequestedByValid = true;
                           });
@@ -1435,7 +1435,7 @@ class _AddBookingState extends State<AddBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter name here",
                         labelText: !isBookingRequestedByValid
-                            ? 'Not more than 50 letters'
+                            ? 'Not more than 100 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border

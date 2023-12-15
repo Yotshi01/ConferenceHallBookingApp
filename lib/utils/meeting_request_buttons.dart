@@ -153,14 +153,21 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                     );
                   }
                 } else {
-                  Navigator.of(context).pop();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
+                  // Navigator.of(context).pop();
+                  Fluttertoast.showToast(
+                      msg: 'Please enter some text not exceeding 250 letters!',
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                      // timeInSecForIos: 1,
                       backgroundColor: Colors.grey,
-                      content: Text(
-                          "Please enter some text not exceeding 250 letters!"),
-                    ),
-                  );
+                      textColor: Colors.white);
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     backgroundColor: Colors.grey,
+                  //     content: Text(
+                  //         "Please enter some text not exceeding 250 letters!"),
+                  //   ),
+                  // );
                 }
               },
               child: const Text("Send"),

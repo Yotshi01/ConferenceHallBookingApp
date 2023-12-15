@@ -26,7 +26,7 @@ class _OtherConferencesState extends State<OtherConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.34,
+            height: screenHeight * 0.4,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -40,6 +40,10 @@ class _OtherConferencesState extends State<OtherConferences> {
                           null
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
                       : 'Unknown Conference Hall';
+
+                  final bookingBookedByUserName = bookingData.userId != null
+                      ? getUserNameById(bookingData.userId!)
+                      : 'Unknown User';
 
                   // final locationName = bookingData.bookingLocationId != null
                   //     ? getLocationName(bookingData.bookingLocationId!)
@@ -290,6 +294,29 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   Expanded(
                                       child: Text(
                                     conferenceHallName,
+                                    style: const TextStyle(
+                                      color: Color(0xFF696767),
+                                      fontSize: 12.1,
+                                      fontFamily: 'Noto Sans',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ))
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  const Icon(
+                                    Icons.person,
+                                    color: Color(
+                                        0xFF696767), // Set the color of the icon
+                                    size: 20,
+                                  ),
+                                  Expanded(
+                                      child: Text(
+                                    'Requested By: $bookingBookedByUserName',
                                     style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,

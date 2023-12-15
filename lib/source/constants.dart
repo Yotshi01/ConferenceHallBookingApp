@@ -5,21 +5,21 @@ double screenHeight = 0.0;
 
 //const String testUrl = 'http://10.0.7.214:8000/api/';
 // const String testUrl = 'http://10.0.7.159:8000/api/';
-// const String testUrl = 'http://10.0.7.116:8000/api/';
+const String testUrl = 'http://10.0.7.116:8000/api/';
 // const String testUrl = 'http://10.0.6.32:8000/api/';
 // const String testUrl = 'http://192.168.29.211:8000/api/';
 // const String testUrl = 'http://192.168.1.16:8000/api/';
 // const String liveUrl = 'http://10.0.7.159:8000/api/';
-const String testUrl = 'http://192.168.1.7:8000/api/';
+// const String testUrl = 'http://192.168.1.7:8000/api/';
 
 //const String testBaseUrl = 'http://10.0.7.214:8000';
 // const String testBaseUrl = 'http://10.0.7.159:8000';
-// const String testBaseUrl = 'http://10.0.7.116:8000';
+const String testBaseUrl = 'http://10.0.7.116:8000';
 // const String testBaseUrl = 'http://10.0.6.32:8000';
 // const String testBaseUrl = 'http://192.168.29.211:8000';
 // const String testBaseUrl = 'http://192.168.1.16:8000';
 // const String liveBaseUrl = 'http://10.0.7.159:8000';
-const String testBaseUrl = 'http://192.168.1.7:8000';
+// const String testBaseUrl = 'http://192.168.1.7:8000';
 
 String? finalEmail;
 String? finalToken;
@@ -36,8 +36,11 @@ List<AssetRequirementsAvailableData> listOfAssetRequirementsAvailable = [];
 List<RefreshmentsAvailableData> listOfRefreshmentsAvailable = [];
 List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
+List<BlackoutDaysData>
+    listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking = [];
 List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking = [];
+
 List<ConferenceHallData> conferenceHallsAtSelectedLocation = [];
 CurrentUserData? currentUserData;
 late Future<BookingDetails> bookingDetailsResponse;

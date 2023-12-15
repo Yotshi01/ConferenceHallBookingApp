@@ -23,6 +23,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
   DateTime? selectedEndTime;
 
   List<TimeRegion> bookedTimeSlots = [];
+  List<TimeRegion> blackoutDaysAccordingToSelectedLocation = [];
   bool isConflicting = false;
   bool isCheckboxTicked = false;
   bool areAllDataSelected = false;
@@ -36,6 +37,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     selectedLocation = null;
     selectedConferenceHall = null;
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
+    listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking = [];
   }
 
   @override
@@ -48,6 +50,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     _fetchBlackoutDaysDetails();
     // listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = listOfBookings;
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
+    listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking = [];
   }
 
   callBackLocationName(varSelectedLocation) {
@@ -226,6 +229,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
   Future<void> _loadAppointments() async {
     bookedTimeSlots = [];
+
     // print('vjhghhhhj');
     // List<BookingData> bookingDataList = [];
     // bookingDataList = listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking;
@@ -303,12 +307,12 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       // print('${nonWorkingDay} ${nonWorkingDayDetails.holidayDate!}');
     }
 
-    for (final blackoutDaysDetails in listOfBlackoutDays) {
-      DateTime? blackoutDay =
-          DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
-      specifiedBlackoutDates.add(blackoutDay!);
-      // print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
-    }
+    // for (final blackoutDaysDetails in listOfBlackoutDays) {
+    //   DateTime? blackoutDay =
+    //       DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
+    //   specifiedBlackoutDates.add(blackoutDay!);
+    //   // print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
+    // }
 
     // final List<DateTime> specifiedDates = [
     //   DateTime(2023, 1, 1),
@@ -334,6 +338,16 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     //     color: Color.fromARGB(255, 241, 231, 195),
     //   ));
     // }
+
+    specifiedBlackoutDates = [];
+
+    for (final blackoutDaysDetails
+        in listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking) {
+      DateTime? blackoutDay =
+          DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
+      specifiedBlackoutDates.add(blackoutDay!);
+      // print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
+    }
     for (final date in specifiedDates) {
       regions.add(TimeRegion(
         startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),
