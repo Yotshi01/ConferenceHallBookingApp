@@ -18,7 +18,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
     // print('${finalBookings} final final final it is');
     return finalBookings.isNotEmpty
         ? SizedBox(
-            height: screenHeight * 0.4,
+            height: screenHeight * 0.45,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -42,12 +42,15 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                       ? getUserNameById(bookingData.userId!)
                       : 'Unknown User';
 
+                  final currentBookingDate =
+                      DateTime.tryParse(bookingData.bookingDate!);
+
                   // print(bookingData);
                   return Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.5,
+                        width: screenWidth * 0.55,
                         //height: screenHeight * 0.7,
                         decoration: ShapeDecoration(
                           color: (currentUserData!.id == bookingData.userId)
@@ -65,33 +68,30 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             mainAxisSize:
                                 MainAxisSize.min, // Set mainAxisSize to min
                             children: [
                               Row(
                                 // crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  SizedBox(
-                                    width: screenWidth * 0.3775,
-                                    child: Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingMeetingTitle}',
-                                            // textAlign: TextAlign.left,
-                                            style: const TextStyle(
-                                              color: Color(0xFFB88D05),
-                                              fontSize: 15,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )),
-                                  ),
+                                  Expanded(
+                                      child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: Text(
+                                      '${bookingData.bookingMeetingTitle}',
+                                      // textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        color: Color(0xFFB88D05),
+                                        fontSize: 15,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  )),
                                   if (currentUserData!.id == bookingData.userId)
                                     Align(
                                         alignment: Alignment.topRight,
@@ -177,21 +177,61 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                             )
                                           ],
                                         ))
-                                  else
-                                    Row(
-                                      children: [
-                                        // SizedBox(
-                                        //   width: screenWidth * 0.28,
-                                        // ),
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: MeetingUpdateButtons(
-                                            bookingUserId: bookingData.userId!,
-                                            bookingId: bookingData.bookingId!,
+                                  else if (currentBookingDate!
+                                          .isAfter(DateTime.now()) ||
+                                      ((currentBookingDate!.day ==
+                                              DateTime.now().day &&
+                                          currentBookingDate!.month ==
+                                              DateTime.now().month &&
+                                          currentBookingDate!.year ==
+                                              DateTime.now().year &&
+                                          ((hourPartOfStringTime(bookingData
+                                                      .bookingEndTime!) >
+                                                  DateTime.now().hour) ||
+                                              ((hourPartOfStringTime(bookingData
+                                                          .bookingEndTime!) ==
+                                                      DateTime.now().hour) &&
+                                                  (minutePartOfStringTime(
+                                                          bookingData
+                                                              .bookingEndTime!) >
+                                                      DateTime.now()
+                                                          .minute))))))
+                                    if (isRequestStatusOfCurrentUserOnThisBookingIdPending(
+                                            bookingData.bookingId!) !=
+                                        true)
+                                      Row(
+                                        children: [
+                                          // SizedBox(
+                                          //   width: screenWidth * 0.28,
+                                          // ),
+                                          Align(
+                                            alignment: Alignment.topRight,
+                                            child: MeetingUpdateButtons(
+                                              bookingUserId:
+                                                  bookingData.userId!,
+                                              bookingId: bookingData.bookingId!,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
+                                        ],
+                                      )
+                                    else
+                                      Align(
+                                          alignment: Alignment.topRight,
+                                          child: ElevatedButton(
+                                            onPressed: null,
+                                            style: ButtonStyle(
+                                              minimumSize:
+                                                  MaterialStateProperty.all(
+                                                      const Size(40, 40)),
+                                              padding:
+                                                  MaterialStateProperty.all(
+                                                      EdgeInsets.zero),
+                                            ),
+                                            child:
+                                                const Icon(Icons.outgoing_mail),
+                                          ))
+                                  else
+                                    Container(),
                                 ],
                               ),
                               const Divider(
@@ -467,16 +507,18 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                         0xFF696767), // Set the color of the icon
                                     size: 20,
                                   ),
-                                  Text(
-                                    conferenceHallName,
-                                    // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
-                                    style: const TextStyle(
-                                      color: Color(0xFF696767),
-                                      fontSize: 12.1,
-                                      fontFamily: 'Noto Sans',
-                                      fontWeight: FontWeight.w600,
+                                  Expanded(
+                                    child: Text(
+                                      conferenceHallName,
+                                      // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                               if (bookingData.userId != currentUserData!.id)
@@ -493,7 +535,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                     ),
                                     Expanded(
                                         child: Text(
-                                      'Requested By: $bookingBookedByUserName',
+                                      'Raised By: $bookingBookedByUserName',
                                       style: const TextStyle(
                                         color: Color(0xFF696767),
                                         fontSize: 12.1,

@@ -120,6 +120,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
       [];
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+  final TabbarSetupState? tabbarSetupState = tabbarSetupKey.currentState;
 
   bool isWithdrawBookingReasonValid = false;
 
@@ -705,6 +706,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
             widget.currentBookingData.bookingId!);
     _fetchBookingAssetsByBookingIdDetails();
 
+    if (tabbarSetupState != null) {
+      tabbarSetupState!.appBarTitle = 'Meeting Details';
+    }
+
     super.initState();
   }
 
@@ -1265,12 +1270,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 //   height: screenHeight * 0.02,
                                 // ),
 
-                                Text(
+                                SizedBox(
+                                  height: screenHeight * 0.01,
+                                ),
+
+                                const Text(
                                   'Meeting Description',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black87,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+
                                     // fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1286,11 +1297,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
                                 Text(
                                   '${widget.currentBookingData.bookingMeetingDescription}',
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1345,12 +1355,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
-                                Text(
-                                  'Meeting Reported By',
+                                const Text(
+                                  'Meeting Requested By',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1359,11 +1370,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingReportedBy}',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1375,12 +1385,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
-                                Text(
+                                const Text(
                                   'Departments',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1391,11 +1402,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingDepartments.isNotEmpty)
                                       ? '${initialbookingDepartments.join(', ')}'
                                       : 'No departments selected',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1410,12 +1420,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
-                                Text(
+                                const Text(
                                   'Refreshments',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1426,11 +1437,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingRefreshments.isNotEmpty)
                                       ? '${initialbookingRefreshments.join(', ')}'
                                       : 'No refreshments selected',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1445,12 +1455,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
-                                Text(
+                                const Text(
                                   'Assets Required',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1462,11 +1473,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   (initialbookingAssets.isNotEmpty)
                                       ? '${initialbookingAssets.join(', ')}'
                                       : 'No assets selected',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1478,12 +1488,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),
-                                Text(
+                                const Text(
                                   'Additional Requirements',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1496,11 +1507,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           null)
                                       ? '${widget.currentBookingData.bookingRequirementDetails}'
                                       : 'No additional requirements given',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(
@@ -1512,12 +1522,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                Text(
+                                const Text(
                                   'Number of Attendees',
                                   style: TextStyle(
-                                    color: Colors.grey[800],
-                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontSize: 14,
                                     fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
                                     //fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -1526,11 +1537,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 ),
                                 Text(
                                   '${widget.currentBookingData.bookingNumberOfAttendees}',
-                                  style: const TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 14,
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
                                     fontFamily: 'Noto Sans',
-                                    fontWeight: FontWeight.w700,
                                   ),
                                 ),
                                 const Divider(

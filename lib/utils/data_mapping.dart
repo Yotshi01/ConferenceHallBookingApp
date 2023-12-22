@@ -259,6 +259,49 @@ List<BookingData> todayMeetings() {
   return todayBookings;
 }
 
+List<ReschedulingRequestResponseData> mySortedNotifications() {
+  List<ReschedulingRequestResponseData> mySortedNotifications = [];
+
+  // Check if currentUserData is not null
+  if (currentUserData != null) {
+    DateTime now = DateTime.now();
+
+    for (var reschedulingRequest in listOfReschedulingRequestsResponse) {
+      String? reschedulingRequestDateStr =
+          reschedulingRequest.bookingRequestCreatedAt;
+
+      if (reschedulingRequestDateStr != null) {
+        DateTime? reschedulingRequestDate =
+            DateTime.tryParse(reschedulingRequestDateStr);
+
+        // if (reschedulingRequestDate != null &&
+        //     bookingDate.isBefore(now) &&
+        //     bookingDate.day < now.day &&
+        //     currentUserData!.id == booking.userId) {
+        //   myOldBookings.add(booking);
+
+        // }
+
+        mySortedNotifications.add(reschedulingRequest);
+      } else {
+        // print('Booking date is null');
+        throw Exception('Rescheduling Request date is null');
+      }
+    }
+
+    // print('Old Bookings: $myOldBookings');
+    // Sort myOldBookings based on bookingDate in descending order
+    mySortedNotifications.sort((a, b) =>
+        DateTime.parse(b.bookingRequestCreatedAt!)
+            .compareTo(DateTime.parse(a.bookingRequestCreatedAt!)));
+  } else {
+    // print('currentUserData is empty');
+    throw Exception('currentUserData is empty');
+  }
+
+  return mySortedNotifications;
+}
+
 // BookingDetails filterByConferenceHall(int conference_hall_id) {
 //   List<BookingData> calendarFilteringForConferenceHall = [];
 //   for (final bookingDataForConferenceHall in listOfBookings) {
@@ -470,4 +513,24 @@ List<BlackoutDaysData> getBlackoutDayDataAccordingToLocationId(int id) {
     }
   }
   return data;
+}
+
+bool isRequestStatusOfCurrentUserOnThisBookingIdPending(int bookingId) {
+  for (var request in listOfReschedulingRequestsResponse) {
+    if (bookingId == request.requestBookingId &&
+        currentUserData!.id == request.requestRequesterId &&
+        request.requestStatus == 'Pending') {
+      return true;
+    }
+  }
+  return false;
+}
+
+String getUserImageNameById(int id) {
+  for (var user in listOfUsers) {
+    if (user.id == id) {
+      return user.userImg!;
+    }
+  }
+  return '';
 }

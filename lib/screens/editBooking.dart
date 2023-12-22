@@ -704,33 +704,37 @@ class _EditBookingState extends State<EditBooking> {
                     ),
                     Row(
                       children: [
+                        // const Padding(
+                        //   padding: EdgeInsets.only(left: 15.0),
+                        //   child: Text(
+                        //     'Date',
+                        //     style: TextStyle(
+                        //       color: Colors.black,
+                        //       fontSize: 14,
+                        //       fontFamily: 'Noto Sans',
+                        //       fontWeight: FontWeight.w700,
+                        //     ),
+                        //   ),
+                        // ),
                         const Padding(
                           padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Date',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          child: Icon(Icons.date_range_outlined),
                         ),
-                        const SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
+                        // const SizedBox(
+                        //     width: 30,
+                        //     child: Align(
+                        //       alignment: Alignment.center,
+                        //       child: Text(
+                        //         '-',
+                        //         style: TextStyle(
+                        //           color: Colors.black,
+                        //           fontSize: 14,
+                        //           fontFamily: 'Noto Sans',
+                        //         ),
+                        //       ),
+                        //     )),
                         Text(
-                          '${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
+                          ' ${widget.selectedStartTime.day}-${widget.selectedStartTime.month}-${widget.selectedStartTime.year}',
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -859,35 +863,37 @@ class _EditBookingState extends State<EditBooking> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Time',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          child: Icon(Icons.access_time),
+
+                          // Text(
+                          //   'Time',
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontSize: 14,
+                          //     fontFamily: 'Noto Sans',
+                          //     fontWeight: FontWeight.w700,
+                          //   ),
+                          // ),
                         ),
-                        const SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
+                        // const SizedBox(
+                        //     width: 30,
+                        //     child: Align(
+                        //       alignment: Alignment.center,
+                        //       child: Text(
+                        //         '-',
+                        //         style: TextStyle(
+                        //           color: Colors.black,
+                        //           fontSize: 14,
+                        //           fontFamily: 'Noto Sans',
+                        //         ),
+                        //       ),
+                        //     )),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
                               //   '${widget.selectedStartTime.hour.toString().padLeft(2, '0')}:${widget.selectedStartTime.minute.toString().padLeft(2, '0')}',
-                              '${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
+                              ' ${convertDateTimeTimeIntoDesiredFormat(widget.selectedStartTime)}',
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 14,
@@ -1156,32 +1162,33 @@ class _EditBookingState extends State<EditBooking> {
                       children: [
                         const Padding(
                           padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Location',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
+                          child: Icon(Icons.location_on_outlined),
+                          // Text(
+                          //   'Location',
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontSize: 14,
+                          //     fontFamily: 'Noto Sans',
+                          //     fontWeight: FontWeight.w700,
+                          //   ),
+                          // ),
                         ),
-                        const SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
+                        // const SizedBox(
+                        //     width: 30,
+                        //     child: Align(
+                        //       alignment: Alignment.center,
+                        //       child: Text(
+                        //         '-',
+                        //         style: TextStyle(
+                        //           color: Colors.black,
+                        //           fontSize: 14,
+                        //           fontFamily: 'Noto Sans',
+                        //         ),
+                        //       ),
+                        //     )),
                         Expanded(
                           child: Text(
-                            '${widget.selectedLocation}',
+                            '${widget.selectedLocation} , ${widget.selectedConferenceHall}',
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 14,
@@ -1192,49 +1199,49 @@ class _EditBookingState extends State<EditBooking> {
                       ],
                     ),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
 
-                    Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Conference Room Name',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                            width: 30,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                '-',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontFamily: 'Noto Sans',
-                                ),
-                              ),
-                            )),
-                        Expanded(
-                          child: Text(
-                            '${widget.selectedConferenceHall}',
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 14,
-                              fontFamily: 'Noto Sans',
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     const Padding(
+                    //       padding: EdgeInsets.only(left: 15.0),
+                    //       child: Text(
+                    //         'Conference Room Name',
+                    //         style: TextStyle(
+                    //           color: Colors.black,
+                    //           fontSize: 14,
+                    //           fontFamily: 'Noto Sans',
+                    //           fontWeight: FontWeight.w700,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(
+                    //         width: 30,
+                    //         child: Align(
+                    //           alignment: Alignment.center,
+                    //           child: Text(
+                    //             '-',
+                    //             style: TextStyle(
+                    //               color: Colors.black,
+                    //               fontSize: 14,
+                    //               fontFamily: 'Noto Sans',
+                    //             ),
+                    //           ),
+                    //         )),
+                    //     Expanded(
+                    //       child: Text(
+                    //         '${widget.selectedConferenceHall}',
+                    //         style: const TextStyle(
+                    //           color: Colors.black,
+                    //           fontSize: 14,
+                    //           fontFamily: 'Noto Sans',
+                    //         ),
+                    //       ),
+                    //     )
+                    //   ],
+                    // ),
 
                     const SizedBox(
                       height: 20,
@@ -1515,7 +1522,7 @@ class _EditBookingState extends State<EditBooking> {
                     const Row(
                       children: [
                         Text(
-                          'Booking Requested By',
+                          'Meeting Requested By',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,

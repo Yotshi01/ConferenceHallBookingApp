@@ -98,6 +98,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? usernameController.text[0].toUpperCase()
         : '';
     // print('${usernameController.text} jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
+    String userProfileImageUrl =
+        "${testBaseUrl}/uploads/users/${currentUserData!.userImg}";
     return Scaffold(
         // appBar: AppBar(
         //   title: Text('Edit Profile'),
@@ -114,15 +116,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
+
+            // Align(
+            //   alignment: Alignment.center,
+            //   child: CircleAvatar(
+            //     backgroundColor: Colors.black26,
+            //     radius: 40,
+            //     child: Text(
+            //       firstLetter,
+            //       style: const TextStyle(fontSize: 35, color: Colors.white),
+            //     ),
+            //   ),
+            // ),
+
             Align(
               alignment: Alignment.center,
               child: CircleAvatar(
                 backgroundColor: Colors.black26,
                 radius: 40,
-                child: Text(
-                  firstLetter,
-                  style: const TextStyle(fontSize: 35, color: Colors.white),
-                ),
+                backgroundImage: userProfileImageUrl.isNotEmpty
+                    ? NetworkImage(userProfileImageUrl)
+                    : null,
+                child: userProfileImageUrl.isEmpty
+                    ? Text(
+                        firstLetter,
+                        style:
+                            const TextStyle(fontSize: 35, color: Colors.white),
+                      )
+                    : null,
               ),
             ),
 
@@ -137,23 +158,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+            // Container(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
+            //   width: 350,
+            //   height: 50,
+            //   color: Colors.grey[300],
+            //   child: TextFormField(
+            //     controller: usernameController,
+            //     style: const TextStyle(
+            //       fontSize: 12,
+            //       color: Colors.black,
+            //     ),
+            //     decoration: const InputDecoration(
+            //         //hintText: 'Enter your new username',
+            //         ),
+            //   ),
+            // ),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
-              width: 350,
-              height: 50,
-              color: Colors.grey[300],
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth *
+                    0.04, // Adjust the horizontal padding based on screenWidth
+              ),
+              width: screenWidth * 0.9, // Adjust the width based on screenWidth
+              height: screenHeight *
+                  0.07, // Adjust the height based on screenHeight
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    // offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
               child: TextFormField(
                 controller: usernameController,
-                style: const TextStyle(
-                  fontSize: 12,
+                style: TextStyle(
+                  fontSize: screenWidth *
+                      0.04, // Adjust the font size based on screenWidth
                   color: Colors.black,
                 ),
-                decoration: const InputDecoration(
-                    //hintText: 'Enter your new username',
-                    ),
+                decoration: InputDecoration(
+                  hintText: 'Enter your new username',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none, // Removes the default border
+                ),
               ),
             ),
+
             const SizedBox(height: 20),
             const Text(
               'Email ID:',
@@ -176,24 +232,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+            // Container(
+            //   padding:
+            //       const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
+            //   width: 350,
+            //   height: 50,
+            //   color: Colors.grey[300],
+            //   child: Column(
+            //     children: [
+            //       TextFormField(
+            //         controller: phonenumberController,
+            //         style: const TextStyle(fontSize: 12),
+            //         decoration: const InputDecoration(
+            //           hintText: 'Enter your phone number',
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             Container(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 1),
-              width: 350,
-              height: 50,
-              color: Colors.grey[300],
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: phonenumberController,
-                    style: const TextStyle(fontSize: 12),
-                    decoration: const InputDecoration(
-                      hintText: 'Enter your phone number',
-                    ),
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth *
+                    0.04, // Adjust the horizontal padding based on screenWidth
+              ),
+              width: screenWidth * 0.9, // Adjust the width based on screenWidth
+              height: screenHeight *
+                  0.07, // Adjust the height based on screenHeight
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    // offset: const Offset(0, 3), // changes position of shadow
                   ),
                 ],
               ),
+              child: TextFormField(
+                controller: phonenumberController,
+                style: TextStyle(
+                  fontSize: screenWidth *
+                      0.04, // Adjust the font size based on screenWidth
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Enter your phone number',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none, // Removes the default border
+                ),
+              ),
             ),
+
             const SizedBox(height: 20),
             const SizedBox(height: 20),
             ElevatedButton(

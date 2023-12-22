@@ -2,13 +2,13 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
 
 class TabbarSetup extends StatefulWidget {
-  const TabbarSetup({super.key});
+  const TabbarSetup({Key? key}) : super(key: key);
 
   @override
-  State<TabbarSetup> createState() => _TabbarSetupState();
+  State<TabbarSetup> createState() => TabbarSetupState();
 }
 
-class _TabbarSetupState extends State<TabbarSetup> {
+class TabbarSetupState extends State<TabbarSetup> {
   // int _selectedIndex =
   //     1; // this is the variable(storing index) by which we will refer to the tabbar content in list using index
   // // initially it is set to 1 i.e. for homescreen, 0 is for notifications page and 2 is for booking page
@@ -19,7 +19,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
   // final GlobalKey<NavigatorState> bookingTabNavigatorKey =
   //     GlobalKey<NavigatorState>();
 
-  String _appBarTitle = 'Welcome';
+  String appBarTitle = 'Welcome';
 
   bool get hasNotification => true; // Add a variable to hold the app bar text
 
@@ -31,11 +31,11 @@ class _TabbarSetupState extends State<TabbarSetup> {
   //         index; //sets the index of the to be displayed content in tabbar to the index of the content page
 
   //     //Update the app bar text based on the selected tab
-  //     _appBarTitle = _getAppBarTitle(index);
+  //     appBarTitle = _getAppBarTitle(index);
   //   });
   // }
 
-  String _getAppBarTitle(int index) {
+  String getAppBarTitle(int index) {
     switch (index) {
       case 0:
         return 'Profile';
@@ -43,6 +43,8 @@ class _TabbarSetupState extends State<TabbarSetup> {
         return 'Home';
       case 2:
         return 'Booking';
+      case 3:
+        return 'Meeting Details';
       default:
         return 'Welcome';
     }
@@ -62,7 +64,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
   //   context.read<BottomNavBarCubit>().updateSelectedItem(BottomNavBarItem.home);
   // }
 
-  void _logout() {
+  void logout() {
     // Add your logout logic here
     // For example, clear user session, navigate to the login screen, etc.
 
@@ -136,9 +138,9 @@ class _TabbarSetupState extends State<TabbarSetup> {
         builder: (context, state) {
       return Scaffold(
           resizeToAvoidBottomInset: false,
-          drawer: NavigationDrawerFile(onLogoutPressed: _logout),
+          drawer: NavigationDrawerFile(onLogoutPressed: logout),
           // drawerScrimColor: Colors.transparent,
-          appBar: reusableAppBar(_appBarTitle, context, hasNotification),
+          appBar: reusableAppBar(appBarTitle, context, hasNotification),
           ////// body: _pages[_selectedIndex],
           body: Stack(
             children: items
@@ -172,7 +174,7 @@ class _TabbarSetupState extends State<TabbarSetup> {
               _selectBottomNavBarItem(
                   context, selectedItem, selectedItem == state.selectedItem);
               setState(() {
-                _appBarTitle = _getAppBarTitle(index);
+                appBarTitle = getAppBarTitle(index);
               });
             },
           ));

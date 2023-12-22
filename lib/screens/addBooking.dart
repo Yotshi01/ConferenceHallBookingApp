@@ -1379,7 +1379,7 @@ class _AddBookingState extends State<AddBooking> {
                     const Row(
                       children: [
                         Text(
-                          'Booking Requested By',
+                          'Meeting Requested By',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,

@@ -1044,37 +1044,35 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
         return AlertDialog(
           content: SizedBox(
             //padding: EdgeInsets.all(16), // Add padding to the Container
+            width: screenWidth * 0.4,
+            height: screenHeight * 0.2,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const Text('Event Details',
                         style: TextStyle(
                             fontSize: 20,
                             color: Colors.amber,
                             fontWeight: FontWeight.bold)),
-                    SizedBox(
-                      width: screenWidth * 0.2,
-                    ),
+
                     // Spacer(),
-                    Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.red,
-                          size: 25.0,
-                        ),
-                        onPressed: () {
-                          Navigator.of(dialogContext).pop();
-                          // navigatorKeys[BottomNavBarItem.booking]!
-                          //     .currentState!
-                          //     .pop();
-                        },
+                    IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.red,
+                        size: 25.0,
                       ),
-                    )
+                      onPressed: () {
+                        Navigator.of(dialogContext).pop();
+                        // navigatorKeys[BottomNavBarItem.booking]!
+                        //     .currentState!
+                        //     .pop();
+                      },
+                    ),
                   ],
                 ),
                 SizedBox(
@@ -1255,7 +1253,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               ),
               const SizedBox(height: 5),
               Text(
-                "Audio System: ${currentSelectedConferenceHall.conferenceAudiosystem}",
+                "Audio System: ${currentSelectedConferenceHall.conferenceAudioSystem}",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey[700],
@@ -1302,6 +1300,16 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
               const SizedBox(height: 5),
               Text(
                 "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Whiteboard: ${currentSelectedConferenceHall.conferenceWhiteboard}",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey[700],

@@ -1347,7 +1347,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
               ),
               const SizedBox(height: 5),
               Text(
-                "Audio System: ${currentSelectedConferenceHall.conferenceAudiosystem}",
+                "Audio System: ${currentSelectedConferenceHall.conferenceAudioSystem}",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey[700],
@@ -1394,6 +1394,16 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
               const SizedBox(height: 5),
               Text(
                 "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.grey[700],
+                  // Add more styling properties as needed
+                ),
+                textAlign: TextAlign.left,
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Whiteboard: ${currentSelectedConferenceHall.conferenceWhiteboard}",
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.grey[700],

@@ -39,7 +39,7 @@ class ConferenceHallData {
   String? conferenceSeatingCapacity;
   String? conferenceSeatingType;
   String? conferenceWhiteboard;
-  String? conferenceAudiosystem;
+  String? conferenceAudioSystem;
   String? conferenceLaptop;
   String? conferenceMic;
   String? conferenceCreatedAt;
@@ -60,7 +60,7 @@ class ConferenceHallData {
       this.conferenceSeatingCapacity,
       this.conferenceSeatingType,
       this.conferenceWhiteboard,
-      this.conferenceAudiosystem,
+      this.conferenceAudioSystem,
       this.conferenceLaptop,
       this.conferenceMic,
       this.conferenceCreatedAt,
@@ -81,7 +81,7 @@ class ConferenceHallData {
     conferenceSeatingCapacity = json['conference_seating_capacity'];
     conferenceSeatingType = json['conference_seating_type'];
     conferenceWhiteboard = json['conference_whiteboard'];
-    conferenceAudiosystem = json['conference_audiosystem'];
+    conferenceAudioSystem = json['conference_audio_system'];
     conferenceLaptop = json['conference_laptop'];
     conferenceMic = json['conference_mic'];
     conferenceCreatedAt = json['conference_created_at'];
@@ -103,7 +103,7 @@ class ConferenceHallData {
     data['conference_seating_capacity'] = conferenceSeatingCapacity;
     data['conference_seating_type'] = conferenceSeatingType;
     data['conference_whiteboard'] = conferenceWhiteboard;
-    data['conference_audiosystem'] = conferenceAudiosystem;
+    data['conference_audio_system'] = conferenceAudioSystem;
     data['conference_laptop'] = conferenceLaptop;
     data['conference_mic'] = conferenceMic;
     data['conference_created_at'] = conferenceCreatedAt;

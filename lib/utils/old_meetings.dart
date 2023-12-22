@@ -27,7 +27,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.25,
+            height: screenHeight * 0.3,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -70,7 +70,7 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // Text(
                               //   '${bookingData.userId}',
@@ -131,43 +131,43 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                                   Expanded(
                                       child: Align(
                                           alignment: Alignment.centerLeft,
-                                          child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 0,
-                                              ),
-                                              child: Text(
-                                                '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                style: const TextStyle(
-                                                  color: Color(0xFF696767),
-                                                  fontSize: 13,
-                                                  fontFamily: 'Noto Sans',
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                              ))))
+                                          child: Text(
+                                            '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)} | ${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF696767),
+                                              fontSize: 13,
+                                              fontFamily: 'Noto Sans',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )))
                                 ],
                               ),
                               SizedBox(height: screenHeight * 0.007),
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                      ),
-                                      child: Text(
-                                        conferenceHallName,
-                                        style: const TextStyle(
-                                          color: Color(0xFFB88D05),
-                                          fontSize: 12,
-                                          fontFamily: 'Noto Sans',
-                                          fontWeight: FontWeight.w600,
+                              Expanded(
+                                child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 10,
                                         ),
-                                      ))),
-                              SizedBox(
-                                height: screenHeight * 0.0115,
+                                        child: Text(
+                                          conferenceHallName,
+                                          style: const TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 12,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ))),
                               ),
-                              SizedBox(
-                                height: 30,
+                              // SizedBox(
+                              //   height: screenHeight * 0.0115,
+                              // ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: screenHeight * 0.005,
+                                  // horizontal : screenWidth * 0.01
+                                ),
                                 child: ElevatedButton(
                                   onPressed: () {
                                     navigatorKeys[BottomNavBarItem.home]!

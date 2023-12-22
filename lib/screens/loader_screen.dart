@@ -181,7 +181,7 @@ class _LoaderScreenState extends State<LoaderScreen> {
         MaterialPageRoute(
           builder: (context) => BlocProvider<BottomNavBarCubit>(
             create: (_) => BottomNavBarCubit(),
-            child: const TabbarSetup(),
+            child: TabbarSetup(key: tabbarSetupKey),
           ),
         ),
       );

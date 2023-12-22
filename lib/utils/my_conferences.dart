@@ -27,7 +27,7 @@ class _MyConferencesState extends State<MyConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.34,
+            height: screenHeight * 0.45,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -50,7 +50,7 @@ class _MyConferencesState extends State<MyConferences> {
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.5,
+                        width: screenWidth * 0.55,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
                           color: Colors.amber[50],
@@ -66,7 +66,7 @@ class _MyConferencesState extends State<MyConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // Text(
                               //   '${bookingData.userId}',
@@ -182,26 +182,24 @@ class _MyConferencesState extends State<MyConferences> {
                               //                                       child:
 
                               Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  SizedBox(
-                                    width: screenWidth * 0.3775,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingMeetingTitle}',
-                                            // textAlign: TextAlign.left,
-                                            style: const TextStyle(
-                                              color: Color(0xFFB88D05),
-                                              fontSize: 15,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                      ),
+                                      child: Text(
+                                        '${bookingData.bookingMeetingTitle}',
+                                        // textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          color: Color(0xFFB88D05),
+                                          fontSize: 15,
+                                          fontFamily: 'Noto Sans',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
                                   ),
 
                                   // SizedBox(
@@ -335,113 +333,108 @@ class _MyConferencesState extends State<MyConferences> {
                                 ),
                               ),
 
-                              Row(
-                                children: [
-                                  // SizedBox(
-                                  //     width:
-                                  //         8), // Add some spacing between the icon and text
-                                  Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 0,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Row(children: [
-                                              const SizedBox(width: 8),
-                                              const Icon(
-                                                Icons
-                                                    .date_range, // Replace with the icon you want
-                                                color: Color(
-                                                    0xFF696767), // Set the color of the icon
-                                                size:
-                                                    20, // Set the size of the icon
+                              // SizedBox(
+                              //     width:
+                              //         8), // Add some spacing between the icon and text
+                              Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(children: [
+                                          const SizedBox(width: 8),
+                                          const Icon(
+                                            Icons
+                                                .date_range, // Replace with the icon you want
+                                            color: Color(
+                                                0xFF696767), // Set the color of the icon
+                                            size:
+                                                20, // Set the size of the icon
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
+                                              style: const TextStyle(
+                                                color: Color(0xFF696767),
+                                                fontSize: 12,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
                                               ),
-                                              Align(
+                                            ),
+                                          ),
+                                        ]),
+                                        // Align(
+                                        //   alignment:
+                                        //       Alignment.centerLeft,
+                                        //   child: Text(
+                                        //     '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
+                                        //     style: TextStyle(
+                                        //       color: Color(0xFF696767),
+                                        //       fontSize: 12,
+                                        //       fontFamily: 'Noto Sans',
+                                        //       fontWeight:
+                                        //           FontWeight.w500,
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        Row(
+                                          children: [
+                                            const SizedBox(width: 8),
+                                            const Icon(
+                                              Icons
+                                                  .av_timer, // Replace with the icon you want
+                                              color: Color(
+                                                  0xFF696767), // Set the color of the icon
+                                              size:
+                                                  20, // Set the size of the icon
+                                            ),
+                                            Align(
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
-                                                  '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
+                                                  '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
                                                   style: const TextStyle(
                                                     color: Color(0xFF696767),
                                                     fontSize: 12,
                                                     fontFamily: 'Noto Sans',
                                                     fontWeight: FontWeight.w500,
                                                   ),
+                                                )),
+                                          ],
+                                        ),
+
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            const Icon(
+                                              Icons.meeting_room_outlined,
+                                              color: Color(
+                                                  0xFF696767), // Set the color of the icon
+                                              size: 20,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                conferenceHallName,
+                                                style: const TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 12.1,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                            ]),
-                                            // Align(
-                                            //   alignment:
-                                            //       Alignment.centerLeft,
-                                            //   child: Text(
-                                            //     '${convertStringDateIntoDesiredFormat(bookingData.bookingDate!)}',
-                                            //     style: TextStyle(
-                                            //       color: Color(0xFF696767),
-                                            //       fontSize: 12,
-                                            //       fontFamily: 'Noto Sans',
-                                            //       fontWeight:
-                                            //           FontWeight.w500,
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            Row(
-                                              children: [
-                                                const SizedBox(width: 8),
-                                                const Icon(
-                                                  Icons
-                                                      .av_timer, // Replace with the icon you want
-                                                  color: Color(
-                                                      0xFF696767), // Set the color of the icon
-                                                  size:
-                                                      20, // Set the size of the icon
-                                                ),
-                                                Align(
-                                                    alignment:
-                                                        Alignment.centerLeft,
-                                                    child: Text(
-                                                      '${convertStringTimeIntoDesiredFormat(bookingData.bookingStartTime!)} to ${convertStringTimeIntoDesiredFormat(bookingData.bookingEndTime!)}',
-                                                      style: const TextStyle(
-                                                        color:
-                                                            Color(0xFF696767),
-                                                        fontSize: 12,
-                                                        fontFamily: 'Noto Sans',
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                    )),
-                                              ],
                                             ),
                                           ],
                                         ),
-                                      ))
-                                ],
-                              ),
-
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  const Icon(
-                                    Icons.meeting_room_outlined,
-                                    color: Color(
-                                        0xFF696767), // Set the color of the icon
-                                    size: 20,
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      conferenceHallName,
-                                      style: const TextStyle(
-                                        color: Color(0xFF696767),
-                                        fontSize: 12.1,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      ],
                                     ),
-                                  ),
-                                ],
-                              ),
+                                  ))
                             ]),
                       ));
                 }))

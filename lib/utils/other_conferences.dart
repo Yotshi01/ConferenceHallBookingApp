@@ -26,7 +26,7 @@ class _OtherConferencesState extends State<OtherConferences> {
             //   ),
             // ),
             // color: Colors.blue,
-            height: screenHeight * 0.4,
+            height: screenHeight * 0.45,
             child: ListView.builder(
                 padding: const EdgeInsets.all(0.0),
                 scrollDirection: Axis.horizontal,
@@ -45,6 +45,9 @@ class _OtherConferencesState extends State<OtherConferences> {
                       ? getUserNameById(bookingData.userId!)
                       : 'Unknown User';
 
+                  final currentBookingDate =
+                      DateTime.tryParse(bookingData.bookingDate!);
+
                   // final locationName = bookingData.bookingLocationId != null
                   //     ? getLocationName(bookingData.bookingLocationId!)
                   //     : 'Unknown Location';
@@ -54,7 +57,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                       padding: const EdgeInsets.all(10.0),
                       child: Container(
                         key: ValueKey(bookingData.bookingId),
-                        width: screenWidth * 0.47,
+                        width: screenWidth * 0.55,
                         // height: screenHeight * 0.2,
                         decoration: ShapeDecoration(
                           color: Colors.white,
@@ -70,7 +73,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                           ],
                         ),
                         child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               // Text(
                               //   '${bookingData.userId}',
@@ -84,37 +87,73 @@ class _OtherConferencesState extends State<OtherConferences> {
                               //   ),
                               // ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  SizedBox(
-                                    width: screenWidth * 0.33,
-                                    child: Align(
-                                        alignment: Alignment.centerLeft,
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 10,
-                                          ),
-                                          child: Text(
-                                            '${bookingData.bookingMeetingTitle}',
-                                            // textAlign: TextAlign.left,
-                                            style: const TextStyle(
-                                              color: Color(0xFFB88D05),
-                                              fontSize: 15,
-                                              fontFamily: 'Noto Sans',
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        )),
-                                  ),
+                                  Expanded(
+                                      child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    child: Text(
+                                      '${bookingData.bookingMeetingTitle}',
+                                      // textAlign: TextAlign.left,
+                                      style: const TextStyle(
+                                        color: Color(0xFFB88D05),
+                                        fontSize: 15,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  )),
                                   // SizedBox(
                                   //   width: screenWidth * 0.09,
                                   // ),
 
                                   //mainaxisalignment: Alignment.topRight,
-                                  MeetingUpdateButtons(
-                                    bookingUserId: bookingData.userId!,
-                                    bookingId: bookingData.bookingId!,
-                                  ),
+                                  if (currentBookingDate!
+                                          .isAfter(DateTime.now()) ||
+                                      ((currentBookingDate!.day ==
+                                              DateTime.now().day &&
+                                          currentBookingDate!.month ==
+                                              DateTime.now().month &&
+                                          currentBookingDate!.year ==
+                                              DateTime.now().year &&
+                                          ((hourPartOfStringTime(bookingData
+                                                      .bookingEndTime!) >
+                                                  DateTime.now().hour) ||
+                                              ((hourPartOfStringTime(bookingData
+                                                          .bookingEndTime!) ==
+                                                      DateTime.now().hour) &&
+                                                  (minutePartOfStringTime(
+                                                          bookingData
+                                                              .bookingEndTime!) >
+                                                      DateTime.now()
+                                                          .minute))))))
+                                    if (isRequestStatusOfCurrentUserOnThisBookingIdPending(
+                                            bookingData.bookingId!) !=
+                                        true)
+                                      MeetingUpdateButtons(
+                                        bookingUserId: bookingData.userId!,
+                                        bookingId: bookingData.bookingId!,
+                                      )
+                                    else
+                                      ElevatedButton(
+                                          onPressed: null,
+                                          style: ButtonStyle(
+                                            minimumSize:
+                                                MaterialStateProperty.all(
+                                                    const Size(40, 40)),
+                                            padding: MaterialStateProperty.all(
+                                                EdgeInsets.zero),
+                                          ),
+                                          child: const Stack(
+                                            children: [
+                                              Icon(Icons.outgoing_mail),
+                                              Icon(Icons.check, size: 40),
+                                            ],
+                                          ))
+                                  else
+                                    Container(),
                                 ],
                               ),
                               const Divider(
@@ -316,7 +355,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   ),
                                   Expanded(
                                       child: Text(
-                                    'Requested By: $bookingBookedByUserName',
+                                    'Raised By: $bookingBookedByUserName',
                                     style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,

@@ -266,6 +266,7 @@ class HomeScreenState extends State<HomeScreen> {
       listOfTodayMeetings = todayMeetings();
       listOfMyOldMeetings = myOldMeetings();
       listOfOtherMeetings = otherMeetings();
+      listOfReschedulingRequestsResponse = mySortedNotifications();
     });
     // setState(() {
     //   isRefreshNeeded = false;

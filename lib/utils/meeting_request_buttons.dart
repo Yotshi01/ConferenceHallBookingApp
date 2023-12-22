@@ -13,12 +13,12 @@ class MeetingUpdateButtons extends StatefulWidget {
 }
 
 class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
+  final HomeScreenState? homeScreenState = homeScreenKey.currentState;
   bool isReasonTextValid = false;
   @override
   Widget build(BuildContext context) {
-    return (currentUserData!.id == widget.bookingUserId)
-        ? Container()
-        : ElevatedButton(
+    return (currentUserData!.id != widget.bookingUserId)
+        ? ElevatedButton(
             onPressed: () {
               _showRequestDialog(context);
             },
@@ -57,7 +57,8 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
             //     ),
             //   ),
             // ),
-          );
+          )
+        : Container();
   }
 
   void _showRequestDialog(BuildContext context) {
@@ -143,6 +144,9 @@ class _MeetingUpdateButtonsState extends State<MeetingUpdateButtons> {
                           Duration(seconds: 3), // Adjust the duration as needed
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    if (homeScreenState != null) {
+                      homeScreenState!.loadData();
+                    }
                   } else {
                     Navigator.of(context).pop();
                     ScaffoldMessenger.of(context).showSnackBar(

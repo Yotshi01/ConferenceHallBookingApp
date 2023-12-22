@@ -2,16 +2,22 @@
 // import 'package:conference_hall_booking/screens/login_screen.dart';
 // import 'package:conference_hall_booking/screens/profile_screen.dart';
 //import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:flutter/src/material/colors.dart';
 // import 'package:get/get.dart';
 //import 'source/constants.dart';
+import 'package:conference_hall_booking/source/exported_packages_for_easy_imports.dart';
+import 'package:conference_hall_booking/source/constants.dart';
 
 class NavigationDrawerFile extends StatelessWidget {
   final VoidCallback? onLogoutPressed;
-  const NavigationDrawerFile({Key? key, this.onLogoutPressed})
-      : super(key: key);
+  NavigationDrawerFile({Key? key, this.onLogoutPressed}) : super(key: key);
+
+  final userProfileImageUrl =
+      "${testBaseUrl}/uploads/users/${currentUserData!.userImg}";
+  final firstLetter =
+      currentUserData != null ? currentUserData!.name![0].toUpperCase() : '';
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -41,7 +47,7 @@ class NavigationDrawerFile extends StatelessWidget {
                 top: 20 + MediaQuery.of(context).padding.top,
                 bottom: 20,
                 left: 17),
-            child: const Column(
+            child: Column(
               // Wrap with Row
 
               mainAxisAlignment: MainAxisAlignment.start,
@@ -55,8 +61,22 @@ class NavigationDrawerFile extends StatelessWidget {
                   children: [
                     //padding: const EdgeInsets.all(24),
                     //Icon(CupertinoIcons.person_alt_circle,size: 35),
-                    Icon(Icons.account_circle_rounded,
-                        size: 120, color: Colors.white54),
+                    // Icon(Icons.account_circle_rounded,
+                    //     size: 120, color: Colors.white54),
+                    CircleAvatar(
+                      backgroundColor: Colors.black26,
+                      radius: 50,
+                      backgroundImage: userProfileImageUrl.isNotEmpty
+                          ? NetworkImage(userProfileImageUrl)
+                          : null,
+                      child: userProfileImageUrl.isEmpty
+                          ? Text(
+                              firstLetter,
+                              style: const TextStyle(
+                                  fontSize: 35, color: Colors.white),
+                            )
+                          : null,
+                    ),
                     SizedBox(width: 10),
                     // Column(
                     //   crossAxisAlignment: CrossAxisAlignment.start,
