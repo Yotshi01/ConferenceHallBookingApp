@@ -76,22 +76,78 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                 // crossAxisAlignment: CrossAxisAlignment.end,
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
+                                  // Expanded(
+                                  //     child: Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     horizontal: 10,
+                                  //   ),
+                                  //   child: Text(
+                                  //     '${truncateMeetingTitle(bookingData.bookingMeetingTitle!)}',
+                                  //     // textAlign: TextAlign.left,
+                                  //     style: const TextStyle(
+                                  //       color: Color(0xFFB88D05),
+                                  //       fontSize: 15,
+                                  //       fontFamily: 'Noto Sans',
+                                  //       fontWeight: FontWeight.w500,
+                                  //     ),
+                                  //   ),
+                                  // )),
                                   Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: Text(
-                                      '${bookingData.bookingMeetingTitle}',
-                                      // textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        color: Color(0xFFB88D05),
-                                        fontSize: 15,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
                                       ),
+                                      child: (bookingData
+                                                  .bookingMeetingTitle!.length >
+                                              50)
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      // title: const Text(
+                                                      //     'Full Text'),
+                                                      content: Text(bookingData
+                                                          .bookingMeetingTitle!),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Close'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                '${truncateMeetingTitle(bookingData.bookingMeetingTitle!)}',
+                                                style: const TextStyle(
+                                                  color: Color(0xFFB88D05),
+                                                  fontSize: 15,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            )
+                                          : Text(
+                                              '${bookingData.bookingMeetingTitle}',
+                                              style: const TextStyle(
+                                                color: Color(0xFFB88D05),
+                                                fontSize: 15,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                     ),
-                                  )),
+                                  ),
+
                                   if (currentUserData!.id == bookingData.userId)
                                     Align(
                                         alignment: Alignment.topRight,
@@ -186,14 +242,14 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                           currentBookingDate!.year ==
                                               DateTime.now().year &&
                                           ((hourPartOfStringTime(bookingData
-                                                      .bookingEndTime!) >
+                                                      .bookingStartTime!) >
                                                   DateTime.now().hour) ||
                                               ((hourPartOfStringTime(bookingData
-                                                          .bookingEndTime!) ==
+                                                          .bookingStartTime!) ==
                                                       DateTime.now().hour) &&
                                                   (minutePartOfStringTime(
                                                           bookingData
-                                                              .bookingEndTime!) >
+                                                              .bookingStartTime!) >
                                                       DateTime.now()
                                                           .minute))))))
                                     if (isRequestStatusOfCurrentUserOnThisBookingIdPending(
@@ -502,6 +558,31 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                     width: 8,
                                   ),
                                   const Icon(
+                                    Icons.short_text_rounded,
+                                    color: Color(
+                                        0xFF696767), // Set the color of the icon
+                                    size: 20,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
+                                      '${bookingData.bookingNumber}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  const Icon(
                                     Icons.meeting_room_outlined,
                                     color: Color(
                                         0xFF696767), // Set the color of the icon
@@ -509,7 +590,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      conferenceHallName,
+                                      '${conferenceHallName}, ${locationName}',
                                       // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
                                       style: const TextStyle(
                                         color: Color(0xFF696767),

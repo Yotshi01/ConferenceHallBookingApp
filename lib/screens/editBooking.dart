@@ -10,6 +10,7 @@ class EditBooking extends StatefulWidget {
   final BookingData currentBookingData;
   final bool? requestedEdit;
   final ReschedulingRequestResponseData? data;
+  final bool shouldDepartmentsInitiallyBeSelected;
   const EditBooking(
       {Key? key,
       required this.selectedStartTime,
@@ -18,7 +19,8 @@ class EditBooking extends StatefulWidget {
       required this.selectedConferenceHall,
       required this.currentBookingData,
       this.requestedEdit,
-      this.data})
+      this.data,
+      required this.shouldDepartmentsInitiallyBeSelected})
       : super(key: key);
 
   @override
@@ -109,8 +111,12 @@ class _EditBookingState extends State<EditBooking> {
             return BookingDepartmentsData.fromJson(item.toJson());
           }).toList();
           // print('${listOfBookingDepartmentsByBookingId} adbjnkxzx');
-          _selectedDepartments = getListOfBookingDepartmentNames(
-              listOfBookingDepartmentsByBookingId);
+          if (widget.shouldDepartmentsInitiallyBeSelected == true) {
+            _selectedDepartments = getListOfBookingDepartmentNames(
+                listOfBookingDepartmentsByBookingId);
+          } else {
+            _selectedDepartments = [];
+          }
         }
       });
     } catch (error) {
@@ -280,7 +286,8 @@ class _EditBookingState extends State<EditBooking> {
   //     );
 
   void _showMultiSelectDepartments() async {
-    List<String> departments = getDepartmentNames();
+    List<String> departments =
+        getDepartmentNames(getLocationId(widget.selectedLocation));
 
     final List<String>? results = await showDialog(
         context: context,
@@ -389,6 +396,8 @@ class _EditBookingState extends State<EditBooking> {
                 setState(() {
                   toBeUpdatedBookingData.bookingId =
                       widget.currentBookingData.bookingId;
+                  toBeUpdatedBookingData.bookingNumberId =
+                      widget.currentBookingData.bookingNumberId;
                   toBeUpdatedBookingData.bookingMeetingTitle =
                       _meetingTitleController.text;
                   toBeUpdatedBookingData.bookingMeetingDescription =
@@ -1289,7 +1298,7 @@ class _EditBookingState extends State<EditBooking> {
                       ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 50) {
+                        if (text.isNotEmpty && text.length <= 150) {
                           setState(() {
                             isMeetingTitleValid = true;
                           });
@@ -1304,7 +1313,7 @@ class _EditBookingState extends State<EditBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter your meeting title here",
                         labelText: !isMeetingTitleValid
-                            ? 'Not more than 50 letters'
+                            ? 'Not more than 150 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border
@@ -1621,7 +1630,7 @@ class _EditBookingState extends State<EditBooking> {
                     ),
 
                     SizedBox(
-                      width: screenWidth * 0.5, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectDepartments,
                         style: ElevatedButton.styleFrom(
@@ -1638,7 +1647,21 @@ class _EditBookingState extends State<EditBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('Select Department'),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween, // Adjust alignment if needed
+                          children: [
+                            Text('Select Department'),
+                            // Text(
+                            //   '*',
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
                       ),
                     ),
 
@@ -1679,7 +1702,7 @@ class _EditBookingState extends State<EditBooking> {
                     ),
 
                     SizedBox(
-                      width: screenWidth * 0.5, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectAssetRequirements,
                         style: ElevatedButton.styleFrom(
@@ -1696,7 +1719,20 @@ class _EditBookingState extends State<EditBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('Select Requirements'),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Select Requirements'),
+                            // Text(
+                            //   '*',
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
                       ),
                     ),
 
@@ -1719,7 +1755,7 @@ class _EditBookingState extends State<EditBooking> {
                     const Row(
                       children: [
                         Text(
-                          'Requirement Details (if any)',
+                          'Other Requirement Details (if any)',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -1832,7 +1868,7 @@ class _EditBookingState extends State<EditBooking> {
                     ),
 
                     SizedBox(
-                      width: screenWidth * 0.5, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
@@ -1849,7 +1885,20 @@ class _EditBookingState extends State<EditBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: const Text('Select Refreshments'),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Select Refreshments'),
+                            // Text(
+                            //   '*',
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
                       ),
                     ),
 

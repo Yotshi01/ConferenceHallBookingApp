@@ -5,23 +5,22 @@ import 'package:http/http.dart' as http;
 Future<CurrentUserData> getCurrentUserData(String token) async {
   String url = "${testUrl}user";
   Uri urlUri = Uri.parse(url);
-  // Map<String, String> requestBody = {
-  //   'mobile1': mobile,
-  //   'password': password,
-  // };
-  final response = await http.get(
-    urlUri,
-    headers: {
-      'Authorization': 'Bearer ${token}',
-    },
-  );
-  // print('${response.body} sjalscxsx');
 
-  return CurrentUserData.fromJson(json.decode(response.body));
+  try {
+    final response = await http.get(
+      urlUri,
+      headers: {
+        'Authorization': 'Bearer ${token}',
+      },
+    );
 
-  // if (response.statusCode == 200 || response.statusCode == 400) {
-  //   return CurrentUserData.fromJson(json.decode(response.body));
-  // } else {
-  //   throw Exception('Failed to load currently logged in user data');
-  // }
+    if (response.statusCode == 200) {
+      return CurrentUserData.fromJson(json.decode(response.body));
+    } else {
+      throw Exception(
+          'Failed to load currently logged in user data. Status code: ${response.statusCode}');
+    }
+  } catch (e) {
+    throw Exception('Error fetching user data: $e');
+  }
 }

@@ -265,21 +265,21 @@ class _DetailsScreenState extends State<DetailsScreen> {
   List<String> _selectedRefreshments = [];
   List<String> _selectedAssets = [];
 
-  void _showMultiSelectDepartments() async {
-    List<String> departments = getDepartmentNames();
+  // void _showMultiSelectDepartments() async {
+  //   List<String> departments = getDepartmentNames();
 
-    final List<String>? results = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return MultiSelectDepartmentsForEditing(departments: departments);
-        });
+  //   final List<String>? results = await showDialog(
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return MultiSelectDepartmentsForEditing(departments: departments);
+  //       });
 
-    if (results != null) {
-      setState(() {
-        _selectedDepartments = results;
-      });
-    }
-  }
+  //   if (results != null) {
+  //     setState(() {
+  //       _selectedDepartments = results;
+  //     });
+  //   }
+  // }
 
   void _showWithdrawDialog(BuildContext context) {
     showDialog(
@@ -927,25 +927,47 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                           SizedBox(
                                             width: screenWidth * 0.01,
                                           ),
-                                          GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                _showWithdrawDialog(context);
-                                              });
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.grey[100],
-                                              ),
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Icon(
-                                                Icons.delete,
-                                                color: Colors.grey[600],
+
+                                          if (currentBookingDate!
+                                                  .isAfter(DateTime.now()) ||
+                                              ((currentBookingDate!.day ==
+                                                      DateTime.now().day &&
+                                                  currentBookingDate!.month ==
+                                                      DateTime.now().month &&
+                                                  currentBookingDate!.year ==
+                                                      DateTime.now().year &&
+                                                  ((hourPartOfStringTime(widget
+                                                              .currentBookingData
+                                                              .bookingStartTime!) >
+                                                          DateTime.now()
+                                                              .hour) ||
+                                                      ((hourPartOfStringTime(widget
+                                                                  .currentBookingData
+                                                                  .bookingStartTime!) ==
+                                                              DateTime.now()
+                                                                  .hour) &&
+                                                          (minutePartOfStringTime(
+                                                                  widget.currentBookingData.bookingStartTime!) >
+                                                              DateTime.now().minute))))))
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  _showWithdrawDialog(context);
+                                                });
+                                              },
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.grey[100],
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.all(10.0),
+                                                child: Icon(
+                                                  Icons.delete,
+                                                  color: Colors.grey[600],
+                                                ),
                                               ),
                                             ),
-                                          ),
                                           // ElevatedButton(
                                           //   onPressed: () {
                                           //     setState(() {

@@ -51,3 +51,26 @@ DateTime combineStringDateAndTimeIntoDateTimeFormat(
 
   return timeDateTime;
 }
+
+// Helper function to truncate the meeting title
+String truncateMeetingTitle(String title) {
+  const int maxCharacters = 50;
+  if (title.length <= maxCharacters) {
+    return title;
+  } else {
+    return '${title.substring(0, maxCharacters)}...';
+  }
+}
+
+DateTime roundToNext30Or60Minutes(DateTime dateTime) {
+  final minutes = dateTime.minute;
+  final roundedMinutes = (minutes > 30) ? 60 : 30;
+  final newHour = (minutes > 30) ? dateTime.hour + 1 : dateTime.hour;
+  return DateTime(
+    dateTime.year,
+    dateTime.month,
+    dateTime.day,
+    newHour,
+    roundedMinutes,
+  );
+}

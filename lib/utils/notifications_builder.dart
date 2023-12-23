@@ -228,13 +228,13 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                                 currentBookingDate!.year ==
                                     DateTime.now().year &&
                                 ((hourPartOfStringTime(
-                                            onBooking.bookingEndTime!) >
+                                            onBooking.bookingStartTime!) >
                                         DateTime.now().hour) ||
                                     ((hourPartOfStringTime(
-                                                onBooking.bookingEndTime!) ==
+                                                onBooking.bookingStartTime!) ==
                                             DateTime.now().hour) &&
                                         (minutePartOfStringTime(
-                                                onBooking.bookingEndTime!) >
+                                                onBooking.bookingStartTime!) >
                                             DateTime.now().minute))))))
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,

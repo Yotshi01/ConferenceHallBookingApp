@@ -443,6 +443,20 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       ));
     }
 
+    // regions.add(TimeRegion(
+    //   startTime: roundToNearest30Minutes(
+    //       DateTime.now().subtract(Duration(minutes: 30))),
+    //   endTime: roundToNearest30Minutes(DateTime.now()),
+    //   enablePointerInteraction: false, // Disables interaction with these dates
+    //   textStyle: const TextStyle(
+    //     color: Colors.red, // Customize the text color for disabled dates
+    //     decoration: TextDecoration
+    //         .lineThrough, // Add a line through the text for a strikeout effect
+    //   ),
+    //   // color: Colors.grey[300],
+    //   //.withOpacity(0.2), // Set a background color for disabled dates
+    // ));
+
     // Add the booked time slots
     regions.addAll(bookedTimeSlots);
 
@@ -714,7 +728,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   // specialRegions: _disabledTimeRegions,
                   view: CalendarView.week,
                   dataSource: _getCalendarDataSource(),
-                  minDate: DateTime.now(),
+                  // minDate: DateTime.now(),
+                  minDate: roundToNext30Or60Minutes(DateTime.now()),
                   maxDate: DateTime.now().add(const Duration(days: 30)),
                   timeSlotViewSettings: const TimeSlotViewSettings(
                     startHour: 8,
@@ -725,7 +740,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
                   ),
 
                   allowViewNavigation: false,
-                  headerDateFormat: 'MMM,yyy',
+                  // headerDateFormat: 'MMM,yyy',
 
                   onTap: (calendarTapDetails) {
                     if (calendarTapDetails.targetElement ==

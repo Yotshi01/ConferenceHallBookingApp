@@ -184,21 +184,76 @@ class _MyConferencesState extends State<MyConferences> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
+                                  // Expanded(
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.symmetric(
+                                  //       horizontal: 10,
+                                  //     ),
+                                  //     child: Text(
+                                  //       '${bookingData.bookingMeetingTitle}',
+                                  //       // textAlign: TextAlign.left,
+                                  //       style: const TextStyle(
+                                  //         color: Color(0xFFB88D05),
+                                  //         fontSize: 15,
+                                  //         fontFamily: 'Noto Sans',
+                                  //         fontWeight: FontWeight.w500,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 10,
                                       ),
-                                      child: Text(
-                                        '${bookingData.bookingMeetingTitle}',
-                                        // textAlign: TextAlign.left,
-                                        style: const TextStyle(
-                                          color: Color(0xFFB88D05),
-                                          fontSize: 15,
-                                          fontFamily: 'Noto Sans',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
+                                      child: (bookingData
+                                                  .bookingMeetingTitle!.length >
+                                              50)
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      // title: const Text(
+                                                      //     'Full Text'),
+                                                      content: Text(bookingData
+                                                          .bookingMeetingTitle!),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Close'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                '${truncateMeetingTitle(bookingData.bookingMeetingTitle!)}',
+                                                style: const TextStyle(
+                                                  color: Color(0xFFB88D05),
+                                                  fontSize: 15,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            )
+                                          : Text(
+                                              '${bookingData.bookingMeetingTitle}',
+                                              style: const TextStyle(
+                                                color: Color(0xFFB88D05),
+                                                fontSize: 15,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                     ),
                                   ),
 
@@ -407,7 +462,31 @@ class _MyConferencesState extends State<MyConferences> {
                                                 )),
                                           ],
                                         ),
-
+                                        Row(
+                                          children: [
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            const Icon(
+                                              Icons.short_text_rounded,
+                                              color: Color(
+                                                  0xFF696767), // Set the color of the icon
+                                              size: 20,
+                                            ),
+                                            Expanded(
+                                              child: Text(
+                                                // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
+                                                '${bookingData.bookingNumber}',
+                                                style: const TextStyle(
+                                                  color: Color(0xFF696767),
+                                                  fontSize: 12.1,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                         Row(
                                           children: [
                                             const SizedBox(
@@ -421,7 +500,7 @@ class _MyConferencesState extends State<MyConferences> {
                                             ),
                                             Expanded(
                                               child: Text(
-                                                conferenceHallName,
+                                                '${conferenceHallName}, ${locationName}',
                                                 style: const TextStyle(
                                                   color: Color(0xFF696767),
                                                   fontSize: 12.1,

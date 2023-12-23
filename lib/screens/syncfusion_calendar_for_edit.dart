@@ -36,6 +36,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
   bool isCheckboxTicked = false;
   bool areAllDataSelected = false;
   bool showEditBookingButton = false;
+  bool shouldDepartmentsInitiallyBeSelected = true;
 
   String? selectedLocation;
   String? selectedConferenceHall;
@@ -441,6 +442,20 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
       ));
     }
 
+    // regions.add(TimeRegion(
+    //   startTime: roundToNearest30Minutes(
+    //       DateTime.now().subtract(Duration(minutes: 30))),
+    //   endTime: roundToNearest30Minutes(DateTime.now()),
+    //   enablePointerInteraction: false, // Disables interaction with these dates
+    //   textStyle: const TextStyle(
+    //     color: Colors.red, // Customize the text color for disabled dates
+    //     decoration: TextDecoration
+    //         .lineThrough, // Add a line through the text for a strikeout effect
+    //   ),
+    //   // color: Colors.grey[300],
+    //   //.withOpacity(0.2), // Set a background color for disabled dates
+    // ));
+
     // Add the booked time slots
     regions.addAll(bookedTimeSlots);
 
@@ -749,7 +764,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
               // specialRegions: _disabledTimeRegions,
               view: CalendarView.week,
               dataSource: _getCalendarDataSource(),
-              minDate: DateTime.now(),
+              minDate: roundToNext30Or60Minutes(DateTime.now()),
               maxDate: DateTime.now().add(const Duration(days: 30)),
               timeSlotViewSettings: const TimeSlotViewSettings(
                 startHour: 8,
@@ -760,7 +775,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
               ),
 
               allowViewNavigation: false,
-              headerDateFormat: 'MMM,yyy',
+              // headerDateFormat: 'MMM,yyy',
 
               onTap: (calendarTapDetails) {
                 if (calendarTapDetails.targetElement ==
@@ -1059,27 +1074,36 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                           if (selectedLocation != null &&
                               selectedConferenceHall != null) {
                             // print('${selectedStartTime} sjxsaxkxx');
-
+                            if (widget.currentBookingData.bookingLocationId !=
+                                getLocationId(selectedLocation!)) {
+                              setState(() {
+                                shouldDepartmentsInitiallyBeSelected = false;
+                              });
+                            } else {
+                              setState(() {
+                                shouldDepartmentsInitiallyBeSelected = true;
+                              });
+                            }
                             await navigatorKeys[BottomNavBarItem.home]!
                                 .currentState!
                                 .push(
                                   MaterialPageRoute(
                                       builder: (context) => EditBooking(
-                                            selectedStartTime: selectedStartTime ??
-                                                DateTime
-                                                    .now(), // Provide a default value or handle null appropriately
+                                          selectedStartTime: selectedStartTime ??
+                                              DateTime
+                                                  .now(), // Provide a default value or handle null appropriately
 
-                                            selectedEndTime: selectedEndTime ??
-                                                DateTime.now(),
-
-                                            selectedLocation: selectedLocation!,
-                                            selectedConferenceHall:
-                                                selectedConferenceHall!,
-                                            currentBookingData:
-                                                widget.currentBookingData,
-                                            requestedEdit: widget.requestedEdit,
-                                            data: widget.data,
-                                          )),
+                                          selectedEndTime:
+                                              selectedEndTime ?? DateTime.now(),
+                                          selectedLocation: selectedLocation!,
+                                          selectedConferenceHall:
+                                              selectedConferenceHall!,
+                                          currentBookingData:
+                                              widget.currentBookingData,
+                                          requestedEdit: widget.requestedEdit,
+                                          data: widget.data,
+                                          shouldDepartmentsInitiallyBeSelected:
+                                              shouldDepartmentsInitiallyBeSelected)),
                                 );
 
                             // await Navigator.push(

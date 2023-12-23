@@ -62,6 +62,7 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": toBeUpdatedBookingData.bookingId.toString(),
+    "booking_number_id": toBeUpdatedBookingData.bookingNumberId.toString(),
     "booking_meeting_title": toBeUpdatedBookingData.bookingMeetingTitle,
     "booking_location_id": toBeUpdatedBookingData.bookingLocationId.toString(),
     "booking_conference_id":

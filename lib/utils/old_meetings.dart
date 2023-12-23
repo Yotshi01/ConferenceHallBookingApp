@@ -97,24 +97,77 @@ class _MyOldConferencesState extends State<MyOldConferences> {
                               SizedBox(
                                 height: screenHeight * 0.013,
                               ),
-                              Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: Text(
-                                      '${bookingData.bookingMeetingTitle}',
-                                      // textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        //color: Colors.black,
-                                        color: Color(0xFFB88D05),
-                                        fontSize: 16,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  )),
+                              // Align(
+                              //     alignment: Alignment.centerLeft,
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.symmetric(
+                              //         horizontal: 10,
+                              //       ),
+                              //       child: Text(
+                              //         '${bookingData.bookingMeetingTitle}',
+                              //         // textAlign: TextAlign.left,
+                              //         style: const TextStyle(
+                              //           //color: Colors.black,
+                              //           color: Color(0xFFB88D05),
+                              //           fontSize: 16,
+                              //           fontFamily: 'Noto Sans',
+                              //           fontWeight: FontWeight.w500,
+                              //         ),
+                              //       ),
+                              //     )),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  child: (bookingData
+                                              .bookingMeetingTitle!.length >
+                                          50)
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  // title: const Text(
+                                                  //     'Full Text'),
+                                                  content: Text(bookingData
+                                                      .bookingMeetingTitle!),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.of(context)
+                                                            .pop();
+                                                      },
+                                                      child:
+                                                          const Text('Close'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: Text(
+                                            '${truncateMeetingTitle(bookingData.bookingMeetingTitle!)}',
+                                            style: const TextStyle(
+                                              color: Color(0xFFB88D05),
+                                              fontSize: 15,
+                                              fontFamily: 'Noto Sans',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        )
+                                      : Text(
+                                          '${bookingData.bookingMeetingTitle}',
+                                          style: const TextStyle(
+                                            color: Color(0xFFB88D05),
+                                            fontSize: 15,
+                                            fontFamily: 'Noto Sans',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                ),
+                              ),
                               const Divider(
                                 indent: 10,
                                 endIndent: 10,

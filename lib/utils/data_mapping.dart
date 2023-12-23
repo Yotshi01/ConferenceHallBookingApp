@@ -38,7 +38,7 @@ int getConferenceHallId(String conferenceHallName) {
   // Find the conference hall data with the matching conferenceName
   // print('${listOfConferenceHall} dmldqkdqdqmdw');
   for (final conferenceHall in listOfConferenceHall) {
-    // print(conferenceHall.conferenceName);
+    // print(conferenceHall.conferenceShortName);
     if (conferenceHall.conferenceName == conferenceHallName) {
       return conferenceHall.conferenceId!;
     }
@@ -390,9 +390,17 @@ String formatTimeIn12HourClockFormat(TimeOfDay timeOfDay) {
   }
 }
 
-List<String> getDepartmentNames() {
+List<String> getDepartmentNames(int locationId) {
   List<String> departmentNames = [];
-  for (var department in listOfDepartments) {
+  List<DepartmentData> listOfDepartmentsAccordingToSelectedLocation = [];
+  for (var departmentAccordingToSelectedLocation in listOfDepartments) {
+    if (departmentAccordingToSelectedLocation.departmentLocationId ==
+        locationId) {
+      listOfDepartmentsAccordingToSelectedLocation
+          .add(departmentAccordingToSelectedLocation);
+    }
+  }
+  for (var department in listOfDepartmentsAccordingToSelectedLocation) {
     departmentNames.add(department.departmentName!);
   }
   return departmentNames;

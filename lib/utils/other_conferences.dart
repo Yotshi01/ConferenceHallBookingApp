@@ -41,6 +41,10 @@ class _OtherConferencesState extends State<OtherConferences> {
                       ? getConferenceHallName(bookingData.bookingConferenceId!)
                       : 'Unknown Conference Hall';
 
+                  final locationName = bookingData.bookingLocationId != null
+                      ? getLocationName(bookingData.bookingLocationId!)
+                      : 'Unknown Location';
+
                   final bookingBookedByUserName = bookingData.userId != null
                       ? getUserNameById(bookingData.userId!)
                       : 'Unknown User';
@@ -89,22 +93,77 @@ class _OtherConferencesState extends State<OtherConferences> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
+                                  // Expanded(
+                                  //     child: Padding(
+                                  //   padding: const EdgeInsets.symmetric(
+                                  //     horizontal: 10,
+                                  //   ),
+                                  //   child: Text(
+                                  //     '${bookingData.bookingMeetingTitle}',
+                                  //     // textAlign: TextAlign.left,
+                                  //     style: const TextStyle(
+                                  //       color: Color(0xFFB88D05),
+                                  //       fontSize: 15,
+                                  //       fontFamily: 'Noto Sans',
+                                  //       fontWeight: FontWeight.w500,
+                                  //     ),
+                                  //   ),
+                                  // )),
                                   Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: Text(
-                                      '${bookingData.bookingMeetingTitle}',
-                                      // textAlign: TextAlign.left,
-                                      style: const TextStyle(
-                                        color: Color(0xFFB88D05),
-                                        fontSize: 15,
-                                        fontFamily: 'Noto Sans',
-                                        fontWeight: FontWeight.w500,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
                                       ),
+                                      child: (bookingData
+                                                  .bookingMeetingTitle!.length >
+                                              50)
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      // title: const Text(
+                                                      //     'Full Text'),
+                                                      content: Text(bookingData
+                                                          .bookingMeetingTitle!),
+                                                      actions: <Widget>[
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: const Text(
+                                                              'Close'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: Text(
+                                                '${truncateMeetingTitle(bookingData.bookingMeetingTitle!)}',
+                                                style: const TextStyle(
+                                                  color: Color(0xFFB88D05),
+                                                  fontSize: 15,
+                                                  fontFamily: 'Noto Sans',
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            )
+                                          : Text(
+                                              '${bookingData.bookingMeetingTitle}',
+                                              style: const TextStyle(
+                                                color: Color(0xFFB88D05),
+                                                fontSize: 15,
+                                                fontFamily: 'Noto Sans',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
                                     ),
-                                  )),
+                                  ),
                                   // SizedBox(
                                   //   width: screenWidth * 0.09,
                                   // ),
@@ -119,14 +178,13 @@ class _OtherConferencesState extends State<OtherConferences> {
                                           currentBookingDate!.year ==
                                               DateTime.now().year &&
                                           ((hourPartOfStringTime(bookingData
-                                                      .bookingEndTime!) >
+                                                      .bookingStartTime!) >
                                                   DateTime.now().hour) ||
                                               ((hourPartOfStringTime(bookingData
-                                                          .bookingEndTime!) ==
+                                                          .bookingStartTime!) ==
                                                       DateTime.now().hour) &&
-                                                  (minutePartOfStringTime(
-                                                          bookingData
-                                                              .bookingEndTime!) >
+                                                  (minutePartOfStringTime(bookingData
+                                                          .bookingStartTime!) >
                                                       DateTime.now()
                                                           .minute))))))
                                     if (isRequestStatusOfCurrentUserOnThisBookingIdPending(
@@ -325,6 +383,31 @@ class _OtherConferencesState extends State<OtherConferences> {
                                     width: 8,
                                   ),
                                   const Icon(
+                                    Icons.short_text_rounded,
+                                    color: Color(
+                                        0xFF696767), // Set the color of the icon
+                                    size: 20,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      // '${getLocationShortNameByLocationId(bookingData.bookingLocationId!)}-${getConferenceHallShortNameByConferenceHallId(bookingData.bookingConferenceId!)}',
+                                      '${bookingData.bookingNumber}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF696767),
+                                        fontSize: 12.1,
+                                        fontFamily: 'Noto Sans',
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  const Icon(
                                     Icons.meeting_room_outlined,
                                     color: Color(
                                         0xFF696767), // Set the color of the icon
@@ -332,7 +415,7 @@ class _OtherConferencesState extends State<OtherConferences> {
                                   ),
                                   Expanded(
                                       child: Text(
-                                    conferenceHallName,
+                                    '${conferenceHallName}, ${locationName}',
                                     style: const TextStyle(
                                       color: Color(0xFF696767),
                                       fontSize: 12.1,

@@ -144,7 +144,8 @@ class _AddBookingState extends State<AddBooking> {
   late List<String> _selectedDepartments;
 
   void _showMultiSelectDepartments() async {
-    List<String> departments = getDepartmentNames();
+    List<String> departments =
+        getDepartmentNames(getLocationId(widget.selectedLocation));
 
     final List<String>? results = await showDialog(
         context: context,
@@ -1153,7 +1154,7 @@ class _AddBookingState extends State<AddBooking> {
                       // ),
                       onChanged: (text) {
                         // Your validation logic here
-                        if (text.isNotEmpty && text.length <= 50) {
+                        if (text.isNotEmpty && text.length <= 150) {
                           setState(() {
                             isMeetingTitleValid = true;
                           });
@@ -1168,7 +1169,7 @@ class _AddBookingState extends State<AddBooking> {
                         fillColor: Colors.grey[200],
                         hintText: "Enter your meeting title here",
                         labelText: !isMeetingTitleValid
-                            ? 'Not more than 50 letters'
+                            ? 'Not more than 150 letters'
                             : null,
                         border: OutlineInputBorder(
                           // Adjust these values to position the label inside the border
@@ -1480,7 +1481,7 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
                     SizedBox(
-                      width: screenWidth * 0.5, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectDepartments,
                         style: ElevatedButton.styleFrom(
@@ -1497,17 +1498,19 @@ class _AddBookingState extends State<AddBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment
+                              .spaceBetween, // Adjust alignment if needed
                           children: [
-                            const Text('Select Department'),
+                            Text('Select Department'),
                             // Text(
                             //   '*',
                             //   style: TextStyle(color: Colors.red),
                             // ),
-                            SizedBox(
-                              width: screenWidth * 0.05,
-                            ),
-                            const Icon(Icons.arrow_drop_down)
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
                           ],
                         ),
                       ),
@@ -1533,7 +1536,7 @@ class _AddBookingState extends State<AddBooking> {
                       height: 20,
                     ),
                     SizedBox(
-                      width: screenWidth * 0.52, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectAssets,
                         style: ElevatedButton.styleFrom(
@@ -1550,17 +1553,18 @@ class _AddBookingState extends State<AddBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Select Requirements'),
+                            Text('Select Requirements'),
                             // Text(
                             //   '*',
                             //   style: TextStyle(color: Colors.red),
                             // ),
-                            SizedBox(
-                              width: screenWidth * 0.05,
-                            ),
-                            const Icon(Icons.arrow_drop_down)
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
                           ],
                         ),
                       ),
@@ -1586,7 +1590,7 @@ class _AddBookingState extends State<AddBooking> {
                     const Row(
                       children: [
                         Text(
-                          'Requirement Details (if any)',
+                          'Other Requirement Details (if any)',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 14,
@@ -1660,7 +1664,7 @@ class _AddBookingState extends State<AddBooking> {
                     //   thickness: 1, // Set the thickness of the divider line
                     // ),
                     SizedBox(
-                      width: screenWidth * 0.52, // Set the desired width
+                      width: double.infinity, // Set the desired width
                       child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
@@ -1677,17 +1681,18 @@ class _AddBookingState extends State<AddBooking> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
-                        child: Row(
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Select Refreshments'),
+                            Text('Select Refreshments'),
                             // Text(
                             //   '*',
                             //   style: TextStyle(color: Colors.red),
                             // ),
-                            SizedBox(
-                              width: screenWidth * 0.05,
-                            ),
-                            const Icon(Icons.arrow_drop_down)
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
                           ],
                         ),
                       ),

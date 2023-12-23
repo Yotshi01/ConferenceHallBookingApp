@@ -46,8 +46,12 @@ class _StartScreenState extends State<SplashScreen> {
     // login here we initialize obtainedEmail and obtainedToken with
     // them and see whether the user has logged out or still logged in
     // before showing him/her tabbar setup screen
+    // sharedPreferences.remove('email');
+    // sharedPreferences.remove('token');
     var obtainedEmail = sharedPreferences.getString('email');
     var obtainedToken = sharedPreferences.getString('token');
+    // var obtainedEmail = null;
+    // var obtainedToken = null;
     setState(() {
       // storing email and generated token of user in finalEmail and
       // finalToken respectively
