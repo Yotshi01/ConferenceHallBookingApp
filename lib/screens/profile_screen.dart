@@ -134,10 +134,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: CircleAvatar(
                 backgroundColor: Colors.black26,
                 radius: 40,
-                backgroundImage: userProfileImageUrl.isNotEmpty
+                backgroundImage: currentUserData!.userImg != null
                     ? NetworkImage(userProfileImageUrl)
                     : null,
-                child: userProfileImageUrl.isEmpty
+                child: currentUserData!.userImg == null
                     ? Text(
                         firstLetter,
                         style:

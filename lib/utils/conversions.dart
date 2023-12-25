@@ -64,7 +64,7 @@ String truncateMeetingTitle(String title) {
 
 DateTime roundToNext30Or60Minutes(DateTime dateTime) {
   final minutes = dateTime.minute;
-  final roundedMinutes = (minutes > 30) ? 60 : 30;
+  final roundedMinutes = (minutes > 30) ? 00 : 30;
   final newHour = (minutes > 30) ? dateTime.hour + 1 : dateTime.hour;
   return DateTime(
     dateTime.year,

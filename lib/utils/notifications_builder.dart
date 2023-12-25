@@ -54,8 +54,9 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
     String conferenceHallImageName =
         getConferenceHallImageName(onBooking.bookingConferenceId!);
     final currentBookingDate = DateTime.tryParse(onBooking.bookingDate!);
+    final userImageName = getUserImageNameById(data.requestRequesterId!);
     final requestRequesterUserProfileImageUrl =
-        "${testBaseUrl}/uploads/users/${getUserImageNameById(data.requestRequesterId!)}";
+        "${testBaseUrl}/uploads/users/${userImageName}";
     return Padding(
       padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
           screenWidth * 0.027, screenHeight * 0.01),
@@ -69,11 +70,10 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
                   leading: CircleAvatar(
                     backgroundColor: Colors.orange[200],
                     radius: 30,
-                    backgroundImage:
-                        requestRequesterUserProfileImageUrl.isNotEmpty
-                            ? NetworkImage(requestRequesterUserProfileImageUrl)
-                            : null,
-                    child: requestRequesterUserProfileImageUrl.isEmpty
+                    backgroundImage: userImageName != ''
+                        ? NetworkImage(requestRequesterUserProfileImageUrl)
+                        : null,
+                    child: userImageName == ''
                         ? Text(
                             requesterName.isNotEmpty
                                 ? requesterName[0].toUpperCase()

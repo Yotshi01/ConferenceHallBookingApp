@@ -40,6 +40,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
 
   String? selectedLocation;
   String? selectedConferenceHall;
+  final TabbarSetupState? tabbarSetupState = tabbarSetupKey.currentState;
 
   @override
   void initState() {
@@ -63,6 +64,10 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
     selectedEndTime = combineStringDateAndTimeIntoDateTimeFormat(
         widget.currentBookingData.bookingDate!,
         widget.currentBookingData.bookingEndTime!);
+
+    if (tabbarSetupState != null) {
+      tabbarSetupState!.appBarTitle = 'Edit Booking Calendar';
+    }
   }
 
   callBackLocationName(varSelectedLocation) {
@@ -542,12 +547,19 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
             (calculatedEndTime.year == selectedStartTime!.year &&
                 calculatedEndTime.month == selectedStartTime!.month &&
                 calculatedEndTime.day > selectedStartTime!.day)) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content:
-                  Text('Start Time and End time should be on the same day'),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content:
+          //         Text('Start Time and End time should be on the same day'),
+          //   ),
+          // );
+          Fluttertoast.showToast(
+              msg: 'Start Time and end time should be on the same day',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              // timeInSecForIos: 1,
+              backgroundColor: Colors.grey[300],
+              textColor: Colors.black);
           setState(() {
             // Selected end time is on a day after the start time
             selectedStartTime = calendarTapDetails.date;
@@ -598,12 +610,19 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
             isConflicting = false; // Reset conflicting flag
             showEditBookingButton = false;
           });
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content:
-                  Text('Start Time and End time should be on the same day'),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   const SnackBar(
+          //     content:
+          //         Text('Start Time and End time should be on the same day'),
+          //   ),
+          // );
+          Fluttertoast.showToast(
+              msg: 'Start Time and end time should be on the same day',
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              // timeInSecForIos: 1,
+              backgroundColor: Colors.grey[300],
+              textColor: Colors.black);
         }
       } else {
         // Both start and end times are selected, reset them
@@ -858,6 +877,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
             height: 8,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
                 children: [
@@ -1020,12 +1040,20 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                                 selectedStartTime!.day ==
                                     selectedEndTime!.day) ==
                             false) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  'Start Time and end time should be on the same day'),
-                            ),
-                          );
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //   const SnackBar(
+                          //     content: Text(
+                          //         'Start Time and end time should be on the same day'),
+                          //   ),
+                          // );
+                          Fluttertoast.showToast(
+                              msg:
+                                  'Start Time and end time should be on the same day',
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              // timeInSecForIos: 1,
+                              backgroundColor: Colors.grey[300],
+                              textColor: Colors.black);
                         } else if (isConflicting == true) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -1106,6 +1134,10 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                                               shouldDepartmentsInitiallyBeSelected)),
                                 );
 
+                            // Clear the selected times for the next selection
+                            // selectedStartTime = null;
+                            // selectedEndTime = null;
+
                             // await Navigator.push(
                             //     context,
                             //     MaterialPageRoute(
@@ -1131,10 +1163,6 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
                               ),
                             );
                           }
-
-                          // Clear the selected times for the next selection
-                          selectedStartTime = null;
-                          selectedEndTime = null;
                         }
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(

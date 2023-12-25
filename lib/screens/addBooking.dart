@@ -41,6 +41,7 @@ class _AddBookingState extends State<AddBooking> {
       showLoadingInPlaceOfSubmitButton = false;
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+  final TabbarSetupState? tabbarSetupState = tabbarSetupKey.currentState;
 
   // int selectedAttendees = 1;
 
@@ -211,6 +212,10 @@ class _AddBookingState extends State<AddBooking> {
     _selectedDepartments = [];
     _selectedRefreshments = [];
     _selectedAssets = [];
+
+    if (tabbarSetupState != null) {
+      tabbarSetupState!.appBarTitle = 'Add Booking Details';
+    }
   }
 
   void _showDiscardBookingDetailConfirmationDialog(BuildContext context) {

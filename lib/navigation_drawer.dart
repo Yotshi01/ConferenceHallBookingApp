@@ -66,10 +66,10 @@ class NavigationDrawerFile extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.black26,
                       radius: 50,
-                      backgroundImage: userProfileImageUrl.isNotEmpty
+                      backgroundImage: currentUserData!.userImg != null
                           ? NetworkImage(userProfileImageUrl)
                           : null,
-                      child: userProfileImageUrl.isEmpty
+                      child: currentUserData!.userImg == null
                           ? Text(
                               firstLetter,
                               style: const TextStyle(

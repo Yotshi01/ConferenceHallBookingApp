@@ -537,7 +537,7 @@ bool isRequestStatusOfCurrentUserOnThisBookingIdPending(int bookingId) {
 String getUserImageNameById(int id) {
   for (var user in listOfUsers) {
     if (user.id == id) {
-      return user.userImg!;
+      return user.userImg != null ? user.userImg! : '';
     }
   }
   return '';

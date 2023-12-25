@@ -59,6 +59,7 @@ class _EditBookingState extends State<EditBooking> {
       showLoadingInPlaceOfSubmitButton = false;
 
   final HomeScreenState? homeScreenState = homeScreenKey.currentState;
+  final TabbarSetupState? tabbarSetupState = tabbarSetupKey.currentState;
 
   int? selectedAttendees;
 
@@ -268,6 +269,10 @@ class _EditBookingState extends State<EditBooking> {
     _selectedDepartments = [];
     _selectedRefreshments = [];
     _selectedAssets = [];
+
+    if (tabbarSetupState != null) {
+      tabbarSetupState!.appBarTitle = 'Edit Booking Details';
+    }
   }
 
   // Future<TimeOfDay?> _selectedTime(BuildContext context) {
