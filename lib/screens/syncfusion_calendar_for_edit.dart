@@ -1308,162 +1308,164 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
             style: const TextStyle(color: Colors.brown),
           ),
           backgroundColor: Colors.amber[50],
-          content: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              //Text("conferenceHallDetails"),
-              // Align(
-              //   alignment: Alignment.center,
-              //   child: Image.asset(
-              //     "assets/images/conference_hall_images/${conferenceHallImageName}",
-              //     width: screenWidth * 0.24,
-              //     height: screenHeight * 0.15,
-              //   ),
-              // ),
-              Align(
-                alignment: Alignment.center,
-                child: Image.network(
-                  "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
-                  width: screenWidth * 0.24,
-                  height: screenHeight * 0.15,
-                  loadingBuilder: (BuildContext context, Widget child,
-                      ImageChunkEvent? loadingProgress) {
-                    if (loadingProgress == null) {
-                      return child;
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  (loadingProgress.expectedTotalBytes ?? 1)
-                              : null,
-                        ),
-                      );
-                    }
-                  },
-                  errorBuilder: (BuildContext context, Object error,
-                      StackTrace? stackTrace) {
-                    return const Text('Error loading image');
-                  },
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                //Text("conferenceHallDetails"),
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Image.asset(
+                //     "assets/images/conference_hall_images/${conferenceHallImageName}",
+                //     width: screenWidth * 0.24,
+                //     height: screenHeight * 0.15,
+                //   ),
+                // ),
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.network(
+                    "${liveBaseUrl}/uploads/conferences/${conferenceHallImageName}",
+                    width: screenWidth * 0.24,
+                    height: screenHeight * 0.15,
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return Center(
+                          child: CircularProgressIndicator(
+                            value: loadingProgress.expectedTotalBytes != null
+                                ? loadingProgress.cumulativeBytesLoaded /
+                                    (loadingProgress.expectedTotalBytes ?? 1)
+                                : null,
+                          ),
+                        );
+                      }
+                    },
+                    errorBuilder: (BuildContext context, Object error,
+                        StackTrace? stackTrace) {
+                      return const Text('Error loading image');
+                    },
+                  ),
                 ),
-              ),
-              const SizedBox(height: 10),
-              //Text("${currentSelectedConferenceHall.conferenceName}"),
-              const Text(
-                "About Room",
-                style: TextStyle(
-                  fontSize: 16.5,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown,
+                const SizedBox(height: 10),
+                //Text("${currentSelectedConferenceHall.conferenceName}"),
+                const Text(
+                  "About Room",
+                  style: TextStyle(
+                    fontSize: 16.5,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(
-                height: 7,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 7,
-              ),
-              Text(
-                "${currentSelectedConferenceHall.conferenceAboutRoom}",
-                style: TextStyle(
-                  fontSize: 15,
-                  //fontWeight: FontWeight.bold,
-                  color: Colors.grey[600],
-                  // Add more styling properties as needed
+                const SizedBox(
+                  height: 7,
                 ),
-                //textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 14),
-              const Text(
-                "Other details",
-                style: TextStyle(
-                  fontSize: 16.5,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.brown,
+                const Divider(),
+                const SizedBox(
+                  height: 7,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const Divider(),
-              Text(
-                "Seating Capacity: ${currentSelectedConferenceHall.conferenceSeatingCapacity}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // fontWeight: FontWeight.bold
-                  // Add more styling properties as needed
+                Text(
+                  "${currentSelectedConferenceHall.conferenceAboutRoom}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    //fontWeight: FontWeight.bold,
+                    color: Colors.grey[600],
+                    // Add more styling properties as needed
+                  ),
+                  //textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Audio System: ${currentSelectedConferenceHall.conferenceAudioSystem}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // fontWeight: FontWeight.bold
-                  // Add more styling properties as needed
+                const SizedBox(height: 14),
+                const Text(
+                  "Other details",
+                  style: TextStyle(
+                    fontSize: 16.5,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.brown,
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                "Laptops Availability: ${currentSelectedConferenceHall.conferenceLaptop}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // fontWeight: FontWeight.bold
-                  // Add more styling properties as needed
+                const Divider(),
+                Text(
+                  "Seating Capacity: ${currentSelectedConferenceHall.conferenceSeatingCapacity}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // fontWeight: FontWeight.bold
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Mic Availability: ${currentSelectedConferenceHall.conferenceMic}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // fontWeight: FontWeight.bold
-                  // Add more styling properties as needed
+                const SizedBox(height: 5),
+                Text(
+                  "Audio System: ${currentSelectedConferenceHall.conferenceAudioSystem}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // fontWeight: FontWeight.bold
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Others: ${currentSelectedConferenceHall.conferenceOther}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // fontWeight: FontWeight.bold
-                  // Add more styling properties as needed
+                const SizedBox(
+                  height: 5,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // Add more styling properties as needed
+                Text(
+                  "Laptops Availability: ${currentSelectedConferenceHall.conferenceLaptop}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // fontWeight: FontWeight.bold
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-              const SizedBox(height: 5),
-              Text(
-                "Whiteboard: ${currentSelectedConferenceHall.conferenceWhiteboard}",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[700],
-                  // Add more styling properties as needed
+                const SizedBox(height: 5),
+                Text(
+                  "Mic Availability: ${currentSelectedConferenceHall.conferenceMic}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // fontWeight: FontWeight.bold
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.left,
-              ),
-            ],
+                const SizedBox(height: 5),
+                Text(
+                  "Others: ${currentSelectedConferenceHall.conferenceOther}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // fontWeight: FontWeight.bold
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  "Seating Type: ${currentSelectedConferenceHall.conferenceSeatingType}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+                const SizedBox(height: 5),
+                Text(
+                  "Whiteboard: ${currentSelectedConferenceHall.conferenceWhiteboard}",
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey[700],
+                    // Add more styling properties as needed
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ],
+            ),
           ),
           actions: <Widget>[
             TextButton(

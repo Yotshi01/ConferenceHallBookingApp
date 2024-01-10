@@ -56,7 +56,7 @@ class _NotificationsBuilderState extends State<NotificationsBuilder> {
     final currentBookingDate = DateTime.tryParse(onBooking.bookingDate!);
     final userImageName = getUserImageNameById(data.requestRequesterId!);
     final requestRequesterUserProfileImageUrl =
-        "${testBaseUrl}/uploads/users/${userImageName}";
+        "${liveBaseUrl}/uploads/users/${userImageName}";
     return Padding(
       padding: EdgeInsets.fromLTRB(screenWidth * 0.027, screenHeight * 0.01,
           screenWidth * 0.027, screenHeight * 0.01),

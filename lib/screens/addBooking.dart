@@ -474,7 +474,7 @@ class _AddBookingState extends State<AddBooking> {
                 Align(
                   alignment: Alignment.center,
                   child: Image.network(
-                    "$testBaseUrl/uploads/conferences/${conferenceHallImageName}",
+                    "$liveBaseUrl/uploads/conferences/${conferenceHallImageName}",
                     width: screenWidth * 0.27,
                     height: screenHeight * 0.09,
                     loadingBuilder: (BuildContext context, Widget child,
@@ -522,7 +522,7 @@ class _AddBookingState extends State<AddBooking> {
                           // Align(
                           //   alignment: Alignment.center,
                           //   child: Image.network(
-                          //     testBaseUrl +
+                          //     liveBaseUrl +
                           //         "/uploads/conferences/" +
                           //         conferenceHallImageName,
                           //     width: screenWidth * 0.24,

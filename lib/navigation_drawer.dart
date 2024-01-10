@@ -15,7 +15,7 @@ class NavigationDrawerFile extends StatelessWidget {
   NavigationDrawerFile({Key? key, this.onLogoutPressed}) : super(key: key);
 
   final userProfileImageUrl =
-      "${testBaseUrl}/uploads/users/${currentUserData!.userImg}";
+      "${liveBaseUrl}/uploads/users/${currentUserData!.userImg}";
   final firstLetter =
       currentUserData != null ? currentUserData!.name![0].toUpperCase() : '';
 

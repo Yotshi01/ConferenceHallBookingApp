@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<ForgotPasswordResponse> sendRequest(String email) async {
-  String url = "${testUrl}forgot_password";
+  String url = "${liveUrl}forgot_password";
   Uri urlUri = Uri.parse(url);
 
   var requestBody = {'email': email};

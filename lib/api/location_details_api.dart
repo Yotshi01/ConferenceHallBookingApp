@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<LocationDetails> getLocationDetails() async {
-  String url = "${testUrl}master_locations";
+  String url = "${liveUrl}master_locations";
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
   //   'mobile1': mobile,

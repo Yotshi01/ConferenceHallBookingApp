@@ -678,7 +678,7 @@ class _EditBookingState extends State<EditBooking> {
                           Align(
                             alignment: Alignment.center,
                             child: Image.network(
-                              "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
+                              "${liveBaseUrl}/uploads/conferences/${conferenceHallImageName}",
                               width: screenWidth * 0.24,
                               height: screenHeight * 0.15,
                               loadingBuilder: (BuildContext context,

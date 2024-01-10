@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<CurrentUserData> getCurrentUserData(String token) async {
-  String url = "${testUrl}user";
+  String url = "${liveUrl}user";
   Uri urlUri = Uri.parse(url);
 
   try {

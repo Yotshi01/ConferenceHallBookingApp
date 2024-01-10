@@ -374,7 +374,7 @@ class _TodaysConferencesState extends State<TodaysConferences> {
                                   horizontal: screenWidth * 0,
                                 ),
                                 child: Image.network(
-                                  "${testBaseUrl}/uploads/conferences/${conferenceHallImageName}",
+                                  "${liveBaseUrl}/uploads/conferences/${conferenceHallImageName}",
                                   width: screenWidth * 0.24,
                                   height: screenHeight * 0.15,
                                   loadingBuilder: (BuildContext context,

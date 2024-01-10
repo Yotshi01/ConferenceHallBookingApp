@@ -1087,7 +1087,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                       Align(
                                         alignment: Alignment.center,
                                         child: Image.network(
-                                          "${testBaseUrl}/uploads/conferences/${widget.currentConferenceHallImageName}",
+                                          "${liveBaseUrl}/uploads/conferences/${widget.currentConferenceHallImageName}",
                                           width: screenWidth * 0.24,
                                           height: screenHeight * 0.15,
                                           loadingBuilder: (BuildContext context,

@@ -42,7 +42,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                       screenHeight * 0.03,
                     ),
                     child: Image.asset(
-                      "assets/images/booking.png",
+                      "assets/images/logo_big.png",
                       width: screenWidth * 0.7,
                     ),
                   ),

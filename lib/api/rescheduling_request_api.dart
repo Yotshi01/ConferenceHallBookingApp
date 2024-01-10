@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 Future<ReschedulingRequestDetails> addReschedulingRequest(
     ReschedulingRequestData value) async {
-  String url = "${testUrl}rescheduling_request";
+  String url = "${liveUrl}rescheduling_request";
   Uri urlUri = Uri.parse(url);
 
   var requestBody = {
@@ -37,7 +37,7 @@ Future<ReschedulingRequestDetails> addReschedulingRequest(
 Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
     int currentUserId) async {
   String url =
-      "${testUrl}get_reschedule_request_by_current_user_id/${currentUserId}";
+      "${liveUrl}get_reschedule_request_by_current_user_id/${currentUserId}";
   // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
@@ -56,7 +56,7 @@ Future<ReschedulingRequestResponse> getReschedulingRequestsByCurrentUserId(
 
 Future<RequestResponseResponse> responseToReschedulingRequest(
     int id, String status) async {
-  String url = "${testUrl}response_to_rescheduling_request";
+  String url = "${liveUrl}response_to_rescheduling_request";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "request_id": id.toString(),

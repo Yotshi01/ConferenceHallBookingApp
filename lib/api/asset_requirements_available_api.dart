@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 Future<AssetRequirementsAvailableDetails>
     getAssetRequirementsAvailable() async {
   try {
-    String url = "${testUrl}asset_requirements_available";
+    String url = "${liveUrl}asset_requirements_available";
     Uri urlUri = Uri.parse(url);
     final response = await http.get(urlUri);
 

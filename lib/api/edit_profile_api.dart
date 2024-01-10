@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 Future<EditProfileData> editProfile(CurrentUserData value) async {
-  String url = "${testUrl}edit_profile";
+  String url = "${liveUrl}edit_profile";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "user_id": toBeEditedProfileData.id.toString(),

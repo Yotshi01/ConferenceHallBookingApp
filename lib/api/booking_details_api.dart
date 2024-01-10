@@ -3,7 +3,7 @@ import 'package:conference_hall_booking/source/constants.dart';
 import 'package:http/http.dart' as http;
 
 // Future<BookingDetails> getBookingDetails() async {
-//   String url = testUrl + "booking_details";
+//   String url = liveUrl + "booking_details";
 //   Uri urlUri = Uri.parse(url);
 //   // Map<String, String> requestBody = {
 //   //   'mobile1': mobile,
@@ -21,7 +21,7 @@ import 'package:http/http.dart' as http;
 
 Future<BookingDetails> getBookingDetails() async {
   try {
-    String url = "${testUrl}booking_details";
+    String url = "${liveUrl}booking_details";
     Uri urlUri = Uri.parse(url);
     final response = await http.get(urlUri);
 
@@ -39,7 +39,7 @@ Future<BookingDetails> getBookingDetails() async {
 }
 
 Future<BookingDetails> addBookingDetails(BookingDetails bookingDetails) async {
-  String url = "${testUrl}booking_details"; // Replace with your server URL
+  String url = "${liveUrl}booking_details"; // Replace with your server URL
   Uri urlUri = Uri.parse(url);
 
   final response = await http.post(
@@ -58,7 +58,7 @@ Future<BookingDetails> addBookingDetails(BookingDetails bookingDetails) async {
 }
 
 Future<UpdateBooking> updateBooking(BookingData value) async {
-  String url = "${testUrl}update_booking";
+  String url = "${liveUrl}update_booking";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": toBeUpdatedBookingData.bookingId.toString(),
@@ -100,7 +100,7 @@ Future<UpdateBooking> updateBooking(BookingData value) async {
 
 Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
     int bookingId) async {
-  String url = "${testUrl}get_booking_departments/$bookingId";
+  String url = "${liveUrl}get_booking_departments/$bookingId";
   // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
@@ -119,7 +119,7 @@ Future<BookingDepartmentsResponse> getBookingDepartmentsByBookingId(
 
 Future<BookingRefreshmentDetails> getBookingRefreshmentsByBookingId(
     int bookingId) async {
-  String url = "${testUrl}get_booking_refreshments/$bookingId";
+  String url = "${liveUrl}get_booking_refreshments/$bookingId";
   // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
@@ -138,7 +138,7 @@ Future<BookingRefreshmentDetails> getBookingRefreshmentsByBookingId(
 
 Future<BookingAssetRequirementDetails> getBookingAssetRequirementsByBookingId(
     int bookingId) async {
-  String url = "${testUrl}get_booking_asset_requirements/$bookingId";
+  String url = "${liveUrl}get_booking_asset_requirements/$bookingId";
   // print('${url} nknjjxczx');
   Uri urlUri = Uri.parse(url);
   // Map<String, String> requestBody = {
@@ -156,7 +156,7 @@ Future<BookingAssetRequirementDetails> getBookingAssetRequirementsByBookingId(
 }
 
 Future<AddBookingData> addBooking(BookingData value) async {
-  String url = "${testUrl}add_booking";
+  String url = "${liveUrl}add_booking";
   Uri urlUri = Uri.parse(url);
   // var requestBody = {
   //   "booking_date": toBeAddedBookingData.bookingDate,
@@ -207,7 +207,7 @@ Future<AddBookingData> addBooking(BookingData value) async {
 
 Future<BookingDepartmentsResponse> addBookingDepartments(
     List<String> departmentsToBeAdded, int bookingId) async {
-  String url = "${testUrl}add_booking_departments";
+  String url = "${liveUrl}add_booking_departments";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects
@@ -243,7 +243,7 @@ Future<BookingDepartmentsResponse> addBookingDepartments(
 }
 
 Future<WithdrawBooking> withdrawBooking(BookingData value) async {
-  String url = "${testUrl}withdraw_booking";
+  String url = "${liveUrl}withdraw_booking";
   Uri urlUri = Uri.parse(url);
   var requestBody = {
     "booking_id": value.bookingId.toString(),
@@ -267,7 +267,7 @@ Future<WithdrawBooking> withdrawBooking(BookingData value) async {
 
 Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
     int bookingId) async {
-  String url = "${testUrl}delete_booking_departments/$bookingId";
+  String url = "${liveUrl}delete_booking_departments/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
@@ -285,7 +285,7 @@ Future<DeleteBookingDepartmentDetails> deleteBookingDepartmentsByBookingId(
 
 Future<DeleteBookingRefreshmentDetails> deleteBookingRefreshmentsByBookingId(
     int bookingId) async {
-  String url = "${testUrl}delete_booking_refreshments/$bookingId";
+  String url = "${liveUrl}delete_booking_refreshments/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
@@ -303,7 +303,7 @@ Future<DeleteBookingRefreshmentDetails> deleteBookingRefreshmentsByBookingId(
 
 Future<DeleteBookingAssetRequirementDetails>
     deleteBookingAssetRequirementsByBookingId(int bookingId) async {
-  String url = "${testUrl}delete_booking_asset_requirements/$bookingId";
+  String url = "${liveUrl}delete_booking_asset_requirements/$bookingId";
   Uri urlUri = Uri.parse(url);
 
   var response = await http.delete(
@@ -322,7 +322,7 @@ Future<DeleteBookingAssetRequirementDetails>
 
 Future<BookingRefreshmentDetails> addBookingRefreshments(
     List<String> refreshmentsToBeAdded, int bookingId) async {
-  String url = "${testUrl}add_booking_refreshments";
+  String url = "${liveUrl}add_booking_refreshments";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects
@@ -359,7 +359,7 @@ Future<BookingRefreshmentDetails> addBookingRefreshments(
 
 Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
     List<String> assetRequirementsToBeAdded, int bookingId) async {
-  String url = "${testUrl}add_booking_asset_requirements";
+  String url = "${liveUrl}add_booking_asset_requirements";
   Uri urlUri = Uri.parse(url);
 
   // Create a list to store the JSON objects

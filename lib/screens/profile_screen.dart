@@ -99,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : '';
     // print('${usernameController.text} jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
     String userProfileImageUrl =
-        "${testBaseUrl}/uploads/users/${currentUserData!.userImg}";
+        "${liveBaseUrl}/uploads/users/${currentUserData!.userImg}";
     return Scaffold(
         // appBar: AppBar(
         //   title: Text('Edit Profile'),
