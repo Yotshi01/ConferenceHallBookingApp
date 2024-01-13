@@ -83,6 +83,8 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
   callBackConferenceHallName(varSelectedConferenceHall) {
     setState(() {
       selectedConferenceHall = varSelectedConferenceHall;
+      selectedStartTime = null;
+      selectedEndTime = null;
     });
   }
 

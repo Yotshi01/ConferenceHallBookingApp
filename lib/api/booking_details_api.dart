@@ -357,6 +357,81 @@ Future<BookingRefreshmentDetails> addBookingRefreshments(
   }
 }
 
+Future<BookingStationaryDetails> addBookingStationaries(
+    List<String> stationariesToBeAdded, int bookingId) async {
+  String url = "${liveUrl}add_booking_stationaries";
+  Uri urlUri = Uri.parse(url);
+
+  // Create a list to store the JSON objects
+  List<Map<String, dynamic>> requestBodyList = [];
+
+  // Iterate through the department names and create JSON objects
+  for (String stationaryName in stationariesToBeAdded) {
+    var returnValue = getStationaryIdByName(stationaryName);
+    if (returnValue == 0) {
+      // print(
+      //     "please check refreshment name as it doesnot exists in the database");
+    } else {
+      var requestBody = {
+        "booking_id": bookingId.toString(),
+        "stationary_id": returnValue
+            .toString(), // Assuming departmentName can be used as department_id
+        "booking_stationary_created_at": DateTime.now().toString(),
+      };
+      requestBodyList.add(requestBody);
+    }
+  }
+
+  var response = await http.post(urlUri,
+      // headers: {"Content-Type": "application/json"},
+      body: jsonEncode(requestBodyList));
+  // print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return BookingStationaryDetails.fromJson(json.decode(response.body));
+  } else {
+    throw Exception('Failed to add booking stationaries');
+  }
+}
+
+Future<BookingStationaryDetails> getBookingStationariesByBookingId(
+    int bookingId) async {
+  String url = "${liveUrl}get_booking_stationaries/$bookingId";
+  // print('${url} nknjjxczx');
+  Uri urlUri = Uri.parse(url);
+  // Map<String, String> requestBody = {
+  //   'mobile1': mobile,
+  //   'password': password,
+  // };
+  final response = await http.get(urlUri);
+  // print("${response.body} nksdkjad");
+  // if (response
+
+  return BookingStationaryDetails.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
+}
+
+Future<DeleteBookingStationariesDetails> deleteBookingStationariesByBookingId(
+    int bookingId) async {
+  String url = "${liveUrl}delete_booking_stationaries/$bookingId";
+  Uri urlUri = Uri.parse(url);
+
+  var response = await http.delete(
+    urlUri,
+    // headers: {"Content-Type": "application/json"},
+  );
+  // print(response.body);
+  if (response.statusCode == 200) {
+    // Assuming the server returns the updated booking details in the response
+    return DeleteBookingStationariesDetails.fromJson(
+        json.decode(response.body));
+  } else {
+    throw Exception('Failed to delete booking stationaries');
+  }
+}
+
 Future<BookingAssetRequirementDetails> addBookingAssetRequirement(
     List<String> assetRequirementsToBeAdded, int bookingId) async {
   String url = "${liveUrl}add_booking_asset_requirements";

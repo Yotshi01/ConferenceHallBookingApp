@@ -176,6 +176,28 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  Future<void> _stationariesAvailableDetails() async {
+    try {
+      final StationariesAvailableDetails data =
+          await stationariesAvailableDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfStationariesAvailable = data.data!.map((item) {
+            return StationariesAvailableData.fromJson(item.toJson());
+          }).toList();
+        }
+      });
+    } catch (error) {
+      // print('Error fetching refreshments available list data: $error');
+      throw Exception(
+          'Error fetching stationaries available list data: $error');
+    }
+  }
+
   Future<void> _fetchReschedulingRequestResponses() async {
     try {
       final ReschedulingRequestResponse data =
@@ -249,6 +271,7 @@ class HomeScreenState extends State<HomeScreen> {
     departmentDetailsResponse = getDepartmentDetails();
     assetRequirementsAvailableDetailsResponse = getAssetRequirementsAvailable();
     refreshmentsAvailableDetailsResponse = getRefreshmentsAvailableDetails();
+    stationariesAvailableDetailsResponse = getStationariesAvailableDetails();
     reschedulingRequestResponse =
         getReschedulingRequestsByCurrentUserId(currentUserData!.id!);
     usersApiResponse = getUsers();
@@ -258,6 +281,7 @@ class HomeScreenState extends State<HomeScreen> {
     await _fetchDepartmentDetails();
     await _assetRequirementsAvailableDetails();
     await _refreshmentsAvailableDetails();
+    await _stationariesAvailableDetails();
     await _fetchReschedulingRequestResponses();
     await _fetchUsers();
 

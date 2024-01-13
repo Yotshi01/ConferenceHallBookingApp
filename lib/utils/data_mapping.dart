@@ -414,6 +414,14 @@ List<String> getRefreshmentNames() {
   return refreshmentNames;
 }
 
+List<String> getStationaryNames() {
+  List<String> stationaryNames = [];
+  for (var stationary in listOfStationariesAvailable) {
+    stationaryNames.add(stationary.stationaryName!);
+  }
+  return stationaryNames;
+}
+
 List<String> getAssetNames() {
   List<String> assetNames = [];
   for (var asset in listOfAssetRequirementsAvailable) {
@@ -435,6 +443,15 @@ int getRefreshmentIdByName(String refreshmentName) {
   for (var refreshment in listOfRefreshmentsAvailable) {
     if (refreshmentName == refreshment.refreshmentName) {
       return refreshment.refreshmentId!;
+    }
+  }
+  return 0;
+}
+
+int getStationaryIdByName(String stationaryName) {
+  for (var stationary in listOfStationariesAvailable) {
+    if (stationaryName == stationary.stationaryName) {
+      return stationary.stationaryId!;
     }
   }
   return 0;
@@ -462,6 +479,15 @@ String getRefreshmentNameById(int refreshmentId) {
   for (var refreshment in listOfRefreshmentsAvailable) {
     if (refreshmentId == refreshment.refreshmentId) {
       return refreshment.refreshmentName!;
+    }
+  }
+  return '';
+}
+
+String getStationaryNameById(int stationaryId) {
+  for (var stationary in listOfStationariesAvailable) {
+    if (stationaryId == stationary.stationaryId) {
+      return stationary.stationaryName!;
     }
   }
   return '';

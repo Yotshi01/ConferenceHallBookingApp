@@ -11,6 +11,7 @@ double screenHeight = 0.0;
 // const String testUrl = 'http://192.168.29.211:8000/api/';
 // const String testUrl = 'http://192.168.1.16:8000/api/';
 const String liveUrl = 'https://baithak.vnrseeds.in/api/';
+// const String liveUrl = 'http://192.168.1.11:8000/api/';
 // const String testUrl = 'http://192.168.1.7:8000/api/';
 
 //const String testBaseUrl = 'http://10.0.7.214:8000';
@@ -21,6 +22,7 @@ const String liveUrl = 'https://baithak.vnrseeds.in/api/';
 // const String testBaseUrl = 'http://192.168.29.211:8000';
 // const String testBaseUrl = 'http://192.168.1.16:8000';
 const String liveBaseUrl = 'https://baithak.vnrseeds.in';
+// const String liveBaseUrl = 'http://192.168.1.11:8000';
 // const String testBaseUrl = 'http://192.168.1.7:8000';
 
 String? finalEmail;
@@ -36,6 +38,7 @@ List<BookingData> listOfTodayMeetings = [];
 List<BookingData> listOfOtherMeetings = [];
 List<AssetRequirementsAvailableData> listOfAssetRequirementsAvailable = [];
 List<RefreshmentsAvailableData> listOfRefreshmentsAvailable = [];
+List<StationariesAvailableData> listOfStationariesAvailable = [];
 List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
 List<BlackoutDaysData>
@@ -54,6 +57,7 @@ late Future<BlackoutDaysDetails> blackoutDaysDetailsResponse;
 late Future<AssetRequirementsAvailableDetails>
     assetRequirementsAvailableDetailsResponse;
 late Future<RefreshmentsAvailableDetails> refreshmentsAvailableDetailsResponse;
+late Future<StationariesAvailableDetails> stationariesAvailableDetailsResponse;
 late Future<ReschedulingRequestResponse> reschedulingRequestResponse;
 late Future<UsersApiResponse> usersApiResponse;
 

@@ -185,6 +185,27 @@ class _AddBookingState extends State<AddBooking> {
     }
   }
 
+  late List<String> _selectedStationaries;
+
+  void _showMultiSelectStationaries() async {
+    List<String> stationaries = getStationaryNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectStationaries(
+            stationaries: stationaries,
+            initialSelectedStationaries: _selectedStationaries,
+          );
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedStationaries = results;
+      });
+    }
+  }
+
   late List<String> _selectedAssets;
 
   void _showMultiSelectAssets() async {
@@ -211,6 +232,7 @@ class _AddBookingState extends State<AddBooking> {
     super.initState();
     _selectedDepartments = [];
     _selectedRefreshments = [];
+    _selectedStationaries = [];
     _selectedAssets = [];
 
     if (tabbarSetupState != null) {
@@ -318,6 +340,12 @@ class _AddBookingState extends State<AddBooking> {
                     var bookingRefreshmentsResponse =
                         await addBookingRefreshments(
                             _selectedRefreshments, response.data!.bookingId!);
+                  }
+
+                  if (_selectedStationaries.isNotEmpty) {
+                    var bookingStationariesResponse =
+                        await addBookingStationaries(
+                            _selectedStationaries, response.data!.bookingId!);
                   }
 
                   if (_selectedAssets.isNotEmpty) {
@@ -1671,6 +1699,63 @@ class _AddBookingState extends State<AddBooking> {
                     SizedBox(
                       width: double.infinity, // Set the desired width
                       child: ElevatedButton(
+                        onPressed: _showMultiSelectStationaries,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          foregroundColor: Colors.black,
+                          padding: const EdgeInsets.all(10),
+                          textStyle: const TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Select Stationaries'),
+                            // Text(
+                            //   '*',
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+                    Wrap(
+                      children: _selectedStationaries
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    // Divider(
+                    //   color: Color(
+                    //       0xFFC2C0C0), // Set the color of the divider line
+                    //   thickness: 1, // Set the thickness of the divider line
+                    // ),
+                    SizedBox(
+                      width: double.infinity, // Set the desired width
+                      child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
@@ -2030,6 +2115,81 @@ class _MultiSelectRefreshmentsState extends State<MultiSelectRefreshments> {
                   controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (isChecked) =>
                       _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectStationaries extends StatefulWidget {
+  final List<String> stationaries;
+  final List<String> initialSelectedStationaries; // New property
+  const MultiSelectStationaries(
+      {Key? key,
+      required this.stationaries,
+      required this.initialSelectedStationaries})
+      : super(key: key);
+
+  @override
+  State<MultiSelectStationaries> createState() =>
+      _MultiSelectStationariesState();
+}
+
+class _MultiSelectStationariesState extends State<MultiSelectStationaries> {
+  // this variable holds the selected departments
+  late List<String> _selectedStationaries;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedStationaries.add(itemValue);
+      } else {
+        _selectedStationaries.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedStationaries);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedStationaries = widget.initialSelectedStationaries;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Stationaries'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.stationaries
+            .map((stationaries) => CheckboxListTile(
+                  value: _selectedStationaries.contains(stationaries),
+                  title: Text(stationaries),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) =>
+                      _itemChange(stationaries, isChecked!),
                 ))
             .toList(),
       )),

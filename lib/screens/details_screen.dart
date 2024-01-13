@@ -112,10 +112,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   BookingData toBeWithdrawnBookingNeededData = BookingData();
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
+  late Future<BookingStationaryDetails> bookingStationariesByBookingIdResponse;
   late Future<BookingAssetRequirementDetails>
       bookingAssetRequirementsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
   List<BookingRefreshmentData> listOfBookingRefreshmentsByBookingId = [];
+  List<BookingStationaryData> listOfBookingStationariesByBookingId = [];
   List<BookingAssetRequirementData> listOfBookingAssetRequirementsByBookingId =
       [];
 
@@ -172,7 +174,33 @@ class _DetailsScreenState extends State<DetailsScreen> {
     } catch (error) {
       // print('Error fetching booking departments by booking id data: $error');
       throw Exception(
-          'Error fetching booking departments by booking id data: $error');
+          'Error fetching booking refreshments by booking id data: $error');
+    }
+  }
+
+  Future<void> _fetchBookingStationariesByBookingIdDetails() async {
+    try {
+      final BookingStationaryDetails data =
+          await bookingStationariesByBookingIdResponse;
+      // print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingStationariesByBookingId = data.data!.map((item) {
+            return BookingStationaryData.fromJson(item.toJson());
+          }).toList();
+          // print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          _selectedStationaries = getListOfBookingStationaryNames(
+              listOfBookingStationariesByBookingId);
+        }
+      });
+    } catch (error) {
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking stationaries by booking id data: $error');
     }
   }
 
@@ -263,6 +291,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
   List<String> _selectedDepartments = [];
   List<String> _selectedRefreshments = [];
+  List<String> _selectedStationaries = [];
   List<String> _selectedAssets = [];
 
   // void _showMultiSelectDepartments() async {
@@ -655,6 +684,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
     return initialbookingRefreshments;
   }
 
+  List<String> initialbookingStationaries = [];
+  List<String> getListOfBookingStationaryNames(
+      List<BookingStationaryData> list) {
+    // print("${list} dhkdjkdasdas");
+    for (var bookingStationary in list) {
+      // print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      initialbookingStationaries
+          .add(getStationaryNameById(bookingStationary.stationaryId!));
+    }
+    return initialbookingStationaries;
+  }
+
   List<String> initialbookingAssets = [];
   List<String> getListOfBookingAssetRequirementNames(
       List<BookingAssetRequirementData> list) {
@@ -701,6 +742,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
     bookingRefreshmentsByBookingIdResponse =
         getBookingRefreshmentsByBookingId(widget.currentBookingData.bookingId!);
     _fetchBookingRefreshmentsByBookingIdDetails();
+    bookingStationariesByBookingIdResponse =
+        getBookingStationariesByBookingId(widget.currentBookingData.bookingId!);
+    _fetchBookingStationariesByBookingIdDetails();
     bookingAssetRequirementsByBookingIdResponse =
         getBookingAssetRequirementsByBookingId(
             widget.currentBookingData.bookingId!);
@@ -1436,9 +1480,40 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   thickness:
                                       1, // Set the thickness of the divider line
                                 ),
-                                const SizedBox(
-                                  height: 20,
+
+                                SizedBox(
+                                  height: screenHeight * 0.01,
                                 ),
+                                const Text(
+                                  'Stationaries',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontFamily: 'Noto Sans',
+                                    fontWeight: FontWeight.w700,
+                                    //fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: screenHeight * 0.006,
+                                ),
+                                Text(
+                                  (initialbookingStationaries.isNotEmpty)
+                                      ? '${initialbookingStationaries.join(', ')}'
+                                      : 'No stationaries selected',
+                                  style: TextStyle(
+                                    color: Colors.grey[800],
+                                    fontSize: 12,
+                                    fontFamily: 'Noto Sans',
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Color(
+                                      0xFFC2C0C0), // Set the color of the divider line
+                                  thickness:
+                                      1, // Set the thickness of the divider line
+                                ),
+
                                 SizedBox(
                                   height: screenHeight * 0.01,
                                 ),

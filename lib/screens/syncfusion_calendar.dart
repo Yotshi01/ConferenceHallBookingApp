@@ -72,8 +72,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
   callBackConferenceHallName(varSelectedConferenceHall) {
     setState(() {
       selectedConferenceHall = varSelectedConferenceHall;
-      // selectedStartTime = null;
-      // selectedEndTime = null;
+      selectedStartTime = null;
+      selectedEndTime = null;
     });
   }
 

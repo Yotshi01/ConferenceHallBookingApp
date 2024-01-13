@@ -42,14 +42,17 @@ class _EditBookingState extends State<EditBooking> {
 
   late Future<BookingDepartmentsResponse> bookingDepartmentsByBookingIdResponse;
   late Future<BookingRefreshmentDetails> bookingRefreshmentsByBookingIdResponse;
+  late Future<BookingStationaryDetails> bookingStationariesByBookingIdResponse;
   late Future<BookingAssetRequirementDetails>
       bookingAssetRequirementsByBookingIdResponse;
   List<BookingDepartmentsData> listOfBookingDepartmentsByBookingId = [];
   List<BookingRefreshmentData> listOfBookingRefreshmentsByBookingId = [];
+  List<BookingStationaryData> listOfBookingStationariesByBookingId = [];
   List<BookingAssetRequirementData> listOfBookingAssetRequirementsByBookingId =
       [];
   late List<String> _selectedDepartments;
   late List<String> _selectedRefreshments;
+  late List<String> _selectedStationaries;
   late List<String> _selectedAssets;
 
   bool isMeetingTitleValid = true,
@@ -177,6 +180,44 @@ class _EditBookingState extends State<EditBooking> {
     return initialbookingRefreshments;
   }
 
+  Future<void> _fetchBookingStationariesByBookingIdDetails() async {
+    try {
+      final BookingStationaryDetails data =
+          await bookingStationariesByBookingIdResponse;
+      // print('${data} casjkas');
+      setState(() {
+        if (data.data != null) {
+          // accessing the 'data' of the api response and storing the value in global
+          // variable listOfConferenceHall(defined in constants.dart file) after convering
+          // it in list format. .toList() function is used to convert the data in list
+          // format.
+          listOfBookingStationariesByBookingId = data.data!.map((item) {
+            return BookingStationaryData.fromJson(item.toJson());
+          }).toList();
+          // print('${listOfBookingRefreshmentsByBookingId} adbjnkxzx');
+          _selectedStationaries = getListOfBookingStationaryNames(
+              listOfBookingStationariesByBookingId);
+        }
+      });
+    } catch (error) {
+      // print('Error fetching booking departments by booking id data: $error');
+      throw Exception(
+          'Error fetching booking stationaries by booking id data: $error');
+    }
+  }
+
+  List<String> initialbookingStationaries = [];
+  List<String> getListOfBookingStationaryNames(
+      List<BookingStationaryData> list) {
+    // print("${list} dhkdjkdasdas");
+    for (var bookingStationary in list) {
+      // print('${bookingRefreshment.refreshmentId} njxsxxZXZ');
+      initialbookingStationaries
+          .add(getStationaryNameById(bookingStationary.stationaryId!));
+    }
+    return initialbookingStationaries;
+  }
+
   Future<void> _fetchBookingAssetsByBookingIdDetails() async {
     try {
       final BookingAssetRequirementDetails data =
@@ -256,6 +297,9 @@ class _EditBookingState extends State<EditBooking> {
     bookingRefreshmentsByBookingIdResponse =
         getBookingRefreshmentsByBookingId(widget.currentBookingData.bookingId!);
     _fetchBookingRefreshmentsByBookingIdDetails();
+    bookingStationariesByBookingIdResponse =
+        getBookingStationariesByBookingId(widget.currentBookingData.bookingId!);
+    _fetchBookingStationariesByBookingIdDetails();
     bookingAssetRequirementsByBookingIdResponse =
         getBookingAssetRequirementsByBookingId(
             widget.currentBookingData.bookingId!);
@@ -268,6 +312,7 @@ class _EditBookingState extends State<EditBooking> {
 
     _selectedDepartments = [];
     _selectedRefreshments = [];
+    _selectedStationaries = [];
     _selectedAssets = [];
 
     if (tabbarSetupState != null) {
@@ -323,6 +368,24 @@ class _EditBookingState extends State<EditBooking> {
     if (results != null) {
       setState(() {
         _selectedRefreshments = results;
+      });
+    }
+  }
+
+  void _showMultiSelectStationaries() async {
+    List<String> stationaries = getStationaryNames();
+
+    final List<String>? results = await showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return MultiSelectStationariesForEdit(
+              stationaries: stationaries,
+              initialSelectedStationaries: _selectedStationaries);
+        });
+
+    if (results != null) {
+      setState(() {
+        _selectedStationaries = results;
       });
     }
   }
@@ -452,6 +515,16 @@ class _EditBookingState extends State<EditBooking> {
                   if (_selectedRefreshments.isNotEmpty) {
                     var bookingRefreshmentsResponse =
                         await addBookingRefreshments(_selectedRefreshments,
+                            widget.currentBookingData.bookingId!);
+                  }
+
+                  var deleteBookingStationariesResponse =
+                      await deleteBookingStationariesByBookingId(
+                          widget.currentBookingData.bookingId!);
+
+                  if (_selectedStationaries.isNotEmpty) {
+                    var bookingStationariesResponse =
+                        await addBookingStationaries(_selectedStationaries,
                             widget.currentBookingData.bookingId!);
                   }
 
@@ -1875,6 +1948,59 @@ class _EditBookingState extends State<EditBooking> {
                     SizedBox(
                       width: double.infinity, // Set the desired width
                       child: ElevatedButton(
+                        onPressed: _showMultiSelectStationaries,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.grey[200],
+                          foregroundColor: Colors.black,
+                          padding: const EdgeInsets.all(10),
+                          textStyle: const TextStyle(
+                            color: Colors.black87,
+                            fontSize: 14,
+                            fontFamily: 'Noto Sans',
+                            fontWeight: FontWeight.w600,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Select Stationaries'),
+                            // Text(
+                            //   '*',
+                            //   style: TextStyle(color: Colors.red),
+                            // ),
+                            // SizedBox(
+                            //   width: screenWidth * 0.05,
+                            // ),
+                            Icon(Icons.arrow_drop_down)
+                          ],
+                        ),
+                      ),
+                    ),
+
+                    const Divider(
+                      color: Color(
+                          0xFFC2C0C0), // Set the color of the divider line
+                      thickness: 1, // Set the thickness of the divider line
+                    ),
+
+                    Wrap(
+                      children: _selectedStationaries
+                          .map((e) => Chip(
+                                label: Text(e),
+                              ))
+                          .toList(),
+                    ),
+
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+                    SizedBox(
+                      width: double.infinity, // Set the desired width
+                      child: ElevatedButton(
                         onPressed: _showMultiSelectRefreshments,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.grey[200],
@@ -2132,6 +2258,81 @@ class _MultiSelectRefreshmentsForEditState
                   controlAffinity: ListTileControlAffinity.leading,
                   onChanged: (isChecked) =>
                       _itemChange(refreshment, isChecked!),
+                ))
+            .toList(),
+      )),
+      actions: [
+        // TextButton(
+        //   onPressed: _cancel,
+        //   child: const Text('Cancel'),
+        // ),
+        ElevatedButton(
+          onPressed: _submit,
+          child: const Text('Ok'),
+        )
+      ],
+    );
+  }
+}
+
+class MultiSelectStationariesForEdit extends StatefulWidget {
+  final List<String> stationaries;
+  final List<String> initialSelectedStationaries; // New property
+  const MultiSelectStationariesForEdit(
+      {Key? key,
+      required this.stationaries,
+      required this.initialSelectedStationaries})
+      : super(key: key);
+
+  @override
+  State<MultiSelectStationariesForEdit> createState() =>
+      _MultiSelectStationariesForEditState();
+}
+
+class _MultiSelectStationariesForEditState
+    extends State<MultiSelectStationariesForEdit> {
+  // this variable holds the selected departments
+  late List<String> _selectedStationaries;
+
+  // This function is triggered when a checkbox is checked or unchecked
+  void _itemChange(String itemValue, bool isSelected) {
+    setState(() {
+      if (isSelected) {
+        _selectedStationaries.add(itemValue);
+      } else {
+        _selectedStationaries.remove(itemValue);
+      }
+    });
+  }
+
+  // This function is called when the cancel button is pressed
+  // void _cancel() {
+  //   Navigator.pop(context);
+  // }
+
+  // this function is called when the submit button is tapped
+  void _submit() {
+    Navigator.pop(context, _selectedStationaries);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedStationaries = widget.initialSelectedStationaries;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Select Refreshments'),
+      content: SingleChildScrollView(
+          child: ListBody(
+        children: widget.stationaries
+            .map((stationary) => CheckboxListTile(
+                  value: _selectedStationaries.contains(stationary),
+                  title: Text(stationary),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (isChecked) => _itemChange(stationary, isChecked!),
                 ))
             .toList(),
       )),
