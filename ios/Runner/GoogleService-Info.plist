@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.conferenceHallBooking</string>
+	<string>in.co.vnrseeds.bookingapp</string>
 	<key>PROJECT_ID</key>
 	<string>booking-app-79313</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:615056898780:ios:a09262df32ed218b8ad219</string>
+	<string>1:615056898780:ios:44763448b009431e8ad219</string>
 </dict>
 </plist>
