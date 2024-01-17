@@ -8,7 +8,7 @@ Future<AssetRequirementsAvailableDetails>
     Uri urlUri = Uri.parse(url);
     final response = await http.get(urlUri);
 
-    print(response.body);
+    // print(response.body);
 
     return AssetRequirementsAvailableDetails.fromJson(
           json.decode(response.body));
