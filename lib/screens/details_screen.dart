@@ -858,7 +858,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SizedBox(
-                                      width: screenWidth * 0.5858,
+                                      width: screenWidth * 0.55,
                                       child: Padding(
                                         padding: EdgeInsets.only(
                                             right: screenWidth * 0.1),

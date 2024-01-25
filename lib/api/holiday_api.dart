@@ -13,3 +13,15 @@ Future<HolidayDetails> getHolidayDetails() async {
   //   throw Exception('Failed to load Data');
   // }
 }
+
+Future<HolidayLocationsDetails> getHolidayLocationsDetails() async {
+  String url = "${liveUrl}master_holiday_locations";
+  Uri urlUri = Uri.parse(url);
+  final response = await http.get(urlUri);
+  // print(response.body);
+
+  return HolidayLocationsDetails.fromJson(json.decode(response.body));
+  // } else {
+  //   throw Exception('Failed to load Data');
+  // }
+}

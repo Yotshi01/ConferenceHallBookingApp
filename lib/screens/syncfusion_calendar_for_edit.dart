@@ -48,6 +48,8 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
     // bookingDetailsResponse = getBookingDetails(); // Initialize the Future here
     holidayDetailsResponse = getHolidayDetails();
     _fetchHolidayDetails();
+    holidayLocationsDetailsResponse = getHolidayLocationsDetails();
+    _fetchHolidayLocationsDetails();
     blackoutDaysDetailsResponse = getBlackoutDaysDetails();
     _fetchBlackoutDaysDetails();
     selectedLocation =
@@ -58,6 +60,7 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
     listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
         getBookingDataAccordingToSelectedLocationAndConferenceHall(
             selectedLocation!, selectedConferenceHall!);
+    listOfblackoutDaysDataAccordingToSelectedLocationForEditBooking = [];
     selectedStartTime = combineStringDateAndTimeIntoDateTimeFormat(
         widget.currentBookingData.bookingDate!,
         widget.currentBookingData.bookingStartTime!);
@@ -103,6 +106,25 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
     } catch (error) {
       // print('Error fetching holiday list data: $error');
       throw Exception('Error fetching holiday list data: $error');
+    }
+  }
+
+  Future<void> _fetchHolidayLocationsDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final HolidayLocationsDetails data =
+          await holidayLocationsDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfHolidayLocations = data.data!.map((item) {
+            return HolidayLocationsData.fromJson(item.toJson());
+          }).toList();
+          // print(listOfHolidayLocations);
+        }
+      });
+    } catch (error) {
+      // print('Error fetching holiday list data: $error');
+      throw Exception('Error fetching holiday locations list data: $error');
     }
   }
 
@@ -316,14 +338,27 @@ class _SyncfusionCalendarForEditState extends State<SyncfusionCalendarForEdit> {
 
     // print(listOfHolidays);
 
-    for (final nonWorkingDayDetails in listOfHolidays) {
+    if (selectedLocation != null) {
+      setState(() {
+        listOfHolidaysToBeDisplayedAccordingToLocationForEditBooking =
+            holidaysAccordingToLocation(getLocationId(selectedLocation!));
+      });
+    }
+
+    specifiedDates = [];
+
+    for (final nonWorkingDayDetails
+        in listOfHolidaysToBeDisplayedAccordingToLocationForEditBooking) {
       DateTime? nonWorkingDay =
           DateTime.tryParse(nonWorkingDayDetails.holidayDate!);
       specifiedDates.add(nonWorkingDay!);
       // print('${nonWorkingDay} ${nonWorkingDayDetails.holidayDate!}');
     }
 
-    for (final blackoutDaysDetails in listOfBlackoutDays) {
+    specifiedBlackoutDates = [];
+
+    for (final blackoutDaysDetails
+        in listOfblackoutDaysDataAccordingToSelectedLocationForEditBooking) {
       DateTime? blackoutDay =
           DateTime.tryParse(blackoutDaysDetails.blackoutDateDate!);
       specifiedBlackoutDates.add(blackoutDay!);

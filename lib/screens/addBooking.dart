@@ -416,13 +416,21 @@ class _AddBookingState extends State<AddBooking> {
                     );
                   }
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(
-                          "Please fill valid data in all the required fields"),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     backgroundColor: Colors.red,
+                  //     content: Text(
+                  //         "Please fill valid data in all the required fields"),
+                  //   ),
+                  // );
+                  Fluttertoast.showToast(
+                      msg: 'Please fill valid data in all the required fields',
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      // timeInSecForIos: 1,
+                      backgroundColor: Colors.amber[100],
+                      textColor: Colors.black);
+
                   setState(() {
                     showLoadingInPlaceOfSubmitButton = false;
                   });

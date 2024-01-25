@@ -97,12 +97,17 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   toBeAddedBookingData.bookingLocationId =
                       getLocationId(locationChoosed!);
                   widget.callBackFunction(locationChoosed);
+
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
+
                   listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking =
-                      getBlackoutDayDataAccordingToLocationId(
-                          getLocationId(locationChoosed!));
+                      [];
+
+                  // listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking =
+                  //     getBlackoutDayDataAccordingToLocationId(
+                  //         getLocationId(locationChoosed!));
                   // print(
                   //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =
@@ -112,6 +117,10 @@ class _LocationsDropdownState extends State<LocationsDropdown> {
                   listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking =
                       getBookingDataAccordingToSelectedLocation(
                           locationChoosed!);
+
+                  listOfblackoutDaysDataAccordingToSelectedLocationForEditBooking =
+                      [];
+
                   // print(
                   //     '${listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking} thidrhkhsdjnsa');
                   conferenceHallsAtSelectedLocation =

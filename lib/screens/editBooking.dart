@@ -647,13 +647,22 @@ class _EditBookingState extends State<EditBooking> {
                   // await Future.delayed(
                   //     Duration(milliseconds: 300)); // Add a delay if needed
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(
-                          "Please enter valid data in all the required feilds"),
-                    ),
-                  );
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   const SnackBar(
+                  //     backgroundColor: Colors.red,
+                  //     content: Text(
+                  //         "Please enter valid data in all the required feilds"),
+                  //   ),
+                  // );
+
+                  Fluttertoast.showToast(
+                      msg: 'Please fill valid data in all the required fields',
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      // timeInSecForIos: 1,
+                      backgroundColor: Colors.amber[100],
+                      textColor: Colors.black);
+
                   setState(() {
                     showLoadingInPlaceOfSubmitButton = false;
                   });

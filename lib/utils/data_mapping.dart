@@ -549,6 +549,16 @@ List<BlackoutDaysData> getBlackoutDayDataAccordingToLocationId(int id) {
   return data;
 }
 
+List<BlackoutDaysData> getBlackoutDayDataAccordingToConferenceHallId(int id) {
+  List<BlackoutDaysData> data = [];
+  for (var blackOutDayData in listOfBlackoutDays) {
+    if (blackOutDayData.blackoutDateConferenceId == id) {
+      data.add(blackOutDayData);
+    }
+  }
+  return data;
+}
+
 bool isRequestStatusOfCurrentUserOnThisBookingIdPending(int bookingId) {
   for (var request in listOfReschedulingRequestsResponse) {
     if (bookingId == request.requestBookingId &&
@@ -567,4 +577,23 @@ String getUserImageNameById(int id) {
     }
   }
   return '';
+}
+
+List<HolidayData> holidaysAccordingToLocation(int locationId) {
+  List<HolidayData> holidaysAccordingToLocation = [];
+
+  // Check if currentUserData is not null
+  if (currentUserData != null) {
+    for (var holidayLocation in listOfHolidayLocations) {
+      if (holidayLocation.locationId == locationId) {
+        for (var holiday in listOfHolidays) {
+          if (holidayLocation.holidayId == holiday.holidayId) {
+            holidaysAccordingToLocation.add(holiday);
+          }
+        }
+      }
+    }
+  }
+
+  return holidaysAccordingToLocation;
 }

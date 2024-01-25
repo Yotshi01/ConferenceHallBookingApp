@@ -12,6 +12,7 @@ export 'package:equatable/equatable.dart';
 export 'package:flutter_bloc/flutter_bloc.dart';
 export 'package:provider/provider.dart';
 export 'package:share_plus/share_plus.dart';
+export 'package:flutter/services.dart';
 
 //export 'firebase_options.dart';
 // export 'package:intl/intl.dart'; // Import the 'intl' package for date formatting
@@ -38,6 +39,7 @@ export 'package:conference_hall_booking/models/current_user_model.dart';
 export 'package:conference_hall_booking/models/edit_profile_model.dart';
 export 'package:conference_hall_booking/models/booking_details_model.dart';
 export 'package:conference_hall_booking/models/holidays.dart';
+export 'package:conference_hall_booking/models/holiday_locations_model.dart';
 export 'package:conference_hall_booking/models/locations.dart';
 export 'package:conference_hall_booking/models/login_model.dart';
 export 'package:conference_hall_booking/models/updateBookingModel.dart';
@@ -80,6 +82,7 @@ export 'package:conference_hall_booking/navigation_drawer.dart';
 export 'package:conference_hall_booking/screens/syncfusion_calendar_for_edit.dart';
 export 'package:conference_hall_booking/screens/editBooking.dart';
 export 'package:conference_hall_booking/screens/loader_screen.dart';
+export 'package:conference_hall_booking/screens/initial_splash_screen.dart';
 
 export 'package:conference_hall_booking/utils/booking_alert_dialog.dart';
 export 'package:conference_hall_booking/utils/conference_hall_dropdown.dart';

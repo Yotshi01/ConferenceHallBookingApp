@@ -30,6 +30,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
   bool showAddBookingButton = false;
   String? selectedLocation;
   String? selectedConferenceHall;
+  List<HolidayData>
+      listOfHolidaysToBeDisplayedAccordingToLocationForAddBooking = [];
 
   final TabbarSetupState? tabbarSetupState = tabbarSetupKey.currentState;
 
@@ -48,6 +50,8 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     // bookingDetailsResponse = getBookingDetails(); // Initialize the Future here
     holidayDetailsResponse = getHolidayDetails();
     _fetchHolidayDetails();
+    holidayLocationsDetailsResponse = getHolidayLocationsDetails();
+    _fetchHolidayLocationsDetails();
     blackoutDaysDetailsResponse = getBlackoutDaysDetails();
     _fetchBlackoutDaysDetails();
     // listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = listOfBookings;
@@ -64,6 +68,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       selectedLocation = varSelectedLocation;
       // conferenceHallsAtSelectedLocation =
       //     getConferenceHallDataAccordingToSelectedLocation(varSelectedLocation);
+      listOfHolidaysToBeDisplayedAccordingToLocationForAddBooking = [];
       conferenceRoomChoosed = null;
       selectedConferenceHall = null;
     });
@@ -92,6 +97,25 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
     } catch (error) {
       // print('Error fetching holiday list data: $error');
       throw Exception('Error fetching holiday list data: $error');
+    }
+  }
+
+  Future<void> _fetchHolidayLocationsDetails() async {
+    try {
+      // bookingDetailsResponse = getBookingDetails();
+      final HolidayLocationsDetails data =
+          await holidayLocationsDetailsResponse;
+      setState(() {
+        if (data.data != null) {
+          listOfHolidayLocations = data.data!.map((item) {
+            return HolidayLocationsData.fromJson(item.toJson());
+          }).toList();
+          // print(listOfHolidayLocations);
+        }
+      });
+    } catch (error) {
+      // print('Error fetching holiday list data: $error');
+      throw Exception('Error fetching holiday locations list data: $error');
     }
   }
 
@@ -306,7 +330,17 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
 
     // print(listOfHolidays);
 
-    for (final nonWorkingDayDetails in listOfHolidays) {
+    if (selectedLocation != null) {
+      setState(() {
+        listOfHolidaysToBeDisplayedAccordingToLocationForAddBooking =
+            holidaysAccordingToLocation(getLocationId(selectedLocation!));
+      });
+    }
+
+    specifiedDates = [];
+
+    for (final nonWorkingDayDetails
+        in listOfHolidaysToBeDisplayedAccordingToLocationForAddBooking) {
       DateTime? nonWorkingDay =
           DateTime.tryParse(nonWorkingDayDetails.holidayDate!);
       specifiedDates.add(nonWorkingDay!);
@@ -354,6 +388,7 @@ class SyncfusionCalendarState extends State<SyncfusionCalendar> {
       specifiedBlackoutDates.add(blackoutDay!);
       // print('${blackoutDay} ${blackoutDaysDetails.blackoutDateDate!}');
     }
+
     for (final date in specifiedDates) {
       regions.add(TimeRegion(
         startTime: DateTime(date.year, date.month, date.day, 0, 0, 0),

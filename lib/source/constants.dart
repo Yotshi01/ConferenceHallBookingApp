@@ -10,8 +10,8 @@ double screenHeight = 0.0;
 // const String testUrl = 'http://10.0.6.32:8000/api/';
 // const String testUrl = 'http://192.168.29.211:8000/api/';
 // const String testUrl = 'http://192.168.1.16:8000/api/';
-const String liveUrl = 'https://baithak.vnrseeds.in/api/';
-// const String liveUrl = 'http://192.168.1.11:8000/api/';
+// const String liveUrl = 'https://baithak.vnrseeds.in/api/';
+const String liveUrl = 'http://192.168.1.11:8000/api/';
 // const String testUrl = 'http://192.168.1.7:8000/api/';
 
 //const String testBaseUrl = 'http://10.0.7.214:8000';
@@ -21,8 +21,8 @@ const String liveUrl = 'https://baithak.vnrseeds.in/api/';
 // const String testBaseUrl = 'http://10.0.6.32:8000';
 // const String testBaseUrl = 'http://192.168.29.211:8000';
 // const String testBaseUrl = 'http://192.168.1.16:8000';
-const String liveBaseUrl = 'https://baithak.vnrseeds.in';
-// const String liveBaseUrl = 'http://192.168.1.11:8000';
+// const String liveBaseUrl = 'https://baithak.vnrseeds.in';
+const String liveBaseUrl = 'http://192.168.1.11:8000';
 // const String testBaseUrl = 'http://192.168.1.7:8000';
 
 String? finalEmail;
@@ -43,6 +43,8 @@ List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForAddBooking = [];
 List<BlackoutDaysData>
     listOfblackoutDaysDataAccordingToSelectedLocationForAddBooking = [];
+List<BlackoutDaysData>
+    listOfblackoutDaysDataAccordingToSelectedLocationForEditBooking = [];
 List<BookingData>
     listOfFilteredMeetingsAccordingToDropdownSelectionsForEditBooking = [];
 
@@ -53,6 +55,7 @@ late Future<ConferenceHallDetails> conferenceHallDetailsResponse;
 late Future<DepartmentDetails> departmentDetailsResponse;
 late Future<LocationDetails> locationDetailsResponse;
 late Future<HolidayDetails> holidayDetailsResponse;
+late Future<HolidayLocationsDetails> holidayLocationsDetailsResponse;
 late Future<BlackoutDaysDetails> blackoutDaysDetailsResponse;
 late Future<AssetRequirementsAvailableDetails>
     assetRequirementsAvailableDetailsResponse;
@@ -69,6 +72,9 @@ List<BookingData> listOfFoundBookingsFromMyOldMeetings = [];
 List<BookingData> listOfFoundBookingFromTodayMeetings = [];
 List<BookingData> listOfFoundBookingsFromOtherMeetings = [];
 List<HolidayData> listOfHolidays = [];
+List<HolidayLocationsData> listOfHolidayLocations = [];
+List<HolidayData> listOfHolidaysToBeDisplayedAccordingToLocationForEditBooking =
+    [];
 List<BlackoutDaysData> listOfBlackoutDays = [];
 List<ReschedulingRequestResponseData> listOfReschedulingRequestsResponse = [];
 List<UsersData> listOfUsers = [];
