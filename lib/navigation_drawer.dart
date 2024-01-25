@@ -27,6 +27,7 @@ class NavigationDrawerFile extends StatelessWidget {
             children: <Widget>[
               buildHeader(context),
               buildMenuItems(context),
+              buildVersionText(),
             ],
           ),
         ),
@@ -97,6 +98,18 @@ class NavigationDrawerFile extends StatelessWidget {
                     //     const SizedBox(height: 1),
                     //   ],
                     // ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Text(
+                        currentUserData!
+                            .name!, // Assuming 'username' is the field in currentUserData containing the username
+                        style: const TextStyle(
+                          fontSize: 30,
+                          color: Color(0xFFB88D05),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -147,6 +160,18 @@ class NavigationDrawerFile extends StatelessWidget {
               }),
         ],
       ));
+
+  Widget buildVersionText() => Container(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          'Version 1',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 14,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      );
 
   void _showLogoutConfirmationDialog(BuildContext context) {
     showDialog(
